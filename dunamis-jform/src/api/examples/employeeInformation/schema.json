@@ -1,0 +1,42 @@
+{
+	"type": "object",
+	"title": "Dynaform",
+	"properties": {
+		"employeeID": {
+			"type": "string",
+			"description": "",
+			"i18n": "employeeID"
+		},
+		"employeeLastName": {
+			"type": "string",
+			"description": "",
+			"i18n": "employeeLastName"
+		},
+		"employeeFirstName": {
+			"type": "string",
+			"description": "",
+			"i18n": "employeeFirstName"
+		},
+		"employeeBirthDate": {
+			"type": "string",
+			"format": "date",
+			"description": "",
+			"i18n": "employeeBirthDate"
+		},
+		"employeeHomeAddress": {
+			"type": "string",
+			"description": "",
+			"i18n": "employeeHomeAddress"
+		},
+		"label": {
+			"type": "string",
+			"description": "",
+			"i18n": "label"
+		},
+		"title": {
+			"type": "string",
+			"description": "",
+			"i18n": "title"
+		}
+	}
+}

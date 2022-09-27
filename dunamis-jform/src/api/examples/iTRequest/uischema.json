@@ -1,0 +1,174 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "RichText",
+          "scope": "#/properties/richText_0",
+          "options": {
+            "isHtmlViewer": true,
+            "content": "<h2 class=\"fsSectionHeading\" style=\"margin: 0px 0px 10px; padding: 0px; border: 0px; vertical-align: baseline; text-align: center; font-size: 28px; font-weight: 400; font-style: normal; line-height: 28px; color: #985a90;\">How can we help you today?</h2>"
+          }
+        }
+      ]
+    },
+    {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "DateTime",
+              "scope": "#/properties/dateRequest",
+              "label": "Today's Date",
+              "options": {}
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "VerticalLayout",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Text",
+                      "scope": "#/properties/firstName",
+                      "label": "First Name",
+                      "options": {}
+                    },
+                    {
+                      "type": "Text",
+                      "scope": "#/properties/lastName",
+                      "label": "Last Name",
+                      "options": {}
+                    }
+                  ]
+                },
+                {
+                  "type": "Text",
+                  "scope": "#/properties/email",
+                  "label": "Email",
+                  "options": {}
+                },
+                {
+                  "type": "Text",
+                  "scope": "#/properties/phoneNumber",
+                  "label": "Phone Number",
+                  "options": {}
+                },
+                {
+                  "type": "Text",
+                  "scope": "#/properties/officeLocation",
+                  "label": "Office Location (city)",
+                  "options": {}
+                },
+                {
+                  "type": "Text",
+                  "scope": "#/properties/briefIssue",
+                  "label": "Brief Issue Description",
+                  "options": {}
+                },
+                {
+                  "type": "Dropdown",
+                  "scope": "#/properties/priority",
+                  "options": {
+                    "events": {
+                      "onChange": {
+                        "arguments": "JForm, nval, oval",
+                        "body": ""
+                      }
+                    },
+                    "items": [
+                      {
+                        "value": "0",
+                        "label": "High (Today)"
+                      },
+                      {
+                        "value": "1",
+                        "label": "Medium  (1 - 2 days)"
+                      },
+                      {
+                        "value": "2",
+                        "label": "Low (3 - 4 days)"
+                      }
+                    ],
+                    "request": null,
+                    "source": "static",
+                    "dependencies": []
+                  },
+                  "label": "Priority"
+                },
+                {
+                  "type": "CheckboxGroup",
+                  "scope": "#/properties/typeIssue",
+                  "options": {
+                    "events": {
+                      "onChange": {
+                        "arguments": "JForm, nval, oval",
+                        "body": ""
+                      }
+                    },
+                    "items": [
+                      {
+                        "value": "0",
+                        "label": "Computer"
+                      },
+                      {
+                        "value": "1",
+                        "label": "Internet Connection"
+                      },
+                      {
+                        "value": "2",
+                        "label": "App"
+                      },
+                      {
+                        "value": "3",
+                        "label": "Projector"
+                      },
+                      {
+                        "value": "4",
+                        "label": "Other"
+                      }
+                    ],
+                    "request": null,
+                    "source": "static",
+                    "dependencies": []
+                  },
+                  "label": "What are you having issues with?"
+                },
+                {
+                  "type": "MultipleFile",
+                  "scope": "#/properties/photoIssue",
+                  "options": {
+                    "multipleFile": true,
+                    "placeholder": "Select your files",
+                    "multiple": true,
+                    "accept": ".png",
+                    "maxFileSize": 70000
+                  },
+                  "label": "If applicable, upload a photo of the issue:"
+                },
+                {
+                  "type": "TextArea",
+                  "scope": "#/properties/comments",
+                  "options": {
+                    "multi": true
+                  },
+                  "label": "Comments:"
+                }
+              ]
+            }
+          ],
+          "label": "Requester Information"
+        }
+      ]
+    }
+  ]
+}

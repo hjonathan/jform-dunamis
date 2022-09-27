@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "title": "Dynaform",
+  "properties": {
+    "Number": {
+      "type": "string",
+      "description": "Only accept 6 numbers.",
+      "i18n": "Number"
+    },
+    "US Phone": {
+      "type": "string",
+      "description": "",
+      "i18n": "US Phone"
+    },
+    "vehicleIdentification": {
+      "type": "string",
+      "description": "",
+      "i18n": "vehicleIdentification"
+    },
+    "custom": {
+      "type": "string",
+      "description": "",
+      "i18n": "custom"
+    },
+    "richText_0": {
+      "type": "string",
+      "i18n": "richText_0"
+    },
+    "richText_1": {
+      "type": "string",
+      "i18n": "richText_1"
+    }
+  }
+}

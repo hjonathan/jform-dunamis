@@ -1,0 +1,56 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Group",
+      "label": "Shape Type",
+      "elements": [
+        {
+          "type": "Dropdown",
+          "label": "Shape Type",
+          "scope": "#/properties/shapeType",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "type": "Group",
+      "label": "Shape Properties",
+      "elements": [
+        {
+          "type": "Text",
+          "label": "Radius",
+          "example": "Ex: 5467234786",
+          "scope": "#/properties/shapeProperties/properties/radius",
+          "options": {}
+        },
+        {
+          "type": "Text",
+          "label": "Height",
+          "scope": "#/properties/shapeProperties/properties/height",
+          "options": {}
+        },
+        {
+          "type": "Text",
+          "label": "Width",
+          "scope": "#/properties/shapeProperties/properties/width",
+          "options": {}
+        }
+      ],
+      "rule": {
+        "effect": "SHOW",
+        "condition": {
+          "scope": "#/properties/shapeType",
+          "options": {},
+          "schema": {
+            "enum": [
+              "square",
+              "circle",
+              "rectangle"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

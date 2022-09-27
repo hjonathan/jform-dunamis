@@ -1,0 +1,54 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "RichText",
+      "scope": "#/properties/title",
+      "options": {
+        "isHtmlViewer": true,
+        "content": "<h1>Employee Information</h1>"
+      }
+    },
+    {
+      "type": "RichText",
+      "scope": "#/properties/label",
+      "options": {
+        "isHtmlViewer": true,
+        "content": "<h5 style=\"text-align: left;\">Fill your personal information below:</h5>"
+      },
+      "label": "Fill your personal information below:"
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/employeeID",
+      "label": "Employee ID",
+      "options": {}
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/employeeFirstName",
+      "label": "Employee First Name",
+      "options": {}
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/employeeLastName",
+      "label": "Employee Last Name",
+      "options": {}
+    },
+    {
+      "type": "DateTime",
+      "scope": "#/properties/employeeBirthDate",
+      "label": "Employee Birth Date",
+      "options": {}
+    },
+    {
+      "type": "TextArea",
+      "scope": "#/properties/employeeHomeAddress",
+      "options": {
+        "multi": true
+      },
+      "label": "Employee Home Address"
+    }
+  ]
+}

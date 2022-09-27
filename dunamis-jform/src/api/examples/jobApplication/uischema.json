@@ -1,0 +1,174 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "RichText",
+          "scope": "#/properties/title",
+          "options": {
+            "isHtmlViewer": true,
+            "content": "<div class=\"fsSectionText\" style=\"color: #595d64; font-family: Lato, 'Helvetica Neue', Arial, 'Lucida Grande', Tahoma, Verdana, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">&nbsp;</div>\n<h2 class=\"fsSectionHeading\" style=\"margin: 0px 0px 10px; padding: 0px; border: 0px; vertical-align: baseline; text-align: center; font-size: 28px; font-weight: 400; font-style: normal; line-height: 28px; color: #595d64; font-family: Lato, 'Helvetica Neue', Arial, 'Lucida Grande', Tahoma, Verdana, sans-serif; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">Job Application</h2>"
+          }
+        },
+        {
+          "type": "RichText",
+          "scope": "#/properties/contentTitle",
+          "options": {
+            "isHtmlViewer": true,
+            "content": "<p><span style=\"color: #000000; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px;\">Please fill out all the required fields and attach your resume below.</span></p>"
+          }
+        }
+      ]
+    },
+    {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Text",
+              "scope": "#/properties/firstName",
+              "label": "First Name",
+              "options": {}
+            },
+            {
+              "type": "Text",
+              "scope": "#/properties/lastName",
+              "label": "Last Name",
+              "options": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Text",
+          "scope": "#/properties/address",
+          "label": "Address",
+          "options": {}
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Text",
+              "scope": "#/properties/city",
+              "label": "City",
+              "options": {}
+            },
+            {
+              "type": "Text",
+              "scope": "#/properties/state",
+              "label": "State",
+              "options": {}
+            },
+            {
+              "type": "Text",
+              "scope": "#/properties/zipCode",
+              "label": "Zip Code",
+              "options": {}
+            }
+          ]
+        },
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "Text",
+              "scope": "#/properties/homePhone",
+              "label": "Home Phone",
+              "options": {}
+            },
+            {
+              "type": "Text",
+              "scope": "#/properties/email",
+              "label": "Email",
+              "options": {}
+            },
+            {
+              "type": "Text",
+              "scope": "#/properties/position",
+              "label": "Position Applying For",
+              "options": {}
+            },
+            {
+              "type": "RadioGroup",
+              "scope": "#/properties/employment",
+              "options": {
+                "items": {
+                  "local": [
+                    {
+                      "value": "0",
+                      "label": "Full-time"
+                    },
+                    {
+                      "value": "1",
+                      "label": "Part-time"
+                    },
+                    {
+                      "value": "2",
+                      "label": "Either"
+                    }
+                  ]
+                },
+                "request": null,
+                "source": "static",
+                "dependencies": []
+              },
+              "label": "Employment Desired"
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "RadioGroup",
+                  "scope": "#/properties/workNight",
+                  "options": {
+                    "items": {
+                      "local": [
+                        {
+                          "value": "0",
+                          "label": "Yes"
+                        },
+                        {
+                          "value": "1",
+                          "label": "No"
+                        }
+                      ]
+                    }
+                  },
+                  "label": "Can you work nights?"
+                },
+                {
+                  "type": "RadioGroup",
+                  "scope": "#/properties/older",
+                  "options": {
+                    "items": {
+                      "local": [
+                        {
+                          "value": "0",
+                          "label": "Yes"
+                        },
+                        {
+                          "value": "1",
+                          "label": "No"
+                        }
+                      ]
+                    }
+                  },
+                  "label": "Are you 18 or older?"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "type": "object",
+  "title": "Dynaform",
+  "properties": {
+    "richText_0": {
+      "type": "string",
+      "description": "",
+      "i18n": "richText_0"
+    },
+    "dateRequest": {
+      "type": "string",
+      "format": "date",
+      "description": "",
+      "i18n": "dateRequest"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "",
+      "i18n": "firstName"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "",
+      "i18n": "lastName"
+    },
+    "email": {
+      "type": "string",
+      "description": "",
+      "i18n": "email"
+    },
+    "phoneNumber": {
+      "type": "integer",
+      "description": "",
+      "i18n": "phoneNumber"
+    },
+    "officeLocation": {
+      "type": "string",
+      "description": "",
+      "i18n": "officeLocation"
+    },
+    "briefIssue": {
+      "type": "string",
+      "description": "",
+      "i18n": "briefIssue"
+    },
+    "priority": {
+      "type": "string",
+      "description": "",
+      "i18n": "priority"
+    },
+    "typeIssue": {
+      "type": "string",
+      "description": "",
+      "i18n": "typeIssue"
+    },
+    "photoIssue": {
+      "type": "array",
+      "description": "",
+      "i18n": "photoIssue",
+      "items": {
+        "name": {
+          "type": "string",
+          "description": "",
+          "i18n": "name"
+        },
+        "size": {
+          "type": "string",
+          "description": "",
+          "i18n": "size"
+        },
+        "mimetype": {
+          "type": "string",
+          "description": "",
+          "i18n": "mimetype"
+        }
+      }
+    },
+    "comments": {
+      "type": "string",
+      "description": "",
+      "i18n": "comments"
+    }
+  }
+}

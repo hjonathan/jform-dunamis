@@ -1,0 +1,45 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Text",
+      "scope": "#/properties/string",
+      "options": {}
+    },
+    {
+      "type": "Checkbox",
+      "scope": "#/properties/boolean",
+      "options": {}
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/number",
+      "options": {}
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/integer",
+      "options": {}
+    },
+    {
+      "type": "DatePicker",
+      "scope": "#/properties/date",
+      "options": {}
+    },
+    {
+      "type": "TimePicker",
+      "scope": "#/properties/time",
+      "options": {}
+    },
+    {
+      "type": "DateTime",
+      "scope": "#/properties/dateTime",
+      "options": {}
+    },
+    {
+      "type": "Dropdown",
+      "scope": "#/properties/enum",
+      "options": {}
+    }
+  ]
+}

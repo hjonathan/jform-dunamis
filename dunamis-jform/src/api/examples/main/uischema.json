@@ -1,0 +1,101 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "Text",
+          "scope": "#/properties/firstName",
+          "options": {}
+        },
+        {
+          "type": "Text",
+          "scope": "#/properties/lastName",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "Text",
+          "scope": "#/properties/age",
+          "options": {}
+        },
+        {
+          "type": "DateTime",
+          "scope": "#/properties/dateOfBirth",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "Text",
+          "scope": "#/properties/height",
+          "options": {}
+        },
+        {
+          "type": "Text",
+          "scope": "#/properties/gender",
+          "options": {}
+        },
+        {
+          "type": "Checkbox",
+          "scope": "#/properties/committer",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "type": "Group",
+      "label": "Address for Shipping T-Shirt",
+      "elements": [
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Text",
+              "scope": "#/properties/address/properties/street",
+              "options": {}
+            },
+            {
+              "type": "Text",
+              "scope": "#/properties/address/properties/streetnumber",
+              "options": {}
+            }
+          ]
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Text",
+              "scope": "#/properties/address/properties/postalCode",
+              "options": {}
+            },
+            {
+              "type": "Text",
+              "scope": "#/properties/address/properties/city",
+              "options": {}
+            }
+          ]
+        }
+      ],
+      "rule": {
+        "effect": "ENABLE",
+        "condition": {
+          "scope": "#/properties/committer",
+          "options": {},
+          "schema": {
+            "const": true
+          }
+        }
+      }
+    }
+  ]
+}

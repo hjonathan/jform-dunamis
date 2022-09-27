@@ -1,0 +1,64 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "RichText",
+      "scope": "#/properties/richText_1",
+      "options": {
+        "isHtmlViewer": true,
+        "content": "<p><strong>Tokens:</strong></p>"
+      }
+    },
+    {
+      "type": "RichText",
+      "scope": "#/properties/richText_0",
+      "options": {
+        "isHtmlViewer": true,
+        "content": "<pre style=\"box-sizing: border-box; overflow: auto; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 0.9rem; line-height: 1.45; font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace; color: #567482; background-color: #f3f6fa; padding: 0.8rem; margin-bottom: 1rem; overflow-wrap: normal; border: 1px solid #dce6f0; border-radius: 0.3rem;\">    '#': {pattern: /\\d/},\n    'X': {pattern: /[0-9a-zA-Z]/},\n    'S': {pattern: /[a-zA-Z]/},\n    'A': {pattern: /[a-zA-Z]/, transform: v =&gt; v.toLocaleUpperCase()},\n    'a': {pattern: /[a-zA-Z]/, transform: v =&gt; v.toLocaleLowerCase()},</pre>"
+      }
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/Number",
+      "options": {
+        "mask": "######"
+      },
+      "label": "Number"
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/US Phone",
+      "options": {
+        "mask": "+1 (###) ###-####"
+      },
+      "label": "US Phone"
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/vehicleIdentification",
+      "options": {
+        "mask": "XX.XX.X####.#.#.######"
+      },
+      "label": "Vehicle Identification"
+    },
+    {
+      "type": "Text",
+      "scope": "#/properties/custom",
+      "options": {
+        "mask": {
+          "mask": "FFFF - GGG",
+          "tokens": {
+            "F": {
+              "pattern": "/[0-9a-fA-F]/"
+            },
+            "G": {
+              "pattern": "/[a-bA-B]/",
+              "transform": "(v) => v.toLocaleUpperCase()"
+            }
+          }
+        }
+      },
+      "label": "Custom Mask"
+    }
+  ]
+}

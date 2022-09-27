@@ -1,0 +1,109 @@
+{
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "Please enter your first name",
+      "i18n": "firstName"
+    },
+    "secondName": {
+      "type": "string",
+      "description": "Please enter your second name",
+      "i18n": "secondName"
+    },
+    "birthDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Please enter your birth date.",
+      "i18n": "birthDate"
+    },
+    "nationality": {
+      "type": "string",
+      "i18n": "nationality",
+      "enum": [
+        "DE",
+        "IT",
+        "JP",
+        "US",
+        "RU",
+        "Other"
+      ]
+    },
+    "provideAddress": {
+      "type": "boolean",
+      "i18n": "provideAddress"
+    },
+    "address": {
+      "type": "object",
+      "i18n": "address",
+      "properties": {
+        "street": {
+          "type": "string",
+          "description": "",
+          "i18n": "street"
+        },
+        "streetNumber": {
+          "type": "string",
+          "description": "",
+          "i18n": "streetNumber"
+        },
+        "city": {
+          "type": "string",
+          "description": "",
+          "i18n": "city"
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "",
+          "i18n": "postalCode",
+          "maxLength": 5
+        }
+      }
+    },
+    "richText1": {
+      "type": "string",
+      "i18n": "richText1"
+    },
+    "richText2": {
+      "type": "string",
+      "i18n": "richText2"
+    },
+    "richText3": {
+      "type": "string",
+      "i18n": "richText3"
+    },
+    "image": {
+      "type": "object",
+      "i18n": "image"
+    },
+    "textField": {
+      "type": "string",
+      "i18n": "textField"
+    },
+    "DatePicker": {
+      "type": "string",
+      "format": "date",
+      "i18n": "DatePicker"
+    },
+    "richText4": {
+      "type": "string",
+      "i18n": "richText4"
+    },
+    "richText5": {
+      "type": "string",
+      "i18n": "richText5"
+    },
+    "richText6": {
+      "type": "string",
+      "i18n": "richText6"
+    },
+    "richText7": {
+      "type": "string",
+      "i18n": "richText7"
+    },
+    "richText8": {
+      "type": "string",
+      "i18n": "richText8"
+    }
+  }
+}

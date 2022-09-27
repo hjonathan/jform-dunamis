@@ -1,0 +1,33 @@
+{
+  "name": "form",
+  "light": {
+    "primary": "#5D1049",
+    "secondary": "#424242",
+    "accent": "#82B1FF",
+    "error": "#FF5252",
+    "info": "#2196F3",
+    "success": "#4CAF50",
+    "warning": "#FB8C00"
+  },
+  "fontFamily": "Tapestry",
+  "paddings": {
+    "top": "50",
+    "right": "100",
+    "bottom": "50",
+    "left": "100"
+  },
+  "margins": {
+    "top": "50",
+    "right": "50",
+    "bottom": "50",
+    "left": "50"
+  },
+  "background": {
+    "imgSrc": {
+      "background": "https://static1.bigstockphoto.com/5/3/2/large1500/235567060.jpg"
+    },
+    "color": {
+      "color": "#FFFFFF64"
+    }
+  }
+}

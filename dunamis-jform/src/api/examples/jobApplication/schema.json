@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "title": "Dynaform",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "",
+      "i18n": "title"
+    },
+    "contentTitle": {
+      "type": "string",
+      "description": "",
+      "i18n": "contentTitle"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "",
+      "i18n": "firstName"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "",
+      "i18n": "lastName"
+    },
+    "address": {
+      "type": "string",
+      "description": "",
+      "i18n": "address"
+    },
+    "city": {
+      "type": "string",
+      "description": "",
+      "i18n": "city"
+    },
+    "state": {
+      "type": "string",
+      "description": "",
+      "i18n": "state"
+    },
+    "zipCode": {
+      "type": "number",
+      "description": "",
+      "i18n": "zipCode"
+    },
+    "homePhone": {
+      "type": "string",
+      "description": "",
+      "i18n": "homePhone"
+    },
+    "email": {
+      "type": "string",
+      "description": "",
+      "i18n": "email"
+    },
+    "position": {
+      "type": "string",
+      "description": "",
+      "i18n": "position"
+    },
+    "employment": {
+      "type": "string",
+      "description": "",
+      "i18n": "employment"
+    },
+    "workNight": {
+      "type": "string",
+      "description": "",
+      "i18n": "workNight"
+    },
+    "older": {
+      "type": "string",
+      "description": "",
+      "i18n": "older"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "type": "object",
+  "properties": {
+    "shapeType": {
+      "type": "string",
+      "description": "",
+      "i18n": "shapeType",
+      "enum": [
+        "",
+        "square",
+        "circle",
+        "rectangle"
+      ]
+    },
+    "shapeProperties": {
+      "properties": {
+        "radius": {
+          "type": "number",
+          "description": "",
+          "i18n": "radius"
+        },
+        "height": {
+          "type": "number",
+          "description": "",
+          "i18n": "height"
+        },
+        "width": {
+          "type": "number",
+          "description": "",
+          "i18n": "width"
+        }
+      }
+    }
+  },
+  "if": {
+    "not": {
+      "properties": {
+        "shapeType": {
+          "const": ""
+        }
+      }
+    }
+  },
+  "then": {
+    "required": [
+      "shapeProperties"
+    ]
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "shapeType": {
+            "const": "square"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shapeProperties": {
+            "required": [
+              "height"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "shapeType": {
+            "const": "circle"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shapeProperties": {
+            "required": [
+              "radius"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "shapeType": {
+            "const": "rectangle"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shapeProperties": {
+            "required": [
+              "height",
+              "width"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

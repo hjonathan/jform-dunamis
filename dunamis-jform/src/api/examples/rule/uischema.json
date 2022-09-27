@@ -1,0 +1,44 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Text",
+      "scope": "#/properties/name",
+      "options": {},
+      "rule": {
+        "effect": "DISABLE",
+        "condition": {
+          "scope": "#",
+          "schema": {
+            "allOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "const": ""
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "yesOrNo": {
+                    "const": "yes"
+                  }
+                },
+                "required": [
+                  "yesOrNo"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "Dropdown",
+      "scope": "#/properties/yesOrNo",
+      "options": {}
+    }
+  ]
+}

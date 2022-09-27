@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "description": "",
+      "i18n": "string"
+    },
+    "boolean": {
+      "type": "boolean",
+      "description": "",
+      "i18n": "boolean"
+    },
+    "number": {
+      "type": "number",
+      "description": "",
+      "i18n": "number"
+    },
+    "integer": {
+      "type": "integer",
+      "description": "",
+      "i18n": "integer"
+    },
+    "date": {
+      "type": "string",
+      "description": "",
+      "format": "date",
+      "i18n": "date"
+    },
+    "time": {
+      "type": "string",
+      "description": "",
+      "format": "time",
+      "i18n": "time"
+    },
+    "dateTime": {
+      "type": "string",
+      "description": "",
+      "format": "date-time",
+      "i18n": "dateTime"
+    },
+    "enum": {
+      "type": "string",
+      "description": "",
+      "i18n": "enum",
+      "enum": [
+        "One",
+        "Two",
+        "Three"
+      ]
+    }
+  }
+}

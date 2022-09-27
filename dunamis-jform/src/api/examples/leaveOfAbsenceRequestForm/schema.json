@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "title": "Dynaform",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "",
+      "i18n": "title"
+    },
+    "richText": {
+      "type": "string",
+      "description": "",
+      "i18n": "richText"
+    },
+    "employeeName": {
+      "type": "string",
+      "description": "",
+      "i18n": "employeeName"
+    },
+    "employeeEmail": {
+      "type": "string",
+      "description": "",
+      "i18n": "employeeEmail"
+    },
+    "leaveStart": {
+      "type": "string",
+      "format": "date",
+      "description": "",
+      "i18n": "leaveStart"
+    },
+    "leaveEnd": {
+      "type": "string",
+      "format": "date",
+      "description": "",
+      "i18n": "leaveEnd"
+    },
+    "leaveType": {
+      "type": "string",
+      "description": "",
+      "i18n": "leaveType"
+    },
+    "country": {
+      "type": "string",
+      "description": "",
+      "i18n": "country"
+    },
+    "moreInfo": {
+      "type": "string",
+      "description": "",
+      "i18n": "moreInfo"
+    }
+  }
+}

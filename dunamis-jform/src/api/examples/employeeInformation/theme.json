@@ -1,0 +1,33 @@
+{
+  "name": "form",
+  "light": {
+    "primary": "#105D4C",
+    "secondary": "#424242",
+    "accent": "#82B1FF",
+    "error": "#FF5252",
+    "info": "#2196F3",
+    "success": "#4CAF50",
+    "warning": "#FB8C00"
+  },
+  "fontFamily": "Ubuntu",
+  "paddings": {
+    "top": "100",
+    "right": "100",
+    "bottom": "100",
+    "left": "100"
+  },
+  "margins": {
+    "top": "0",
+    "right": "0",
+    "bottom": "0",
+    "left": "0"
+  },
+  "background": {
+    "imgSrc": {
+      "background": "https://i.pinimg.com/originals/ea/23/9b/ea239bec3b0f3b90be55d734162dce55.jpg"
+    },
+    "color": {
+      "color": "#FFFFFF64"
+    }
+  }
+}

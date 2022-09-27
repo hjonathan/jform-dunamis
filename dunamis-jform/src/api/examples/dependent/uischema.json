@@ -1,0 +1,169 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Dropdown",
+      "scope": "#/properties/country",
+      "options": {
+        "events": {
+          "onChange": {
+            "arguments": "JForm, nval, oval",
+            "body": ""
+          }
+        },
+        "items": {
+          "dataSource": {
+            "id": "api-1",
+            "name": "Processmaker Countries",
+            "type": "api",
+            "config": {
+              "value": "value",
+              "label": "text",
+              "dataInputVariables": []
+            }
+          },
+          "local": []
+        },
+        "request": null,
+        "source": null,
+        "dependencies": []
+      }
+    },
+    {
+      "type": "Dropdown",
+      "scope": "#/properties/subdivision",
+      "options": {
+        "items": {
+          "dataSource": {
+            "id": "api-sub",
+            "name": "Processmaker Subdivision",
+            "type": "api",
+            "config": {
+              "value": "value",
+              "label": "text",
+              "dataInputVariables": [
+                {
+                  "dest": "country",
+                  "src": "country"
+                }
+              ]
+            }
+          },
+          "local": []
+        }
+      }
+    },
+    {
+      "type": "Dropdown",
+      "scope": "#/properties/location",
+      "options": {
+        "items": {
+          "dataSource": {
+            "id": "api-loc",
+            "name": "Processmaker Location",
+            "type": "api",
+            "config": {
+              "value": "value",
+              "label": "text",
+              "dataInputVariables": [
+                {
+                  "dest": "country",
+                  "src": "country"
+                },
+                {
+                  "dest": "subdivision",
+                  "src": "subdivision"
+                }
+              ]
+            }
+          },
+          "local": []
+        }
+      }
+    },
+    {
+      "type": "Suggest",
+      "scope": "#/properties/countrys",
+      "options": {
+        "items": {
+          "dataSource": {
+            "id": "api-11",
+            "name": "Processmaker Countries Suggest",
+            "type": "api",
+            "config": {
+              "value": "value",
+              "label": "text",
+              "dataInputVariables": [
+                {
+                  "dest": "countrys",
+                  "src": "countrys"
+                }
+              ]
+            }
+          },
+          "local": []
+        }
+      }
+    },
+    {
+      "type": "Suggest",
+      "scope": "#/properties/subdivisions",
+      "options": {
+        "items": {
+          "dataSource": {
+            "id": "api-subs",
+            "name": "Processmaker Subdivision",
+            "type": "api",
+            "config": {
+              "value": "value",
+              "label": "text",
+              "dataInputVariables": [
+                {
+                  "dest": "countrys",
+                  "src": "countrys"
+                },
+                {
+                  "dest": "subdivisions",
+                  "src": "subdivisions"
+                }
+              ]
+            }
+          },
+          "local": []
+        }
+      }
+    },
+    {
+      "type": "Suggest",
+      "scope": "#/properties/locations",
+      "options": {
+        "items": {
+          "dataSource": {
+            "id": "api-locs",
+            "name": "Processmaker Location Suggest",
+            "type": "api",
+            "config": {
+              "value": "value",
+              "label": "text",
+              "dataInputVariables": [
+                {
+                  "dest": "countrys",
+                  "src": "countrys"
+                },
+                {
+                  "dest": "subdivisions",
+                  "src": "subdivisions"
+                },
+                {
+                  "dest": "locations",
+                  "src": "locations"
+                }
+              ]
+            }
+          },
+          "local": []
+        }
+      }
+    }
+  ]
+}

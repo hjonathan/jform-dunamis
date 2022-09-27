@@ -1,0 +1,126 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "RichText",
+      "scope": "#/properties/title",
+      "options": {
+        "isHtmlViewer": true,
+        "content": "<h2 style=\"text-align: center;\">Leave of Absence Request Form</h2>"
+      }
+    },
+    {
+      "type": "RichText",
+      "scope": "#/properties/richText",
+      "options": {
+        "isHtmlViewer": true,
+        "content": "<h3>Employee Information</h3>"
+      }
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "Text",
+          "scope": "#/properties/employeeName",
+          "options": {}
+        },
+        {
+          "type": "Text",
+          "scope": "#/properties/employeeEmail",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "type": "RichText",
+      "scope": "#/properties/richText",
+      "options": {
+        "isHtmlViewer": true,
+        "content": "<h3>Leave Information</h3>"
+      }
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "DateTime",
+          "scope": "#/properties/leaveStart",
+          "options": {}
+        },
+        {
+          "type": "DateTime",
+          "scope": "#/properties/leaveEnd",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "type": "RadioGroup",
+          "scope": "#/properties/leaveType",
+          "options": {
+            "items": {
+              "local": [
+                {
+                  "value": "medical",
+                  "label": "Medical Leave"
+                },
+                {
+                  "value": "dead",
+                  "label": "Dead or Illness in Family"
+                },
+                {
+                  "value": "marriage",
+                  "label": "Marriage"
+                },
+                {
+                  "value": "matternity",
+                  "label": "Matternity/Paternity"
+                },
+                {
+                  "value": "skill",
+                  "label": "Skill or Work Training"
+                },
+                {
+                  "value": "other",
+                  "label": "Other"
+                }
+              ]
+            }
+          },
+          "label": "Reason For Leave"
+        },
+        {
+          "type": "Dropdown",
+          "scope": "#/properties/country",
+          "label": "Travel to:",
+          "options": {
+            "events": {
+              "onChange": {
+                "arguments": "JForm, nval, oval",
+                "body": ""
+              }
+            },
+            "items": {
+              "local": []
+            },
+            "request": null,
+            "source": null,
+            "dependencies": []
+          }
+        },
+        {
+          "type": "TextArea",
+          "scope": "#/properties/moreInfo",
+          "options": {
+            "multi": true
+          },
+          "label": "More Information"
+        }
+      ]
+    }
+  ]
+}

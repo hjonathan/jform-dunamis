@@ -59,7 +59,6 @@ import MainPanel from './MainPanel.vue';
 import Vue from 'vue';
 import store from './../../../store';
 import ServicesProvider from '../../../services/ServicesProvider';
-import jReactivex from '../../../util/JReactivex/JReactivex';
 
 export default {
   name: 'DefaultLayout',
@@ -76,7 +75,6 @@ export default {
       bus: new Vue(),
       serviceProvider: ServicesProvider,
       store: store,
-      jReactivex: jReactivex,
     };
   },
 };

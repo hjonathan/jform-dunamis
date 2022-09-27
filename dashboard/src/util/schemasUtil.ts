@@ -1,3 +1,4 @@
+//@ts-nocheck
 /**
  * ---------------------------------------------------------------------
  * Copyright (c) 2021 EclipseSource Munich
@@ -102,7 +103,8 @@ const doFindByUUID = (root: any, uuid: string): any | UUIDError => {
   if (!root) {
     return undefined;
   }
-  const entries: any = root ? root.entries() : Object.entries(root);
+  const entries: any =
+    root && root.entries ? root.entries() : Object.entries(root);
   for (const [key, value] of Array.from(entries)) {
     if (value && value.uuid === uuid) {
       return value;

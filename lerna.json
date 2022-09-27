@@ -3,7 +3,7 @@
     "vue2",
     "vue2-vuetify",
     "example",
-    "dunamis-jform"
+    "dunamis-editor"
   ],
   "version": "3.0.0-alpha.2"
 }

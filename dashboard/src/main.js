@@ -16,7 +16,7 @@ new Vue({
   render: (h) => h(App),
 }).$mount('#app');*/
 
-import { app, router, vuetify, store } from './../build/main.cjs';
+import { app, router, vuetify, store } from './mainBundle';
 
 import Vue from 'vue';
 import VueCompositionAPI from '@vue/composition-api';

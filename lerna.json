@@ -1,4 +1,9 @@
 {
-  "packages": ["vue2", "vue2-vuetify", "example", "editor"],
+  "packages": [
+    "vue2",
+    "vue2-vuetify",
+    "example",
+    "dunamis-jform"
+  ],
   "version": "3.0.0-alpha.2"
 }

@@ -23,9 +23,8 @@
 
 <script lang="ts">
 import { sync } from 'vuex-pathify';
-import Settings from '@/components/Settings.vue';
-import ThemeChanger from '@/components/ThemeChanger.vue';
-import { AppStore } from '../store/modules/types';
+import Settings from './../../Settings.vue';
+import ThemeChanger from './../../ThemeChanger.vue';
 
 export default {
   name: 'DefaultAppBar',
@@ -33,9 +32,7 @@ export default {
     ThemeChanger,
     Settings,
   },
-  computed: {
-    app: sync<AppStore>('app/'),
-  },
+  computed: {},
   data() {
     return {
       activeTab: 0,

@@ -36,6 +36,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { defineComponent, onMounted, ref } from '@vue/composition-api';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
 import { VBtn } from 'vuetify/lib';

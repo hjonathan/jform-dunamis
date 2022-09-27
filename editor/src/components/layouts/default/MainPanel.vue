@@ -1,16 +1,16 @@
 <template>
-	<v-card
-		no-gutters
-		height="auto"
-		width="100%"
-		color="transparent"
-		elevation="0"
-	>
-		<component
-			:key="itemsMainPanel[activeMainPanel]['data']['reload']"
-			v-bind:is="itemsMainPanel[activeMainPanel]['component']"
-		/>
-	</v-card>
+  <v-card
+    no-gutters
+    height="auto"
+    width="100%"
+    color="transparent"
+    elevation="0"
+  >
+    <component
+      :key="itemsMainPanel[activeMainPanel]['data']['reload']"
+      v-bind:is="itemsMainPanel[activeMainPanel]['component']"
+    />
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -26,42 +26,43 @@ import MainPanelDataSourcesSimpleLists from '../../../modules/DataSources/MainPa
 import MainPanelDataSourcesApi from '../../../modules/DataSources/MainPanelDataSourcesApi.vue';
 import MainPanelDashboard from '../../../modules/Dashboard/MainPanelDashboard.vue';
 import MainPanelDashboardTemplates from '../../../modules/Dashboard/MainPanelDashboardTemplates.vue';
+import { defineComponent } from '@vue/composition-api';
 
-export default {
-	name: 'mainPanel',
-	props: {},
-	components: {
-		DynaformEditor,
-		MainPanelI18n,
-		MainPanelDynaformPreview,
-		MainPanelSchemaEditor,
-		MainPanelFormRules,
-		MainPanelDataSourcesSimpleLists,
-		MainPanelDataSourcesApi,
-		MainPanelDashboard,
-		MainPanelDashboardTemplates,
-	},
-	data() {
-		return {
-			data: {},
-		};
-	},
-	mounted() {
-		this.$store.dispatch('app/setSchema', {
-			schema: {
-				type: 'object',
-				title: 'Dynaform',
-				properties: {},
-			},
-		});
-		this.$store.dispatch('app/setUiSchema', {
-			uiSchema: createLayout('VerticalLayout'),
-		});
-	},
-	computed: {
-		itemsMainPanel: sync('viewManager/mainPanel.items'),
-		activeMainPanel: sync('viewManager/mainPanel.active'),
-	},
-	methods: {},
-};
+export default defineComponent({
+  name: 'mainPanel',
+  props: {},
+  components: {
+    DynaformEditor,
+    MainPanelI18n,
+    MainPanelDynaformPreview,
+    MainPanelSchemaEditor,
+    MainPanelFormRules,
+    MainPanelDataSourcesSimpleLists,
+    MainPanelDataSourcesApi,
+    MainPanelDashboard,
+    MainPanelDashboardTemplates,
+  },
+  data() {
+    return {
+      data: {},
+    };
+  },
+  mounted() {
+    this.$store.dispatch('app/setSchema', {
+      schema: {
+        type: 'object',
+        title: 'Dynaform',
+        properties: {},
+      },
+    });
+    this.$store.dispatch('app/setUiSchema', {
+      uiSchema: createLayout('VerticalLayout'),
+    });
+  },
+  computed: {
+    itemsMainPanel: sync('viewManager/mainPanel.items'),
+    activeMainPanel: sync('viewManager/mainPanel.active'),
+  },
+  methods: {},
+});
 </script>

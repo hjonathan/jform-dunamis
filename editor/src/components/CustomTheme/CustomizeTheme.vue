@@ -266,6 +266,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import _ from 'lodash';
 import { defineComponent } from '@vue/composition-api';
 const CustomizeTheme = defineComponent({

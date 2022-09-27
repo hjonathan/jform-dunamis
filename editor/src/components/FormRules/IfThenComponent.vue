@@ -6,6 +6,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import IfComponent from './IfThenComponent/IfComponent.vue';
 import ThenComponent from './IfThenComponent/ThenComponent.vue';
 import IfThenDefaultMixing from './IfThenDefaultMixing';
@@ -48,5 +49,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

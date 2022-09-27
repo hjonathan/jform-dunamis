@@ -1,4 +1,5 @@
 import { assign } from 'lodash';
+import { uuid } from 'uuidv4';
 import { withCloneTree, withCloneTrees, getTree } from './../../util/clone';
 import {
   findByUUID,
@@ -21,10 +22,10 @@ import {
   EditorUISchemaElement,
   getVariableName,
 } from '../../model/uischema';
-import { CategorizationService } from '../../api/categorizationService';
-import { v4 as uuid } from 'uuid';
 import { DefaultPaletteService } from '../../api/paletteService';
 import { cloneDeep } from 'lodash';
+import { CategorizationService } from '../../api/categorizationService';
+import _ from 'lodash';
 
 /** Removes the given UI element from its tree.
  *  If a SchemaElement is provided, the element to remove will be cleaned up from all linkedUISchemaElements fields in the schema.
@@ -94,13 +95,10 @@ export const updateSchemaVariable = (state: any, payload: any) => {
     undefined,
     state,
     (newUiSchema, newSchema) => {
-      const uiSchemaElement: SchemaElement = findByUUID(
-        newUiSchema,
-        payload.elementUUID
-      );
+      const uiSchemaElement: any = findByUUID(newUiSchema, payload.elementUUID);
       const oldVariable = getVariableName(uiSchemaElement);
       if (uiSchemaElement && oldVariable !== payload.newVariable) {
-        const linkedShemaElement: SchemaElement = findByUUID(
+        const linkedShemaElement: any = findByUUID(
           newSchema,
           uiSchemaElement.linkedSchemaElement
         );
@@ -135,10 +133,7 @@ export const updateSchemaRequired = (state: any, payload: any) => {
     undefined,
     state,
     (newUiSchema, newSchema) => {
-      const uiSchemaElement: SchemaElement = findByUUID(
-        newUiSchema,
-        payload.elementUUID
-      );
+      const uiSchemaElement: any = findByUUID(newUiSchema, payload.elementUUID);
       const currentVariable = getVariableName(uiSchemaElement);
       // require procedure
       newSchema.schema.required = newSchema.schema.required
@@ -170,12 +165,9 @@ export const updateSchemaReadOnly = (state: any, payload: any) => {
     undefined,
     state,
     (newUiSchema, newSchema) => {
-      const uiSchemaElement: SchemaElement = findByUUID(
-        newUiSchema,
-        payload.elementUUID
-      );
+      const uiSchemaElement: any = findByUUID(newUiSchema, payload.elementUUID);
       //readOnly
-      const linkedShemaElement: SchemaElement = findByUUID(
+      const linkedShemaElement: any = findByUUID(
         newSchema,
         uiSchemaElement.linkedSchemaElement
       );
@@ -196,11 +188,8 @@ export const updateSchemaMinDate = (state: any, payload: any) => {
     undefined,
     state,
     (newUiSchema, newSchema) => {
-      const uiSchemaElement: SchemaElement = findByUUID(
-        newUiSchema,
-        payload.elementUUID
-      );
-      const linkedShemaElement: SchemaElement = findByUUID(
+      const uiSchemaElement: any = findByUUID(newUiSchema, payload.elementUUID);
+      const linkedShemaElement: any = findByUUID(
         newSchema,
         uiSchemaElement.linkedSchemaElement
       );
@@ -221,11 +210,8 @@ export const updateSchemaMaxDate = (state: any, payload: any) => {
     undefined,
     state,
     (newUiSchema, newSchema) => {
-      const uiSchemaElement: SchemaElement = findByUUID(
-        newUiSchema,
-        payload.elementUUID
-      );
-      const linkedShemaElement: SchemaElement = findByUUID(
+      const uiSchemaElement: any = findByUUID(newUiSchema, payload.elementUUID);
+      const linkedShemaElement: any = findByUUID(
         newSchema,
         uiSchemaElement.linkedSchemaElement
       );
@@ -246,11 +232,8 @@ export const updateSchemaDefaultDate = (state: any, payload: any) => {
     undefined,
     state,
     (newUiSchema, newSchema) => {
-      const uiSchemaElement: SchemaElement = findByUUID(
-        newUiSchema,
-        payload.elementUUID
-      );
-      const linkedShemaElement: SchemaElement = findByUUID(
+      const uiSchemaElement: any = findByUUID(newUiSchema, payload.elementUUID);
+      const linkedShemaElement: any = findByUUID(
         newSchema,
         uiSchemaElement.linkedSchemaElement
       );
@@ -287,7 +270,7 @@ export const duplicateElement = (state: any, payload: any) => {
         type: newSchema.type,
         uuid: schemauuid,
       });
-      const shemaElement: SchemaElement = findByUUID(newSchema, schemauuid);
+      const shemaElement: any = findByUUID(newSchema, schemauuid);
       const newUIElement = {
         options: payload.options,
         parent: newUiSchema,
@@ -299,7 +282,7 @@ export const duplicateElement = (state: any, payload: any) => {
         console.error('Could not add new UI element', newUIElement);
         return state;
       }
-      const index = _.findIndex(newUiSchema.elements, function (element) {
+      const index = _.findIndex(newUiSchema.elements, function (element: any) {
         return element.uuid === payload.uuid;
       });
       (newUiSchema as EditorLayout).elements.splice(index + 1, 0, newUIElement);
@@ -394,7 +377,7 @@ export const createScopedElementToTable = (state: any, payload: any) => {
     state,
     (newUiSchema, newSchema) => {
       const newUIElement = payload.uiSchemaElement;
-      (newUiSchema as EditorLayout).options.detail.elements.splice(
+      newUiSchema.options.detail.elements.splice(
         payload.index,
         0,
         newUIElement
@@ -522,11 +505,8 @@ export const updateSchemaElement = (state: any, payload: any) => {
     undefined,
     state,
     (newUiSchema, newSchema) => {
-      const uiSchemaElement: SchemaElement = findByUUID(
-        newUiSchema,
-        payload.elementUUID
-      );
-      const linkedShemaElement: SchemaElement = findByUUID(
+      const uiSchemaElement: any = findByUUID(newUiSchema, payload.elementUUID);
+      const linkedShemaElement: any = findByUUID(
         newSchema,
         uiSchemaElement.linkedSchemaElement
       );

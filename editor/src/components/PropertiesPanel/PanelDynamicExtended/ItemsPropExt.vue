@@ -50,6 +50,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   computed,
   defineComponent,
@@ -71,23 +72,23 @@ const ItemPropExt = defineComponent({
     //Init variables
     const serviceProvider = inject<any>('serviceProvider');
     const dataSources = serviceProvider.get('dataSources');
-    const configurationView = ref(null);
-    const titles = ref({
+    const configurationView: any = ref(null);
+    const titles: any = ref({
       value: 'Value',
       label: 'Label',
     });
-    const keys = ref({
+    const keys: any = ref({
       value: 'value',
       label: 'label',
     });
     let items = ref(
       props.config && props.config.local ? props.config.local : []
     );
-    const refList = ref(null);
-    const sources = ref(dataSources.get());
-    let select = ref(null);
-    let dataSource = ref(null);
-    let dataConfig = ref(null);
+    const refList: any = ref(null);
+    const sources: any = ref(dataSources.get());
+    let select: any = ref(null);
+    let dataSource: any = ref(null);
+    let dataConfig: any = ref(null);
 
     let dataSourceView = computed(() => {
       if (select.value && select.value.render) {
@@ -119,7 +120,7 @@ const ItemPropExt = defineComponent({
       dataConfig,
       ...dynamicPropertyDefault(props, context),
       backPanel() {
-        let res = {
+        let res: any = {
           dataSource: null,
           local: refList.value.getData(),
         };
@@ -147,5 +148,4 @@ const ItemPropExt = defineComponent({
 });
 export default ItemPropExt;
 </script>
-<style>
-</style>
+<style></style>

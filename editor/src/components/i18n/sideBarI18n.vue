@@ -57,8 +57,8 @@ const SideBarI18n = defineComponent({
   name: 'SideBarI18n',
   components: {},
   computed: {
-    codes() {
-      return _.map(this.iso.languages, (v, k) => ({
+    codes(): any {
+      return _.map(this.iso.languages, (v: any, k: any) => ({
         text: `${v} - ${k}`,
         key: k,
         label: v,
@@ -69,7 +69,8 @@ const SideBarI18n = defineComponent({
     activeMainPanel: sync('viewManager/mainPanel.active'),
     locale: {
       get() {
-        return this.getDataMainPanel()['locale'];
+        let dt: any = this.getDataMainPanel();
+        return dt['locale'] ? dt['locale'] : {};
       },
       set(value) {
         let data: any = {
@@ -83,8 +84,8 @@ const SideBarI18n = defineComponent({
     },
     selectedLocale: {
       get() {
-        let en = Object.keys(this.locales),
-          index = en.indexOf(this.locale);
+        let en: any = Object.keys(this.locales),
+          index: any = en.indexOf(this.locale);
         this.localesKeys = en;
         return index == -1 ? 0 : index;
       },
@@ -96,7 +97,7 @@ const SideBarI18n = defineComponent({
   data() {
     return {
       key: 1,
-      select: '',
+      select: null as any,
       localesKeys: [],
     };
   },
@@ -120,13 +121,13 @@ const SideBarI18n = defineComponent({
         reload: _.random(0, 1000000),
       });
     },
-    setDataMainPanel(data) {
+    setDataMainPanel(data: any) {
       this.$store.dispatch('viewManager/setDataMainPanel', {
         id: 'main-translations',
         data,
       });
     },
-    getDataMainPanel() {
+    getDataMainPanel(): any {
       return this.$store.getters['viewManager/getDataMainPanelById'](
         'main-translations'
       );

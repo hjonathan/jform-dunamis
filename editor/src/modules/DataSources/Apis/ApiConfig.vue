@@ -92,7 +92,7 @@
 <script lang="ts">
 import _ from 'lodash';
 import DynamicItems from './DynamicItems.vue';
-import MonacoEditor from '@/components/MonacoEditor.vue';
+import MonacoEditor from './../../../components/MonacoEditor.vue';
 import { defineComponent, ref } from '@vue/composition-api';
 const ApiConfig = defineComponent({
   name: 'ApiConfig',
@@ -104,19 +104,19 @@ const ApiConfig = defineComponent({
     let api = ref(props.data);
     let name = ref(api.value.name);
     let request = ref(api.value.data);
-    let requestRef = ref(null);
+    let requestRef: any = ref(null);
     let dataInputVariables = ref(api.value.data.dataInputVariables);
     let rules = ref([
-      (value) => !!value || 'Required.',
-      (value) => (value && value.length >= 3) || 'Min 3 characters',
+      (value: any) => !!value || 'Required.',
+      (value: any) => (value && value.length >= 3) || 'Min 3 characters',
     ]);
 
     /**
      * Save the configuration for add or edit
      */
     let save = () => {
-      let dataRequest = requestRef.value.getData();
-      let dt = {
+      let dataRequest: any = requestRef.value?.getData();
+      let dt: any = {
         name: name.value,
         data: {
           url: dataRequest.url,
@@ -137,8 +137,8 @@ const ApiConfig = defineComponent({
       }
     };
 
-    function convertArrayToObject(data) {
-      return Object.assign({}, ...data.map((p) => ({ [p.key]: p.value })));
+    function convertArrayToObject(data: any) {
+      return Object.assign({}, ...data.map((p: any) => ({ [p.key]: p.value })));
     }
 
     function autogenerateID() {

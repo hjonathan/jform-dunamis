@@ -66,7 +66,7 @@ import { sync } from 'vuex-pathify';
 import _ from 'lodash';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { defineComponent } from '@vue/composition-api';
-import MonacoEditor from '@/components/MonacoEditor.vue';
+import MonacoEditor from '../MonacoEditor.vue';
 const MainPanelI18n = defineComponent({
   name: 'MainPanelI18n',
   inject: ['bus'],
@@ -113,7 +113,7 @@ const MainPanelI18n = defineComponent({
         },
       ];
 
-      let headers = _.map(this.locales, (v, k) => ({
+      let headers: any = _.map(this.locales, (v: any, k: any) => ({
         text: v.description,
         align: 'start',
         sortable: false,
@@ -123,7 +123,7 @@ const MainPanelI18n = defineComponent({
       return name.concat(headers);
     },
     dataTranslations() {
-      let result = [],
+      let result: any = [],
         keys = Object.keys(this.locales);
       //Create the initial values
       _.map(this.locales.en.content, (v, k) => {
@@ -153,7 +153,7 @@ const MainPanelI18n = defineComponent({
   },
   data: function () {
     return {
-      schema: null,
+      schema: null as any,
       json: false,
       key: 1,
     };
@@ -182,7 +182,7 @@ const MainPanelI18n = defineComponent({
         });
       }
     },
-    contentSaveJson(ev) {
+    contentSaveJson(ev: any) {
       if (ev.versionId % 10 == 0) {
         this.contentSave();
       }

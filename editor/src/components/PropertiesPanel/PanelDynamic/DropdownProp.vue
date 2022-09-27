@@ -13,6 +13,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { defineComponent, ref } from '@vue/composition-api';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
 const DropdownProp = defineComponent({

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import schema from './schema.json';
 import uischema from './uischema.json';
 import data from './data.json';

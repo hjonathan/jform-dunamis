@@ -137,6 +137,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import store from '../../store';
 import { computed, defineComponent } from '@vue/composition-api';
 import { mask } from '@titou10/v-mask';

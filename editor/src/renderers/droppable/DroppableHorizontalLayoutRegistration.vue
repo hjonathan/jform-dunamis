@@ -36,6 +36,7 @@
   <!-- </v-container> -->
 </template>
 <script lang="ts">
+//@ts-nocheck
 import { sync } from 'vuex-pathify';
 import { Uri } from 'monaco-editor/esm/vs/editor/editor.api';
 import { getMonacoModelForUri } from '@/core/jsonSchemaValidation';

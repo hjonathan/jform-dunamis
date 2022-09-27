@@ -91,7 +91,7 @@ const MainPanelDataSourcesApi = defineComponent({
   setup(props: any) {
     let mode = ref('add'),
       apiOptionsRef = ref(null),
-      transformedItem = ref({
+      transformedItem: any = ref({
         id: '',
         name: '',
         data: {
@@ -126,7 +126,7 @@ const MainPanelDataSourcesApi = defineComponent({
         store.dispatch('dataSources/setApis', newValue);
       },
     });
-    let deleteSimpleList = (index) => {
+    let deleteSimpleList = (index: any) => {
       let clone: any = _.clone(apis.value);
       clone = _.concat(
         _.slice(clone, 0, index),
@@ -186,14 +186,14 @@ const MainPanelDataSourcesApi = defineComponent({
       mode.value = 'add';
     };
 
-    let convertObjectToArray = (obj) => {
+    let convertObjectToArray = (obj: any) => {
       return Object.keys(obj).map((key) => {
         return { key: key, value: obj[key] };
       });
     };
 
     let updateApi = (data: any) => {
-      let clone = _.cloneDeep(apis.value);
+      let clone: any = _.cloneDeep(apis.value);
       clone[selectedIndex.value] = { ...clone[selectedIndex.value], ...data };
       apis.value = clone;
       selectedItem.value = data;

@@ -99,17 +99,17 @@ export default defineComponent({
       'Submit',
     ];
     const panel = ref([0, 1, 2, 3]);
-    const getLabel = (schemaElement: SchemaElement) => {
+    const getLabel = (schemaElement: SchemaElement): any => {
       return getLabel(schemaElement);
     };
     const paletteElements = computed(sync('app/editor@paletteElements'));
     const editorUiSchema: any = computed(sync('app/editor@uiSchema'));
 
     const clone = (element: any) => {
-      const property = element.uiSchemaElementProvider();
-      let newElement, newUIElement;
+      const property: any = element.uiSchemaElementProvider();
+      let newElement: any, newUIElement: any;
       if (enabledFields.indexOf(element.type) != -1) {
-        newElement = buildSchemaTree(property.control);
+        newElement = buildSchemaTree(property.control) || {};
         newElement.options = property.uiOptions;
         newUIElement = createControlDrag(newElement, element.type);
         return {

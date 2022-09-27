@@ -8,7 +8,7 @@
 import { JsonSchema } from '@jsonforms/core';
 import traverse from 'json-schema-traverse';
 import { assign, cloneDeep, omit } from 'lodash';
-import { v4 as uuid } from 'uuid';
+import { uuid } from 'uuidv4';
 
 import { getHierarchy, TreeElement } from '../util/tree';
 
@@ -92,9 +92,9 @@ const containsAs = (
         schemaElement.items
       )
         ? schemaElement.items.map((element, index) => [
-          element,
-          `items/${index}`,
-        ])
+            element,
+            `items/${index}`,
+          ])
         : [[schemaElement.items, 'items']];
       containments.push(...itemEntries);
       break;
@@ -168,8 +168,8 @@ export const toPrintableObject = (debugSchema: SchemaElement): any => {
 
 const isElementOfType =
   <T extends SchemaElement>(type: string) =>
-    (schemaElement: SchemaElement | undefined): schemaElement is T =>
-      schemaElement?.type === type;
+  (schemaElement: SchemaElement | undefined): schemaElement is T =>
+    schemaElement?.type === type;
 export const isObjectElement = isElementOfType<ObjectElement>(OBJECT);
 export const isArrayElement = isElementOfType<ArrayElement>(ARRAY);
 export const isPrimitiveElement = isElementOfType<PrimitiveElement>(PRIMITIVE);

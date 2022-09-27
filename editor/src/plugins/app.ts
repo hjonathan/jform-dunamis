@@ -5,7 +5,7 @@
  * in the `./src/components/` folder.
  */
 
-export function registerComponents(app) {
+export function registerComponents(app: any) {
   // Automatically get all .vue files within
   // `src/components` and register them to
   // the current app.

@@ -156,16 +156,16 @@ const MainPanelDashboard = defineComponent({
   },
 
   watch: {
-    dialog(val) {
+    dialog(val: any) {
       val || this.close();
     },
-    dialogDelete(val) {
+    dialogDelete(val: any) {
       val || this.closeDelete();
     },
   },
 
   methods: {
-    editItem(item) {
+    editItem(item: any) {
       this.$store.dispatch('app/setSchema', {
         schema: item.schemas.schema,
       });
@@ -192,7 +192,7 @@ const MainPanelDashboard = defineComponent({
       });
     },
 
-    deleteItem(item) {
+    deleteItem(item: any) {
       this.editedIndex = this.forms.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;

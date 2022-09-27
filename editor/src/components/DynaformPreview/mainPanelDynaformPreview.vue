@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { JsonFormsI18nState } from '@jsonforms/core';
 import { JsonForms, JsonFormsChangeEvent } from '@jsonforms/vue2';
 import { useExportSchema } from '../../util';
@@ -35,7 +36,8 @@ import _ from 'lodash';
 import store from '../../store';
 import { sync } from 'vuex-pathify';
 import Device from 'vue-device';
-export default {
+import { defineComponent } from '@vue/composition-api';
+export default defineComponent({
   name: 'dymaform-preview',
   components: {
     JsonForms,
@@ -51,29 +53,34 @@ export default {
       ],
       dialog: false,
       component: 'div',
-      data: this.$store.get('preview/data'),
-      locale: sync('preview/locale'),
+      data: store.get('preview/data'),
+      locale: sync('preview/locale') as any,
       i18n: {
-        locale: this.locale || 'en',
-        translate: this.createTranslator(this.locale || 'en'),
+        locale: 'en',
+        //translate: this.createTranslator(this.locale || 'en'),
+        translate: {},
       } as JsonFormsI18nState,
       renderers: extendedVuetifyRenderers,
     };
   },
   computed: {
-    itemsMainPanel: sync('viewManager/mainPanel.items'),
-    activeMainPanel: sync('viewManager/mainPanel.active'),
+    itemsMainPanel: sync('viewManager/mainPanel.items') as any,
+    activeMainPanel: sync('viewManager/mainPanel.active') as any,
     mode() {
-      return this.itemsMainPanel[this.activeMainPanel]['data']['mode'] ==
-        'device'
-        ? 'Device'
-        : 'div';
+      let dev = 'div',
+        items: any = this.itemsMainPanel,
+        active: any = this.activeMainPanel;
+      if (items[active]) {
+        dev = items[active].data.mode;
+        dev = dev == 'device' ? 'Device' : 'div';
+      }
+      return dev;
     },
     useUiSchema: sync('preview/uiSchema'),
-    useSchema: function () {
+    useSchema(): any {
       return useExportSchema(this.$store.get('preview/schema'));
     },
-    previewData: function () {
+    previewData(): any {
       return generateEmptyData(this.$store.get('preview@schema'), {});
     },
     getCurrentFont(): any {
@@ -118,7 +125,7 @@ export default {
   watch: {
     locale(nValue: string): void {
       this.i18n.locale = nValue;
-      this.i18n.translate = this.createTranslator(nValue || 'en');
+      this.i18n.translate = this.createTranslator();
     },
   },
   methods: {
@@ -135,7 +142,7 @@ export default {
         key: string,
         defaultMessage: string | undefined
       ): string | undefined => {
-        let locale = store.get('preview/locale');
+        const locale = store.get('preview/locale');
         return (
           _.get(
             locale === 'en' ? i18n['en']['content'] : i18n[locale]['content'],
@@ -150,19 +157,8 @@ export default {
     onChange(event: JsonFormsChangeEvent): void {
       this.$store.set('preview/data', event.data || {});
     },
-    /**
-     * On click in icon preview
-     * Load the schemas and refresh the view
-     */
-    onClickMenu(item): void {
-      this.component = item.component ? item.component : 'div';
-      this.copySchemasFromEditorToPreview();
-      this.createTranslator(this.$store.get('app/jsonforms@locale'));
-      this.dialog = !this.dialog;
-      this.key++;
-    },
   },
-};
+});
 </script>
 <style>
 .vpm-device {

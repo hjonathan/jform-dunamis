@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   ControlElement,
   JsonFormsRendererRegistryEntry,
@@ -75,10 +76,11 @@ const controlRenderer = defineComponent({
   },
 });
 
-export default controlRenderer;
-
-export const entry: JsonFormsRendererRegistryEntry = {
+const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
   tester: rankWith(5, uiTypeIs('RichText')),
 };
+
+export default controlRenderer;
+export { entry };
 </script>

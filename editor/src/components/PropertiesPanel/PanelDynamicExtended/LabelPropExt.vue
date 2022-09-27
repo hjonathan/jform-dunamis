@@ -64,7 +64,7 @@ const LabelPropExt = defineComponent({
         text: 'Vertical',
       },
     ]);
-    let select = ref({
+    let select: any = ref({
       id: 'inherit',
       text: 'Inherit',
     });

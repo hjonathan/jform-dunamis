@@ -107,6 +107,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { PropType } from 'vue';
 import ResizableCols from './Generic/ResizableCols.vue';
 import _ from 'lodash';

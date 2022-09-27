@@ -60,13 +60,21 @@
 <script lang="ts">
 //import { sync } from 'vuex-pathify';
 import _ from 'lodash';
-export default {
+import { defineComponent, ref } from '@vue/composition-api';
+import store from '../../store';
+export default defineComponent({
   name: 'ActionsBar',
   components: {},
   inject: ['bus'],
-  data() {
+  setup(): any {
+    function showTemplates() {
+      let mainPanel = { id: 'main-dashboard-templates' };
+      store.dispatch('viewManager/setAllViews', {
+        mainPanel,
+      });
+    }
     return {
-      actions: [
+      actions: ref([
         {
           title: 'My Forms',
           type: 'title',
@@ -80,82 +88,15 @@ export default {
           color: 'primary',
           class: 'vpm-action-editor-btn',
           icon: 'mdi-plus',
-          handler: this.showTemplates,
+          handler: showTemplates,
           title: 'Create a Form',
         },
-      ],
+      ]),
     };
   },
   computed: {},
-  methods: {
-    onClickEditor() {
-      let mainPanel = { id: 'main-editor' },
-        sideBar = { id: 'side-bar-pallete' };
-      this.$store.dispatch('viewManager/setAllViews', {
-        mainPanel,
-        sideBar,
-      });
-    },
-    onClickPreviewBrowser() {
-      let mainPanel = {
-          id: 'main-preview',
-          data: {
-            mode: 'web',
-            reload: _.random(0, 1000000),
-          },
-        },
-        sideBar = { id: 'side-bar-preview' };
-      this.$store.dispatch('viewManager/setAllViews', {
-        mainPanel,
-        sideBar,
-      });
-    },
-    onClickPreviewDevice() {
-      let mainPanel = {
-          id: 'main-preview',
-          data: {
-            mode: 'device',
-            reload: _.random(0, 1000000),
-          },
-        },
-        sideBar = { id: 'side-bar-preview' };
-      this.$store.dispatch('viewManager/setAllViews', {
-        mainPanel,
-        sideBar,
-      });
-    },
-
-    onClickTranslations() {
-      let mainPanel = { id: 'main-translations' },
-        sideBar = { id: 'side-bar-translations' };
-      this.$store.dispatch('viewManager/setAllViews', {
-        mainPanel,
-        sideBar,
-      });
-    },
-    onClickSchemaEditor() {
-      let mainPanel = { id: 'main-schema-editor' };
-      this.$store.dispatch('viewManager/setAllViews', {
-        mainPanel,
-      });
-    },
-    onClickFormRules() {
-      let mainPanel = { id: 'main-form-rules' };
-      this.$store.dispatch('viewManager/setAllViews', {
-        mainPanel,
-      });
-    },
-    contentSave() {
-      this.bus.$emit('translations::main-panel::save', {});
-    },
-    showTemplates() {
-      let mainPanel = { id: 'main-dashboard-templates' };
-      this.$store.dispatch('viewManager/setAllViews', {
-        mainPanel,
-      });
-    },
-  },
-};
+  methods: {},
+});
 </script>
 <style>
 .vpm-action-editor-btn {

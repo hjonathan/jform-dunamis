@@ -40,6 +40,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import PropertiesPanelDynamic from './PanelDynamic/PanelDynamic.vue';
 import { sync } from 'vuex-pathify';
 import { omit } from 'lodash';
@@ -60,10 +61,10 @@ const PropertiesPanel = defineComponent({
       key: 1,
       step: 1,
       panel: [0, 1, 2, 3, 4],
-      generalData: null,
+      generalData: null as any,
       type: null,
-      uiElement: null,
-      panelHistory: [],
+      uiElement: null as any,
+      panelHistory: [] as any,
       extendedConfig: {},
     };
   },
@@ -71,14 +72,14 @@ const PropertiesPanel = defineComponent({
     schema: sync('app/editor@schema'),
     uischema: sync('app/editor@uiSchema'),
     selectedElement: sync('app/editor@element'),
-    panelExtended() {
+    panelExtended(): any {
       if (this.panelHistory.length == 0) {
         return 'div';
       }
-      this.extendedConfig =
-        this.generalData['data'][
-          this.panelHistory[this.panelHistory.length - 1]['id']
-        ];
+      const history = this.panelHistory[this.panelHistory.length - 1]['id'];
+      if (this.generalData?.data[history]) {
+        this.extendedConfig = this.generalData.data[history];
+      }
 
       return this.panelHistory[this.panelHistory.length - 1].component;
     },
@@ -93,14 +94,14 @@ const PropertiesPanel = defineComponent({
     },
   },
   methods: {
-    setSelection: function (newSelection) {
-      let fieldData = {};
+    setSelection: function (newSelection: any) {
+      let fieldData: any = {};
       let linkedSchemaUUID, elementSchema;
       // UIELEMENT is the ui schema for specific scope
       this.uiElement = tryFindByUUID(this.uischema, newSelection);
 
       if (this.uiElement) {
-        linkedSchemaUUID = this.uiElement.linkedSchemaElement;
+        linkedSchemaUUID = this.uiElement?.linkedSchemaElement;
         // ELEMENTSCHEMA is the schema for specific scope
         elementSchema =
           linkedSchemaUUID && this.schema
@@ -404,11 +405,11 @@ const PropertiesPanel = defineComponent({
       }
       return ele;
     },
-    extendPanel(dt) {
+    extendPanel(dt: any) {
       this.panelHistory.push(dt);
       this.step = this.step + 1;
     },
-    backPanel(dt) {
+    backPanel(dt: any) {
       this.step = this.step - 1;
       this.panelHistory.pop();
       this.updateData(Object.assign({}, this.generalData['data'], dt));

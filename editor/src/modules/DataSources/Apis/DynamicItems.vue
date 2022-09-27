@@ -97,6 +97,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import _ from 'lodash';
 import ListOptions from './ListOptions.vue';
 export default {

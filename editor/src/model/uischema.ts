@@ -15,7 +15,7 @@ import {
   JsonSchema,
 } from '@jsonforms/core';
 import { cloneDeep } from 'lodash';
-import { v4 as uuid } from 'uuid';
+import { uuid } from 'uuidv4';
 
 import {
   calculatePath,
@@ -93,7 +93,7 @@ export const buildUiSchema = (
   uiSchema: EditorUISchemaElement
 ): UISchemaElement => {
   const clone: EditorUISchemaElement = cloneDeep(uiSchema);
-  traverse(clone, (current) => {
+  traverse(clone, (current: any) => {
     delete current.parent;
     delete current.linkedSchemaElement;
     delete current.uuid;

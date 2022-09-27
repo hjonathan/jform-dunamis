@@ -114,7 +114,7 @@ export class DataSourceService implements Service {
       return 'div';
     };
   }
-  indexByDots(obj: any, is: any, value: any): any {
+  indexByDots(obj: any, is: any, value?: any): any {
     if (typeof is == 'string' && is.length != 0) {
       return this.indexByDots(obj, is.split('.'), value);
     } else if (is.length == 1 && value !== undefined) {

@@ -20,6 +20,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { JsonFormsI18nState } from '@jsonforms/core';
 import { JsonForms, JsonFormsChangeEvent } from '@jsonforms/vue2';
 import { useExportSchema } from '../../util';

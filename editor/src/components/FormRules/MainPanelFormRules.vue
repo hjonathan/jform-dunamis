@@ -17,8 +17,9 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from '@vue/composition-api';
 import IfThenComponent from './IfThenComponent.vue';
-export default {
+export default defineComponent({
   name: 'MainPanelFormRules',
   components: { IfThenComponent },
   props: {},
@@ -29,10 +30,10 @@ export default {
   },
   methods: {
     saveFormRules() {
-      this.$refs['comp1'].save();
+      let ref: any = this.$refs?.comp1;
+      ref.save();
     },
   },
-};
+});
 </script>
-<style>
-</style>
+<style></style>

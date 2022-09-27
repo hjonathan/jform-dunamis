@@ -10,10 +10,11 @@
 
 <script lang="ts">
 import { JsonForms } from '@jsonforms/vue2';
-import { defaultEditorRenderers } from '../../renderers';
+import { defineComponent } from '@vue/composition-api';
+import { defaultEditorRenderers } from '../../renderers/index';
 import { useExportSchema } from '../../util';
 
-export default {
+export default defineComponent({
   name: 'DynaformEditor',
   props: {},
   components: {
@@ -22,12 +23,12 @@ export default {
   data() {
     return {
       selection: '' as string,
-      renderers: [],
+      renderers: [] as any,
       data: {},
     };
   },
   mounted() {
-    this.renderers = defaultEditorRenderers;
+    this.renderers = defaultEditorRenderers as any;
   },
   methods: {
     useExportSchema() {
@@ -37,5 +38,5 @@ export default {
       return this.$store.get('app/editor@uiSchema');
     },
   },
-};
+});
 </script>

@@ -1,7 +1,12 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const path = require("path");
+const path = require('path');
 
 module.exports = {
+  pages: {
+    index: {
+      entry: 'src/main.js',
+    },
+  },
   chainWebpack: (config) => {
     // remove typecheck
     config.plugins.delete('fork-ts-checker');
@@ -13,9 +18,7 @@ module.exports = {
       },
     ]);
 
-    config.performance
-      .maxEntrypointSize(40000000)
-      .maxAssetSize(40000000);
+    config.performance.maxEntrypointSize(40000000).maxAssetSize(40000000);
 
     config.plugins.delete('prefetch');
 
@@ -30,5 +33,5 @@ module.exports = {
   transpileDependencies: ['vuetify'],
   filenameHashing: false,
   productionSourceMap: false,
-  css: { sourceMap: false }
+  css: { sourceMap: false },
 };

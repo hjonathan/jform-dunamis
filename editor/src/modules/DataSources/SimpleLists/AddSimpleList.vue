@@ -33,6 +33,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import _ from 'lodash';
 import { defineComponent, ref } from '@vue/composition-api';
 

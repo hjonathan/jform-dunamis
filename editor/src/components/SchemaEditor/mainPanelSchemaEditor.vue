@@ -40,8 +40,8 @@
 import { sync } from 'vuex-pathify';
 import { Uri } from 'monaco-editor/esm/vs/editor/editor.api';
 import { computed, defineComponent, reactive, ref } from '@vue/composition-api';
-import MonacoEditor from '@/components/MonacoEditor.vue';
-import { getMonacoModelForUri } from '@/core/jsonSchemaValidation';
+import MonacoEditor from '../MonacoEditor.vue';
+import { getMonacoModelForUri } from '../../core/jsonSchemaValidation';
 import { useExportSchema, useExportUiSchema } from '../../util';
 
 const MainPanelSchemaEditor = defineComponent({
@@ -50,19 +50,19 @@ const MainPanelSchemaEditor = defineComponent({
   components: { MonacoEditor },
   computed: {},
   watch: {
-    monacoUiSchemaModel(): void {
+    /*monacoUiSchemaModel(): void {
       this.setMonacoUiSchema(this.monacoUiSchemaModel);
     },
     monacoSchemaModel(): void {
       this.setMonacoSchema(this.monacoSchemaModel);
-    },
+    },*/
   },
   setup(props: any) {
     const uiUri = Uri.parse('json://core/specification/uischema.json');
     const uri = Uri.parse('json://core/specification/schema.json');
     let jsonSchema = computed(sync('app/editor@schema'));
     let jsonUiSchema = computed(sync('app/editor@uiSchema'));
-    let setSchema = (schemaModel, uri) => {
+    let setSchema: any = (schemaModel: any, uri: any) => {
       return getMonacoModelForUri(
         uri,
         JSON.stringify(
@@ -73,7 +73,7 @@ const MainPanelSchemaEditor = defineComponent({
       );
     };
 
-    let setUiSchema = (schemaModel, uri) => {
+    let setUiSchema: any = (schemaModel: any, uri: any) => {
       return getMonacoModelForUri(
         uri,
         JSON.stringify(

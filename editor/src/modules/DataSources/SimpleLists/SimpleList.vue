@@ -48,7 +48,7 @@ const SimpleList = defineComponent({
   props: ['item'],
   setup(props: any, context: any) {
     let list = ref(props.item);
-    const simpleList = ref(null);
+    const simpleList: any = ref(null);
     let saveList = () => {
       let data = simpleList.value.getData();
       context.emit('saveList', data);

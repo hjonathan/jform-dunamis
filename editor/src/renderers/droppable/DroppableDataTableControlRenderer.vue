@@ -78,6 +78,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { sync } from 'vuex-pathify';
 import {
   isObjectArray,

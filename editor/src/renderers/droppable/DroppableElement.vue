@@ -1,5 +1,6 @@
 <template>
   <EditorElement :wrappedElement="layout.uischema">
+    kiko
     <dispatch-renderer
       :schema="layout.schema"
       :uischema="customEditorUiSchema"
@@ -12,6 +13,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   uiTypeIs,
   JsonFormsRendererRegistryEntry,

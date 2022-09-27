@@ -62,7 +62,7 @@ export const fireReload = (
   uischema: UISchemaElement,
   data: any,
   path: string | undefined = undefined,
-  ajv: Ajv
+  ajv: any
 ): boolean => {
   if (uischema.rule) {
     return evalReload(uischema, data, path, ajv);
@@ -96,7 +96,7 @@ const evaluateCondition = (
   condition: Condition,
   path: string,
   ajv: Ajv
-): boolean => {
+): any => {
   if (isAndCondition(condition)) {
     return condition.conditions.reduce(
       (acc, cur) => acc && evaluateCondition(data, cur, path, ajv),
@@ -108,10 +108,12 @@ const evaluateCondition = (
       false
     );
   } else if (isLeafCondition(condition)) {
-    const value = resolveData(data, getConditionScope(condition, undefined));
+    const value = resolveData(
+      data,
+      getConditionScope(condition, undefined || '')
+    );
     return value === condition.expectedValue;
   } else if (isDependencyCondition(condition)) {
-    const value = resolveData(data, getConditionScope(condition, undefined));
     return true;
   } else if (isSchemaCondition(condition)) {
     const value = resolveData(data, getConditionScope(condition, path));
@@ -122,7 +124,7 @@ const evaluateCondition = (
   }
 };
 const isRuleFulfilled = (
-  uischema: UISchemaElement,
+  uischema: any,
   data: any,
   path: string,
   ajv: Ajv
@@ -131,12 +133,12 @@ const isRuleFulfilled = (
   return evaluateCondition(data, condition, path, ajv);
 };
 export const evalReload = (
-  uischema: UISchemaElement,
+  uischema: any,
   data: any,
   path: string | undefined = undefined,
   ajv: Ajv
 ): boolean => {
-  const fulfilled = isRuleFulfilled(uischema, data, path, ajv);
+  const fulfilled = isRuleFulfilled(uischema, data, path || '', ajv);
 
   switch (uischema.rule.effect) {
     case RuleEffect.RELOAD:
@@ -157,7 +159,7 @@ export enum RuleEffect {
   RELOAD = 'RELOAD',
 }
 
-export const hasReloadRule = (uischema: UISchemaElement): boolean => {
+export const hasReloadRule = (uischema: any): boolean => {
   if (uischema.rule && uischema.rule.effect === RuleEffect.RELOAD) {
     return true;
   }

@@ -100,9 +100,10 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from '@vue/composition-api';
 import { sync } from 'vuex-pathify';
 
-export default {
+export default defineComponent({
   name: 'Common-Settings',
 
   computed: {
@@ -129,5 +130,5 @@ export default {
       ],
     };
   },
-};
+});
 </script>

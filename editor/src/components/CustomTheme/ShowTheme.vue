@@ -22,6 +22,7 @@
   </div>
 </template>
 <script lang="ts">
+//@ts-nocheck
 import { VuetifyThemeVariant } from 'vuetify/types/services/theme';
 import { defineComponent } from '@vue/composition-api';
 import merge from 'lodash/merge';

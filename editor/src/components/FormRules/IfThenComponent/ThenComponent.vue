@@ -66,6 +66,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import ThenDefaultMixing from './ThenDefaultMixing';
 export default {
   name: 'ThenComponent',

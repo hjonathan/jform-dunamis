@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { defineComponent, ref } from '@vue/composition-api';
 import FieldProperties from '../models/FieldProperties';
 import TextProp from './TextProp.vue';

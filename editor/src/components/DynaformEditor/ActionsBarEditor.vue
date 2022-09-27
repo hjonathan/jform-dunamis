@@ -1,6 +1,6 @@
 <template>
   <v-app-bar elevation="0">
-    <upload-json ref="upload-json" />
+    <upload-json ref="upload" />
     <template v-for="(action, index) in actions">
       <v-toolbar-title :key="index" v-if="action.type === 'title'">{{
         action.title
@@ -62,139 +62,40 @@
 <script lang="ts">
 //import { sync } from 'vuex-pathify';
 import { useExportSchema, useExportUiSchema } from '../../util';
+import store from '../../store';
 import download from 'downloadjs';
 import _ from 'lodash';
 import uploadJson from '../Modals/uploadJson.vue';
-export default {
+import { defineComponent, inject, ref } from '@vue/composition-api';
+export default defineComponent({
   name: 'ActionsBar',
   components: {
     uploadJson,
   },
   inject: ['bus'],
-  data() {
-    return {
-      actions: [
-        {
-          title:
-            (this.$store.get('app/editor@information') &&
-              this.$store.get('app/editor@information').name) ||
-            'Form Editor',
-          type: 'title',
-        },
-        {
-          type: 'spacer',
-        },
-        {
-          type: 'button-flat',
-          color: 'secondary',
-          class: 'vpm-action-editor-btn',
-          icon: 'mdi-pencil-ruler',
-          handler: this.onClickEditor,
-          title: 'Editor',
-        },
-        {
-          type: 'button-flat',
-          color: 'primary',
-          class: 'vpm-action-editor-btn',
-          icon: 'mdi-application-outline',
-          handler: this.onClickPreviewBrowser,
-          title: 'Browser',
-        },
-        {
-          type: 'button-flat',
-          color: 'warning',
-          class: 'vpm-action-editor-btn',
-          icon: 'mdi-cellphone',
-          handler: this.onClickPreviewDevice,
-          title: 'Device',
-        },
-        {
-          type: 'spacer',
-        },
-        {
-          type: 'button-icon',
-          color: 'secondary',
-          class: '',
-          icon: 'mdi-vector-combine',
-          handler: this.onClickFormRules,
-          title: 'Form Rules',
-        },
-        {
-          type: 'button-icon',
-          color: 'secondary',
-          class: '',
-          icon: 'mdi-translate',
-          handler: this.onClickTranslations,
-          title: 'Translations',
-        },
-        {
-          type: 'button-icon',
-          color: 'secondary',
-          class: '',
-          icon: 'mdi-code-json',
-          handler: this.onClickSchemaEditor,
-          title: 'JSON Schema',
-        },
-        {
-          type: 'divider',
-        },
-        {
-          type: 'button-icon',
-          color: 'warning',
-          class: '',
-          icon: 'mdi-content-save',
-          handler: this.contentSave,
-          title: 'Save',
-        },
-        {
-          type: 'button-icon',
-          color: 'warning',
-          class: '',
-          icon: 'mdi-download',
-          handler: this.downloadJson,
-          title: 'Export',
-        },
-        {
-          type: 'button-icon',
-          color: 'warning',
-          class: '',
-          icon: 'mdi-upload',
-          handler: this.importJson,
-          title: 'Import',
-        },
-      ],
-      openDialog: false,
-      formName: 'Dunamis Form',
-    };
-  },
   computed: {},
-  methods: {
+  setup() {
+    const bus = inject<any>('bus');
+    const upload: any = ref(null);
+    const formName = ref('Dunamis Form');
+    const openDialog = ref(false);
     /**
      * Copy schemasfrom editor to preview
      */
-    copySchemasFromEditorToPreview(): void {
-      this.$store.dispatch(
-        'preview/setSchema',
-        this.$store.get('app/editor@schema')
-      );
-      this.$store.dispatch(
-        'preview/setUiSchema',
-        this.$store.get('app/editor@uiSchema')
-      );
-      this.$store.dispatch(
-        'preview/setLocale',
-        this.$store.get('app/jsonforms@locale')
-      );
-    },
-    onClickEditor() {
+    function copySchemasFromEditorToPreview() {
+      store.dispatch('preview/setSchema', store.get('app/editor@schema'));
+      store.dispatch('preview/setUiSchema', store.get('app/editor@uiSchema'));
+      store.dispatch('preview/setLocale', store.get('app/jsonforms@locale'));
+    }
+    function onClickEditor() {
       let mainPanel = { id: 'main-editor' },
         sideBar = { id: 'side-bar-pallete' };
-      this.$store.dispatch('viewManager/setAllViews', {
+      store.dispatch('viewManager/setAllViews', {
         mainPanel,
         sideBar,
       });
-    },
-    onClickPreviewBrowser() {
+    }
+    function onClickPreviewBrowser() {
       let mainPanel = {
           id: 'main-preview',
           data: {
@@ -203,13 +104,13 @@ export default {
           },
         },
         sideBar = { id: 'side-bar-preview' };
-      this.copySchemasFromEditorToPreview();
-      this.$store.dispatch('viewManager/setAllViews', {
+      copySchemasFromEditorToPreview();
+      store.dispatch('viewManager/setAllViews', {
         mainPanel,
         sideBar,
       });
-    },
-    onClickPreviewDevice() {
+    }
+    function onClickPreviewDevice() {
       let mainPanel = {
           id: 'main-preview',
           data: {
@@ -218,42 +119,42 @@ export default {
           },
         },
         sideBar = { id: 'side-bar-preview' };
-      this.copySchemasFromEditorToPreview();
-      this.$store.dispatch('viewManager/setAllViews', {
+      copySchemasFromEditorToPreview();
+      store.dispatch('viewManager/setAllViews', {
         mainPanel,
         sideBar,
       });
-    },
+    }
 
-    onClickTranslations() {
+    function onClickTranslations() {
       let mainPanel = { id: 'main-translations' },
         sideBar = { id: 'side-bar-translations' };
-      this.$store.dispatch('viewManager/setAllViews', {
+      store.dispatch('viewManager/setAllViews', {
         mainPanel,
         sideBar,
       });
-    },
-    onClickSchemaEditor() {
+    }
+    function onClickSchemaEditor() {
       let mainPanel = { id: 'main-schema-editor' };
-      this.$store.dispatch('viewManager/setAllViews', {
+      store.dispatch('viewManager/setAllViews', {
         mainPanel,
       });
-    },
-    onClickFormRules() {
+    }
+    function onClickFormRules() {
       let mainPanel = { id: 'main-form-rules' };
-      this.$store.dispatch('viewManager/setAllViews', {
+      store.dispatch('viewManager/setAllViews', {
         mainPanel,
       });
-    },
-    contentSave() {
-      this.bus.$emit('translations::main-panel::save', {});
-    },
+    }
+    function contentSave() {
+      bus.$emit('translations::main-panel::save', {});
+    }
     /**
      * Get a JSON from a schemaModel
      * @params schemaModel
      * @params type string
      */
-    getJson: (schemaModel: any, type: string): string => {
+    function getJson(schemaModel: any, type: string): any {
       if (type === 'uischema') {
         return JSON.stringify(
           schemaModel && schemaModel != ''
@@ -270,52 +171,152 @@ export default {
           2
         );
       }
-    },
-    getCurrentTheme(): string {
-      return JSON.stringify(
-        this.$store.getters['themes/getThemeSelected'],
-        null,
-        2
-      );
-    },
+    }
+
+    function getCurrentTheme(): string {
+      return JSON.stringify(store.getters['themes/getThemeSelected'], null, 2);
+    }
     /**
      * Get a JSON with the uiSchema and Schema
      */
-    getFullJson(): any {
-      let jsonUiSchema = this.getJson(
-        this.$store.get('app/editor@uiSchema'),
-        'uischema'
-      );
-      let jsonSchema = this.getJson(
-        this.$store.get('app/editor@schema'),
-        'schema'
-      );
-      let jsonTheme = this.getCurrentTheme();
+    function getFullJson(): any {
+      let jsonUiSchema = getJson(store.get('app/editor@uiSchema'), 'uischema');
+      let jsonSchema = getJson(store.get('app/editor@schema'), 'schema');
+      let jsonTheme = getCurrentTheme();
       let jsonData = {
         schema: JSON.parse(jsonSchema),
         uischema: JSON.parse(jsonUiSchema),
         theme: JSON.parse(jsonTheme),
       };
       return jsonData;
-    },
+    }
     /**
      * Create a file Json.
      */
-    downloadJson(): void {
-      let fileName = this.formName,
+    function downloadJson(): void {
+      let fileName = formName,
         typeMime = 'text/plain';
-      download(
-        JSON.stringify(this.getFullJson()),
-        fileName + '.json',
-        typeMime
-      );
-    },
-    importJson(): void {
-      this.$refs['upload-json'].openDialog();
-      this.openDialog = true;
-    },
+      download(JSON.stringify(getFullJson()), fileName + '.json', typeMime);
+    }
+    function importJson(): void {
+      if (upload?.value?.openDialog) {
+        upload.value.openDialog();
+      }
+      if (openDialog.value) {
+        openDialog.value = true;
+      }
+    }
+
+    return {
+      copySchemasFromEditorToPreview,
+      importJson,
+      downloadJson,
+      getFullJson,
+      getCurrentTheme,
+      getJson,
+      contentSave,
+      onClickFormRules,
+      onClickSchemaEditor,
+      onClickTranslations,
+      onClickPreviewDevice,
+      onClickPreviewBrowser,
+      onClickEditor,
+      actions: ref([
+        {
+          title:
+            (store.get('app/editor@information') &&
+              store.get('app/editor@information').name) ||
+            'Form Editor',
+          type: 'title',
+        },
+        {
+          type: 'spacer',
+        },
+        {
+          type: 'button-flat',
+          color: 'secondary',
+          class: 'vpm-action-editor-btn',
+          icon: 'mdi-pencil-ruler',
+          handler: onClickEditor,
+          title: 'Editor',
+        },
+        {
+          type: 'button-flat',
+          color: 'primary',
+          class: 'vpm-action-editor-btn',
+          icon: 'mdi-application-outline',
+          handler: onClickPreviewBrowser,
+          title: 'Browser',
+        },
+        {
+          type: 'button-flat',
+          color: 'warning',
+          class: 'vpm-action-editor-btn',
+          icon: 'mdi-cellphone',
+          handler: onClickPreviewDevice,
+          title: 'Device',
+        },
+        {
+          type: 'spacer',
+        },
+        {
+          type: 'button-icon',
+          color: 'secondary',
+          class: '',
+          icon: 'mdi-vector-combine',
+          handler: onClickFormRules,
+          title: 'Form Rules',
+        },
+        {
+          type: 'button-icon',
+          color: 'secondary',
+          class: '',
+          icon: 'mdi-translate',
+          handler: onClickTranslations,
+          title: 'Translations',
+        },
+        {
+          type: 'button-icon',
+          color: 'secondary',
+          class: '',
+          icon: 'mdi-code-json',
+          handler: onClickSchemaEditor,
+          title: 'JSON Schema',
+        },
+        {
+          type: 'divider',
+        },
+        {
+          type: 'button-icon',
+          color: 'warning',
+          class: '',
+          icon: 'mdi-content-save',
+          handler: contentSave,
+          title: 'Save',
+        },
+        {
+          type: 'button-icon',
+          color: 'warning',
+          class: '',
+          icon: 'mdi-download',
+          handler: downloadJson,
+          title: 'Export',
+        },
+        {
+          type: 'button-icon',
+          color: 'warning',
+          class: '',
+          icon: 'mdi-upload',
+          handler: importJson,
+          title: 'Import',
+        },
+      ]),
+      openDialog,
+      formName,
+      upload,
+    };
   },
-};
+});
 </script>
 <style>
 .vpm-action-editor-btn {

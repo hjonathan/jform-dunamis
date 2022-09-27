@@ -85,6 +85,7 @@
 import { VuetifyThemeVariant } from 'vuetify/types/services/theme';
 import merge from 'lodash/merge';
 import cloneDeep from 'lodash/cloneDeep';
+import { defineComponent } from '@vue/composition-api';
 
 const defaultTheme = {
   name: 'Default',
@@ -109,7 +110,7 @@ const defaultTheme = {
   fontFamily: 'Roboto',
 };
 
-export default {
+export default defineComponent({
   name: 'ThemeChanger',
   data: () => ({
     menu: false,
@@ -121,10 +122,10 @@ export default {
   },
   methods: {
     setThemes(): any {
-      const themes = this.$store.getters['themes/getSummaryThemes'];
-      const colors = [];
+      const themes: any = this.$store.getters['themes/getSummaryThemes'];
+      const colors: any = [];
       colors.push(defaultTheme);
-      themes.forEach((element) => {
+      themes.forEach((element: any) => {
         colors.push({
           ...merge(cloneDeep(defaultTheme), {
             name: element.name,
@@ -161,6 +162,6 @@ export default {
       this.$store.set('themes/activeTheme', name);
     },
   },
-};
+});
 </script>
 <style scoped></style>

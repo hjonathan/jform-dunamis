@@ -378,5 +378,5 @@ const mainPalette = {
 };
 
 export class DefaultPaletteService implements PaletteService {
-  getPaletteElements = () => mainPalette;
+  getPaletteElements = (): any => mainPalette;
 }

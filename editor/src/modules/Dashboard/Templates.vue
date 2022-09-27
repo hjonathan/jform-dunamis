@@ -86,11 +86,12 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import _ from 'lodash';
 import { computed, defineComponent, ref, watch } from '@vue/composition-api';
 import { TemplateSchemaService } from '../../api/schemaService';
 import store from '../../store';
-import { v4 as uuid } from 'uuid';
+import { uuid } from 'uuidv4';
 import { useExportSchema, useExportUiSchema, createLayout } from '../../util';
 
 const Templates = defineComponent({
@@ -161,7 +162,7 @@ const Templates = defineComponent({
       .getTemplates()
       .then((res: any) => {
         templates.value = res;
-        res.forEach((element) => {
+        res.forEach((element: any) => {
           temples.value = _.concat(temples.value, element.items);
         });
       })
@@ -179,8 +180,7 @@ const Templates = defineComponent({
     };
   },
   methods: {
-    onClickListItem(e) {
-      this.selected = e.input;
+    onClickListItem(e: any) {
       this.$store.dispatch('viewManager/setAllViews', {
         mainPanel: {
           id: 'main-dashboard',
@@ -190,8 +190,6 @@ const Templates = defineComponent({
           },
         },
       });
-
-      this.picture = e.input.picture;
     },
     previewTemplate: function (item) {
       this.$store.dispatch('app/setSchema', {

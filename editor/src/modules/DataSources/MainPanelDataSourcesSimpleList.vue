@@ -102,7 +102,7 @@ const MainPanelDataSourcesSimpleList = defineComponent({
         store.dispatch('dataSources/setSimpleLists', newValue);
       },
     });
-    let deleteSimpleList = (index) => {
+    let deleteSimpleList = (index: any) => {
       let clone: any = _.clone(simpleLists.value);
       clone = _.concat(
         _.slice(clone, 0, index),

@@ -6,7 +6,7 @@
  * ---------------------------------------------------------------------
  */
 import { ControlElement, LabelElement, Layout } from '@jsonforms/core';
-import { v4 as uuid } from 'uuid';
+import { uuid } from 'uuidv4';
 
 import { getScope, SchemaElement } from '../../model';
 import {
@@ -16,7 +16,7 @@ import {
 } from '../../model/uischema';
 
 export const createControl = (
-  schemaElement: SchemaElement,
+  schemaElement: any,
   uiSchemaType: string
 ): ControlElement & EditorUISchemaElement => {
   return createControlWithScope(

@@ -53,7 +53,7 @@ import { computed, defineComponent, ref } from '@vue/composition-api';
 import Templates from './Templates.vue';
 import TemplatePreview from './TemplatePreview.vue';
 import store from '../../store';
-import { v4 as uuid } from 'uuid';
+import { uuid } from 'uuidv4';
 import { useExportSchema, useExportUiSchema } from '../../util';
 import { setDefaultTheme } from '../../components/Composables/composableTheme';
 

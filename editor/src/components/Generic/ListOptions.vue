@@ -60,6 +60,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { defineComponent, ref, onMounted } from '@vue/composition-api';
 import _ from 'lodash';
 const ListOptions = defineComponent({

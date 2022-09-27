@@ -72,9 +72,8 @@ export const editorRendererOnlyProps = <U = UISchemaElement>() => ({
     required: false,
     type: Array as CompType<JsonFormsRendererRegistryEntry[], ArrayConstructor>,
     default: undefined,
-  }
+  },
 });
-
 
 export interface RendererProps<U = UISchemaElement> {
   schema: JsonSchema;
@@ -152,7 +151,7 @@ export const useDynaformControl = <
 
   const fireDependency = computed(() => {
     if (input.control.value.uischema.rule) {
-      const jsonforms = inject<JsonFormsSubStates>('jsonforms');
+      const jsonforms = inject<any>('jsonforms');
       const { uischema, rootSchema, config } = input.control.value;
       const rootData = getData({ jsonforms });
 

@@ -7,6 +7,9 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
+//@ts-ignore
+import { defineComponent } from '@vue/composition-api';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { PropType } from 'vue';
 
@@ -60,23 +63,27 @@ export default {
   },
   data(): BaseComponentData {
     return {
-      editor: undefined,
+      editor: undefined as any,
       subscription: undefined,
       prevent_trigger_change_event: undefined,
     };
   },
   mounted() {
+    //@ts-ignore
     this.initMonaco();
   },
   watch: {
     options: {
       deep: true,
       handler(options: any, prevOptions: any) {
+        //@ts-ignore
         if (this.editor && options !== prevOptions) {
           // Don't pass in the model on update because monaco crashes if we pass the model
           // a second time. See https://github.com/microsoft/monaco-editor/issues/2027
           const { model: _model, ...optionsWithoutModel } = options;
+          //@ts-ignore
           this.editor.updateOptions({
+            //@ts-ignore
             ...(this.className ? { extraEditorClassName: this.className } : {}),
             ...optionsWithoutModel,
           });

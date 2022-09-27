@@ -1,4 +1,4 @@
-import { RootState } from '@/store/types';
+import { RootState } from '../../../store/types';
 import { Module } from 'vuex';
 import { make } from 'vuex-pathify';
 import actions from './actions';

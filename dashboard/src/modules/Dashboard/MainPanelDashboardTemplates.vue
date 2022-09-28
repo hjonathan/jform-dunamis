@@ -54,7 +54,7 @@ import Templates from './Templates.vue';
 import TemplatePreview from './TemplatePreview.vue';
 import store from '../../store';
 import { uuid } from 'uuidv4';
-import { useExportSchema, useExportUiSchema } from '../../util';
+
 import { setDefaultTheme } from '../../components/Composables/composableTheme';
 
 const MainPanelDashboard = defineComponent({
@@ -83,6 +83,7 @@ const MainPanelDashboard = defineComponent({
   methods: {
     selectTemplate() {
       // Load the form editor view with the 'Use This Template' button.
+      /*
       this.$store.dispatch('dashboard/addForm', {
         uuid: uuid(),
         name: this.information.name,
@@ -107,7 +108,7 @@ const MainPanelDashboard = defineComponent({
         actionsBar,
       });
       let theme = this.$store.getters['themes/getThemeSelected'];
-      setDefaultTheme(this.$vuetify, theme);
+      setDefaultTheme(this.$vuetify, theme);*/
     },
   },
 });

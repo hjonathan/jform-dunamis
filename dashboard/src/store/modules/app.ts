@@ -3,8 +3,6 @@ import { AppState } from './types';
 import { RootState } from '../types';
 import { Module } from 'vuex';
 import { createAjv, extendedVuetifyRenderers } from '@jsonforms/vue2-vuetify';
-import mutationsEditor from './editor/mutations';
-import actionsEditor from './editor/actions';
 
 const ajv = createAjv({ useDefaults: true });
 const state: AppState = {
@@ -45,13 +43,11 @@ const state: AppState = {
 // make all mutations
 const mutations = {
   ...make.mutations(state),
-  ...mutationsEditor,
 };
 // const actions = make.actions(state);
 const actions = {
   // automatically create only `setItems()` action
   ...make.actions(state),
-  ...actionsEditor,
 };
 
 const getters = {};

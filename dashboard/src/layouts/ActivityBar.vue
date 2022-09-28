@@ -34,8 +34,10 @@
 
 <script lang="ts">
 import { sync } from 'vuex-pathify';
+import store from '../store';
 import _ from 'lodash';
-export default {
+import { defineComponent } from '@vue/composition-api';
+export default defineComponent({
   name: 'ActivityBar',
   components: {},
   data() {
@@ -46,11 +48,11 @@ export default {
   computed: {
     itemsActivityBar: sync('viewManager/activityBar.items'),
     activeActivityBar: {
-      get() {
-        return this.$store.get('viewManager/activityBar@active');
+      get(): any {
+        return store.get('viewManager/activityBar@active');
       },
       set(val: any) {
-        this.$store.set('viewManager/activityBar@active', val);
+        store.set('viewManager/activityBar@active', val);
         let id = this.itemsActivityBar[val].id,
           mainPanel = { id: '' },
           actionsBar = { id: '' },
@@ -85,7 +87,7 @@ export default {
     itemsSideBar: sync('viewManager/sideBar.items'),
     activeSideBar: sync('viewManager/sideBar.active'),
   },
-};
+});
 </script>
 <style>
 .vpm-actbar-item {

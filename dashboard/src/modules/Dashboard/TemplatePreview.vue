@@ -23,8 +23,7 @@
 //@ts-nocheck
 import { JsonFormsI18nState } from '@jsonforms/core';
 import { JsonForms, JsonFormsChangeEvent } from '@jsonforms/vue2';
-import { useExportSchema } from '../../util';
-import { generateEmptyData } from '../../model';
+//import { useExportSchema } from '../../util';
 import { extendedVuetifyRenderers } from '@jsonforms/vue2-vuetify';
 import _ from 'lodash';
 import store from '../../store';
@@ -68,10 +67,12 @@ export default {
     },
     useUiSchema: sync('preview/uiSchema'),
     useSchema: function () {
-      return useExportSchema(this.$store.get('preview/schema'));
+      return {};
+      //return useExportSchema(this.$store.get('preview/schema'));
     },
     previewData: function () {
-      return generateEmptyData(this.$store.get('preview@schema'), {});
+      return {};
+      //return generateEmptyData(this.$store.get('preview@schema'), {});
     },
     getCurrentFont(): any {
       return {

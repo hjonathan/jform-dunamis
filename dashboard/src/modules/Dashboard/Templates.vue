@@ -92,7 +92,7 @@ import { computed, defineComponent, ref, watch } from '@vue/composition-api';
 import { TemplateSchemaService } from '../../api/schemaService';
 import store from '../../store';
 import { uuid } from 'uuidv4';
-import { useExportSchema, useExportUiSchema, createLayout } from '../../util';
+//import { useExportSchema, useExportUiSchema, createLayout } from '../../util';
 
 const Templates = defineComponent({
   name: 'Templates',
@@ -181,64 +181,62 @@ const Templates = defineComponent({
   },
   methods: {
     onClickListItem(e: any) {
-      this.$store.dispatch('viewManager/setAllViews', {
-        mainPanel: {
-          id: 'main-dashboard',
-          data: {
-            reload: _.random(0, 10000),
-            form: e.input,
-          },
-        },
-      });
+      // this.$store.dispatch('viewManager/setAllViews', {
+      //   mainPanel: {
+      //     id: 'main-dashboard',
+      //     data: {
+      //       reload: _.random(0, 10000),
+      //       form: e.input,
+      //     },
+      //   },
+      // });
     },
     previewTemplate: function (item) {
-      this.$store.dispatch('app/setSchema', {
-        schema: item.input.schema,
-      });
-      this.$store.dispatch('app/setUiSchema', {
-        uiSchema: item.input.uischema,
-      });
-
-      this.$store.dispatch('locales/setSchema', {
-        properties: _.keys(item.input.schema.properties),
-      });
-      //set form information
-      this.$store.dispatch('app/setInfomation', {
-        name: item.title,
-        description: '',
-        category: 'General',
-        type: 'Form',
-        modified: new Date().toJSON().slice(0, 10),
-        created: new Date().toJSON().slice(0, 10),
-      });
-      this.$store.set('themes/updateTheme', item.input.theme);
-      this.$emit('preview', item);
+      // this.$store.dispatch('app/setSchema', {
+      //   schema: item.input.schema,
+      // });
+      // this.$store.dispatch('app/setUiSchema', {
+      //   uiSchema: item.input.uischema,
+      // });
+      // this.$store.dispatch('locales/setSchema', {
+      //   properties: _.keys(item.input.schema.properties),
+      // });
+      // //set form information
+      // this.$store.dispatch('app/setInfomation', {
+      //   name: item.title,
+      //   description: '',
+      //   category: 'General',
+      //   type: 'Form',
+      //   modified: new Date().toJSON().slice(0, 10),
+      //   created: new Date().toJSON().slice(0, 10),
+      // });
+      // this.$store.set('themes/updateTheme', item.input.theme);
+      // this.$emit('preview', item);
     },
     createFromTemplate: function (template) {
-      store.dispatch('dashboard/addForm', {
-        name: template.title,
-        description: '',
-        category: 'General',
-        type: 'Form',
-        modified: new Date().toJSON().slice(0, 10),
-        created: new Date().toJSON().slice(0, 10),
-        schemas: {
-          schema: useExportSchema(this.$store.get('app/editor@schema')),
-          uiSchema: useExportUiSchema(this.$store.get('app/editor@uiSchema')),
-        },
-      });
-
-      // Load the form editor view with the 'Use This Template' button.
-      let activityBar = { id: 'activity-json-form-editor' },
-        mainPanel = { id: 'main-editor' },
-        actionsBar = { id: 'actions-editor' },
-        sideBar = { id: 'side-bar-pallete' };
-      store.dispatch('viewManager/setAllViews', {
-        activityBar,
-        sideBar,
-        mainPanel,
-        actionsBar,
-      });
+      // store.dispatch('dashboard/addForm', {
+      //   name: template.title,
+      //   description: '',
+      //   category: 'General',
+      //   type: 'Form',
+      //   modified: new Date().toJSON().slice(0, 10),
+      //   created: new Date().toJSON().slice(0, 10),
+      //   schemas: {
+      //     schema: useExportSchema(this.$store.get('app/editor@schema')),
+      //     uiSchema: useExportUiSchema(this.$store.get('app/editor@uiSchema')),
+      //   },
+      // });
+      // // Load the form editor view with the 'Use This Template' button.
+      // let activityBar = { id: 'activity-json-form-editor' },
+      //   mainPanel = { id: 'main-editor' },
+      //   actionsBar = { id: 'actions-editor' },
+      //   sideBar = { id: 'side-bar-pallete' };
+      // store.dispatch('viewManager/setAllViews', {
+      //   activityBar,
+      //   sideBar,
+      //   mainPanel,
+      //   actionsBar,
+      // });
     },
   },
 });

@@ -41,13 +41,14 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import ActionsBar from './ActionsBar.vue';
 import SideBar from './SideBar.vue';
 import MainPanel from './MainPanel.vue';
 import Vue from 'vue';
 import store from './../../../store';
 import ServicesProvider from '../../../services/ServicesProvider';
-import jReactivex from '../../../util/JReactivex/JReactivex';
+import JReactivex from '../../../util/JReactivex/JReactivex';
 
 export default {
   name: 'DefaultLayout',
@@ -62,7 +63,7 @@ export default {
       bus: new Vue(),
       serviceProvider: ServicesProvider,
       store: store,
-      jReactivex: jReactivex,
+      jReactivex: new JReactivex(),
     };
   },
 };

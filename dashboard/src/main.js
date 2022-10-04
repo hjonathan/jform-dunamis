@@ -1,4 +1,4 @@
-/*import Vue from 'vue';
+import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -14,18 +14,4 @@ new Vue({
   store,
   vuetify,
   render: (h) => h(App),
-}).$mount('#app');*/
-
-import { app, router, vuetify, store } from './mainBundle';
-
-import Vue from 'vue';
-import VueCompositionAPI from '@vue/composition-api';
-
-Vue.use(VueCompositionAPI);
-Vue.config.productionTip = false;
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: (h) => h(app),
 }).$mount('#app');

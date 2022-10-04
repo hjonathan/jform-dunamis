@@ -2,7 +2,6 @@
   "packages": [
     "vue2",
     "vue2-vuetify",
-    "example",
     "dunamis-editor"
   ],
   "version": "3.0.0-alpha.2"

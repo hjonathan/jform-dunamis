@@ -1,6 +1,6 @@
 {
-  "name": "dunamis-editor",
-  "version": "0.1.0",
+  "name": "@jsonforms/dunamis-editor",
+  "version": "3.0.0-alpha.2",
   "private": true,
   "scripts": {
     "watch": "rollup --watch --config rollup.config.js",
@@ -24,8 +24,10 @@
     "vuetify": "^2.6.6",
     "vuex": "^3.4.0"
   },
+  "main": "build/mainBundle.d.ts",
+  "typings": "build/mainBundle.d.ts",
   "files": [
-    "lib",
+    "build",
     "src"
   ],
   "devDependencies": {

@@ -1,6 +1,7 @@
+//@ts-nocheck
 import Vue from 'vue';
 import _ from 'lodash';
-class JReactivex {
+export default class JReactivex {
   bus: any;
   joinForkArray: any[];
   events: any[];
@@ -68,5 +69,3 @@ class JReactivex {
     };
   }
 }
-
-export default new JReactivex();

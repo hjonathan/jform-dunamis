@@ -8,15 +8,28 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "declaration": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["webpack-env", "vuex-pathify/types/vuex"],
+    "types": [
+      "webpack-env",
+      "vuex-pathify/types/vuex"
+    ],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost","ES2020", "ES2017.Object"]
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost",
+      "ES2020",
+      "ES2017.Object"
+    ]
   },
   "include": [
     "src/**/*.ts",
@@ -25,5 +38,7 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

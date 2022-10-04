@@ -1,18 +1,5 @@
 module.exports = {
-  presets: [
-    '@vue/cli-plugin-babel/preset',
-    [
-      '@vue/app',
-      {
-        polyfills: [
-          'es.promise',
-          'es.symbol',
-          'es.promise.finally',
-          'es.object.entries',
-        ],
-      },
-    ],
-  ],
+  presets: ['@vue/cli-plugin-babel/preset'],
   plugins: [
     '@babel/plugin-transform-runtime',
     '@babel/plugin-proposal-optional-chaining',

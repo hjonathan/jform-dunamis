@@ -2,7 +2,8 @@
   "packages": [
     "vue2",
     "vue2-vuetify",
-    "dunamis-editor"
+    "dunamis-editor",
+    "dashboard"
   ],
   "version": "3.0.0-alpha.2"
 }

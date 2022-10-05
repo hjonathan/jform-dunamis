@@ -43,11 +43,27 @@ const mutations = {
         return el.id == value.mainPanel.id;
       });
       state.mainPanel.active = index;
-      state.mainPanel.items[index].data = _.extend(
-        {},
-        state.mainPanel.items[index].data,
-        value.mainPanel.data
-      );
+      if (value.mainPanel.data) {
+        state.mainPanel.items[index].data = _.extend(
+          {},
+          state.mainPanel.items[index].data,
+          value.mainPanel.data
+        );
+      }
+    }
+    index = 0;
+    if (value.mainPanelExtend) {
+      index = _.findIndex(state.mainPanelExtend.items, (el: any) => {
+        return el.id == value.mainPanelExtend.id;
+      });
+      state.mainPanelExtend.active = index;
+      if (value.mainPanelExtend.data) {
+        state.mainPanelExtend.items[index].data = _.extend(
+          {},
+          state.mainPanelExtend.items[index].data,
+          value.mainPanelExtend.data
+        );
+      }
     }
     index = 0;
     if (value.actionsBar) {

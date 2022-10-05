@@ -3,4 +3,4 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import './plugins';
 
-export { app, store, vuetify };
+export default { app, store, vuetify };

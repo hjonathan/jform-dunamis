@@ -13,6 +13,7 @@
           <default-activity-bar />
         </v-col>
         <v-col
+          v-if="activePanelExtend == -1"
           cols="12"
           style="min-width: 100px; max-width: 100%"
           class="flex-grow-0 flex-shrink-1 grey lighten-5"
@@ -38,6 +39,9 @@
             </v-col>
           </v-row>
         </v-col>
+        <v-col v-else>
+          <default-main-panel-extend />
+        </v-col>
       </v-row>
     </div>
     <v-footer padless fixed>
@@ -56,9 +60,12 @@ import ActivityBar from './ActivityBar.vue';
 import ActionsBar from './ActionsBar.vue';
 import SideBar from './SideBar.vue';
 import MainPanel from './MainPanel.vue';
+import MainPanelExtend from './MainPanelExtend.vue';
 import Vue from 'vue';
 import store from '../store';
 import ServicesProvider from '../services/ServicesProvider';
+import { sync } from 'vuex-pathify';
+import vuetify from './../plugins/vuetify';
 
 export default {
   name: 'DefaultLayout',
@@ -66,8 +73,12 @@ export default {
     DefaultAppBar: AppBar,
     DefaultActionsBar: ActionsBar,
     DefaultView: MainPanel,
+    DefaultMainPanelExtend: MainPanelExtend,
     DefaultSideBar: SideBar,
     DefaultActivityBar: ActivityBar,
+  },
+  computed: {
+    activePanelExtend: sync('viewManager/mainPanelExtend.active'),
   },
   provide() {
     // use function syntax so that we can access `this`

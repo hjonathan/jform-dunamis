@@ -112,7 +112,7 @@ import {
   VSpacer,
 } from 'vuetify/lib';
 import draggable from 'vuedraggable';
-import { createControl, tryFindByUUID } from '@/util';
+import { createControl, tryFindByUUID } from '../../util';
 import { buildSchemaTree } from '../../model/schema';
 import { entry as DroppableElementRegistration } from './DroppableElement.vue';
 import _ from 'lodash';

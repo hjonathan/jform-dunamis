@@ -113,7 +113,7 @@ import ResizableCols from './Generic/ResizableCols.vue';
 import _ from 'lodash';
 import { EditorUISchemaElement, hasChildren } from '../model/uischema';
 import { sync } from 'vuex-pathify';
-import { tryFindByUUID } from '@/util';
+import { tryFindByUUID } from '../util';
 
 export default {
   name: 'EditorElement',

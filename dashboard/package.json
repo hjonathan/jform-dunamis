@@ -1,6 +1,6 @@
 {
-  "name": "editor",
-  "version": "0.1.0",
+  "name": "@jsonforms/dashboard",
+  "version": "3.0.0-alpha.2",
   "private": true,
   "scripts": {
     "watch": "rollup --watch --config rollup.config.js",

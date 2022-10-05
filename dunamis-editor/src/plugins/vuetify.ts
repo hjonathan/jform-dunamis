@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 import { VuetifyPreset } from 'vuetify/types/services/presets';
 
-Vue.use(Vuetify);
+//Vue.use(Vuetify);
 
 export const preset: Partial<VuetifyPreset> = {
   icons: {

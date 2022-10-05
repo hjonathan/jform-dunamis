@@ -55,6 +55,7 @@ export default defineComponent({
         store.set('viewManager/activityBar@active', val);
         let id = this.itemsActivityBar[val].id,
           mainPanel = { id: '' },
+          mainPanelExtend = { id: '' },
           actionsBar = { id: '' },
           sideBar = { id: '' };
         switch (id) {
@@ -64,11 +65,8 @@ export default defineComponent({
             actionsBar.id = 'actions-dashboard';
             break;
           case 'activity-json-form-editor':
-            sideBar.id = 'side-bar-pallete';
-            mainPanel.id = 'main-editor';
-            actionsBar.id = 'actions-editor';
+            mainPanelExtend.id = 'main-panel-extend-dunamis-editor';
             break;
-
           case 'activity-data-sources':
             sideBar.id = 'side-bar-data-sources';
             mainPanel.id = 'main-data-sources-simple-lists';
@@ -79,6 +77,7 @@ export default defineComponent({
         this.$store.dispatch('viewManager/setAllViews', {
           sideBar,
           mainPanel,
+          mainPanelExtend,
           actionsBar,
         });
       },

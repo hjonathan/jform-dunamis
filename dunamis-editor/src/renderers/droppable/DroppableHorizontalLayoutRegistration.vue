@@ -39,7 +39,7 @@
 //@ts-nocheck
 import { sync } from 'vuex-pathify';
 import { Uri } from 'monaco-editor/esm/vs/editor/editor.api';
-import { getMonacoModelForUri } from '@/core/jsonSchemaValidation';
+import { getMonacoModelForUri } from '../../core/jsonSchemaValidation';
 import draggable from 'vuedraggable';
 import {
   uiTypeIs,
@@ -57,7 +57,7 @@ import {
 import { useVuetifyLayout } from '@jsonforms/vue2-vuetify';
 import { VContainer, VRow, VCol } from 'vuetify/lib';
 import { entry as DroppableElementRegistration } from './DroppableElement.vue';
-import { doFindByScope, useExportUiSchema } from '@/util';
+import { doFindByScope, useExportUiSchema } from '../../util';
 import { buildSchemaTree } from '../../model/schema';
 import _ from 'lodash';
 

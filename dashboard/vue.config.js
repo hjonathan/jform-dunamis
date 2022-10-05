@@ -30,7 +30,7 @@ module.exports = {
       poll: true,
     },
   },
-  transpileDependencies: ['vuetify'],
+  transpileDependencies: [],
   filenameHashing: false,
   productionSourceMap: false,
   css: { sourceMap: false },

@@ -19,5 +19,9 @@ const getters = {
 
     return res;
   },
+  uiSchema: (state: any) => state.uiSchema,
+  schema: (state: any) => state.schema,
+  data: (state: any) => state.data,
+  locale: (state: any) => state.locale,
 };
 export default getters;

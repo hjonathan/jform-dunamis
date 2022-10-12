@@ -22,7 +22,6 @@ declare module '@vue/runtime-core' {
 
   // provide typings for `this.$store`
   interface ComponentCustomProperties {
-    $store: Store<State>;
     $refs: any;
     save: any;
     bus: any;

@@ -27,6 +27,7 @@ import { VuetifyThemeVariant } from 'vuetify/types/services/theme';
 import { defineComponent } from '@vue/composition-api';
 import merge from 'lodash/merge';
 import cloneDeep from 'lodash/cloneDeep';
+import store from '../../store';
 
 const defaultTheme = {
   name: 'Default',
@@ -61,7 +62,7 @@ const currentTheme = defineComponent({
   props: {},
   computed: {
     themes(): any {
-      const themes = this.$store.getters['themes/getSummaryThemes'];
+      const themes = store.getters['themes/getSummaryThemes'];
       const colors = [];
       themes.forEach((element) => {
         colors.push({
@@ -97,7 +98,7 @@ const currentTheme = defineComponent({
       });
       // also save theme name to disable selection
       this.$vuetify.theme.currentTheme.name = name;
-      this.$store.set('themes/activeTheme', name);
+      store.dispatch('themes/activeTheme', name);
     },
   },
 });

@@ -10,6 +10,7 @@
 import IfComponent from './IfThenComponent/IfComponent.vue';
 import ThenComponent from './IfThenComponent/ThenComponent.vue';
 import IfThenDefaultMixing from './IfThenDefaultMixing';
+import store from '../../store';
 export default {
   name: 'IfThenComponent',
   components: { ThenComponent, IfComponent },
@@ -39,7 +40,7 @@ export default {
     },
     save() {
       for (const el of this.scopes) {
-        this.$store.dispatch('app/setScopeRules', {
+        store.dispatch('app/setScopeRules', {
           scope: el,
           rule: this.ruleSchema,
         });

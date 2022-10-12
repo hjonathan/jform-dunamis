@@ -1,16 +1,17 @@
-import _ from "lodash";
+import _ from 'lodash';
+import store from '../../../store';
 export default {
     data() {
         return {
             effects: {
                 items: [],
-                selected: "SHOW"
+                selected: 'SHOW',
             },
             scopes: {
                 items: [],
-                selected: []
-            }
-        }
+                selected: [],
+            },
+        };
     },
     mounted() {
         this.effects.items = this.loadEffects();
@@ -21,7 +22,7 @@ export default {
             return ['SHOW', 'HIDE', 'ENABLE', 'DISABLE'];
         },
         loadScopes() {
-            return this.$store.getters['app/getScopesEditor'];
-        }
-    }
-}
+            return store.getters['app/getScopesEditor'];
+        },
+    },
+};

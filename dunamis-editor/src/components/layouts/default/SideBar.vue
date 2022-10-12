@@ -6,12 +6,11 @@
 </template>
 
 <script lang="ts">
-import { sync } from 'vuex-pathify';
-import _ from 'lodash';
 import PalletePanel from '../../DynaformEditor/PalletePanel.vue';
 import PropertiesPanel from '../../PropertiesPanel/PropertiesPanelDynamic.vue';
 import SideBarI18n from '../../i18n/sideBarI18n.vue';
 import SideBarPreview from '../../DynaformPreview/sideBarDynaformPreview.vue';
+import store from '../../../store';
 
 export default {
   name: 'SideBar',
@@ -25,8 +24,22 @@ export default {
     return {};
   },
   computed: {
-    itemsSideBar: sync('viewManager/sideBar.items'),
-    activeSideBar: sync('viewManager/sideBar.active'),
+    itemsSideBar: {
+      get() {
+        return store.getters['viewManager/sideBarItems'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_SIDE_BAR_ITEMS', val);
+      },
+    },
+    activeSideBar: {
+      get() {
+        return store.getters['viewManager/sideBarActive'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_SIDE_BAR_ACTIVE', val);
+      },
+    },
   },
 };
 </script>

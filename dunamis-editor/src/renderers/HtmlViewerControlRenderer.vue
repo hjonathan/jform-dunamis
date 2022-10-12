@@ -34,6 +34,7 @@ import { useVuetifyControl, ControlWrapper } from '@jsonforms/vue2-vuetify';
 
 import { VContainer } from 'vuetify/lib';
 import Editor from '@tinymce/tinymce-vue';
+import store from '../store';
 
 const controlRenderer = defineComponent({
   name: 'html-viewer-control-renderer',
@@ -66,7 +67,7 @@ const controlRenderer = defineComponent({
   },
   methods: {
     onChangeHandler(e, editor) {
-      this.$store.dispatch('app/updateUISchemaElementOption', {
+      store.dispatch('app/updateUISchemaElementOption', {
         elementUUID: this.control.uischema.uuid,
         changedProperties: {
           content: editor.getContent(),

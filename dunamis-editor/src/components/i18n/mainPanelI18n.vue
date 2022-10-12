@@ -62,11 +62,11 @@
 </template>
 
 <script lang="ts">
-import { sync } from 'vuex-pathify';
 import _ from 'lodash';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { defineComponent } from '@vue/composition-api';
 import MonacoEditor from '../MonacoEditor.vue';
+import store from '../../store';
 const MainPanelI18n = defineComponent({
   name: 'MainPanelI18n',
   inject: ['bus'],
@@ -74,12 +74,12 @@ const MainPanelI18n = defineComponent({
   computed: {
     mainPanel: {
       get() {
-        return this.$store.getters['viewManager/getMainPanelById'](
+        return store.getters['viewManager/getMainPanelById'](
           'main-translations'
         );
       },
       set(value) {
-        this.$store.dispatch('viewManager/setMainPanel', {
+        store.dispatch('viewManager/setMainPanel', {
           id: 'main-translations',
           mainPanel: value,
         });
@@ -88,13 +88,13 @@ const MainPanelI18n = defineComponent({
     view: {
       get() {
         let dt =
-          this.$store.getters['viewManager/getDataMainPanelById'](
+          store.getters['viewManager/getDataMainPanelById'](
             'main-translations'
           );
         return dt.view;
       },
       set(value) {
-        this.$store.dispatch('viewManager/setDataMainPanel', {
+        store.dispatch('viewManager/setDataMainPanel', {
           id: 'main-translations',
           data: {
             view: value,
@@ -102,7 +102,14 @@ const MainPanelI18n = defineComponent({
         });
       },
     },
-    locales: sync('locales'),
+    locales: {
+      get() {
+        return store.getters['locales/locales'];
+      },
+      set(val: any) {
+        store.commit('locales/SET_LOCALES', val);
+      },
+    },
     headers() {
       let name = [
         {
@@ -144,9 +151,7 @@ const MainPanelI18n = defineComponent({
     },
     locale() {
       let dt =
-        this.$store.getters['viewManager/getDataMainPanelById'](
-          'main-translations'
-        );
+        store.getters['viewManager/getDataMainPanelById']('main-translations');
 
       return dt.locale ? dt.locale : 'en';
     },
@@ -174,7 +179,7 @@ const MainPanelI18n = defineComponent({
       this.view = this.view == 'json' ? 'table' : 'json';
       //Reload the view JSON
       if (this.view == 'json') {
-        this.$store.dispatch('viewManager/setDataMainPanel', {
+        store.dispatch('viewManager/setDataMainPanel', {
           id: 'main-translations',
           data: {
             reload: _.random(0, 1000000),
@@ -189,7 +194,7 @@ const MainPanelI18n = defineComponent({
     },
     contentSave() {
       if (this.view == 'json') {
-        this.$store.dispatch('locales/updateLanguage', {
+        store.dispatch('locales/updateLanguage', {
           key: this.locales[this.locale].key,
           description: this.locales[this.locale].description,
           content: JSON.parse(this.schema.getValue()),
@@ -202,7 +207,7 @@ const MainPanelI18n = defineComponent({
             }
           }
         }
-        this.$store.dispatch('locales/setAll', _.cloneDeep(this.locales));
+        store.dispatch('locales/setAll', _.cloneDeep(this.locales));
       }
     },
   },

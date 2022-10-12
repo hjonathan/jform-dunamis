@@ -269,6 +269,7 @@
 //@ts-nocheck
 import _ from 'lodash';
 import { defineComponent } from '@vue/composition-api';
+import store from '../../store';
 const CustomizeTheme = defineComponent({
   name: 'customize-theme',
   setup() {
@@ -301,7 +302,7 @@ const CustomizeTheme = defineComponent({
     color: {
       get(): any {
         this.updateDefaultColor();
-        return this.$store.getters['themes/getThemeSelected'].light;
+        return store.getters['themes/getThemeSelected'].light;
       },
       set(): void {
         //TODO
@@ -310,7 +311,7 @@ const CustomizeTheme = defineComponent({
 
     fontFamily: {
       get(): any {
-        return this.$store.getters['themes/getFontFamilyTheme'];
+        return store.getters['themes/getFontFamilyTheme'];
       },
       set(value): void {
         this.updateTheme(value);
@@ -320,7 +321,7 @@ const CustomizeTheme = defineComponent({
   methods: {
     updateDefaultColor(): void {
       this.defaultColor = _.clone(
-        this.$store.getters['themes/getThemeSelected'].light
+        store.getters['themes/getThemeSelected'].light
       );
     },
     swatchStyle(type: string): Record<string, unknown> {
@@ -345,7 +346,7 @@ const CustomizeTheme = defineComponent({
     },
     updateTheme(font: string): void {
       let fontFamily = font ? font : _.clone(this.fontFamily);
-      this.$store.set('themes/updateTheme', {
+      store.commit('themes/updateTheme', {
         name: this.customThemeName,
         light: _.clone(this.color),
         fontFamily: fontFamily,

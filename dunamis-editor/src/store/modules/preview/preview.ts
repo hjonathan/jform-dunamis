@@ -3,7 +3,6 @@ import { Module } from 'vuex';
 import actions from './actions';
 import mutations from './mutations';
 import getters from './getters';
-import { make } from 'vuex-pathify';
 
 export interface PreviewState {
   locale: string;
@@ -24,19 +23,16 @@ const preview: Module<PreviewState, RootState> = {
   state,
   ...{
     mutations: {
-      ...make.mutations(state),
       ...mutations,
     },
   },
   ...{
     actions: {
-      ...make.actions(state),
       ...actions,
     },
   },
   ...{
     getters: {
-      ...make.getters(state),
       ...getters,
     },
   },

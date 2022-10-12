@@ -34,7 +34,6 @@
 
 <script lang="ts">
 //@ts-nocheck
-import { sync } from 'vuex-pathify';
 import { Uri } from 'monaco-editor/esm/vs/editor/editor.api';
 import { getMonacoModelForUri } from '../../core/jsonSchemaValidation';
 import { useExportUiSchema } from '../../util';
@@ -58,6 +57,7 @@ import { entry as DroppableElementRegistration } from './DroppableElement.vue';
 import { createControl, tryFindByUUID, doFindByScope } from '../../util';
 import { buildSchemaTree } from '../../model/schema';
 import _ from 'lodash';
+import store from '../../store';
 
 const droppableRenderer = defineComponent({
   name: 'dropable-vertical-layout-renderer',
@@ -85,7 +85,14 @@ const droppableRenderer = defineComponent({
         this.renderers && [...this.renderers, DroppableElementRegistration]
       );
     },
-    editorUiSchemaModel: sync('app/editor@uiSchema'),
+    editorUiSchemaModel: {
+      get() {
+        return store.getters['app/uiSchema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_UI_SCHEMA', val);
+      },
+    },
   },
   methods: {
     handleChange(evt: any) {
@@ -110,32 +117,38 @@ const droppableRenderer = defineComponent({
         'File',
         'Submit',
       ];
-      if (evt.added) {
-        if (
-          evt.added.element &&
-          enabledFields.indexOf(evt.added.element.type) !== -1
-        ) {
+      const enabledLayouts = ['HorizontalLayout'];
+
+      if (evt.added && evt.added.element) {
+        if (enabledFields.indexOf(evt.added.element.type) !== -1) {
           //here update the schema
           const property = evt.added.element.uiSchemaElementProvider();
           const newElement = buildSchemaTree(property.control);
           //Verify if the scope has been created
           let elementSchema = doFindByScope(
-            this.$store.get('app/editor@schema'),
+            store.getters['app/schema'],
             evt.added.element.scope.split('/').pop()
           );
           //Add new element to schema
           if (!elementSchema) {
-            this.$store.dispatch('app/addPropertyToSchema', {
+            store.dispatch('app/addPropertyToSchema', {
               schemaElement: newElement,
               parentUUID: this.schema.uuid,
               variable: evt.added.element.scope.split('/').pop(),
             });
           }
           //Update parent in newElement
-          this.$store.dispatch('app/updateParentUiSchemaElement', {
+          store.dispatch('app/updateParentUiSchemaElement', {
             elementUUID: evt.added.element.uuid,
             parentUUID: this.uischema.uuid,
             linkedSchemaElement: newElement.uuid,
+          });
+        }
+        if (enabledLayouts.indexOf(evt.added.element.type) !== -1) {
+          store.dispatch('app/updateParentUiSchemaElement', {
+            elementUUID: evt.added.element.uuid,
+            parentUUID: this.uischema.uuid,
+            linkedSchemaElement: null,
           });
         }
       }

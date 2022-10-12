@@ -485,7 +485,7 @@ export const updateUISchemaElement = (state: any, payload: any) => {
 };
 
 export const updateUISchemaElementOption = (state: any, payload: any) => {
-  return withCloneTree(
+  const a = withCloneTree(
     state.editor.uiSchema,
     payload.elementUUID,
     state.editor.uiSchema,
@@ -495,6 +495,7 @@ export const updateUISchemaElementOption = (state: any, payload: any) => {
       return getRoot(newUiSchema as EditorUISchemaElement);
     }
   );
+  return a;
 };
 
 export const updateSchemaElement = (state: any, payload: any) => {

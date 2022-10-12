@@ -13,6 +13,7 @@ import { JsonForms } from '@jsonforms/vue2';
 import { defineComponent } from '@vue/composition-api';
 import { defaultEditorRenderers } from '../../renderers/index';
 import { useExportSchema } from '../../util';
+import store from '../../store';
 
 export default defineComponent({
   name: 'DynaformEditor',
@@ -32,10 +33,10 @@ export default defineComponent({
   },
   methods: {
     useExportSchema() {
-      return useExportSchema(this.$store.get('app/editor@schema'));
+      return useExportSchema(store.getters['app/schema']);
     },
     useExportUiSchema() {
-      return this.$store.get('app/editor@uiSchema');
+      return store.getters['app/uiSchema'];
     },
   },
 });

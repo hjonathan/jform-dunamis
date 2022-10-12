@@ -86,6 +86,7 @@ import { VuetifyThemeVariant } from 'vuetify/types/services/theme';
 import merge from 'lodash/merge';
 import cloneDeep from 'lodash/cloneDeep';
 import { defineComponent } from '@vue/composition-api';
+import store from '../store';
 
 const defaultTheme = {
   name: 'Default',
@@ -122,7 +123,7 @@ export default defineComponent({
   },
   methods: {
     setThemes(): any {
-      const themes: any = this.$store.getters['themes/getSummaryThemes'];
+      const themes: any = store.getters['themes/getSummaryThemes'];
       const colors: any = [];
       colors.push(defaultTheme);
       themes.forEach((element: any) => {

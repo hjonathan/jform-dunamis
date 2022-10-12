@@ -1,7 +1,0 @@
-{
-  "type": "Control",
-  "scope": "#/properties/exampleRadioEnum",
-  "options": {
-    "format": "radio"
-  }
-}

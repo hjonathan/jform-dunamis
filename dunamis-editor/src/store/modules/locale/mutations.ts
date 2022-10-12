@@ -37,5 +37,8 @@ const mutations = {
   SET_ALL: (state: any, payload: any) => {
     state = payload;
   },
+  SET_LOCALES: (state: any, payload: any) => {
+    state = payload;
+  },
 };
 export default mutations;

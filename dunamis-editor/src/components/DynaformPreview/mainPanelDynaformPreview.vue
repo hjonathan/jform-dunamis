@@ -34,7 +34,6 @@ import { generateEmptyData } from '../../model';
 import { extendedVuetifyRenderers } from '@jsonforms/vue2-vuetify';
 import _ from 'lodash';
 import store from '../../store';
-import { sync } from 'vuex-pathify';
 import Device from 'vue-device';
 import { defineComponent } from '@vue/composition-api';
 export default defineComponent({
@@ -53,8 +52,8 @@ export default defineComponent({
       ],
       dialog: false,
       component: 'div',
-      data: store.get('preview/data'),
-      locale: sync('preview/locale') as any,
+      data: store.getters['preview/data'],
+      locale: {},
       i18n: {
         locale: 'en',
         //translate: this.createTranslator(this.locale || 'en'),
@@ -64,8 +63,22 @@ export default defineComponent({
     };
   },
   computed: {
-    itemsMainPanel: sync('viewManager/mainPanel.items') as any,
-    activeMainPanel: sync('viewManager/mainPanel.active') as any,
+    itemsMainPanel: {
+      get() {
+        return store.getters['viewManager/mainPanelItems'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_MAIN_PANEL_ITEMS', val);
+      },
+    },
+    activeMainPanel: {
+      get() {
+        return store.getters['viewManager/mainPanelActive'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_MAIN_PANEL_ACTIVE', val);
+      },
+    },
     mode() {
       let dev = 'div',
         items: any = this.itemsMainPanel,
@@ -76,20 +89,27 @@ export default defineComponent({
       }
       return dev;
     },
-    useUiSchema: sync('preview/uiSchema'),
+    useUiSchema: {
+      get() {
+        return store.getters['preview/uiSchema'];
+      },
+      set(val: any) {
+        store.commit('preview/SET_UI_SCHEMA', val);
+      },
+    },
     useSchema(): any {
-      return useExportSchema(this.$store.get('preview/schema'));
+      return useExportSchema(store.getters['preview/schema']);
     },
     previewData(): any {
-      return generateEmptyData(this.$store.get('preview@schema'), {});
+      return generateEmptyData(store.getters['preview/schema'], {});
     },
     getCurrentFont(): any {
       return {
-        'font-family': this.$store.getters['themes/getFontFamilyTheme'],
+        'font-family': store.getters['themes/getFontFamilyTheme'],
       };
     },
     getPaddings(): any {
-      let paddings = this.$store.getters['themes/getPaddings'];
+      let paddings = store.getters['themes/getPaddings'];
       return {
         padding:
           paddings.top +
@@ -103,11 +123,11 @@ export default defineComponent({
       };
     },
     sourceBackground(): string {
-      return this.$store.getters['themes/getBackground'].background;
+      return store.getters['themes/getBackground'].background;
     },
     getStyles(): any {
-      let margins = this.$store.getters['themes/getMargins'];
-      let backgroundColor = this.$store.getters['themes/getBackgroundColor'];
+      let margins = store.getters['themes/getMargins'];
+      let backgroundColor = store.getters['themes/getBackgroundColor'];
       return {
         padding:
           margins.top +
@@ -130,19 +150,18 @@ export default defineComponent({
   },
   methods: {
     getFont(): string {
-      return this.$store.getters['themes/getFontFamilyTheme'];
+      return store.getters['themes/getFontFamilyTheme'];
     },
     /**
      * Create translator for JSON FORMS based in store locale
      */
     createTranslator(): any {
-      let i18n = this.$store.get('locales');
-      const store = this.$store;
+      let i18n = store.getters['locales/getLocales'];
       return (
         key: string,
         defaultMessage: string | undefined
       ): string | undefined => {
-        const locale = store.get('preview/locale');
+        const locale = store.getters['preview/locale'];
         return (
           _.get(
             locale === 'en' ? i18n['en']['content'] : i18n[locale]['content'],
@@ -155,7 +174,7 @@ export default defineComponent({
      * On change JSON FORM save the data in store
      */
     onChange(event: JsonFormsChangeEvent): void {
-      this.$store.set('preview/data', event.data || {});
+      store.commit('preview/SET_DATA', event.data || {});
     },
   },
 });

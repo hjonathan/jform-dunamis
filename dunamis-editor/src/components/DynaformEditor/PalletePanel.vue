@@ -61,7 +61,6 @@ import {
   ref,
 } from '@vue/composition-api';
 import draggable from 'vuedraggable';
-import { sync } from 'vuex-pathify';
 import { buildSchemaTree, getLabel, SchemaElement } from '../../model/schema';
 import { ghostElementLayout } from '../../store/utils/schemas';
 import store from './../../store';
@@ -71,11 +70,11 @@ export default defineComponent({
   components: {
     draggable,
   },
-  props: {
-    schema: {
-      type: [Object, Boolean],
-    },
-  },
+  // props: {
+  //   schema: {
+  //     type: [Object, Boolean],
+  //   },
+  // },
   setup(props: any, context: any) {
     const enabledFields = [
       'Control',
@@ -102,8 +101,23 @@ export default defineComponent({
     const getLabel = (schemaElement: SchemaElement): any => {
       return getLabel(schemaElement);
     };
-    const paletteElements = computed(sync('app/editor@paletteElements'));
-    const editorUiSchema: any = computed(sync('app/editor@uiSchema'));
+    const paletteElements = computed({
+      get() {
+        return store.getters['app/palleteElements'];
+      },
+      set(val: any) {
+        store.commit('app/SET_PALLETE_ELEMENTS', val);
+      },
+    });
+
+    const editorUiSchema: any = computed({
+      get() {
+        return store.getters['app/uiSchema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_UI_SCHEMA', val);
+      },
+    });
 
     const clone = (element: any) => {
       const property: any = element.uiSchemaElementProvider();

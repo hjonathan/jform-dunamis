@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import { defineComponent, onMounted } from '@vue/composition-api';
 import Dunamis from '@jsonforms/dunamis-editor/src/mainBundle';
 
@@ -14,11 +13,11 @@ const MainPanelDashboard = defineComponent({
   setup(props: any) {
     onMounted(() => {
       setTimeout(() => {
-        new Vue({
-          store: Dunamis.store,
-          vuetify: Dunamis.vuetify,
-          render: (h) => h(Dunamis.app),
-        }).$mount('#dunamis-editor');
+        // new Vue({
+        //   vuetify: Dunamis.vuetify,
+        //   render: (h) => h(Dunamis.app),
+        // })
+        Dunamis.$mount('#dunamis-editor');
       }, 2000);
     });
     return {};

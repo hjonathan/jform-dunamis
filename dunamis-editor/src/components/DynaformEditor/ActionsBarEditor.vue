@@ -60,7 +60,6 @@
 </template>
 
 <script lang="ts">
-//import { sync } from 'vuex-pathify';
 import { useExportSchema, useExportUiSchema } from '../../util';
 import store from '../../store';
 import download from 'downloadjs';
@@ -83,9 +82,9 @@ export default defineComponent({
      * Copy schemasfrom editor to preview
      */
     function copySchemasFromEditorToPreview() {
-      store.dispatch('preview/setSchema', store.get('app/editor@schema'));
-      store.dispatch('preview/setUiSchema', store.get('app/editor@uiSchema'));
-      store.dispatch('preview/setLocale', store.get('app/jsonforms@locale'));
+      store.dispatch('preview/setSchema', store.getters['app/schema']);
+      store.dispatch('preview/setUiSchema', store.getters['app/uiSchema']);
+      store.dispatch('preview/setLocale', store.getters['app/locale']);
     }
     function onClickEditor() {
       let mainPanel = { id: 'main-editor' },
@@ -180,8 +179,8 @@ export default defineComponent({
      * Get a JSON with the uiSchema and Schema
      */
     function getFullJson(): any {
-      let jsonUiSchema = getJson(store.get('app/editor@uiSchema'), 'uischema');
-      let jsonSchema = getJson(store.get('app/editor@schema'), 'schema');
+      let jsonUiSchema = getJson(store.getters['app/uiSchema'], 'uischema');
+      let jsonSchema = getJson(store.getters['app/schema'], 'schema');
       let jsonTheme = getCurrentTheme();
       let jsonData = {
         schema: JSON.parse(jsonSchema),
@@ -223,10 +222,7 @@ export default defineComponent({
       onClickEditor,
       actions: ref([
         {
-          title:
-            (store.get('app/editor@information') &&
-              store.get('app/editor@information').name) ||
-            'Form Editor',
+          title: 'Form Editor',
           type: 'title',
         },
         {

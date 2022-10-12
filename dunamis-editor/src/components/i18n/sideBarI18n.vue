@@ -50,9 +50,9 @@
 
 <script lang="ts">
 import _ from 'lodash';
-import { sync } from 'vuex-pathify';
 import { defineComponent } from '@vue/composition-api';
 import languages from '../../api/languages';
+import store from '../../store';
 const SideBarI18n = defineComponent({
   name: 'SideBarI18n',
   components: {},
@@ -64,9 +64,30 @@ const SideBarI18n = defineComponent({
         label: v,
       }));
     },
-    locales: sync('locales'),
-    itemsMainPanel: sync('viewManager/mainPanel.items'),
-    activeMainPanel: sync('viewManager/mainPanel.active'),
+    locales: {
+      get() {
+        return store.getters['locales/locales'];
+      },
+      set(val: any) {
+        store.commit('locales/SET_LOCALES', val);
+      },
+    },
+    itemsMainPanel: {
+      get() {
+        return store.getters['viewManager/mainPanelItems'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_MAIN_PANEL_ITEMS', val);
+      },
+    },
+    activeMainPanel: {
+      get() {
+        return store.getters['viewManager/mainPanelActive'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_MAIN_PANEL_ACTIVE', val);
+      },
+    },
     locale: {
       get() {
         let dt: any = this.getDataMainPanel();
@@ -122,13 +143,13 @@ const SideBarI18n = defineComponent({
       });
     },
     setDataMainPanel(data: any) {
-      this.$store.dispatch('viewManager/setDataMainPanel', {
+      store.dispatch('viewManager/setDataMainPanel', {
         id: 'main-translations',
         data,
       });
     },
     getDataMainPanel(): any {
-      return this.$store.getters['viewManager/getDataMainPanelById'](
+      return store.getters['viewManager/getDataMainPanelById'](
         'main-translations'
       );
     },

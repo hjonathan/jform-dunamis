@@ -28,5 +28,8 @@ const mutations = {
   SET_INFORMATION: (state: any, value: any) => {
     state.editor.information = value;
   },
+  SET_ACTIVE_ELEMENT: (state: any, value: any) => {
+    state.editor.element = value;
+  },
 };
 export default mutations;

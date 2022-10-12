@@ -186,7 +186,7 @@ const CustomForm = defineComponent({
   methods: {
     onChange(val: number) {
       if (val <= this.maxPixel) {
-        this.$store.dispatch('themes/updatePaddings', {
+        store.dispatch('themes/updatePaddings', {
           left: this.marginLeft || 0,
           top: this.marginTop || 0,
           bottom: this.marginBottom || 0,
@@ -196,7 +196,7 @@ const CustomForm = defineComponent({
     },
     margins(val: number) {
       if (val <= this.maxPixel) {
-        this.$store.dispatch('themes/updateMargins', {
+        store.dispatch('themes/updateMargins', {
           left: this.paddingLeft || 0,
           top: this.paddingTop || 0,
           bottom: this.paddingBottom || 0,
@@ -206,13 +206,13 @@ const CustomForm = defineComponent({
     },
     setBackground(img: string) {
       if (img !== '') {
-        this.$store.dispatch('themes/updateBackground', {
+        store.dispatch('themes/updateBackground', {
           background: this.background,
         });
       }
     },
     setBackgroundColor(color: string) {
-      this.$store.dispatch('themes/updateBackgroundColor', {
+      store.dispatch('themes/updateBackgroundColor', {
         color: this.color,
       });
     },

@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { sync } from 'vuex-pathify';
 import ActionsBarEditor from './../../DynaformEditor/ActionsBarEditor.vue';
+import store from '../../../store';
 
 export default {
   name: 'ActionsBar',
@@ -16,8 +16,22 @@ export default {
     };
   },
   computed: {
-    itemsActionsBar: sync('viewManager/actionsBar.items'),
-    activeActionsBar: sync('viewManager/actionsBar.active'),
+    itemsActionsBar: {
+      get() {
+        return store.getters['viewManager/actionsBarItems'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_ACTIONS_BAR_ITEMS', val);
+      },
+    },
+    activeActionsBar: {
+      get() {
+        return store.getters['viewManager/actionsBarActive'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_ACTIONS_BAR_ACTIVE', val);
+      },
+    },
   },
   methods: {},
 };

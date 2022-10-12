@@ -77,5 +77,23 @@ const mutations = {
       value.mainPanel
     );
   },
+  SET_ACTIONS_BAR_ITEMS: (state: any, payload: any) => {
+    state.actionsBar.items = payload;
+  },
+  SET_ACTIONS_BAR_ACTIVE: (state: any, payload: any) => {
+    state.actionsBar.active = payload;
+  },
+  SET_SIDE_BAR_ITEMS: (state: any, payload: any) => {
+    state.sideBar.items = payload;
+  },
+  SET_SIDE_BAR_ACTIVE: (state: any, payload: any) => {
+    state.sideBar.active = payload;
+  },
+  SET_MAIN_PANEL_ITEMS: (state: any, payload: any) => {
+    state.mainPanel.items = payload;
+  },
+  SET_MAIN_PANEL_ACTIVE: (state: any, payload: any) => {
+    state.mainPanel.active = payload;
+  },
 };
 export default mutations;

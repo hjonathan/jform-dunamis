@@ -42,8 +42,8 @@
 <script lang="ts">
 //@ts-nocheck
 import PropertiesPanelDynamic from './PanelDynamic/PanelDynamic.vue';
-import { sync } from 'vuex-pathify';
 import { omit } from 'lodash';
+import store from '../../store';
 import { defineComponent } from '../../util/vue';
 import { getVariableName } from '../../model/uischema';
 import { tryFindByUUID } from '../../util/schemasUtil';
@@ -69,9 +69,30 @@ const PropertiesPanel = defineComponent({
     };
   },
   computed: {
-    schema: sync('app/editor@schema'),
-    uischema: sync('app/editor@uiSchema'),
-    selectedElement: sync('app/editor@element'),
+    schema: {
+      get() {
+        return store.getters['app/schema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_SCHEMA', val);
+      },
+    },
+    uischema: {
+      get() {
+        return store.getters['app/uiSchema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_UI_SCHEMA', val);
+      },
+    },
+    selectedElement: {
+      get() {
+        return store.getters['app/activeElement'];
+      },
+      set(val: any) {
+        store.commit('app/SET_ACTIVE_ELEMENT', val);
+      },
+    },
     panelExtended(): any {
       if (this.panelHistory.length == 0) {
         return 'div';
@@ -216,59 +237,59 @@ const PropertiesPanel = defineComponent({
       const elementSchema = this.findElementSchema();
       // type
       if (data.type) {
-        this.$store.dispatch('app/updateUISchemaElement', {
+        store.dispatch('app/updateUISchemaElement', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { type: data.type },
         });
       }
       // variable
       if (data.variable && this.generalData.data['variable'] != data.variable) {
-        this.$store.dispatch('app/updateSchemaVariable', {
+        store.dispatch('app/updateSchemaVariable', {
           elementUUID: this.uiElement.uuid,
           newVariable: data.variable,
         });
-        this.$store.dispatch('locales/updateProperty', {
+        store.dispatch('locales/updateProperty', {
           oldProperty: elementSchema ? elementSchema.key : '',
           newProperty: data.variable,
         });
       }
       // required
       if (typeof data.required !== 'undefined') {
-        this.$store.dispatch('app/updateSchemaRequired', {
+        store.dispatch('app/updateSchemaRequired', {
           elementUUID: this.uiElement.uuid,
           required: data.required ?? false,
         });
       }
       // readOnly
       if (typeof data.readOnly !== 'undefined') {
-        this.$store.dispatch('app/updateSchemaReadOnly', {
+        store.dispatch('app/updateSchemaReadOnly', {
           elementUUID: this.uiElement.uuid,
           readOnly: data.readOnly,
         });
       }
       if (data.defaultDate) {
-        this.$store.dispatch('app/updateSchemaDefaultDate', {
+        store.dispatch('app/updateSchemaDefaultDate', {
           elementUUID: this.uiElement.uuid,
           defaultDate: data.defaultDate,
         });
       }
       //mask -> to options
       if (data.mask) {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { label: data.label },
         });
       }
       // label
       if (data.label) {
-        this.$store.dispatch('app/updateUISchemaElement', {
+        store.dispatch('app/updateUISchemaElement', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { label: data.label },
         });
       }
       // description
       if (data.description) {
-        this.$store.dispatch('app/updateSchemaElement', {
+        store.dispatch('app/updateSchemaElement', {
           elementUUID: this.uiElement.uuid,
           changedProperties: {
             description: data.description,
@@ -277,7 +298,7 @@ const PropertiesPanel = defineComponent({
       }
       // items
       if (data.items) {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: {
             items: data.items,
@@ -286,14 +307,14 @@ const PropertiesPanel = defineComponent({
       }
       // label
       if (data.labelConfig) {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { labelConfig: data.labelConfig },
         });
       }
       // Text Transform -> to options
       if (data.textTransform) {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: {
             textTransform: data.textTransform ?? '',
@@ -302,7 +323,7 @@ const PropertiesPanel = defineComponent({
       }
       // orientation -> to options
       if (data.orientation) {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: {
             orientation: data.orientation ?? 'horizontal',
@@ -311,77 +332,77 @@ const PropertiesPanel = defineComponent({
       }
       // maxLength
       if (data.maxLength) {
-        this.$store.dispatch('app/updateSchemaElement', {
+        store.dispatch('app/updateSchemaElement', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { maxLength: data.maxLength },
         });
       }
       // hint -> to options
       if (data.hint || data.hint === '') {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { hint: data.hint },
         });
       }
       // rows for TextArea -> to options
       if (data.rows) {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { rows: data.rows },
         });
       }
       // alt text for Image -> to options
       if (data.alt || data.alt == '') {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { alt: data.alt },
         });
       }
       // placeholder -> to options
       if (data.placeholder || data.placeholder === '') {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { placeholder: data.placeholder },
         });
       }
       // format for DateTime
       if (data.format) {
-        this.$store.dispatch('app/updateSchemaElement', {
+        store.dispatch('app/updateSchemaElement', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { format: data.format },
         });
       }
       // maxDate -> to options
       if (data.maxDate || data.maxDate === '') {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { maxDate: data.maxDate },
         });
       }
       // minDate -> to options
       if (data.minDate || data.minDate === '') {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { minDate: data.minDate },
         });
       }
       // default value -> to options
       if (data.defaultValue || data.defaultValue === '') {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { defaultValue: data.defaultValue },
         });
       }
       // checkedDefault -> to options
       if (typeof data.checkedDefault !== 'undefined') {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { checkedDefault: data.checkedDefault },
         });
       }
       // Horizontal Layout cols
       if (data.cols || data.cols === '') {
-        this.$store.dispatch('app/updateUISchemaElementOption', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { cols: data.cols },
         });

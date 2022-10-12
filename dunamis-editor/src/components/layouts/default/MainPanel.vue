@@ -14,7 +14,6 @@
 </template>
 
 <script lang="ts">
-import { sync } from 'vuex-pathify';
 import { createLayout } from '../../../util';
 import DynaformEditor from '../../DynaformEditor/DynaformEditor.vue';
 import MainPanelI18n from '../../i18n/mainPanelI18n.vue';
@@ -23,6 +22,7 @@ import MainPanelDynaformPreview from '../../DynaformPreview/mainPanelDynaformPre
 import MainPanelSchemaEditor from '../../SchemaEditor/mainPanelSchemaEditor.vue';
 import MainPanelFormRules from '../../FormRules/MainPanelFormRules.vue';
 import { defineComponent } from '@vue/composition-api';
+import store from '../../../store';
 
 export default defineComponent({
   name: 'mainPanel',
@@ -40,20 +40,34 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.$store.dispatch('app/setSchema', {
+    store.dispatch('app/setSchema', {
       schema: {
         type: 'object',
         title: 'Dynaform',
         properties: {},
       },
     });
-    this.$store.dispatch('app/setUiSchema', {
+    store.dispatch('app/setUiSchema', {
       uiSchema: createLayout('VerticalLayout'),
     });
   },
   computed: {
-    itemsMainPanel: sync('viewManager/mainPanel.items'),
-    activeMainPanel: sync('viewManager/mainPanel.active'),
+    itemsMainPanel: {
+      get() {
+        return store.getters['viewManager/mainPanelItems'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_MAIN_PANEL_ITEMS', val);
+      },
+    },
+    activeMainPanel: {
+      get() {
+        return store.getters['viewManager/mainPanelActive'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_MAIN_PANEL_ACTIVE', val);
+      },
+    },
   },
   methods: {},
 });

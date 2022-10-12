@@ -91,6 +91,7 @@
 import { defineComponent } from '@vue/composition-api';
 import _ from 'lodash';
 import { setDefaultTheme } from '../Composables/composableTheme';
+import store from '../../store';
 
 const UploadJson = defineComponent({
   name: 'upload-json',
@@ -154,17 +155,17 @@ const UploadJson = defineComponent({
       const uiSchemaUpload = JSON.parse(this.contentFile)['uischema'] || '';
       const themeUpload = JSON.parse(this.contentFile)['theme'] || '';
       if (schemaUpload !== '' && uiSchemaUpload !== '') {
-        this.$store.dispatch('app/setSchema', {
+        store.dispatch('app/setSchema', {
           schema: schemaUpload,
         });
-        this.$store.dispatch('app/setUiSchema', {
+        store.dispatch('app/setUiSchema', {
           uiSchema: uiSchemaUpload,
         });
-        this.$store.dispatch('locales/setSchema', {
+        store.dispatch('locales/setSchema', {
           properties: _.keys(schemaUpload.properties),
         });
         if (themeUpload !== '') {
-          this.$store.set('themes/updateTheme', themeUpload);
+          store.dispatch('themes/updateTheme', themeUpload);
           setDefaultTheme(this.$vuetify, themeUpload);
         } else {
           setDefaultTheme(this.$vuetify, defaultTheme);

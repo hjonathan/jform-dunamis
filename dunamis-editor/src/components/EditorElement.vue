@@ -112,8 +112,8 @@ import { PropType } from 'vue';
 import ResizableCols from './Generic/ResizableCols.vue';
 import _ from 'lodash';
 import { EditorUISchemaElement, hasChildren } from '../model/uischema';
-import { sync } from 'vuex-pathify';
 import { tryFindByUUID } from '../util';
+import store from '../store';
 
 export default {
   name: 'EditorElement',
@@ -137,9 +137,30 @@ export default {
     ruleEffect() {
       return this.wrappedElement.rule?.effect.toLocaleUpperCase();
     },
-    activeElement: sync('app/editor@element'),
-    editorSchema: sync('app/editor@schema'),
-    editoruiSchema: sync('app/editor@uiSchema'),
+    activeElement: {
+      get() {
+        return store.getters['app/activeElement'];
+      },
+      set(val: any) {
+        store.commit('app/SET_ACTIVE_ELEMENT', val);
+      },
+    },
+    editorSchema: {
+      get() {
+        return store.getters['app/schema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_SCHEMA', val);
+      },
+    },
+    editoruiSchema: {
+      get() {
+        return store.getters['app/uiSchema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_UI_SCHEMA', val);
+      },
+    },
     computedIcon() {
       const schemaElement = tryFindByUUID(
         this.editorSchema,
@@ -215,7 +236,7 @@ export default {
         !hasChildren(this.wrappedElement) &&
         this.wrappedElement.linkedSchemaElement
       ) {
-        this.$store.dispatch('app/duplicateElement', this.wrappedElement);
+        store.dispatch('app/duplicateElement', this.wrappedElement);
       } //TODO Duplicated unescoped
     },
     onRemove: function (e) {
@@ -224,16 +245,13 @@ export default {
       if (hasChildren(this.wrappedElement)) {
         this.removeChildren(this.wrappedElement.elements);
       }
-      this.$store.dispatch(
-        'app/removeUiSchemaElement',
-        this.wrappedElement.uuid
-      );
+      store.dispatch('app/removeUiSchemaElement', this.wrappedElement.uuid);
     },
     removeChildren: function (elements: any): void {
       let element;
       for (element of elements) {
         if (!hasChildren(element)) {
-          this.$store.dispatch('app/removeUiSchemaElement', element.uuid);
+          store.dispatch('app/removeUiSchemaElement', element.uuid);
         } else {
           this.removeChildren(element.elements);
         }
@@ -241,7 +259,7 @@ export default {
     },
     onEdit: function (e) {
       if (!hasChildren(this.wrappedElement)) {
-        this.$store.set('app/editor@element', {
+        store.commit('app/SET_ACTIVE_ELEMENT', {
           selected: this.wrappedElement.uuid,
           edit: _.random(0, 100000),
         });
@@ -251,15 +269,13 @@ export default {
     click: function (ev) {
       ev.preventDefault();
       ev.stopPropagation();
-      let activityBar = { id: 'activity-properties' },
-        sideBar = { id: 'side-bar-properties' },
+      let sideBar = { id: 'side-bar-properties' },
         mainPanel: { id: 'main-editor' };
-      this.$store.set('app/editor@element', {
+      store.commit('app/SET_ACTIVE_ELEMENT', {
         selected: this.wrappedElement.uuid,
       });
       this.hover = true;
-      this.$store.dispatch('viewManager/setAllViews', {
-        activityBar,
+      store.dispatch('viewManager/setAllViews', {
         sideBar,
         mainPanel,
       });

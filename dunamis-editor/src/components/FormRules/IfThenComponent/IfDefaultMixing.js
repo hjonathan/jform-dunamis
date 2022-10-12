@@ -1,4 +1,5 @@
-import _ from "lodash";
+import _ from 'lodash';
+import store from '../../../store';
 export default {
     data() {
         return {
@@ -7,31 +8,35 @@ export default {
                 colors: ['white'],
             },
             operators: {
-                items: []
+                items: [],
             },
             logicOperators: {
-                items: []
+                items: [],
             },
             values: {
-                items: [{ header: 'Create a value' }]
+                items: [{ header: 'Create a value' }],
             },
             initialParentheses: {
-                items: [{
-                    text: '(',
-                    value: _.random(0, 10000000),
-                    color: 'white',
-                    type: 'InitialParentheses'
-                }]
+                items: [
+                    {
+                        text: '(',
+                        value: _.random(0, 10000000),
+                        color: 'white',
+                        type: 'InitialParentheses',
+                    },
+                ],
             },
             finalParentheses: {
-                items: [{
-                    text: ')',
-                    value: _.random(0, 10000000),
-                    color: 'white',
-                    type: 'FinalParentheses'
-                }]
+                items: [
+                    {
+                        text: ')',
+                        value: _.random(0, 10000000),
+                        color: 'white',
+                        type: 'FinalParentheses',
+                    },
+                ],
             },
-        }
+        };
     },
     mounted() {
         this.scopes.items = this.loadScopes();
@@ -45,14 +50,14 @@ export default {
          */
         loadScopes() {
             let res = [],
-                scopes = this.$store.getters['app/getScopesEditor'];
-            scopes.forEach(el => {
+                scopes = store.getters['app/getScopesEditor'];
+            scopes.forEach((el) => {
                 res.push({
                     text: el,
                     value: _.random(0, 10000000),
                     color: this.scopes.colors[_.random(0, this.scopes.colors.length - 1)],
                     type: 'Field',
-                })
+                });
             });
             return res;
         },
@@ -97,12 +102,13 @@ export default {
                     value: _.random(0, 10000000),
                     color: 'white',
                     type: 'LogicOperator',
-                }, {
+                },
+                {
                     text: 'XOR',
                     value: _.random(0, 10000000),
                     color: 'white',
                     type: 'LogicOperator',
-                }
+                },
             ];
         },
         loadInitialParentheses() {
@@ -111,8 +117,8 @@ export default {
                     text: '(',
                     value: _.random(0, 10000000),
                     color: 'white',
-                    type: 'InitialParentheses'
-                }
+                    type: 'InitialParentheses',
+                },
             ];
         },
         loadFinalParentheses() {
@@ -121,9 +127,9 @@ export default {
                     text: ')',
                     value: _.random(0, 10000000),
                     color: 'white',
-                    type: 'FinalParentheses'
-                }
+                    type: 'FinalParentheses',
+                },
             ];
-        }
-    }
-}
+        },
+    },
+};

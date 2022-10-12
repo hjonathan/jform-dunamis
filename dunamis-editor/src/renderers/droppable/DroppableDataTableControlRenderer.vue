@@ -79,7 +79,6 @@
 
 <script lang="ts">
 //@ts-nocheck
-import { sync } from 'vuex-pathify';
 import {
   isObjectArray,
   JsonFormsRendererRegistryEntry,
@@ -116,6 +115,7 @@ import { createControl, tryFindByUUID } from '../../util';
 import { buildSchemaTree } from '../../model/schema';
 import { entry as DroppableElementRegistration } from './DroppableElement.vue';
 import _ from 'lodash';
+import store from '../../store';
 const controlRenderer = defineComponent({
   name: 'droppable-data-table-control-renderer',
   components: {
@@ -160,8 +160,22 @@ const controlRenderer = defineComponent({
         this.control.uischema
       );
     },
-    editorUiSchemaModel: sync('app/editor@uiSchema'),
-    editorSchemaModel: sync('app/editor@schema'),
+    editorUiSchemaModel: {
+      get() {
+        return store.getters['app/uiSchema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_UI_SCHEMA', val);
+      },
+    },
+    editorSchemaModel: {
+      get() {
+        return store.getters['app/schema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_SCHEMA', val);
+      },
+    },
   },
   methods: {
     composePaths,
@@ -194,7 +208,7 @@ const controlRenderer = defineComponent({
           const parent = this.editorSchemaModel.properties.get(
             this.control.path
           );
-          this.$store.dispatch('app/addPropertyToSchema', {
+          store.dispatch('app/addPropertyToSchema', {
             schemaElement: newElement,
             elementUUID: parent.items.uuid,
             indexOrProp: property.variable,
@@ -202,14 +216,14 @@ const controlRenderer = defineComponent({
 
           // Here uischema
           const schemaElement = tryFindByUUID(
-            this.$store.get('app/editor@schema'),
+            store.getters['app/schema'],
             newElement.uuid
           );
           const element = this.findElementSchema(
-            this.$store.get('app/editor@schema'),
+            store.getters['app/schema'],
             schemaElement
           );
-          // this.$store.dispatch('locales/addProperty', {
+          // store.dispatch('locales/addProperty', {
           //   property: element.key,
           // });
 
@@ -219,7 +233,7 @@ const controlRenderer = defineComponent({
             evt.added.element.type
           );
           for (let item of parent.linkedUISchemaElements) {
-            this.$store.dispatch('app/addScopedElementToTable', {
+            store.dispatch('app/addScopedElementToTable', {
               uiSchemaElement: newUIElement,
               layoutUUID: item,
               index: evt.added.newIndex,
@@ -229,7 +243,7 @@ const controlRenderer = defineComponent({
           }
         } else {
           let provider = evt.added.element.uiSchemaElementProvider();
-          this.$store.dispatch('app/addUnscopedElementToLayout', {
+          store.dispatch('app/addUnscopedElementToLayout', {
             uiSchemaElement: provider,
             layoutUUID: this.uischema.uuid,
             index: evt.added.newIndex,

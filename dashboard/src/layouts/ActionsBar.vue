@@ -4,9 +4,9 @@
 
 <script lang="ts">
 import { sync } from 'vuex-pathify';
-
 import ActionsBarDataSources from '../modules/DataSources/ActionsBarDataSources.vue';
 import ActionsBarDashboard from '../modules/Dashboard/ActionsBarDashboard.vue';
+import store from '../store';
 
 export default {
   name: 'ActionsBar',
@@ -18,8 +18,25 @@ export default {
     };
   },
   computed: {
-    itemsActionsBar: sync('viewManager/actionsBar.items'),
-    activeActionsBar: sync('viewManager/actionsBar.active'),
+    //itemsActionsBar: sync('viewManager/actionsBar.items'),
+    itemsActionsBar: {
+      get() {
+        console.log('aS');
+        return store.getters['viewManager/actionsBarItem'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_ACTIONS_BAR_ITEMS', val);
+      },
+    },
+    //activeActionsBar: sync('viewManager/actionsBar.active'),
+    activeActionsBar: {
+      get() {
+        return store.getters['viewManager/actionsBarActive'];
+      },
+      set(val: any) {
+        store.commit('viewManager/SET_ACTIONS_BAR_ACTIVE', val);
+      },
+    },
   },
   methods: {},
 };

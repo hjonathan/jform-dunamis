@@ -37,12 +37,12 @@
 </template>
 
 <script lang="ts">
-import { sync } from 'vuex-pathify';
 import { Uri } from 'monaco-editor/esm/vs/editor/editor.api';
 import { computed, defineComponent, reactive, ref } from '@vue/composition-api';
 import MonacoEditor from '../MonacoEditor.vue';
 import { getMonacoModelForUri } from '../../core/jsonSchemaValidation';
 import { useExportSchema, useExportUiSchema } from '../../util';
+import store from '../../store';
 
 const MainPanelSchemaEditor = defineComponent({
   name: 'MainPanelSchemaEditor',
@@ -60,8 +60,22 @@ const MainPanelSchemaEditor = defineComponent({
   setup(props: any) {
     const uiUri = Uri.parse('json://core/specification/uischema.json');
     const uri = Uri.parse('json://core/specification/schema.json');
-    let jsonSchema = computed(sync('app/editor@schema'));
-    let jsonUiSchema = computed(sync('app/editor@uiSchema'));
+    let jsonSchema = computed({
+      get() {
+        return store.getters['app/schema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_SCHEMA', val);
+      },
+    });
+    let jsonUiSchema = computed({
+      get() {
+        return store.getters['app/uiSchema'];
+      },
+      set(val: any) {
+        store.commit('app/SET_UI_SCHEMA', val);
+      },
+    });
     let setSchema: any = (schemaModel: any, uri: any) => {
       return getMonacoModelForUri(
         uri,

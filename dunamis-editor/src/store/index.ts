@@ -11,10 +11,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { RootState } from './types';
 
-// Utilities
-// https://davestewart.github.io/vuex-pathify/#/
-import pathify from '../plugins/vuex-pathify';
-
 // Modules
 // https://vuex.vuejs.org/guide/modules.html
 import * as modules from './modules';
@@ -23,10 +19,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store<RootState>({
   state: {
-    version: '1.0.0',
+    version: '0.0.1',
   },
   modules,
-  plugins: [pathify.plugin],
 });
 
 // A reusable const for making root commits and dispatches

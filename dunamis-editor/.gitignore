@@ -2,7 +2,6 @@
 node_modules
 /dist
 build/
-src
 .cache
 
 # local env files

@@ -224,6 +224,8 @@ const controlRenderer = defineComponent({
           //   linkedSchemaElement: newElement.uuid,
           // });
         }
+      } else {
+        console.log('update index');
       }
     },
     handleChange1(evt) {

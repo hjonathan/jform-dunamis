@@ -24,5 +24,4 @@ export const extendedVuetifyRenderers = [
 export const extendedVuetifyRenderersEditor = [
   ...vuetifyRenderers,
   ...editorRenderers,
-  ...gridRenderers,
 ];

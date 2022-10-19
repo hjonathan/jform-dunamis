@@ -5,6 +5,7 @@ import {
   createLayout,
 } from '../util/generators/uiSchema';
 import { createControl } from '../util/generators/schema';
+import { uuid } from 'uuidv4';
 export interface PaletteService {
   getPaletteElements(): PaletteElement[];
 }
@@ -333,6 +334,9 @@ const complexElements = [
             elements: [],
           },
         },
+        type: 'DataTableControl',
+        elements: [],
+        uuid: uuid(),
       };
     },
   },

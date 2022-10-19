@@ -31,38 +31,40 @@
     </v-card-title>
     <v-card-text>
       <v-row no-gutters>
-        <v-simple-table class="array-container flex">
-          <tbody>
-            <draggable
-              :class="draggableClass"
-              :value="[]"
-              group="people"
-              @change="handleChange"
-              :key="'draggable' + uischema.uuid"
-              :sort="true"
-              :disabled="!enabledDrag"
-              @start="dragging = true"
-              @end="dragging = false"
-              tag="tr"
+        <v-row>
+          <draggable
+            :class="draggableClass"
+            :list="uischema.elements"
+            group="people"
+            :key="'draggable' + uischema.uuid"
+            :sort="true"
+            drag-class="drag-ghost"
+            ghost-class="ghost"
+            chosen-class="chosen-ghost"
+            handle=".drag-icon"
+            :animation="200"
+            @change="handleChange"
+          >
+            <!-- <td v-for="(element, index) in uischema.elements" :key="index"> -->
+            <v-col
+              v-for="(element, index) in uischema.elements"
+              :key="`${index}`"
+              no-gutters
             >
-              <td
-                v-for="(element, index) in uischema.options.detail.elements"
-                :key="index"
-              >
-                <dispatch-renderer
-                  :key="element.uuid"
-                  updateItemIndex
-                  :schema="control.schema"
-                  :uischema="element"
-                  :path="control.path"
-                  :enabled="control.enabled"
-                  :renderers="customRenderers"
-                  :cells="control.cells"
-                />
-              </td>
-            </draggable>
-          </tbody>
-        </v-simple-table>
+              <dispatch-renderer
+                :key="element.uuid"
+                updateItemIndex
+                :schema="control.schema"
+                :uischema="element"
+                :path="control.path"
+                :enabled="control.enabled"
+                :renderers="customRenderers"
+                :cells="control.cells"
+              />
+            </v-col>
+          </draggable>
+        </v-row>
+
         <v-tooltip
           v-if="control.uischema.hint && control.uischema.hint != ''"
           top
@@ -113,6 +115,7 @@ import {
 import draggable from 'vuedraggable';
 import { createControl, tryFindByUUID } from '../../util';
 import { buildSchemaTree } from '../../model/schema';
+import { doFindByScope } from '../../util';
 import { entry as DroppableElementRegistration } from './DroppableElement.vue';
 import _ from 'lodash';
 import store from '../../store';
@@ -148,7 +151,7 @@ const controlRenderer = defineComponent({
       );
     },
     draggableClass(): string {
-      return 'dragArea  ' + this.styles.horizontalLayout.item;
+      return 'drag-area row ' + this.styles.horizontalLayout.item;
     },
     foundUISchema(): UISchemaElement {
       return findUISchema(
@@ -179,7 +182,51 @@ const controlRenderer = defineComponent({
   },
   methods: {
     composePaths,
-    handleChange(evt) {
+    handleChange(evt: any) {
+      const enabledFields = [
+        'Control',
+        'Checkbox',
+        'DatePicker',
+        'DateTime',
+        'TimePicker',
+        'MultipleFile',
+        'Text',
+        'TextArea',
+        'RichText',
+        'Rating',
+        'RadioGroup',
+        'Suggest',
+        'CheckboxGroup',
+        'Dropdown',
+        'Image',
+        'GridControl',
+        'DataTableControl',
+        'File',
+        'Submit',
+      ];
+
+      if (evt.added && evt.added.element) {
+        if (enabledFields.indexOf(evt.added.element.type) !== -1) {
+          //here update the schema
+          const property = evt.added.element.uiSchemaElementProvider();
+          const newElement = buildSchemaTree(property.control);
+
+          store.dispatch('app/addColumnToDataTable', {
+            column: newElement,
+            variableColumn: evt.added.element.scope.split('/').pop(),
+            parentUUID: this.uischema.linkedSchemaElement,
+          });
+
+          //Update parent in newElement
+          // store.dispatch('app/updateParentUiSchemaElement', {
+          //   elementUUID: evt.added.element.uuid,
+          //   parentUUID: this.uischema.uuid,
+          //   linkedSchemaElement: newElement.uuid,
+          // });
+        }
+      }
+    },
+    handleChange1(evt) {
       if (evt.added) {
         if (
           evt.added.element &&
@@ -285,8 +332,8 @@ export const entry: JsonFormsRendererRegistryEntry = {
 };
 </script>
 <style scoped>
-.dragArea {
-  height: 80px;
+.drag-area {
+  min-height: 80px;
 }
 
 .fixed-cell {

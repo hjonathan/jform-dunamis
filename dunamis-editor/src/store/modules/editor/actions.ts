@@ -19,6 +19,7 @@ import {
   updateUISchemaElement,
   updateUISchemaElementOption,
   updateSchemaElement,
+  addColumnToDataTable,
   palleteElements,
 } from './../../utils/schemas';
 
@@ -48,8 +49,15 @@ const actions = {
   },
   addScopedElementToTable: ({ commit, state }: any, payload: any) => {
     const clone = createScopedElementToTable(state, payload);
-    commit('SET_UI_SCHEMA', clone.uiSchema);
+    commit('SET_SCHEMA', clone.uiSchema);
   },
+
+  //SCHEMA
+  addColumnToDataTable: ({ commit, state }: any, payload: any) => {
+    const clone = addColumnToDataTable(state, payload);
+    commit('SET_SCHEMA', clone);
+  },
+
   setSchema: ({ commit, state }: any, payload: any) => {
     const clone = createSchema(state, payload);
     commit('SET_SCHEMA', clone.schema);

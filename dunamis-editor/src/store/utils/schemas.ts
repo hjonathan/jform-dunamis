@@ -359,15 +359,6 @@ export const createScopedElementToLayout = (state: any, payload: any) => {
   );
 };
 
-export const ghostElementLayout = (uiSchema: any, element: any, UUID: any) => {
-  const newUIElement = element;
-  withCloneTree(uiSchema, UUID, {} as EditorUISchemaElement, (clonedSchema) => {
-    newUIElement.parent = clonedSchema;
-    return getRoot(clonedSchema as EditorUISchemaElement);
-  });
-  return newUIElement;
-};
-
 export const createScopedElementToTable = (state: any, payload: any) => {
   return withCloneTrees(
     state.editor.uiSchema,
@@ -405,6 +396,19 @@ export const addPropertyToSchema = (state: any, payload: any) => {
       newElement.schema.i18n = payload.variable;
       clonedSchema.properties?.set(payload.variable, newElement);
       // return clonedSchema;
+      return getRoot(clonedSchema as EditorUISchemaElement);
+    }
+  );
+};
+
+export const addColumnToDataTable = (state: any, payload: any) => {
+  return withCloneTree(
+    state.editor.schema,
+    payload.parentUUID,
+    state.editor,
+    (clonedSchema) => {
+      const newColumn = payload.column;
+      clonedSchema.items?.properties?.set(payload.variableColumn, newColumn);
       return getRoot(clonedSchema as EditorUISchemaElement);
     }
   );

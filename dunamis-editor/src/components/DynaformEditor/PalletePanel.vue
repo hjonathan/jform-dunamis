@@ -61,20 +61,14 @@ import {
   ref,
 } from '@vue/composition-api';
 import draggable from 'vuedraggable';
-import { buildSchemaTree, getLabel, SchemaElement } from '../../model/schema';
-import { ghostElementLayout } from '../../store/utils/schemas';
+import { SchemaElement } from '../../model/schema';
 import store from './../../store';
-import { createControlDrag } from '../../util';
+import { uuid } from 'uuidv4';
 export default defineComponent({
   name: 'PalletePanel',
   components: {
     draggable,
   },
-  // props: {
-  //   schema: {
-  //     type: [Object, Boolean],
-  //   },
-  // },
   setup(props: any, context: any) {
     const enabledFields = [
       'Control',
@@ -121,25 +115,23 @@ export default defineComponent({
 
     const clone = (element: any) => {
       const property: any = element.uiSchemaElementProvider();
-      let newElement: any, newUIElement: any;
+      const uid = uuid();
       if (enabledFields.indexOf(element.type) != -1) {
-        newElement = buildSchemaTree(property.control) || {};
-        newElement.options = property.uiOptions;
-        newUIElement = createControlDrag(newElement, element.type);
-        return {
-          ...ghostElementLayout(
-            editorUiSchema.value,
-            newUIElement,
-            editorUiSchema.uuid
-          ),
+        const cloneElement = {
+          type: element.type,
+          scope: `#/properties/${element.type}_${uid.split('-').shift()}`,
+          options: property.uiOptions,
+          uuid: uid,
+          parent: editorUiSchema.value,
           uiSchemaElementProvider: element.uiSchemaElementProvider,
+          ...{ elements: property?.elements },
         };
+        return cloneElement;
       } else {
-        return ghostElementLayout(
-          editorUiSchema.value,
-          property,
-          editorUiSchema.uuid
-        );
+        return {
+          ...property,
+          parent: editorUiSchema.value,
+        };
       }
     };
 

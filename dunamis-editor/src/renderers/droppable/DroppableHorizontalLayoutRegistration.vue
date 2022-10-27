@@ -1,39 +1,37 @@
 <template>
-  <div>
-    <v-row no-gutters>
-      <draggable
-        :class="draggableClass"
-        :list="uischema.elements"
-        group="people"
-        :key="'draggable' + uischema.uuid"
-        :sort="true"
-        drag-class="drag-ghost"
-        ghost-class="ghost"
-        chosen-class="chosen-ghost"
-        handle=".drag-icon"
-        :animation="200"
-        @change="handleChange"
+  <v-row no-gutters>
+    <draggable
+      :class="draggableClass"
+      :list="uischema.elements"
+      group="people"
+      :key="'draggable' + uischema.uuid"
+      :sort="true"
+      drag-class="drag-ghost"
+      ghost-class="ghost"
+      chosen-class="chosen-ghost"
+      handle=".drag-icon"
+      :animation="200"
+      @change="handleChange"
+      direction="horizontal"
+    >
+      <v-col
+        v-for="(element, index) in uischema.elements"
+        :key="`${layout.path}-${index}`"
+        no-gutters
+        :cols="cols ? cols[index] : null"
       >
-        <v-col
-          v-for="(element, index) in uischema.elements"
-          :key="`${layout.path}-${index}`"
-          no-gutters
-          :cols="cols ? cols[index] : null"
-        >
-          <dispatch-renderer
-            :key="element.uuid"
-            :schema="layout.schema"
-            :uischema="element"
-            :path="layout.path"
-            :enabled="layout.enabled"
-            :renderers="customRenderers"
-            :cells="layout.cells"
-          />
-        </v-col>
-      </draggable>
-    </v-row>
-  </div>
-  <!-- </v-container> -->
+        <dispatch-renderer
+          :key="element.uuid"
+          :schema="layout.schema"
+          :uischema="element"
+          :path="layout.path"
+          :enabled="layout.enabled"
+          :renderers="customRenderers"
+          :cells="layout.cells"
+        />
+      </v-col>
+    </draggable>
+  </v-row>
 </template>
 <script lang="ts">
 //@ts-nocheck

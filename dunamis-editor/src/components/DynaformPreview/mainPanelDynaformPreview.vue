@@ -31,7 +31,7 @@ import { JsonFormsI18nState } from '@jsonforms/core';
 import { JsonForms, JsonFormsChangeEvent } from '@jsonforms/vue2';
 import { useExportSchema } from '../../util';
 import { generateEmptyData } from '../../model';
-import { extendedVuetifyRenderers } from '@jsonforms/vue2-vuetify';
+import { defaultRenderers } from '../../renderers/index';
 import _ from 'lodash';
 import store from '../../store';
 import Device from 'vue-device';
@@ -56,10 +56,9 @@ export default defineComponent({
       locale: {},
       i18n: {
         locale: 'en',
-        //translate: this.createTranslator(this.locale || 'en'),
-        translate: {},
+        translate: this.createTranslator(this.locale || 'en'),
       } as JsonFormsI18nState,
-      renderers: extendedVuetifyRenderers,
+      renderers: defaultRenderers,
     };
   },
   computed: {

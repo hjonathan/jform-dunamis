@@ -10,6 +10,7 @@
     chosen-class="chosen-ghost"
     handle=".drag-icon"
     :animation="200"
+    direction="vertical"
   >
     <v-row
       v-for="(element, index) in uischema.elements"
@@ -118,7 +119,6 @@ const droppableRenderer = defineComponent({
         'Submit',
       ];
       const enabledLayouts = ['HorizontalLayout'];
-
       if (evt.added && evt.added.element) {
         if (enabledFields.indexOf(evt.added.element.type) !== -1) {
           //here update the schema

@@ -405,10 +405,22 @@ export const addColumnToDataTable = (state: any, payload: any) => {
   return withCloneTree(
     state.editor.schema,
     payload.parentUUID,
-    state.editor,
+    state.editor.schema,
     (clonedSchema) => {
       const newColumn = payload.column;
       clonedSchema.items?.properties?.set(payload.variableColumn, newColumn);
+      return getRoot(clonedSchema as EditorUISchemaElement);
+    }
+  );
+};
+
+export const removeColumnDataTable = (state: any, payload: any) => {
+  return withCloneTree(
+    state.editor.schema,
+    payload.parentUUID,
+    state.editor.schema,
+    (clonedSchema) => {
+      clonedSchema.items?.properties?.delete(payload.variableColumn);
       return getRoot(clonedSchema as EditorUISchemaElement);
     }
   );

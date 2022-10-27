@@ -20,6 +20,7 @@ import {
   updateUISchemaElementOption,
   updateSchemaElement,
   addColumnToDataTable,
+  removeColumnDataTable,
   palleteElements,
 } from './../../utils/schemas';
 
@@ -57,7 +58,10 @@ const actions = {
     const clone = addColumnToDataTable(state, payload);
     commit('SET_SCHEMA', clone);
   },
-
+  removeColumnDataTable: ({ commit, state }: any, payload: any) => {
+    const clone = removeColumnDataTable(state, payload);
+    commit('SET_SCHEMA', clone);
+  },
   setSchema: ({ commit, state }: any, payload: any) => {
     const clone = createSchema(state, payload);
     commit('SET_SCHEMA', clone.schema);

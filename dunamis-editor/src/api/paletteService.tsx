@@ -329,10 +329,7 @@ const complexElements = [
         control,
         variable: 'dataTable',
         uiOptions: {
-          detail: {
-            type: 'VerticalLayout',
-            elements: [],
-          },
+          columns: [],
         },
         type: 'DataTableControl',
         elements: [],

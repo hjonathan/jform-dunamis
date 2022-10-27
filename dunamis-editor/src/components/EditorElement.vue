@@ -1,108 +1,112 @@
 <template>
-  <v-card outlined :class="selectedStyle" @click="click">
-    <v-row>
-      <v-col>
-        <div
-          class="d-block"
-          @mouseover.stop.prevent.self="hover = true"
-          @mouseleave.self="hover = false"
-        >
-          <v-icon small>{{ computedIcon }}</v-icon>
-          <span class="d-inline caption" v-if="ruleEffect">
-            <span class="font-weight-bold">R</span>
-            <span class="font-italic"> ({{ ruleEffect }})</span>
-          </span>
-          <div class="d-inline caption font-weight-bold v-opacity">
-            {{
-              wrappedElement.scope ? wrappedElement.scope.split('/').pop() : ''
-            }}
-          </div>
-          <div class="d-inline float-right">
-            <v-tooltip top v-if="hover" :color="moveColor">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-bind="attrs"
-                  v-on="on"
-                  plain
-                  x-small
-                  class="drag-icon"
-                  :color="moveColor"
-                  @mouseover="moveColor = 'teal lighten-2'"
-                  @mouseleave="moveColor = undefined"
-                >
-                  <v-icon small> mdi-arrow-all </v-icon>
-                </v-btn>
-              </template>
-              <span>Move</span>
-            </v-tooltip>
-            <v-tooltip top v-if="hover" :color="removeColor">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-bind="attrs"
-                  v-on="on"
-                  plain
-                  x-small
-                  v-if="hover"
-                  @click="onRemove"
-                  :color="removeColor"
-                  @mouseover="removeColor = 'red lighten-2'"
-                  @mouseleave="removeColor = undefined"
-                >
-                  <v-icon small> mdi-delete </v-icon>
-                </v-btn>
-              </template>
-              <span>Delete</span>
-            </v-tooltip>
+  <v-card outlined :class="selectedStyle">
+    <div @click="click">
+      <v-row>
+        <v-col>
+          <div
+            class="d-block"
+            @mouseover.stop.prevent.self="hover = true"
+            @mouseleave.self="hover = false"
+          >
+            <v-icon small>{{ computedIcon }}</v-icon>
+            <span class="d-inline caption" v-if="ruleEffect">
+              <span class="font-weight-bold">R</span>
+              <span class="font-italic"> ({{ ruleEffect }})</span>
+            </span>
+            <div class="d-inline caption font-weight-bold v-opacity">
+              {{
+                wrappedElement.scope
+                  ? wrappedElement.scope.split('/').pop()
+                  : ''
+              }}
+            </div>
+            <div class="d-inline float-right">
+              <v-tooltip top v-if="hover" :color="moveColor">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    plain
+                    x-small
+                    class="drag-icon"
+                    :color="moveColor"
+                    @mouseover="moveColor = 'teal lighten-2'"
+                    @mouseleave="moveColor = undefined"
+                  >
+                    <v-icon small> mdi-arrow-all </v-icon>
+                  </v-btn>
+                </template>
+                <span>Move</span>
+              </v-tooltip>
+              <v-tooltip top v-if="hover" :color="removeColor">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    plain
+                    x-small
+                    v-if="hover"
+                    @click="onRemove"
+                    :color="removeColor"
+                    @mouseover="removeColor = 'red lighten-2'"
+                    @mouseleave="removeColor = undefined"
+                  >
+                    <v-icon small> mdi-delete </v-icon>
+                  </v-btn>
+                </template>
+                <span>Delete</span>
+              </v-tooltip>
 
-            <v-tooltip top v-if="hover" :color="editColor">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-bind="attrs"
-                  v-on="on"
-                  plain
-                  x-small
-                  @click="onEdit"
-                  :color="editColor"
-                  @mouseover="editColor = 'green lighten-2'"
-                  @mouseleave="editColor = undefined"
-                >
-                  <v-icon small> mdi-pencil-outline </v-icon>
-                </v-btn>
-              </template>
-              <span>Edit</span>
-            </v-tooltip>
-            <v-tooltip top v-if="hover" :color="duplicateColor">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-bind="attrs"
-                  v-on="on"
-                  plain
-                  x-small
-                  @click="onDuplicate"
-                  :color="duplicateColor"
-                  @mouseover="duplicateColor = 'brown lighten-2'"
-                  @mouseleave="duplicateColor = undefined"
-                >
-                  <v-icon small> mdi-content-copy </v-icon>
-                </v-btn>
-              </template>
-              <span>Duplicate</span>
-            </v-tooltip>
+              <v-tooltip top v-if="hover" :color="editColor">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    plain
+                    x-small
+                    @click="onEdit"
+                    :color="editColor"
+                    @mouseover="editColor = 'green lighten-2'"
+                    @mouseleave="editColor = undefined"
+                  >
+                    <v-icon small> mdi-pencil-outline </v-icon>
+                  </v-btn>
+                </template>
+                <span>Edit</span>
+              </v-tooltip>
+              <v-tooltip top v-if="hover" :color="duplicateColor">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-bind="attrs"
+                    v-on="on"
+                    plain
+                    x-small
+                    @click="onDuplicate"
+                    :color="duplicateColor"
+                    @mouseover="duplicateColor = 'brown lighten-2'"
+                    @mouseleave="duplicateColor = undefined"
+                  >
+                    <v-icon small> mdi-content-copy </v-icon>
+                  </v-btn>
+                </template>
+                <span>Duplicate</span>
+              </v-tooltip>
+            </div>
           </div>
-        </div>
 
-        <div class="editor-element">
-          <slot></slot>
-        </div>
-      </v-col>
-      <ResizableCols
-        v-model="wrappedElement"
-        v-if="
-          wrappedElement.scope &&
-          wrappedElement.parent.type == 'HorizontalLayout'
-        "
-      />
-    </v-row>
+          <div class="editor-element">
+            <slot></slot>
+          </div>
+        </v-col>
+        <ResizableCols
+          v-model="wrappedElement"
+          v-if="
+            wrappedElement.scope &&
+            wrappedElement.parent.type == 'HorizontalLayout'
+          "
+        />
+      </v-row>
+    </div>
   </v-card>
 </template>
 

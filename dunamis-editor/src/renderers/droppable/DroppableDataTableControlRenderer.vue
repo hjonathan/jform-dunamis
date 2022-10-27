@@ -34,7 +34,7 @@
         <v-row>
           <draggable
             :class="draggableClass"
-            :list="uischema.elements"
+            :list="uischema.options.columns"
             group="people"
             :key="'draggable' + uischema.uuid"
             :sort="true"
@@ -42,18 +42,17 @@
             ghost-class="ghost"
             chosen-class="chosen-ghost"
             handle=".drag-icon"
-            :animation="200"
+            :animation="300"
             @change="handleChange"
           >
             <!-- <td v-for="(element, index) in uischema.elements" :key="index"> -->
             <v-col
-              v-for="(element, index) in uischema.elements"
+              v-for="(element, index) in uischema.options.columns"
               :key="`${index}`"
               no-gutters
             >
               <dispatch-renderer
                 :key="element.uuid"
-                updateItemIndex
                 :schema="control.schema"
                 :uischema="element"
                 :path="control.path"
@@ -88,8 +87,6 @@ import {
   rankWith,
   composePaths,
   ControlElement,
-  findUISchema,
-  UISchemaElement,
   uiTypeIs,
 } from '@jsonforms/core';
 import { defineComponent } from '../../util/vue';
@@ -113,11 +110,8 @@ import {
   VSpacer,
 } from 'vuetify/lib';
 import draggable from 'vuedraggable';
-import { createControl, tryFindByUUID } from '../../util';
 import { buildSchemaTree } from '../../model/schema';
-import { doFindByScope } from '../../util';
 import { entry as DroppableElementRegistration } from './DroppableElement.vue';
-import _ from 'lodash';
 import store from '../../store';
 const controlRenderer = defineComponent({
   name: 'droppable-data-table-control-renderer',
@@ -152,16 +146,6 @@ const controlRenderer = defineComponent({
     },
     draggableClass(): string {
       return 'drag-area row ' + this.styles.horizontalLayout.item;
-    },
-    foundUISchema(): UISchemaElement {
-      return findUISchema(
-        this.control.uischemas,
-        this.control.schema,
-        this.control.uischema.scope,
-        this.control.path,
-        undefined,
-        this.control.uischema
-      );
     },
     editorUiSchemaModel: {
       get() {
@@ -204,7 +188,6 @@ const controlRenderer = defineComponent({
         'File',
         'Submit',
       ];
-
       if (evt.added && evt.added.element) {
         if (enabledFields.indexOf(evt.added.element.type) !== -1) {
           //here update the schema
@@ -216,112 +199,15 @@ const controlRenderer = defineComponent({
             variableColumn: evt.added.element.scope.split('/').pop(),
             parentUUID: this.uischema.linkedSchemaElement,
           });
-
-          //Update parent in newElement
-          // store.dispatch('app/updateParentUiSchemaElement', {
-          //   elementUUID: evt.added.element.uuid,
-          //   parentUUID: this.uischema.uuid,
-          //   linkedSchemaElement: newElement.uuid,
-          // });
-        }
-      } else {
-        console.log('update index');
-      }
-    },
-    handleChange1(evt) {
-      if (evt.added) {
-        if (
-          evt.added.element &&
-          (evt.added.element.type === 'Control' ||
-            evt.added.element.type === 'Checkbox' ||
-            evt.added.element.type === 'DatePicker' ||
-            evt.added.element.type === 'DateTime' ||
-            evt.added.element.type === 'TimePicker' ||
-            evt.added.element.type === 'MultipleFile' ||
-            evt.added.element.type === 'Text' ||
-            evt.added.element.type === 'TextArea' ||
-            evt.added.element.type === 'RichText' ||
-            evt.added.element.type === 'Rating' ||
-            evt.added.element.type === 'RadioGroup' ||
-            evt.added.element.type === 'Suggest' ||
-            evt.added.element.type === 'CheckboxGroup' ||
-            evt.added.element.type === 'Dropdown' ||
-            evt.added.element.type === 'Image' ||
-            evt.added.element.type === 'GridControl' ||
-            evt.added.element.type === 'File' ||
-            evt.added.element.type === 'Submit')
-        ) {
-          //here update the schema
-          const property = evt.added.element.uiSchemaElementProvider();
-          const newElement = buildSchemaTree(property.control);
-          const parent = this.editorSchemaModel.properties.get(
-            this.control.path
-          );
-          store.dispatch('app/addPropertyToSchema', {
-            schemaElement: newElement,
-            elementUUID: parent.items.uuid,
-            indexOrProp: property.variable,
-          });
-
-          // Here uischema
-          const schemaElement = tryFindByUUID(
-            store.getters['app/schema'],
-            newElement.uuid
-          );
-          const element = this.findElementSchema(
-            store.getters['app/schema'],
-            schemaElement
-          );
-          // store.dispatch('locales/addProperty', {
-          //   property: element.key,
-          // });
-
-          schemaElement.options = property.uiOptions;
-          const newUIElement = createControl(
-            schemaElement,
-            evt.added.element.type
-          );
-          for (let item of parent.linkedUISchemaElements) {
-            store.dispatch('app/addScopedElementToTable', {
-              uiSchemaElement: newUIElement,
-              layoutUUID: item,
-              index: evt.added.newIndex,
-              schemaUUID: evt.added.element.uuid,
-              schemaElement,
-            });
-          }
-        } else {
-          let provider = evt.added.element.uiSchemaElementProvider();
-          store.dispatch('app/addUnscopedElementToLayout', {
-            uiSchemaElement: provider,
-            layoutUUID: this.uischema.uuid,
-            index: evt.added.newIndex,
-          });
         }
       }
-      if (evt.moved) {
-        this.updateItemIndex(evt.moved);
+
+      if (evt.removed) {
+        store.dispatch('app/removeColumnDataTable', {
+          parentUUID: this.uischema.linkedSchemaElement,
+          variableColumn: evt.removed.element.scope.split('/').pop(),
+        });
       }
-    },
-    /**
-     * Update Index in uischema
-     */
-    updateItemIndex(item: any) {
-      const auxElement = this.uischema.elements.splice(item.oldIndex, 1);
-      this.uischema.elements.splice(item.newIndex, 0, auxElement[0]);
-      //   this.setEditorUiSchema(this.editorUiSchemaModel);
-    },
-    findElementSchema(schemaGlobal, schemaLocal) {
-      let ele;
-      for (const [key, value] of schemaGlobal.properties) {
-        if (_.isEqual(value, schemaLocal)) {
-          ele = {
-            key: key,
-            value: value,
-          };
-        }
-      }
-      return ele;
     },
   },
 });

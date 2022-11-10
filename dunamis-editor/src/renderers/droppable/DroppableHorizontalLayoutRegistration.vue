@@ -5,14 +5,12 @@
       :list="uischema.elements"
       group="people"
       :key="'draggable' + uischema.uuid"
-      :sort="true"
       drag-class="drag-ghost"
       ghost-class="ghost"
       chosen-class="chosen-ghost"
       handle=".drag-icon"
       :animation="200"
       @change="handleChange"
-      direction="horizontal"
     >
       <v-col
         v-for="(element, index) in uischema.elements"

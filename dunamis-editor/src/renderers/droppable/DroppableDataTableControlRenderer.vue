@@ -34,7 +34,7 @@
         <v-row>
           <draggable
             :class="draggableClass"
-            :list="uischema.options.columns"
+            :list="uischema.elements"
             group="people"
             :key="'draggable' + uischema.uuid"
             :sort="true"
@@ -47,7 +47,7 @@
           >
             <!-- <td v-for="(element, index) in uischema.elements" :key="index"> -->
             <v-col
-              v-for="(element, index) in uischema.options.columns"
+              v-for="(element, index) in uischema.elements"
               :key="`${index}`"
               no-gutters
             >

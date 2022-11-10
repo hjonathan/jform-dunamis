@@ -1,10 +1,11 @@
 //@ts-nocheck
 import Vue from 'vue';
 import _ from 'lodash';
-export default class JReactivex {
+export default class HX {
   bus: any;
   joinForkArray: any[];
   events: any[];
+  onArray: any[];
   channels: any;
   topics: any[];
   constructor() {
@@ -17,6 +18,14 @@ export default class JReactivex {
   emit(event: any, payload: any) {
     this.bus.$emit(event, payload);
   }
+  // SIMPLE HX
+  on(event: any, fn: fn) {
+    this.bus.$on(event, fn);
+  }
+  off(event: any, fn: fn) {
+    this.bus.$off(event, fn);
+  }
+
   diffEvents(newArrayEvents: any) {
     const dif = _.difference(newArrayEvents, this.events);
     this.events = this.events.concat(dif);

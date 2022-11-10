@@ -3,14 +3,12 @@
     :class="draggableClass"
     :list="uischema.elements"
     group="people"
-    :sort="true"
     @change="handleChange"
     drag-class="drag-ghost"
     ghost-class="ghost"
     chosen-class="chosen-ghost"
     handle=".drag-icon"
     :animation="200"
-    direction="vertical"
   >
     <v-row
       v-for="(element, index) in uischema.elements"

@@ -124,7 +124,7 @@ export default defineComponent({
           uuid: uid,
           parent: editorUiSchema.value,
           uiSchemaElementProvider: element.uiSchemaElementProvider,
-          ...{ elements: property?.elements },
+          ...{ elements: property?.elements || [] },
         };
         return cloneElement;
       } else {

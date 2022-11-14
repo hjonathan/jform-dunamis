@@ -21,7 +21,6 @@ export default {
     //itemsActionsBar: sync('viewManager/actionsBar.items'),
     itemsActionsBar: {
       get() {
-        console.log('aS');
         return store.getters['viewManager/actionsBarItem'];
       },
       set(val: any) {

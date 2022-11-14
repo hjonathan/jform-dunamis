@@ -1,12 +1,10 @@
 <template>
-  <div>CELLLLLLLLLLLLLLLLLLLll</div>
-  <!-- <component v-bind:is="determinedRenderer" v-bind="renderer"></component> -->
+  <component v-bind:is="cDeterminedRenderer" v-bind="renderer"></component>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import maxBy from 'lodash/maxBy';
-import { rendererProps, UnknownRenderer } from '@jsonforms/vue2';
+import { rendererProps } from '@jsonforms/vue2';
 import { ControlElement } from '@jsonforms/core';
 import { RendererProps, useDtCellComposition } from './DTCellComp';
 
@@ -33,21 +31,6 @@ export default defineComponent({
   },
   setup(props: RendererProps<ControlElement>) {
     return useDtCellComposition(props);
-  },
-  computed: {
-    determinedRenderer(): any {
-      const renderer = maxBy(this.renderer.renderers, (r: any) =>
-        r.tester(this.renderer.uischema, this.renderer.schema)
-      );
-      if (
-        renderer === undefined ||
-        renderer.tester(this.renderer.uischema, this.renderer.schema) === -1
-      ) {
-        return UnknownRenderer;
-      } else {
-        return renderer.renderer;
-      }
-    },
   },
 });
 </script>

@@ -24,6 +24,7 @@ export const useDtRowComposition = (props: RendererProps, emit: any) => {
   const control: any = useControl(props.parent); // Basic Object from Json Core
   //Properties
   const rHeaders = ref(props.row.headers);
+
   //Methods
   const onDelete = () => {
     emit('onDeleteRow', props.row);

@@ -103,9 +103,10 @@ import every from 'lodash/every';
 import isString from 'lodash/isString';
 import { mask } from '@titou10/v-mask';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
+import { alphaTeorem } from '../composition/alphaTeorem';
 
-const controlRenderer = defineComponent({
-  name: 'string-control-renderer',
+const TextControlRenderer = defineComponent({
+  name: 'text-control-renderer',
   components: {
     ControlWrapper,
     VHover,
@@ -124,11 +125,13 @@ const controlRenderer = defineComponent({
   },
   setup(props: RendererProps<ControlElement>) {
     let textValue = ref('');
+    const vuetifyControl = useVuetifyControl(
+      useJsonFormsControl(props),
+      (value) => value || undefined
+    );
+    // @ts-ignore:
     return {
-      ...useVuetifyControl(
-        useJsonFormsControl(props),
-        (value) => value || undefined
-      ),
+      ...vuetifyControl,
       textValue,
     };
   },
@@ -230,10 +233,10 @@ const controlRenderer = defineComponent({
   },
 });
 
-export default controlRenderer;
+export default TextControlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: controlRenderer,
-  tester: rankWith(2, uiTypeIs('Text')),
+  renderer: TextControlRenderer,
+  tester: rankWith(3, uiTypeIs('Text')),
 };
 </script>

@@ -26,9 +26,9 @@ import DtCellRenderer from './DTCellRenderer.vue';
 
 export default defineComponent({
   name: 'dt-row-renderer',
-  components:{
-    DtCellRenderer
-  }
+  components: {
+    DtCellRenderer,
+  },
   props: {
     parent: { ...rendererProps<ControlElement>() },
     row: {

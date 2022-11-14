@@ -205,13 +205,6 @@ export const useVuetifyArrayControl = <I extends { control: any }>(
     }
     return `${labelValue}`;
   };
-  console.log({
-    ...input,
-    styles: useStyles(input.control.value.uischema),
-    appliedOptions,
-    childLabelForIndex,
-    computedLabel,
-  });
   return {
     ...input,
     styles: useStyles(input.control.value.uischema),

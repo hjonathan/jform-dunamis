@@ -5,8 +5,9 @@
 <script lang="ts">
 import ActionsBarEditor from './../../DynaformEditor/ActionsBarEditor.vue';
 import store from '../../../store';
+import { defineComponent } from '@vue/composition-api';
 
-export default {
+export default defineComponent({
   name: 'ActionsBar',
   props: {},
   components: { ActionsBarEditor },
@@ -34,5 +35,5 @@ export default {
     },
   },
   methods: {},
-};
+});
 </script>

@@ -1,17 +1,20 @@
 import { inject } from '@vue/composition-api';
-import { map, isObject, sortedUniq, isEqual } from 'lodash';
+import { map, isObject, sortedUniq, isEqual, cloneDeep } from 'lodash';
 import Vue from 'vue';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const mustache = require('mustache');
 
 // ALPHA TEOREM is the class for manage the dependencies, computed, watchers
-export const alphaTeorem = (schema: any) => {
+export const alphaTeorem = (control: any) => {
   let dep: Array<any> = [];
-
+  const uischema = control.value.uischema;
+  console.log('TEOREM');
   //First step::: Create dispatcher to emit the own value
-  alphaDispatcher(schema.scope.split('/').pop() || '');
+  alphaDispatcher(uischema.scope.split('/').pop() || '');
   //Second step::: Find the dependents fields in schema
-  dep = alphaFindDependencies(schema, dep);
+  dep = alphaFindDependencies(uischema, dep);
   //Third step::: Find the dependents fields in schema
-  alphaWatcher(dep);
+  alphaWatcher(control, dep);
 };
 
 /**
@@ -66,11 +69,24 @@ export const alphaDispatcher = (scope: string) => {
  * Watch all matrix variables with mustache {{}}
  * @param variables
  */
-export const alphaWatcher = (variables: Array<any>) => {
+export const alphaWatcher = (control: any, variables: Array<any>) => {
   const HX = inject<any>('HX');
   variables.forEach((v: any) => {
-    HX.on(v, () => {
-      console.log('LISTENING::::', v);
+    HX.on(v, (nVal: any) => {
+      alphaUpdater(control, v, nVal);
     });
   });
+};
+
+/**
+ * Alpha updater: update the options property in control
+ * @param control
+ * @param variable
+ * @param value
+ */
+export const alphaUpdater = (control: any, variable: string, value: any) => {
+  console.log('ALPHAAAAAAA');
+  const options = JSON.stringify(cloneDeep(control.value.uischema.options));
+  const output = mustache.render(options, { [variable]: value });
+  control.value.uischema.options = JSON.parse(output);
 };

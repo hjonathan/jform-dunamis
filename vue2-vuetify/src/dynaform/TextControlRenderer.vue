@@ -6,7 +6,7 @@
     :appliedOptions="appliedOptions"
   >
     <CustomControlWrapper
-      v-bind="{ labelOrientation, computedLabel, labelCols }"
+      v-bind="{ getLabelOrientation, computedLabel, getLabelCols }"
     >
       <v-hover v-slot="{ hover }">
         <v-combobox
@@ -16,20 +16,12 @@
           :class="styles.control.input"
           :disabled="!control.enabled"
           :autofocus="appliedOptions.focus"
-          :placeholder="placeholder"
+          :placeholder="computedPlaceholder"
           :label="computedLabel"
           :hint="control.description"
           :persistent-hint="persistentHint()"
           :required="control.required"
           :error-messages="control.errors"
-          :maxlength="
-            appliedOptions.restrict ? control.schema.maxLength : undefined
-          "
-          :counter="
-            control.schema.maxLength !== undefined
-              ? control.schema.maxLength
-              : undefined
-          "
           :clearable="hover"
           :value="control.data"
           :items="suggestions"
@@ -45,35 +37,31 @@
           :class="styles.control.input"
           :disabled="!control.enabled"
           :autofocus="appliedOptions.focus"
-          :placeholder="placeholder"
-          :persistent-placeholder="labelOrientation() == 'inherit'"
-          :label="labelOrientation() == 'inherit' ? computedLabel : null"
-          :hint="control.hint"
+          :placeholder="computedPlaceholder"
+          :persistent-placeholder="getLabelOrientation() == 'inherit'"
+          :label="getLabelOrientation() == 'inherit' ? computedLabel : null"
+          :hint="computedHint"
           :persistent-hint="persistentHint()"
           :required="control.required"
           :error-messages="control.errors"
-          :value="textValue"
-          :maxlength="
-            appliedOptions.restrict ? control.schema.maxLength : undefined
-          "
-          :counter="
-            control.schema.maxLength !== undefined
-              ? control.schema.maxLength
-              : undefined
-          "
+          :value="data"
           :clearable="hover"
           :rules="validationRegExp"
-          @input="transform(textValue)"
+          @input="transform(data)"
           @change="onChange"
           @focus="isFocused = true"
           @blur="isFocused = false"
           v-mask="inputMask"
         >
-          <v-tooltip v-if="hint && hint != ''" slot="append" top>
+          <v-tooltip
+            v-if="computedHint && computedHint != ''"
+            slot="append"
+            top
+          >
             <template v-slot:activator="{ on }">
               <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
             </template>
-            <span class="">{{ hint }}</span>
+            <span class="">{{ computedHint }}</span>
           </v-tooltip>
         </v-text-field>
       </v-hover>
@@ -88,22 +76,15 @@ import {
   rankWith,
   uiTypeIs,
 } from '@jsonforms/core';
-import { defineComponent, ref } from '../vue';
-import {
-  rendererProps,
-  useJsonFormsControl,
-  RendererProps,
-} from '@jsonforms/vue2';
+import { defineComponent } from '../vue';
+import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { default as ControlWrapper } from '../controls/ControlWrapper.vue';
-import { useVuetifyControl } from '../util';
 import { VHover, VTextField, VCombobox, VIcon, VTooltip } from 'vuetify/lib';
 import { DisabledIconFocus } from '../controls/directives';
-import isArray from 'lodash/isArray';
-import every from 'lodash/every';
-import isString from 'lodash/isString';
 import { mask } from '@titou10/v-mask';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
-import { alphaTeorem } from '../composition/alphaTeorem';
+
+import { useTextControlComposition } from './TextControlComp';
 
 const TextControlRenderer = defineComponent({
   name: 'text-control-renderer',
@@ -124,99 +105,13 @@ const TextControlRenderer = defineComponent({
     ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
-    let textValue = ref('');
-    const vuetifyControl = useVuetifyControl(
-      useJsonFormsControl(props),
-      (value) => value || undefined
-    );
+    const vuetifyControl = useTextControlComposition(props);
     // @ts-ignore:
-    return {
-      ...vuetifyControl,
-      textValue,
-    };
+    return vuetifyControl;
   },
-  mounted() {
-    this.textValue = this.control.data
-      ? this.transform(this.control.data)
-      : this.transform(this.control.uischema.options?.defaultValue) || '';
-  },
-  methods: {
-    transform(text: string) {
-      if (text) {
-        let transformToApply = this.textTransform;
-        switch (transformToApply) {
-          case 'lowercase':
-            text = text.toLowerCase();
-            break;
-          case 'uppercase':
-            text = text.toUpperCase();
-            break;
-          case 'capital':
-            text = text.charAt(0).toUpperCase() + text.slice(1);
-            break;
-          case 'title': {
-            const arr = text.split(' ');
-            for (var i = 0; i < arr.length; i++) {
-              arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-            }
-            text = arr.join(' ');
-            break;
-          }
-          default:
-            text = text ?? '';
-            break;
-        }
-      }
-
-      return text;
-    },
-  },
+  mounted() {},
+  methods: {},
   computed: {
-    textTransform(): string {
-      return this.control.uischema.options?.textTransform ?? '';
-    },
-    hint(): string {
-      return this.control.uischema.options?.hint ?? '';
-    },
-    placeholder(): string {
-      return this.control.uischema.options?.placeholder ?? '';
-    },
-    inputMask(): any {
-      const mask = this.control.uischema.options?.mask || '';
-      if (mask && typeof mask !== 'string') {
-        //This section only works with the example
-        //TODO this must work with all type of custom mask
-        return {
-          mask: mask ? mask.mask : '',
-          tokens: {
-            F: {
-              pattern: new RegExp(mask.tokens['F'].pattern.replaceAll('/', '')),
-              transform: eval(mask.tokens['F'].transform) || '',
-            },
-            G: {
-              pattern: new RegExp(mask.tokens['G'].pattern.replaceAll('/', '')),
-              transform: eval(mask.tokens['G'].transform) || '',
-            },
-          },
-        };
-      }
-      return {
-        mask: mask,
-      };
-    },
-    suggestions(): string[] | undefined {
-      const suggestions = this.control.uischema.options?.suggestion;
-
-      if (
-        suggestions === undefined ||
-        !isArray(suggestions) ||
-        !every(suggestions, isString)
-      ) {
-        // check for incorrect data
-        return undefined;
-      }
-      return suggestions;
-    },
     validationRegExp() {
       return [
         (value: string) => {

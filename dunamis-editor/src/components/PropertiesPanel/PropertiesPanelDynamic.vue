@@ -163,6 +163,11 @@ const PropertiesPanel = defineComponent({
         fieldData['rows'] = this.uiElement.options
           ? this.uiElement.options.rows
           : null;
+        // Get the rows property
+        fieldData['tabindex'] = this.uiElement.options
+          ? this.uiElement.options.tabindex
+          : null;
+
         // Get the alt text property
         fieldData['alt'] = this.uiElement.options
           ? this.uiElement.options.alt

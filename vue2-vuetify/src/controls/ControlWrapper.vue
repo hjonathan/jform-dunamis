@@ -25,5 +25,9 @@ export default defineComponent({
       type: Object as CompType<Styles, ObjectConstructor>,
     },
   },
+  setup(props: any) {
+    console.log('CONTROL WRAPPER', props);
+    return {};
+  },
 });
 </script>

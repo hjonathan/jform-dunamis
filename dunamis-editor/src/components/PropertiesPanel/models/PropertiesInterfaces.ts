@@ -244,5 +244,22 @@ const PropertiesPanel = [
       },
     ],
   } as PropertyPanel,
+  {
+    id: 'tabindex',
+    type: 'text',
+    name: 'Tab index',
+    options: {
+      inputType: 'number',
+      min: 1,
+    },
+    items: [],
+  } as PropertyPanel,
+  {
+    id: 'ariaLabel',
+    type: 'text',
+    name: 'Aria label',
+    options: {},
+    items: [],
+  } as PropertyPanel,
 ];
 export default PropertiesPanel;

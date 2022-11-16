@@ -110,7 +110,7 @@ export const watchScope = (store: any, uiSchema: any, provider: any) => {
     (n: any, o: any) => {
       if (!_.isEqual(n, o)) {
         Vue.nextTick(() => {
-          provider.JReactivex.emit(scope, n);
+          provider.HX.emit(scope, n);
         });
       }
     }
@@ -151,7 +151,7 @@ export const scopesHandler = (uiSchema: any, provider: any, fn: any) => {
   };
 
   if (deps.length !== 0) {
-    return provider.JReactivex.joinFork(deps, functionJoinFork, scope);
+    return provider.HX.joinFork(deps, functionJoinFork, scope);
   } else {
     functionJoinFork();
     return new Function();

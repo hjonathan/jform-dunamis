@@ -45,12 +45,12 @@
 import ActionsBar from './ActionsBar.vue';
 import SideBar from './SideBar.vue';
 import MainPanel from './MainPanel.vue';
-import Vue from 'vue';
+import Vue, { defineComponent } from 'vue';
 import store from './../../../store';
 import ServicesProvider from '../../../services/ServicesProvider';
 import HX from '../../../util/HX/HX';
 
-export default {
+export default defineComponent({
   name: 'DefaultLayout',
   components: {
     DefaultActionsBar: ActionsBar,
@@ -66,7 +66,7 @@ export default {
       HX: new HX(),
     };
   },
-};
+});
 </script>
 <style>
 .vpm-height-16 {

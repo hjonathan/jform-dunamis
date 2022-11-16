@@ -194,7 +194,7 @@ export const useVuetifyControlExt = <
   adaptValue: (target: any) => any = (v) => v
 ) => {
   const store = inject<any>('store');
-  const JReactivex = inject<any>('jReactivex');
+  const HX = inject<any>('HX');
   const serviceProvider = inject<any>('serviceProvider');
   const dataSources = serviceProvider.get('dataSources');
   const appliedOptions = useControlAppliedOptions(input);
@@ -241,13 +241,13 @@ export const useVuetifyControlExt = <
 
   //Watch for execute onchange
   const unwatch = Controlbuilder.watchScope(store, props.uischema, {
-    JReactivex,
+    HX,
   });
 
   const unregister = Controlbuilder.scopesHandler(
     props.uischema,
     {
-      JReactivex,
+      HX,
       dataSources,
       store,
     },
@@ -260,7 +260,7 @@ export const useVuetifyControlExt = <
   const manualHandlerDependencies = Controlbuilder.manualHandlerDependencies(
     props.uischema,
     {
-      JReactivex,
+      HX,
       dataSources,
       store,
     },

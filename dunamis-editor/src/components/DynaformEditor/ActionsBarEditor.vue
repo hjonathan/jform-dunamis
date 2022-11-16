@@ -66,35 +66,34 @@ import download from 'downloadjs';
 import _ from 'lodash';
 import uploadJson from '../Modals/uploadJson.vue';
 import { defineComponent, inject, ref } from '@vue/composition-api';
-export default defineComponent({
+const ActionsBarEditor = defineComponent({
   name: 'ActionsBar',
   components: {
     uploadJson,
   },
-  inject: ['bus'],
   computed: {},
   setup() {
-    const bus = inject<any>('bus');
+    const bus = inject<unknown>('bus');
     const upload: any = ref(null);
     const formName = ref('Dunamis Form');
     const openDialog = ref(false);
     /**
      * Copy schemasfrom editor to preview
      */
-    function copySchemasFromEditorToPreview() {
+    const copySchemasFromEditorToPreview = () => {
       store.dispatch('preview/setSchema', store.getters['app/schema']);
       store.dispatch('preview/setUiSchema', store.getters['app/uiSchema']);
       store.dispatch('preview/setLocale', store.getters['app/locale']);
-    }
-    function onClickEditor() {
+    };
+    const onClickEditor = () => {
       let mainPanel = { id: 'main-editor' },
         sideBar = { id: 'side-bar-pallete' };
       store.dispatch('viewManager/setAllViews', {
         mainPanel,
         sideBar,
       });
-    }
-    function onClickPreviewBrowser() {
+    };
+    const onClickPreviewBrowser = () => {
       let mainPanel = {
           id: 'main-preview',
           data: {
@@ -108,8 +107,8 @@ export default defineComponent({
         mainPanel,
         sideBar,
       });
-    }
-    function onClickPreviewDevice() {
+    };
+    const onClickPreviewDevice = () => {
       let mainPanel = {
           id: 'main-preview',
           data: {
@@ -123,37 +122,37 @@ export default defineComponent({
         mainPanel,
         sideBar,
       });
-    }
+    };
 
-    function onClickTranslations() {
+    const onClickTranslations = () => {
       let mainPanel = { id: 'main-translations' },
         sideBar = { id: 'side-bar-translations' };
       store.dispatch('viewManager/setAllViews', {
         mainPanel,
         sideBar,
       });
-    }
-    function onClickSchemaEditor() {
+    };
+    const onClickSchemaEditor = () => {
       let mainPanel = { id: 'main-schema-editor' };
       store.dispatch('viewManager/setAllViews', {
         mainPanel,
       });
-    }
-    function onClickFormRules() {
+    };
+    const onClickFormRules = () => {
       let mainPanel = { id: 'main-form-rules' };
       store.dispatch('viewManager/setAllViews', {
         mainPanel,
       });
-    }
-    function contentSave() {
+    };
+    const contentSave = () => {
       bus.$emit('translations::main-panel::save', {});
-    }
+    };
     /**
      * Get a JSON from a schemaModel
      * @params schemaModel
      * @params type string
      */
-    function getJson(schemaModel: any, type: string): any {
+    const getJson = (schemaModel: any, type: string): any => {
       if (type === 'uischema') {
         return JSON.stringify(
           schemaModel && schemaModel != ''
@@ -170,15 +169,15 @@ export default defineComponent({
           2
         );
       }
-    }
+    };
 
-    function getCurrentTheme(): string {
+    const getCurrentTheme = (): string => {
       return JSON.stringify(store.getters['themes/getThemeSelected'], null, 2);
-    }
+    };
     /**
      * Get a JSON with the uiSchema and Schema
      */
-    function getFullJson(): any {
+    const getFullJson = (): any => {
       let jsonUiSchema = getJson(store.getters['app/uiSchema'], 'uischema');
       let jsonSchema = getJson(store.getters['app/schema'], 'schema');
       let jsonTheme = getCurrentTheme();
@@ -188,23 +187,23 @@ export default defineComponent({
         theme: JSON.parse(jsonTheme),
       };
       return jsonData;
-    }
+    };
     /**
      * Create a file Json.
      */
-    function downloadJson(): void {
+    const downloadJson = (): void => {
       let fileName = formName,
         typeMime = 'text/plain';
       download(JSON.stringify(getFullJson()), fileName + '.json', typeMime);
-    }
-    function importJson(): void {
+    };
+    const importJson = (): void => {
       if (upload?.value?.openDialog) {
         upload.value.openDialog();
       }
       if (openDialog.value) {
         openDialog.value = true;
       }
-    }
+    };
 
     return {
       copySchemasFromEditorToPreview,
@@ -313,6 +312,7 @@ export default defineComponent({
     };
   },
 });
+export default ActionsBarEditor;
 </script>
 <style>
 .vpm-action-editor-btn {

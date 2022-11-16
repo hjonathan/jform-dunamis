@@ -2,15 +2,18 @@ import Props from './Properties';
 
 const FieldProperties: any = {
   get(id: string) {
-    return this[id] ? this[id] : this['TextField'];
+    return this[id] ? this[id] : this['Text'];
   },
-  TextField: [
+  Text: [
     Props.build('type'),
     Props.build('variable'),
+    Props.build('label'),
     Props.build('placeholder'),
     Props.build('defaultValue'),
     Props.build('hint'),
-    Props.build('label'),
+    Props.build('tabindex'),
+    Props.build('ariaLabel'),
+
     Props.build('description'),
     Props.build('validation'),
     Props.build('validationMessage'),

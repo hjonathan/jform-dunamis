@@ -87,7 +87,7 @@ export const useVuetifyControl = <
   };
 
   const computedLabel = useComputedLabel(input, appliedOptions);
-  const labelOrientation = (): string => {
+  const getLabelOrientation = (): string => {
     return (
       input.control.value.uischema.options?.labelConfig?.orientation ||
       'inherit'
@@ -105,7 +105,18 @@ export const useVuetifyControl = <
   });
 
   const styles = useStyles(input.control.value.uischema);
-
+  console.log('JONASSA', {
+    ...input,
+    styles,
+    isFocused,
+    appliedOptions,
+    controlWrapper,
+    onChange,
+    persistentHint,
+    computedLabel,
+    getLabelOrientation,
+    labelCols,
+  });
   return {
     ...input,
     styles,
@@ -115,7 +126,7 @@ export const useVuetifyControl = <
     onChange,
     persistentHint,
     computedLabel,
-    labelOrientation,
+    getLabelOrientation,
     labelCols,
   };
 };
@@ -285,7 +296,7 @@ export const useVuetifyControlExt = <
   const indexc = pathControlSchema(props.uischema.scope);
   const JForm = inject<any>('JForm');
   const store = inject<any>('store');
-  const JReactivex = inject<any>('jReactivex');
+  const HX = inject<any>('HX');
 
   // CREATE FUNCTION
   let fnOnchange = new Function();
@@ -317,7 +328,7 @@ export const useVuetifyControlExt = <
       return getters['app/getDataModel'](indexc);
     },
     (n: string, o: string) => {
-      JReactivex.emit(indexc, n);
+      HX.emit(indexc, n);
       Vue.nextTick(() => {
         fnOnchange(JForm, n, o);
       });
@@ -330,7 +341,7 @@ export const useVuetifyControlExt = <
       : [],
     (e) => pathControlSchema(e.scope)
   );
-  JReactivex.joinFork(
+  HX.joinFork(
     dependencies,
     (payload: any) => {
       deepChange(_, payload).then((res: any) => {

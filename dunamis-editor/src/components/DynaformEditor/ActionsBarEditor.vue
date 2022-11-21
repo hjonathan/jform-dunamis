@@ -65,7 +65,9 @@ import store from '../../store';
 import download from 'downloadjs';
 import _ from 'lodash';
 import uploadJson from '../Modals/uploadJson.vue';
-import { defineComponent, inject, ref } from '@vue/composition-api';
+// import { defineComponent, inject, ref } from 'vue';
+import { defineComponent, inject, ref } from 'vue';
+
 const ActionsBarEditor = defineComponent({
   name: 'ActionsBar',
   components: {

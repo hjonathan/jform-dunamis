@@ -14,7 +14,7 @@
 
 <script lang="ts">
 //@ts-nocheck
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref } from 'vue';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
 const DropdownProp = defineComponent({
   name: 'DropdownProp',

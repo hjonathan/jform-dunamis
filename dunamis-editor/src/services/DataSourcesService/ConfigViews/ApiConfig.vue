@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, inject } from '@vue/composition-api';
+import { defineComponent, ref, onMounted, inject } from 'vue';
 const ApiConfig = defineComponent({
   name: 'ApiConfig',
   components: {},

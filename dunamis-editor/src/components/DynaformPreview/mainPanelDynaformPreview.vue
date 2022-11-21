@@ -35,7 +35,7 @@ import { defaultRenderers } from '../../renderers/index';
 import _ from 'lodash';
 import store from '../../store';
 import Device from 'vue-device';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'dymaform-preview',
   components: {

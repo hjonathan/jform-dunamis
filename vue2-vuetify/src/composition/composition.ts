@@ -1,3 +1,4 @@
+//@ts-nocheck
 import {
   composePaths,
   computeLabel,
@@ -28,7 +29,7 @@ import Ajv from 'ajv';
 import _ from 'lodash';
 import { useControlAppliedOptions } from './appliedoptions';
 import * as Controlbuilder from './controlbuilder';
-import { reactive } from '@vue/composition-api';
+import { reactive } from 'vue';
 
 const useComputedLabel = <I extends { control: any }>(
   input: I,
@@ -52,7 +53,7 @@ export const useVuetifyControl = <
   input: I,
   adaptValue: (target: any) => any = (v) => v
 ) => {
-  const appliedOptions = useControlAppliedOptions(input);
+  const appliedOptions:any = useControlAppliedOptions(input);
 
   const isFocused = ref(false);
   const onChange = (value: any) => {

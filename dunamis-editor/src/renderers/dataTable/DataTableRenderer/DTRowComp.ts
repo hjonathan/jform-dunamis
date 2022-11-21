@@ -6,7 +6,7 @@ import {
   JsonFormsCellRendererRegistryEntry,
   JsonSchema,
 } from '@jsonforms/core';
-import { inject, ref } from '@vue/composition-api';
+import { inject, ref } from 'vue';
 import { useControl } from './DataTableComp';
 
 /***********************************************************************************************************************************

@@ -44,7 +44,7 @@
 import PropertiesPanelDynamic from './PanelDynamic/PanelDynamic.vue';
 import { omit } from 'lodash';
 import store from '../../store';
-import { defineComponent } from '../../util/vue';
+import { defineComponent } from 'vue';
 import { getVariableName } from '../../model/uischema';
 import { tryFindByUUID } from '../../util/schemasUtil';
 import PanelExtended from './PanelDynamicExtended/index';

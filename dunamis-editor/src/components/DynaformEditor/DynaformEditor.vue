@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { JsonForms } from '@jsonforms/vue2';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import { defaultEditorRenderers } from '../../renderers/index';
 import { useExportSchema } from '../../util';
 import store from '../../store';

@@ -1,20 +1,21 @@
-import { inject } from '@vue/composition-api';
 import { map, isObject, sortedUniq, isEqual, cloneDeep } from 'lodash';
 import Vue from 'vue';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mustache = require('mustache');
 
 // ALPHA TEOREM is the class for manage the dependencies, computed, watchers
-export const alphaTeorem = (control: any) => {
+export const alphaTeorem = (params: any) => {
   let dep: Array<any> = [];
+  //const { control, HX, store } = params;
+  const { control } = params;
   const uischema = control.value.uischema;
-  console.log('TEOREM');
   //First step::: Create dispatcher to emit the own value
-  alphaDispatcher(uischema.scope.split('/').pop() || '');
+  console.log('ALPHA TEOREM');
+  alphaDispatcher(params);
   //Second step::: Find the dependents fields in schema
   dep = alphaFindDependencies(uischema, dep);
   //Third step::: Find the dependents fields in schema
-  alphaWatcher(control, dep);
+  alphaWatcher(params, dep);
 };
 
 /**
@@ -48,9 +49,9 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
  * @param scope
  * @returns
  */
-export const alphaDispatcher = (scope: string) => {
-  const store = inject<any>('store');
-  const HX = inject<any>('HX');
+export const alphaDispatcher = (params: any) => {
+  const { store, control, HX } = params;
+  const scope = control.value.uischema.scope.split('/').pop() || '';
   return store.watch(
     (_state: any, getters: any) => {
       return getters['preview/getDataModel'](scope);
@@ -69,11 +70,11 @@ export const alphaDispatcher = (scope: string) => {
  * Watch all matrix variables with mustache {{}}
  * @param variables
  */
-export const alphaWatcher = (control: any, variables: Array<any>) => {
-  const HX = inject<any>('HX');
+export const alphaWatcher = (params: any, variables: Array<any>) => {
+  const { HX } = params;
   variables.forEach((v: any) => {
     HX.on(v, (nVal: any) => {
-      alphaUpdater(control, v, nVal);
+      alphaUpdater(params, v, nVal);
     });
   });
 };
@@ -84,9 +85,34 @@ export const alphaWatcher = (control: any, variables: Array<any>) => {
  * @param variable
  * @param value
  */
-export const alphaUpdater = (control: any, variable: string, value: any) => {
-  console.log('ALPHAAAAAAA');
-  const options = JSON.stringify(cloneDeep(control.value.uischema.options));
-  const output = mustache.render(options, { [variable]: value });
-  control.value.uischema.options = JSON.parse(output);
+export const alphaUpdater = (params: any, variable: string, value: any) => {
+  console.log('ALPHAAAA UPDATER');
+  const { control, controlCore } = params;
+
+  const cloneControl = cloneDeep(controlCore.value);
+  const { cells, childErrors, renderers, rootSchema, uischemas, ...rest } =
+    cloneControl;
+
+  //UISCHEMA
+  const clone = cloneDeep(cloneControl.uischema);
+  const parent = clone.parent;
+  delete clone.parent;
+  delete rest.uischema;
+
+  //Stringify cloneControl
+  const sCloneControl = JSON.stringify(rest);
+  const outputCloneControl = mustache.render(sCloneControl, {
+    [variable]: value,
+  });
+
+  //Stringify uischema
+  const sClone = JSON.stringify(clone);
+  const outputClone = mustache.render(sClone, { [variable]: value });
+
+  const resControl = JSON.parse(outputCloneControl);
+  const resuichema = JSON.parse(outputClone);
+  resuichema.parent = parent;
+  resControl.uischema = resuichema;
+
+  control.value = { ...control.value, ...resControl };
 };

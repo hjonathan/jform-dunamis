@@ -3,7 +3,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '../../config';
+//@ts-nocheck
+import { defineComponent } from 'vue';
 import UnknownRenderer from './UnknownRenderer.vue';
 import maxBy from 'lodash/maxBy';
 import {

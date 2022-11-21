@@ -268,7 +268,7 @@
 <script lang="ts">
 //@ts-nocheck
 import _ from 'lodash';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import store from '../../store';
 const CustomizeTheme = defineComponent({
   name: 'customize-theme',

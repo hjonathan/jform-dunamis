@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { ControlElement } from '@jsonforms/core';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import { rendererProps } from '@jsonforms/vue2';
 import { useDtRowComposition, RendererProps } from './DTRowComp';
 import DtCellRenderer from './DTCellRenderer.vue';

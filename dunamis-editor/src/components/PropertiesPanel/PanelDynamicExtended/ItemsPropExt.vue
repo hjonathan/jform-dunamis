@@ -58,7 +58,7 @@ import {
   onMounted,
   ref,
   watch,
-} from '@vue/composition-api';
+} from 'vue';
 import ListOptions from '../../Generic/ListOptions.vue';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
 const ItemPropExt = defineComponent({

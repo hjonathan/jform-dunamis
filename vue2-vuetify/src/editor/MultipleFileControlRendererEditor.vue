@@ -55,6 +55,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   ControlElement,
   rankWith,
@@ -63,7 +64,7 @@ import {
   isObjectArrayWithNesting,
   uiTypeIs,
 } from '@jsonforms/core';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import {
   rendererProps,
   useJsonFormsControl,

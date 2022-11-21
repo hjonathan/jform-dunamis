@@ -9,7 +9,7 @@
 <script lang="ts">
 //@ts-nocheck
 //@ts-ignore
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { PropType } from 'vue';
 

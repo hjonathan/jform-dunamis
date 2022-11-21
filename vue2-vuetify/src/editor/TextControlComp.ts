@@ -9,7 +9,7 @@ import {
   isDescriptionHidden,
   mapStateToArrayControlProps,
 } from '@jsonforms/core';
-import { computed, inject, onUnmounted, ref } from '@vue/composition-api';
+import { computed, inject, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { merge, cloneDeep, isArray, every, isString } from 'lodash';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
@@ -22,16 +22,22 @@ import { useStyles } from '../styles';
 
 export const useTextControlComposition = <P>(props: P) => {
   const dispatch = inject<Dispatch<CoreActions>>('dispatch');
+  const store = inject<any>('store');
+  const HX = inject<any>('HX');
   if (!dispatch) {
     throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
   }
 
   //Properties
-  const control: any = useControl(props);
+  const controlCore: any = useControl(props);
+  const control = ref(controlCore.value);
+  watch(controlCore, (nControl) => {
+    control.value = nControl;
+  });
+
   const isFocused = ref(false);
   const styles = useStyles(control.value.uischema);
   const data = ref(defaultValue(control));
-  console.log('DEFAULT VALUIE', data);
 
   //Methods
   const getLabelOrientation = labelOrientation(control);
@@ -46,7 +52,12 @@ export const useTextControlComposition = <P>(props: P) => {
   const computedLabel = computed(() => buildLabel(control));
 
   //alphaTeorem Dependencies
-  alphaTeorem(control);
+  alphaTeorem({
+    store,
+    HX,
+    controlCore: controlCore,
+    control: control,
+  });
 
   const persistentHint = (): boolean => {
     return !isDescriptionHidden(
@@ -94,13 +105,18 @@ export const useTextControlComposition = <P>(props: P) => {
     };
   });
 
-  const onChange = (value: any) => () => {
+  const onChange = (value: any) => {
+    console.log('onchange');
     updateData({
       dispatch,
       control,
       value,
     });
   };
+  onUpdated(() => {
+    // this eill log whenever the component re-renders
+    console.log('component re-rendered!', control.value.uischema.scope);
+  });
 
   return {
     data,
@@ -161,6 +177,7 @@ export const updateData = (params: any) => {
  * @returns
  */
 export const buildLabel = (control: any) => {
+  console.log('LABELL');
   return computeLabel(
     control.value.label,
     control.value.required,

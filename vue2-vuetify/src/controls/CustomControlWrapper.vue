@@ -24,6 +24,7 @@
 </template>
 
 <script>
+//@ts-nocheck
 // Custom Wrapper for styles,label,functionality: For example:: Text, TextArea
 export default {
   props: ['getLabelOrientation', 'computedLabel', 'getLabelCols'],

@@ -3,7 +3,7 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import './plugins';
 import Vue from 'vue';
-import VueCompositionAPI from '@vue/composition-api';
+import VueCompositionAPI from 'vue';
 
 Vue.use(VueCompositionAPI);
 Vue.config.productionTip = false;

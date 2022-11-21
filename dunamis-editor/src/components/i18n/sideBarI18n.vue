@@ -50,7 +50,7 @@
 
 <script lang="ts">
 import _ from 'lodash';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import languages from '../../api/languages';
 import store from '../../store';
 const SideBarI18n = defineComponent({

@@ -65,6 +65,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   ControlElement,
   JsonFormsRendererRegistryEntry,
@@ -88,7 +89,7 @@ import {
   VIcon,
   VTooltip,
 } from 'vuetify/lib';
-import { reactive } from '@vue/composition-api';
+import { reactive } from 'vue';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
 
 const controlRenderer = defineComponent({

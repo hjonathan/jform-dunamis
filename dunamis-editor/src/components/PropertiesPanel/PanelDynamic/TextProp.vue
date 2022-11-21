@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref } from 'vue';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
 const TextProp = defineComponent({
   name: 'TextProp',

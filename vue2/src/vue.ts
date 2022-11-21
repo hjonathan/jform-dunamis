@@ -11,8 +11,8 @@ export {
   ref,
   watch,
   watchEffect,
-} from '@vue/composition-api';
-export type { Ref, ComputedRef } from '@vue/composition-api';
+} from 'vue';
+export type { Ref, ComputedRef } from 'vue';
 /**
  * Compatibility type as defineComponent of '@vue/composition-api' can't properly handle PropTypes.
  */

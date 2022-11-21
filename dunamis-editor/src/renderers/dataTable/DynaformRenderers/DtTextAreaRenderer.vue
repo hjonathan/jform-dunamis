@@ -10,7 +10,7 @@ import {
   rankWith,
   uiTypeIs,
 } from '@jsonforms/core';
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref } from 'vue';
 import { VTextarea } from 'vuetify/lib';
 
 const DtTextAreaRenderer = defineComponent({

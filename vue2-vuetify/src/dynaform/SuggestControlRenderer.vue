@@ -39,6 +39,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   ControlElement,
   rankWith,

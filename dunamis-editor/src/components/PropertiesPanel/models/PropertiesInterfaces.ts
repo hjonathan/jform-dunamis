@@ -118,7 +118,7 @@ const PropertiesPanel = [
     items: [],
   } as PropertyPanel,
   {
-    id: 'validation',
+    id: 'validation2',
     type: 'text',
     name: 'Validation',
     options: {},
@@ -260,6 +260,14 @@ const PropertiesPanel = [
     name: 'Aria label',
     options: {},
     items: [],
+  } as PropertyPanel,
+  {
+    id: 'validation',
+    type: 'validation',
+    name: 'Validation',
+    options: {},
+    items: [],
+    icons: [],
   } as PropertyPanel,
 ];
 export default PropertiesPanel;

@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { defineComponent, CompType } from '../vue';
 import { Styles } from '../styles';
 

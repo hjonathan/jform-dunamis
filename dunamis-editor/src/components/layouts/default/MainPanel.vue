@@ -21,7 +21,7 @@ import MainPanelDynaformPreview from '../../DynaformPreview/mainPanelDynaformPre
 
 import MainPanelSchemaEditor from '../../SchemaEditor/mainPanelSchemaEditor.vue';
 import MainPanelFormRules from '../../FormRules/MainPanelFormRules.vue';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import store from '../../../store';
 
 export default defineComponent({

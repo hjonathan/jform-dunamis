@@ -13,7 +13,7 @@ const FieldProperties: any = {
     Props.build('hint'),
     Props.build('tabindex'),
     Props.build('ariaLabel'),
-
+    Props.build('validation'),
     Props.build('description'),
     Props.build('validation'),
     Props.build('validationMessage'),

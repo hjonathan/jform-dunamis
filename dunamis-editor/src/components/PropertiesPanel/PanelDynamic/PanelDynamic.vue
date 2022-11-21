@@ -16,7 +16,7 @@
 
 <script lang="ts">
 //@ts-nocheck
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref } from 'vue';
 import FieldProperties from '../models/FieldProperties';
 import TextProp from './TextProp.vue';
 import TextareaProp from './TextareaProp.vue';
@@ -25,6 +25,8 @@ import DateProp from './DateProp.vue';
 import CheckboxProp from './CheckboxProp.vue';
 import ItemsProp from './ItemsProp.vue';
 import LabelProp from './LabelProp.vue';
+import ValidationProp from './ValidationProp.vue';
+
 import PanelExtended from '../PanelDynamicExtended/index';
 import _ from 'lodash';
 
@@ -38,6 +40,7 @@ const PropertiesPanelDynamic = defineComponent({
     DateProp,
     ItemsProp,
     LabelProp,
+    ValidationProp,
     ...PanelExtended,
   },
   props: ['config'],

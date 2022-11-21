@@ -54,12 +54,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  ref,
-} from '@vue/composition-api';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import draggable from 'vuedraggable';
 import { SchemaElement } from '../../model/schema';
 import store from './../../store';

@@ -49,10 +49,8 @@
           :clearable="hover"
           :rules="validationRegExp"
           :tabindex="computedTabIndex"
-          @input="transform(data)"
+          @input="() => data"
           @change="onChange"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
           v-mask="inputMask"
         >
           <v-tooltip
@@ -72,13 +70,14 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   ControlElement,
   JsonFormsRendererRegistryEntry,
   rankWith,
   uiTypeIs,
 } from '@jsonforms/core';
-import { defineComponent } from '../vue';
+import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { default as ControlWrapper } from '../controls/ControlWrapper.vue';
 import { VHover, VTextField, VCombobox, VIcon, VTooltip } from 'vuetify/lib';

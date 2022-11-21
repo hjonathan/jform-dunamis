@@ -46,7 +46,7 @@ import {
   Layout,
   rankWith,
 } from '@jsonforms/core';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import {
   DispatchRenderer,
   rendererProps,

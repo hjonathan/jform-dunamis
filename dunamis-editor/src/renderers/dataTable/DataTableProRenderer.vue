@@ -114,7 +114,7 @@ import {
   mapDispatchToArrayControlPropsEx,
   useVuetifyArrayControl,
 } from '@jsonforms/vue2-vuetify';
-import { computed, ref } from '@vue/composition-api';
+import { computed, ref } from 'vue';
 import Vue from 'vue';
 
 const useJsonFormsTableControl = (props: ControlProps) => {

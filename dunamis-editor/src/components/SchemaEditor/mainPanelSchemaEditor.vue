@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { Uri } from 'monaco-editor/esm/vs/editor/editor.api';
-import { computed, defineComponent, reactive, ref } from '@vue/composition-api';
+import { computed, defineComponent, reactive, ref } from 'vue';
 import MonacoEditor from '../MonacoEditor.vue';
 import { getMonacoModelForUri } from '../../core/jsonSchemaValidation';
 import { useExportSchema, useExportUiSchema } from '../../util';

@@ -171,6 +171,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   isObjectArrayControl,
   isPrimitiveArrayControl,

@@ -88,7 +88,7 @@
   </v-dialog>
 </template>
 <script>
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import _ from 'lodash';
 import { setDefaultTheme } from '../Composables/composableTheme';
 import store from '../../store';

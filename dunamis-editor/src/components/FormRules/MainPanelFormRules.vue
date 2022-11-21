@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import IfThenComponent from './IfThenComponent.vue';
 export default defineComponent({
   name: 'MainPanelFormRules',

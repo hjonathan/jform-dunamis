@@ -85,7 +85,7 @@
 import { VuetifyThemeVariant } from 'vuetify/types/services/theme';
 import merge from 'lodash/merge';
 import cloneDeep from 'lodash/cloneDeep';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import store from '../store';
 
 const defaultTheme = {

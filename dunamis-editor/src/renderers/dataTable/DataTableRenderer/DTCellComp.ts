@@ -10,7 +10,7 @@ import {
   UISchemaElement,
 } from '@jsonforms/core';
 import { maxBy } from 'lodash';
-import { computed, inject, ref } from '@vue/composition-api';
+import { computed, inject, ref } from 'vue';
 import { UnknownRenderer } from '@jsonforms/vue2';
 import { DtControlRenderers } from '../DynaformRenderers/index';
 

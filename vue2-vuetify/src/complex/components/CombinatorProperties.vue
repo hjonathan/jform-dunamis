@@ -9,6 +9,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { Generate, JsonSchema, Layout, UISchemaElement } from '@jsonforms/core';
 import omit from 'lodash/omit';
 import { CompType, defineComponent } from '../../vue';

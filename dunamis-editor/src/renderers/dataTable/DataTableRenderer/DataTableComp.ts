@@ -16,7 +16,7 @@ import {
   onBeforeMount,
   onUnmounted,
   ref,
-} from '@vue/composition-api';
+} from 'vue';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR VUE DATATABLE

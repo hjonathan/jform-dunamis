@@ -5,7 +5,7 @@
 <script lang="ts">
 import ActionsBarEditor from './../../DynaformEditor/ActionsBarEditor.vue';
 import store from '../../../store';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ActionsBar',

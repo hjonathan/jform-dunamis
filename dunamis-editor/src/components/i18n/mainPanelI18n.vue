@@ -64,7 +64,7 @@
 <script lang="ts">
 import _ from 'lodash';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import MonacoEditor from '../MonacoEditor.vue';
 import store from '../../store';
 const MainPanelI18n = defineComponent({

@@ -24,7 +24,7 @@
 <script lang="ts">
 //@ts-nocheck
 import { VuetifyThemeVariant } from 'vuetify/types/services/theme';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import merge from 'lodash/merge';
 import cloneDeep from 'lodash/cloneDeep';
 import store from '../../store';

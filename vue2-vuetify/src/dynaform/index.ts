@@ -9,7 +9,7 @@ export { default as CheckboxGroupControlRenderer } from './CheckboxGroupControlR
 export { default as HtmlViewerControlRenderer } from './HtmlViewerControlRenderer.vue';
 export { default as ImageControlRenderer } from './ImageControlRenderer.vue';
 export { default as MultipleFileControlRenderer } from './MultipleFileControlRenderer.vue';
-export { default as TextControlRenderer } from './TextControlRenderer.vue';
+export { default as TextControlRenderer } from '../editor/TextControlRendererEditor.vue';
 export { default as TextAreaControlRenderer } from './TextAreaControlRenderer.vue';
 export { default as TimeControlRendererPreview } from './TimeControlRenderer.vue';
 export { default as SubmitButtonControlRenderer } from './SubmitButtonControlRenderer.vue';
@@ -25,7 +25,7 @@ import { entry as checkboxGroupControlRendererEntry } from './CheckboxGroupContr
 import { entry as htmlViewerControlRendererEntry } from './HtmlViewerControlRenderer.vue';
 import { entry as imageControlRendererEntry } from './ImageControlRenderer.vue';
 import { entry as multipleFileControlRendererEntry } from './MultipleFileControlRenderer.vue';
-import { entry as textControlRendererEntry } from './TextControlRenderer.vue';
+import { entry as textControlRendererEntry } from '../editor/TextControlRendererEditor.vue';
 import { entry as textAreaControlRendererEntry } from './TextAreaControlRenderer.vue';
 import { entry as timeControlRendererEntry } from './TimeControlRenderer.vue';
 import { entry as submitButtonControlRendererEntry } from './SubmitButtonControlRenderer.vue';

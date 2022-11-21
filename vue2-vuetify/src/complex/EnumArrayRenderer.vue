@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   and,
   ControlElement,

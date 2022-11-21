@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <template>
   <div>
     <dispatch-renderer
@@ -8,7 +9,10 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, CompType } from '../../config';
+//@ts-nocheck
+import { CompType } from '../../config';
+import { defineComponent } from 'vue';
+
 import {
   coreReducer,
   Actions,
@@ -40,6 +44,7 @@ export default defineComponent({
     DispatchRenderer,
   },
   emits: ['change'],
+  inject: ['HX', 'store'],
   props: {
     data: {
       required: true,
@@ -108,6 +113,7 @@ export default defineComponent({
     },
   },
   data() {
+    console.log('JSONFORMSSSSS');
     const generatorData = isObject(this.data) ? this.data : {};
     const schemaToUse: JsonSchema =
       this.schema ?? Generate.jsonSchema(generatorData);
@@ -240,9 +246,12 @@ export default defineComponent({
     },
   },
   provide() {
+    console.log('PROVIDE', this);
     return {
       jsonforms: this.jsonforms,
       dispatch: this.dispatch,
+      HX: this.HX,
+      store: this.store,
     };
   },
 });

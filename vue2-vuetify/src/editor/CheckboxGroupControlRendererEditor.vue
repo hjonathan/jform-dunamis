@@ -45,6 +45,7 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   ControlElement,
   JsonFormsRendererRegistryEntry,
@@ -61,7 +62,7 @@ import {
 import { useVuetifyControl } from '../util';
 import { default as ControlWrapper } from '../controls/ControlWrapper.vue';
 import { VRadioGroup, VCheckbox, VLabel, VIcon, VTooltip } from 'vuetify/lib';
-import { reactive } from '@vue/composition-api';
+import { reactive } from 'vue';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
 
 const controlRenderer = defineComponent({

@@ -66,6 +66,7 @@
   </v-container>
 </template>
 <script lang="ts">
+//@ts-nocheck
 import {
   uiTypeIs,
   JsonFormsRendererRegistryEntry,
@@ -73,7 +74,7 @@ import {
   rankWith,
   JsonSchema,
 } from '@jsonforms/core';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import {
   DispatchRenderer,
   rendererProps,

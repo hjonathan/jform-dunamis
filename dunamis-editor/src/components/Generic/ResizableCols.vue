@@ -14,7 +14,7 @@ import {
   onMounted,
   onUnmounted,
   ref,
-} from '@vue/composition-api';
+} from 'vue';
 import Vue from 'vue';
 import store from './../../store';
 export default defineComponent({

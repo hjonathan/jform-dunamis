@@ -1,5 +1,5 @@
 /**
- * Switch between Vue 3 and Vue 2 '@vue/composition-api'.
+ * Switch between Vue 3 and Vue 2 'vue'.
  */
 export {
   computed,
@@ -11,9 +11,9 @@ export {
   ref,
   watch,
   watchEffect,
-} from '@vue/composition-api';
-export type { Ref, ComputedRef } from '@vue/composition-api';
+} from 'vue';
+export type { Ref, ComputedRef } from 'vue';
 /**
- * Compatibility type as defineComponent of '@vue/composition-api' can't properly handle PropTypes.
+ * Compatibility type as defineComponent of 'vue' can't properly handle PropTypes.
  */
 export type CompType<_S, V> = V;

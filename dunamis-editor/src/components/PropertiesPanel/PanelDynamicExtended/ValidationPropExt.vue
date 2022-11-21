@@ -8,11 +8,10 @@
       @click="backPanel"
     >
       <v-icon class="me-1" small>mdi-arrow-left</v-icon>
-      Back
     </v-btn>
 
     <div class="pb-2 px-5">
-      <span class="caption font-weight-bold">Label</span>
+      <span class="caption font-weight-bold">Validations</span>
     </div>
 
     <v-card elevation="0" color="transparent" class="mx-4">
@@ -21,7 +20,7 @@
         persistent-placeholder
         v-model="select"
         :items="orientation"
-        label="Orientation"
+        label="Rules"
         outlined
         dense
       ></v-combobox>

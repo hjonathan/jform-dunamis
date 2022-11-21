@@ -17,10 +17,9 @@ export {
   onBeforeUnmount,
   onActivated,
   onDeactivated,
-  onErrorCaptured
-
-} from '@vue/composition-api';
-export type { Ref, ComputedRef } from '@vue/composition-api';
+  onErrorCaptured,
+} from 'vue';
+export type { Ref, ComputedRef } from 'vue';
 /**
  * Compatibility type as defineComponent of '@vue/composition-api' can't properly handle PropTypes.
  */

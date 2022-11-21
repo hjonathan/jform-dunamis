@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from '@vue/composition-api';
+import { defineComponent, ref, onMounted } from 'vue';
 const ListConfig = defineComponent({
   name: 'ListConfig',
   components: {},

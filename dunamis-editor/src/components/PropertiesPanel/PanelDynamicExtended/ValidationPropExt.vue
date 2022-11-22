@@ -8,46 +8,62 @@
       @click="backPanel"
     >
       <v-icon class="me-1" small>mdi-arrow-left</v-icon>
+      Back
     </v-btn>
-
-    <div class="pb-2 px-5">
+    <v-card-title>
       <span class="caption font-weight-bold">Validations</span>
-    </div>
+    </v-card-title>
 
     <v-card elevation="0" color="transparent" class="mx-4">
-      <v-combobox
-        class="caption"
-        persistent-placeholder
-        v-model="select"
-        :items="orientation"
-        label="Rules"
-        outlined
-        dense
-      >
-      </v-combobox>
-
-      <v-btn class="vpm-btn" color="primary" plain small>
-        <v-icon class="me-1" small>mdi-plus</v-icon>
-        Add Rule
-      </v-btn>
+      <v-row>
+        <v-col cols="9">
+          <v-combobox
+            class="caption"
+            persistent-placeholder
+            v-model="select"
+            :items="rules"
+            label="Rules"
+            outlined
+            dense
+          >
+          </v-combobox>
+        </v-col>
+        <v-col cols="3">
+          <v-btn class="vpm-btn float-end" color="primary" @click="addRule">
+            Add
+          </v-btn>
+        </v-col>
+      </v-row>
 
       <v-data-iterator
-        :items="desserts"
-        item-key="name"
+        :items="rulesSelected"
+        item-key="id"
         :items-per-page="4"
         hide-default-footer
       >
+        <template v-slot:no-data
+          ><span class="caption"> This field have not rules</span>
+        </template>
         <template v-slot:default="{ items, isExpanded, expand }">
-          <v-card v-for="item in items" :key="item.name" class="caption">
+          <v-card v-for="item in items" :key="item.id" class="caption" outlined>
             <v-card-title>
-              <span class="caption">{{ item.name }}</span>
+              <span class="caption">{{ item.text }}</span>
               <v-spacer></v-spacer>
               <v-btn
+                v-if="item?.rule != undefined"
                 icon
                 small
                 color="warning"
                 :input-value="isExpanded(item)"
-                @input="(v) => expand(item, v)"
+                @click="
+                  () => {
+                    if (isExpanded(item)) {
+                      expand(item, false);
+                    } else {
+                      expand(item, true);
+                    }
+                  }
+                "
               >
                 <v-icon small>mdi-pencil</v-icon>
               </v-btn>
@@ -55,28 +71,21 @@
                 <v-icon small>mdi-delete</v-icon>
               </v-btn>
             </v-card-title>
-
-            <v-switch
-              v-show="false"
-              dense
-              :input-value="isExpanded(item)"
-              :label="isExpanded(item) ? 'Expanded' : 'Closed'"
-              class="pl-4 mt-0"
-              @change="(v) => expand(item, v)"
-            ></v-switch>
             <v-divider></v-divider>
-            <div v-if="isExpanded(item)">
-              <v-text-field
-                v-model="cols"
-                dense
-                label="Cols"
-                persistent-placeholder
-                type="number"
-                min="1"
-                max="11"
-                class="caption"
-              ></v-text-field>
-            </div>
+            <v-card-text v-if="isExpanded(item) && item?.rule != undefined">
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    outlined
+                    dense
+                    holder
+                    v-model="item.rule"
+                    :messages="item.messages"
+                    class="caption"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-card-text>
           </v-card>
         </template>
       </v-data-iterator>
@@ -87,111 +96,85 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
-const LabelPropExt = defineComponent({
-  name: 'LabelPropExt',
+const rulesDefault = [
+  {
+    id: 'required',
+    text: 'Required',
+  },
+  {
+    id: 'requiredIf',
+    text: 'Required If',
+    rule: '',
+    messages: ['The field under validation must be present and not empty'],
+  },
+  {
+    id: 'maxLenght',
+    text: 'Max lenght',
+    rule: '',
+    messages: ['Validate that an attribute is no greater than a given length'],
+  },
+  {
+    id: 'minLenght',
+    text: 'Min lenght',
+    rule: '',
+    messages: ['Validate that an attribute is at least a given length'],
+  },
+];
+
+const ValidationPropExt = defineComponent({
+  name: 'ValidationPropExt',
   components: {},
   emits: ['input', 'change', 'backPanel'],
   props: ['value', 'config'],
   setup(props: any, context: any) {
-    //Init variables
-    const orientation = ref([
-      {
-        id: 'required',
-        text: 'Required',
-      },
-      {
-        id: 'requiredIf',
-        text: 'Required If',
-      },
-      {
-        id: 'maxLenght',
-        text: 'Max lenght',
-      },
-      {
-        id: 'minLenght',
-        text: 'Min lenght',
-      },
-    ]);
+    //References Reactive
+    const rules = ref(rulesDefault);
+    const rulesSelected = ref([]);
     let select: any = ref({
       id: null,
       text: null,
     });
-    let cols = ref('');
-
-    let desserts = ref([
-      {
-        name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        sodium: 87,
-        calcium: '14%',
-        iron: '1%',
-      },
-      {
-        name: 'Ice cream sandwich',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
-        sodium: 129,
-        calcium: '8%',
-        iron: '1%',
-      },
-      {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        sodium: 337,
-        calcium: '6%',
-        iron: '7%',
-      },
-      {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-        sodium: 413,
-        calcium: '3%',
-        iron: '8%',
-      },
-    ]);
+    //Methods
+    const addRule = () => {
+      if (select.value.id) {
+        rulesSelected.value.push(select.value);
+      }
+    };
 
     onMounted(() => {
       //Set orientation
-      if (props.config && props.config.orientation) {
-        select.value = orientation.value.find(
-          (el) => el.id === props.config.orientation
-        );
-      }
-      // Set cols
-      if (props.config && props.config.cols) {
-        cols.value = props.config.cols;
+      const rls = [];
+      if (props?.config?.forEach) {
+        props.config.forEach((rule: any) => {
+          const index = rulesDefault.findIndex(
+            (ruleDef) => ruleDef.id == rule.id
+          );
+          if (index != -1) {
+            rls.push(rulesDefault[index]);
+          }
+        });
+        rulesSelected.value = rls;
       }
     });
 
     return {
       ...dynamicPropertyDefault(props, context),
       backPanel() {
+        const rulesFormat = rulesSelected.value.map((r) => {
+          return { id: r.id, rule: r.rule };
+        });
         context.emit('backPanel', {
-          labelConfig: {
-            orientation: select.value.id,
-            cols: cols.value,
-          },
+          validation: rulesFormat,
         });
       },
       select,
-      cols,
-      desserts,
-      orientation,
+      rulesSelected,
+      rules,
+      addRule,
     };
   },
 });
-export default LabelPropExt;
+export default ValidationPropExt;
 </script>
 <style>
 .vpm-btn {

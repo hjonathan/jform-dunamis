@@ -159,6 +159,10 @@ const PropertiesPanel = defineComponent({
         fieldData['labelConfig'] = this.uiElement.options
           ? this.uiElement.options.labelConfig
           : null;
+        // Get the label config property
+        fieldData['validation'] = this.uiElement.options
+          ? this.uiElement.options.validation
+          : null;
         // Get the rows property
         fieldData['rows'] = this.uiElement.options
           ? this.uiElement.options.rows
@@ -315,6 +319,13 @@ const PropertiesPanel = defineComponent({
         store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { labelConfig: data.labelConfig },
+        });
+      }
+      // Validations
+      if (data.validations) {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { validation: data.validations },
         });
       }
       // Text Transform -> to options

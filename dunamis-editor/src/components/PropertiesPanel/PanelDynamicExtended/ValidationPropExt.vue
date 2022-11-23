@@ -67,7 +67,7 @@
               >
                 <v-icon small>mdi-pencil</v-icon>
               </v-btn>
-              <v-btn icon small color="error">
+              <v-btn @click="deleteRule(item)" icon small color="error">
                 <v-icon small>mdi-delete</v-icon>
               </v-btn>
             </v-card-title>
@@ -140,6 +140,14 @@ const ValidationPropExt = defineComponent({
         rulesSelected.value.push(select.value);
       }
     };
+    const deleteRule = (item) => {
+      const index = rulesSelected.value.findIndex(
+        (rule: any) => rule.id == item.id
+      );
+      if (index != -1) {
+        rulesSelected.value.splice(index, 1);
+      }
+    };
 
     onMounted(() => {
       //Set orientation
@@ -169,6 +177,7 @@ const ValidationPropExt = defineComponent({
       },
       select,
       rulesSelected,
+      deleteRule,
       rules,
       addRule,
     };

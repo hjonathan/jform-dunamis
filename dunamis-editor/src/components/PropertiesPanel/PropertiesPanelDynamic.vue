@@ -159,6 +159,7 @@ const PropertiesPanel = defineComponent({
         fieldData['labelConfig'] = this.uiElement.options
           ? this.uiElement.options.labelConfig
           : null;
+        console.log('VALIDD');
         // Get the label config property
         fieldData['validation'] = this.uiElement.options
           ? this.uiElement.options.validation
@@ -322,10 +323,10 @@ const PropertiesPanel = defineComponent({
         });
       }
       // Validations
-      if (data.validations) {
+      if (data.validation) {
         store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
-          changedProperties: { validation: data.validations },
+          changedProperties: { validation: data.validation },
         });
       }
       // Text Transform -> to options

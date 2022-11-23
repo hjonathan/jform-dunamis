@@ -123,7 +123,9 @@ const controlElements = [
       return {
         control,
         variable: 'textField',
-        uiOptions: {},
+        uiOptions: {
+          validation: [],
+        },
       };
     },
   },

@@ -27,7 +27,6 @@ export default defineComponent({
     },
   },
   setup(props: any) {
-    console.log('CONTROL WRAPPER', props);
     return {};
   },
 });

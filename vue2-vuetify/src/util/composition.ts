@@ -105,18 +105,6 @@ export const useVuetifyControl = <
   });
 
   const styles = useStyles(input.control.value.uischema);
-  console.log('JONASSA', {
-    ...input,
-    styles,
-    isFocused,
-    appliedOptions,
-    controlWrapper,
-    onChange,
-    persistentHint,
-    computedLabel,
-    getLabelOrientation,
-    labelCols,
-  });
   return {
     ...input,
     styles,

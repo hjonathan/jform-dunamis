@@ -27,12 +27,15 @@ export const useTextControlComposition = <P>(props: P) => {
   if (!dispatch) {
     throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
   }
+  //Global
+  const one: any = ref({ validation: [] });
 
   //Properties
   const controlCore: any = useControl(props);
   const control = ref(controlCore.value);
   watch(controlCore, (nControl) => {
-    control.value = nControl;
+    //control.value = nControl;
+    one.value['validation'] = validation(nControl);
   });
 
   const isFocused = ref(false);
@@ -42,6 +45,7 @@ export const useTextControlComposition = <P>(props: P) => {
   //Methods
   const getLabelOrientation = labelOrientation(control);
   const getLabelCols = labelCols(control);
+
   const appliedOptions = useControlAppliedOptions(control);
 
   //Computed
@@ -50,6 +54,7 @@ export const useTextControlComposition = <P>(props: P) => {
   const computedArialabel = computed(ariaLabel(control));
   const computedPlaceholder = computed(placeholder(control));
   const computedLabel = computed(() => buildLabel(control));
+  const computedValidation = ref([]);
 
   //alphaTeorem Dependencies
   alphaTeorem({
@@ -106,7 +111,6 @@ export const useTextControlComposition = <P>(props: P) => {
   });
 
   const onChange = (value: any) => {
-    console.log('onchange');
     updateData({
       dispatch,
       control,
@@ -119,6 +123,7 @@ export const useTextControlComposition = <P>(props: P) => {
   });
 
   return {
+    one,
     data,
     appliedOptions,
     control,
@@ -131,6 +136,8 @@ export const useTextControlComposition = <P>(props: P) => {
     computedLabel,
     computedTabindex,
     computedArialabel,
+
+    computedValidation,
 
     isDescriptionHidden,
 
@@ -177,7 +184,6 @@ export const updateData = (params: any) => {
  * @returns
  */
 export const buildLabel = (control: any) => {
-  console.log('LABELL');
   return computeLabel(
     control.value.label,
     control.value.required,
@@ -234,6 +240,56 @@ export const placeholder = (control: any) => (): string =>
   control.value.uischema.options?.placeholder ?? '';
 
 /**
+ * Method [GET] Return placeholder for template
+ * @param control
+ * @returns
+ */
+export const validation = (control: any) => {
+  const val = control.uischema.options?.validation ?? [];
+  console.log('validation');
+  const rules: any = {
+    required: {
+      id: 'required',
+      text: 'Required',
+      handler: (value: any) => !!value || 'required field',
+    },
+    requiredIf: {
+      id: 'requiredIf',
+      text: 'Required If',
+      handler: (value: any) => !!value || 'required field',
+    },
+    maxLength: {
+      id: 'maxLenght',
+      text: 'Max lenght',
+      rule: '',
+      messages: [
+        'Validate that an attribute is no greater than a given length',
+      ],
+    },
+    minLength: {
+      id: 'minLenght',
+      text: 'Min lenght',
+      rule: '',
+      messages: [
+        'Validate that an attribute is no greater than a given length',
+      ],
+    },
+  };
+
+  //const validation: Array<any> = control.value.uischema.options?.validation;
+  const res: any = [];
+  if (val && val.length > 0) {
+    val.forEach((rule: any) => {
+      if (rules[rule.id]) {
+        res.push(rules[rule.id].handler);
+      }
+    });
+  }
+  console.log('validations', res);
+  return res;
+};
+
+/**
  * Method [GET] Return default value for template
  * @param control
  * @returns
@@ -243,6 +299,10 @@ export const defaultValue = (control: any) => {
   return control.value.uischema.options?.defaultValue
     ? textTransform(format, control.value.uischema.options?.defaultValue)
     : textTransform(format, control.value.data);
+};
+
+export const eagerValidation = (control: any) => {
+  return control.value.uischema.options?.validation;
 };
 
 /*********************************************************************************************************************

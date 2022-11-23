@@ -8,6 +8,7 @@
     <CustomControlWrapper
       v-bind="{ getLabelOrientation, computedLabel, getLabelCols }"
     >
+      {{ one }}
       <v-hover v-slot="{ hover }">
         <v-combobox
           v-if="suggestions !== undefined"
@@ -27,9 +28,8 @@
           :items="suggestions"
           hide-no-data
           @change="onChange"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
         />
+
         <v-text-field
           v-else
           v-disabled-icon-focus
@@ -47,7 +47,7 @@
           :error-messages="control.errors"
           :value="data"
           :clearable="hover"
-          :rules="validationRegExp"
+          :rules="one.validation"
           :tabindex="computedTabIndex"
           @input="() => data"
           @change="onChange"

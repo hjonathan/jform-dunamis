@@ -113,7 +113,6 @@ export default defineComponent({
     },
   },
   data() {
-    console.log('JSONFORMSSSSS');
     const generatorData = isObject(this.data) ? this.data : {};
     const schemaToUse: JsonSchema =
       this.schema ?? Generate.jsonSchema(generatorData);
@@ -246,7 +245,6 @@ export default defineComponent({
     },
   },
   provide() {
-    console.log('PROVIDE', this);
     return {
       jsonforms: this.jsonforms,
       dispatch: this.dispatch,

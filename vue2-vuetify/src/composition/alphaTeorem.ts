@@ -10,7 +10,6 @@ export const alphaTeorem = (params: any) => {
   const { control } = params;
   const uischema = control.value.uischema;
   //First step::: Create dispatcher to emit the own value
-  console.log('ALPHA TEOREM');
   alphaDispatcher(params);
   //Second step::: Find the dependents fields in schema
   dep = alphaFindDependencies(uischema, dep);
@@ -86,7 +85,6 @@ export const alphaWatcher = (params: any, variables: Array<any>) => {
  * @param value
  */
 export const alphaUpdater = (params: any, variable: string, value: any) => {
-  console.log('ALPHAAAA UPDATER');
   const { control, controlCore } = params;
 
   const cloneControl = cloneDeep(controlCore.value);

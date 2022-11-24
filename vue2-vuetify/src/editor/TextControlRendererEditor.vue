@@ -1,33 +1,27 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...controlX }" :styles="styles">
+  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
     <v-hover v-slot="{ hover }">
       <v-text-field
-        v-disabled-icon-focus
-        :aria-label="controlX.ariaLabel"
+        :aria-label="control.ariaLabel"
         :id="control.id + '-input'"
         :class="styles.control.input"
-        :disabled="!control.enabled"
-        :placeholder="controlX.placeholder"
-        :persistent-placeholder="controlX.labelOrientation == 'inherit'"
-        :label="controlX.labelOrientation == 'inherit' ? controlX.label : null"
-        :hint="controlX.hint"
+        :placeholder="control.placeholder"
+        :persistent-placeholder="control.labelOrientation == 'inherit'"
+        :label="control.labelOrientation == 'inherit' ? control.label : null"
+        :hint="control.hint"
         :error-messages="control.errors"
-        :value="controlX.data"
+        :value="control.data"
         :clearable="hover"
-        :rules="controlX.validation"
+        :rules="control.validation"
         :tabindex="tabindex"
         @input="() => data"
         @change="onChange"
       >
-        <v-tooltip
-          v-if="controlX.hint && controlX.hint != ''"
-          slot="append"
-          top
-        >
+        <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
           <template v-slot:activator="{ on }">
             <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
           </template>
-          <span class="">{{ controlX.hint }}</span>
+          <span class="">{{ control.hint }}</span>
         </v-tooltip>
       </v-text-field>
     </v-hover>

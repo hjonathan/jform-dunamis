@@ -10,7 +10,7 @@ export { default as HtmlViewerControlRenderer } from './HtmlViewerControlRendere
 export { default as ImageControlRenderer } from './ImageControlRenderer.vue';
 export { default as MultipleFileControlRenderer } from './MultipleFileControlRenderer.vue';
 export { default as TextControlRenderer } from '../editor/TextControlRendererEditor.vue';
-export { default as TextAreaControlRenderer } from './TextAreaControlRenderer.vue';
+export { default as TextAreaControlRenderer } from '../editor/TextAreaControlRendererEditor.vue';
 export { default as TimeControlRendererPreview } from './TimeControlRenderer.vue';
 export { default as SubmitButtonControlRenderer } from './SubmitButtonControlRenderer.vue';
 
@@ -26,7 +26,7 @@ import { entry as htmlViewerControlRendererEntry } from './HtmlViewerControlRend
 import { entry as imageControlRendererEntry } from './ImageControlRenderer.vue';
 import { entry as multipleFileControlRendererEntry } from './MultipleFileControlRenderer.vue';
 import { entry as textControlRendererEntry } from '../editor/TextControlRendererEditor.vue';
-import { entry as textAreaControlRendererEntry } from './TextAreaControlRenderer.vue';
+import { entry as textAreaControlRendererEntry } from '../editor/TextAreaControlRendererEditor.vue';
 import { entry as timeControlRendererEntry } from './TimeControlRenderer.vue';
 import { entry as submitButtonControlRendererEntry } from './SubmitButtonControlRenderer.vue';
 

@@ -1,4 +1,11 @@
-import { map, isObject, sortedUniq, isEqual, cloneDeep } from 'lodash';
+import {
+  map,
+  isObject,
+  sortedUniq,
+  isEqual,
+  cloneDeep,
+  isString,
+} from 'lodash';
 import Vue from 'vue';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mustache = require('mustache');
@@ -7,8 +14,8 @@ const mustache = require('mustache');
 export const alphaTeorem = (params: any) => {
   let dep: Array<any> = [];
   //const { control, HX, store } = params;
-  const { control } = params;
-  const uischema = control.value.uischema;
+  const { controlCore } = params;
+  const uischema = controlCore.value.uischema;
   //First step::: Create dispatcher to emit the own value
   const unwatcher = alphaDispatcher(params);
   //Second step::: Find the dependents fields in schema
@@ -33,7 +40,7 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
         res = res.concat(alphaFindDependencies(value, res));
         res = sortedUniq(res);
       }
-    } else if (value) {
+    } else if (isString(value)) {
       let match = value.match(/{{\s*[A-Za-z0-9]+\s*}}/g);
       if (match) {
         match = match.map((el: any) => {
@@ -53,8 +60,8 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
  * @returns
  */
 export const alphaDispatcher = (params: any) => {
-  const { store, control, HX } = params;
-  const scope = control.value.uischema.scope.split('/').pop() || '';
+  const { store, controlCore, HX } = params;
+  const scope = controlCore.value.uischema.scope.split('/').pop() || '';
   return store.watch(
     (_state: any, getters: any) => {
       return getters['preview/getDataModel'](scope);
@@ -89,8 +96,7 @@ export const alphaWatcher = (params: any, variables: Array<any>) => {
  * @param value
  */
 export const alphaUpdater = (params: any, variable: string, value: any) => {
-  const { control, controlCore } = params;
-
+  const { controlCore, updater } = params;
   const cloneControl = cloneDeep(controlCore.value);
   const { cells, childErrors, renderers, rootSchema, uischemas, ...rest } =
     cloneControl;
@@ -115,6 +121,5 @@ export const alphaUpdater = (params: any, variable: string, value: any) => {
   const resuichema = JSON.parse(outputClone);
   resuichema.parent = parent;
   resControl.uischema = resuichema;
-
-  control.value = { ...control.value, ...resControl };
+  updater({ ...controlCore.value, ...resControl });
 };

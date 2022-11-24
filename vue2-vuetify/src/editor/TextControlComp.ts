@@ -36,32 +36,33 @@ export const useTextControlComposition = <P>(props: P) => {
 
   //Properties
   const controlCore: any = useControl(props);
-  const control = ref(controlCore.value);
-  const controlX = ref(setPropsTextControl(controlCore.value));
+  const control = ref(setPropsTextControl(controlCore.value));
 
   watch(controlCore, (nControl) => {
-    controlX.value = setPropsTextControl(nControl);
+    control.value = setPropsTextControl(nControl);
   });
 
-  const styles = useStyles(control.value.uischema);
+  const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     store,
     HX,
     controlCore: controlCore,
-    control: control,
+    updater: (ctrl: any) => {
+      control.value = setPropsTextControl(ctrl);
+    },
   });
 
   const onChange = (value: any) => {
     updateData({
       dispatch,
-      control,
+      control: controlCore,
       value,
     });
   };
   onUpdated(() => {
     // this eill log whenever the component re-renders
-    console.log('component re-rendered!', control.value.uischema.scope);
+    console.log('component re-rendered!', controlCore.value.uischema.scope);
   });
   onUnmounted(() => {
     deactivateAlpha();
@@ -72,7 +73,6 @@ export const useTextControlComposition = <P>(props: P) => {
   });
 
   return {
-    controlX,
     control,
     onChange,
     styles,

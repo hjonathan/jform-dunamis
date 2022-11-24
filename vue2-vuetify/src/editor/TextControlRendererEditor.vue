@@ -5,9 +5,7 @@
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
   >
-    <CustomControlWrapper
-      v-bind="{ getLabelOrientation, computedLabel, getLabelCols }"
-    >
+    <CustomControlWrapper v-bind="{ ...controlX }">
       {{ one }}
       <v-hover v-slot="{ hover }">
         <v-combobox
@@ -18,7 +16,7 @@
           :disabled="!control.enabled"
           :autofocus="appliedOptions.focus"
           :placeholder="computedPlaceholder"
-          :label="computedLabel"
+          :label="controlX.label"
           :hint="control.description"
           :persistent-hint="persistentHint()"
           :required="control.required"
@@ -33,35 +31,37 @@
         <v-text-field
           v-else
           v-disabled-icon-focus
-          :aria-label="computedArialabel"
+          :aria-label="controlX.ariaLabel"
           :id="control.id + '-input'"
           :class="styles.control.input"
           :disabled="!control.enabled"
           :autofocus="appliedOptions.focus"
-          :placeholder="computedPlaceholder"
-          :persistent-placeholder="getLabelOrientation() == 'inherit'"
-          :label="getLabelOrientation() == 'inherit' ? computedLabel : null"
-          :hint="computedHint"
+          :placeholder="controlX.placeholder"
+          :persistent-placeholder="controlX.labelOrientation == 'inherit'"
+          :label="
+            controlX.labelOrientation == 'inherit' ? controlX.label : null
+          "
+          :hint="controlX.hint"
           :persistent-hint="persistentHint()"
           :required="control.required"
           :error-messages="control.errors"
-          :value="data"
+          :value="controlX.data"
           :clearable="hover"
-          :rules="one.validation"
-          :tabindex="computedTabIndex"
+          :rules="controlX.validation"
+          :tabindex="tabindex"
           @input="() => data"
           @change="onChange"
           v-mask="inputMask"
         >
           <v-tooltip
-            v-if="computedHint && computedHint != ''"
+            v-if="controlX.hint && controlX.hint != ''"
             slot="append"
             top
           >
             <template v-slot:activator="{ on }">
               <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
             </template>
-            <span class="">{{ computedHint }}</span>
+            <span class="">{{ controlX.hint }}</span>
           </v-tooltip>
         </v-text-field>
       </v-hover>

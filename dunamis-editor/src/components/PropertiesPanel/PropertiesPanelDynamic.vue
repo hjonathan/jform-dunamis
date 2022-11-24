@@ -159,7 +159,6 @@ const PropertiesPanel = defineComponent({
         fieldData['labelConfig'] = this.uiElement.options
           ? this.uiElement.options.labelConfig
           : null;
-        console.log('VALIDD');
         // Get the label config property
         fieldData['validation'] = this.uiElement.options
           ? this.uiElement.options.validation

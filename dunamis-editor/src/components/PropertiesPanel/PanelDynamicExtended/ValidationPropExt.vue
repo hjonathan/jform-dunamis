@@ -108,13 +108,13 @@ const rulesDefault = [
     messages: ['The field under validation must be present and not empty'],
   },
   {
-    id: 'maxLenght',
+    id: 'maxLength',
     text: 'Max lenght',
     rule: '',
     messages: ['Validate that an attribute is no greater than a given length'],
   },
   {
-    id: 'minLenght',
+    id: 'minLength',
     text: 'Min lenght',
     rule: '',
     messages: ['Validate that an attribute is at least a given length'],
@@ -169,7 +169,7 @@ const ValidationPropExt = defineComponent({
       ...dynamicPropertyDefault(props, context),
       backPanel() {
         const rulesFormat = rulesSelected.value.map((r) => {
-          return { id: r.id, rule: r.rule };
+          return { id: r.id, value: r.rule };
         });
         context.emit('backPanel', {
           validation: rulesFormat,

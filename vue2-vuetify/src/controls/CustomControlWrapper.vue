@@ -1,21 +1,21 @@
 <template>
   <div>
     <div
-      v-if="$props.getLabelOrientation() != 'inherit'"
+      v-if="$props.labelOrientation != 'inherit'"
       no-gutters
-      :class="$props.getLabelOrientation() == 'vertical' ? 'col' : 'row'"
+      :class="$props.labelOrientation == 'vertical' ? 'col' : 'row'"
       style="flex-wrap: nowrap"
     >
       <div
         :class="`${
-          $props.getLabelOrientation() == 'vertical'
+          $props.labelOrientation == 'vertical'
             ? 'row'
-            : 'col col-' + $props.getLabelCols()
+            : 'col col-' + $props.labelCols
         } align-self-center`"
       >
-        {{ computedLabel }}
+        {{ label }}
       </div>
-      <div :class="$props.getLabelOrientation() == 'vertical' ? 'row' : 'col'">
+      <div :class="$props.labelOrientation == 'vertical' ? 'row' : 'col'">
         <slot />
       </div>
     </div>
@@ -27,6 +27,6 @@
 //@ts-nocheck
 // Custom Wrapper for styles,label,functionality: For example:: Text, TextArea
 export default {
-  props: ['getLabelOrientation', 'computedLabel', 'getLabelCols'],
+  props: ['labelOrientation', 'label', 'labelCols'],
 };
 </script>

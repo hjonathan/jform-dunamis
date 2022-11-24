@@ -27,34 +27,40 @@ export const useTextControlComposition = <P>(props: P) => {
   if (!dispatch) {
     throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
   }
-  //Global
-  const one: any = ref({ validation: [] });
 
   //Properties
   const controlCore: any = useControl(props);
   const control = ref(controlCore.value);
+  const controlX: any = ref({
+    validation: validation(controlCore.value),
+    labelOrientation: labelOrientation(controlCore.value),
+    label: label(controlCore.value),
+    labelCols: labelCols(controlCore.value),
+    tabindex: tabindex(controlCore.value),
+    ariaLabel: ariaLabel(controlCore.value),
+    hint: hint(controlCore.value),
+    placeholder: placeholder(controlCore.value),
+    data: defaultValue(controlCore.value),
+  });
+
   watch(controlCore, (nControl) => {
-    //control.value = nControl;
-    one.value['validation'] = validation(nControl);
+    controlX.value['validation'] = validation(nControl);
+    controlX.value['labelOrientation'] = labelOrientation(nControl);
+    controlX.value['label'] = label(nControl);
+    controlX.value['labelCols'] = labelCols(nControl);
+    controlX.value['tabindex'] = tabindex(nControl);
+    controlX.value['ariaLabel'] = ariaLabel(nControl);
+    controlX.value['hint'] = hint(nControl);
+    controlX.value['placeholder'] = placeholder(nControl);
+    controlX.value['data'] = defaultValue(nControl);
   });
 
   const isFocused = ref(false);
   const styles = useStyles(control.value.uischema);
-  const data = ref(defaultValue(control));
 
   //Methods
-  const getLabelOrientation = labelOrientation(control);
-  const getLabelCols = labelCols(control);
 
   const appliedOptions = useControlAppliedOptions(control);
-
-  //Computed
-  const computedHint = computed(hint(control));
-  const computedTabindex = computed(tabindex(control));
-  const computedArialabel = computed(ariaLabel(control));
-  const computedPlaceholder = computed(placeholder(control));
-  const computedLabel = computed(() => buildLabel(control));
-  const computedValidation = ref([]);
 
   //alphaTeorem Dependencies
   alphaTeorem({
@@ -123,30 +129,17 @@ export const useTextControlComposition = <P>(props: P) => {
   });
 
   return {
-    one,
-    data,
+    controlX,
     appliedOptions,
     control,
     isFocused,
     controlWrapper,
-    getLabelOrientation,
-    getLabelCols,
-    computedHint,
-    computedPlaceholder,
-    computedLabel,
-    computedTabindex,
-    computedArialabel,
-
-    computedValidation,
-
     isDescriptionHidden,
-
     onChange,
     persistentHint,
     styles,
     suggestions,
     textTransform,
-    hint,
     inputMask,
   };
 };
@@ -183,126 +176,116 @@ export const updateData = (params: any) => {
  * @param control
  * @returns
  */
-export const buildLabel = (control: any) => {
+export const label = (control: any) => {
   return computeLabel(
-    control.value.label,
-    control.value.required,
-    !!control.value?.config.hideRequiredAsterisk
+    control.label,
+    control.required,
+    !!control?.config.hideRequiredAsterisk
   );
 };
 
 /**
- * Method [GET] Label Orientation for component template
+ * Method [-GET-] Label Orientation for component template
  * @param control
  * @returns
  */
-export const labelOrientation = (control: any) => () =>
-  control.value.uischema.options?.labelConfig?.orientation || 'inherit';
+export const labelOrientation = (control: any) =>
+  control.uischema.options?.labelConfig?.orientation || 'inherit';
 
 /**
- * Method [GET] Label Columns for component template
+ * Method [-GET-] Label Columns for component template
  * @param control
  * @returns
  */
-export const labelCols = (control: any) => () =>
-  control.value.uischema.options?.labelConfig?.cols || '2';
+export const labelCols = (control: any) =>
+  control.uischema.options?.labelConfig?.cols || '2';
 
 /**
- * Method [GET] Tab index for component template
+ * Method [-GET-] Tab index for component template
  * @param control
  * @returns
  */
-export const tabindex = (control: any) => () =>
-  control.value.uischema.options?.tabindex || 1;
+export const tabindex = (control: any) =>
+  control.uischema.options?.tabindex || 1;
 
 /**
- * Method [GET] Tab index for component template
+ * Method [-GET-] Tab index for component template
  * @param control
  * @returns
  */
-export const ariaLabel = (control: any) => () =>
-  control.value.uischema.options?.ariaLabel || '';
+export const ariaLabel = (control: any) =>
+  control.uischema.options?.ariaLabel || '';
 
 /**
- * Method [GET] Return hint for template
+ * Method [-GET-] Return hint for template
  * @param control
  * @returns
  */
-export const hint = (control: any) => (): string =>
-  control.value.uischema.options?.hint ?? '';
+export const hint = (control: any) => control.uischema.options?.hint ?? '';
 
 /**
- * Method [GET] Return placeholder for template
+ * Method [-GET-] Return placeholder for template
  * @param control
  * @returns
  */
-export const placeholder = (control: any) => (): string =>
-  control.value.uischema.options?.placeholder ?? '';
+export const placeholder = (control: any) =>
+  control.uischema.options?.placeholder ?? '';
 
 /**
- * Method [GET] Return placeholder for template
+ * Method [-GET-] Return placeholder for template
  * @param control
  * @returns
  */
 export const validation = (control: any) => {
   const val = control.uischema.options?.validation ?? [];
-  console.log('validation');
   const rules: any = {
     required: {
       id: 'required',
       text: 'Required',
-      handler: (value: any) => !!value || 'required field',
+      handler: () => (value: any) => !!value || 'required field',
     },
     requiredIf: {
       id: 'requiredIf',
       text: 'Required If',
-      handler: (value: any) => !!value || 'required field',
+      handler: () => (value: any) => !!value || 'required field',
     },
     maxLength: {
-      id: 'maxLenght',
+      id: 'maxLength',
       text: 'Max lenght',
-      rule: '',
-      messages: [
-        'Validate that an attribute is no greater than a given length',
-      ],
+      handler: (maxLength: any) => (value: any) => {
+        return value.length <= parseInt(maxLength) || 'Max length';
+      },
     },
     minLength: {
       id: 'minLenght',
       text: 'Min lenght',
-      rule: '',
-      messages: [
-        'Validate that an attribute is no greater than a given length',
-      ],
+      handler: (minLength: any) => (value: any) => {
+        return (value && value.length >= parseInt(minLength)) || 'Min length';
+      },
     },
   };
-
-  //const validation: Array<any> = control.value.uischema.options?.validation;
   const res: any = [];
   if (val && val.length > 0) {
     val.forEach((rule: any) => {
       if (rules[rule.id]) {
-        res.push(rules[rule.id].handler);
+        res.push(rules[rule.id].handler(rule.value));
       }
     });
   }
-  console.log('validations', res);
+
   return res;
 };
 
 /**
- * Method [GET] Return default value for template
+ * Method [-GET-] Return default value for template
  * @param control
  * @returns
  */
 export const defaultValue = (control: any) => {
-  const format = control.value.uischema.options?.textTransform ?? '';
-  return control.value.uischema.options?.defaultValue
-    ? textTransform(format, control.value.uischema.options?.defaultValue)
-    : textTransform(format, control.value.data);
-};
-
-export const eagerValidation = (control: any) => {
-  return control.value.uischema.options?.validation;
+  const format = control.uischema.options?.textTransform ?? '';
+  return control.uischema.options?.defaultValue
+    ? textTransform(format, control.uischema.options?.defaultValue)
+    : textTransform(format, control.data);
 };
 
 /*********************************************************************************************************************

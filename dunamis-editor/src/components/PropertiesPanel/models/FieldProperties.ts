@@ -7,6 +7,7 @@ const FieldProperties: any = {
   Text: [
     Props.build('type'),
     Props.build('variable'),
+
     Props.build('label'),
     Props.build('placeholder'),
     Props.build('defaultValue'),
@@ -14,14 +15,14 @@ const FieldProperties: any = {
     Props.build('tabindex'),
     Props.build('ariaLabel'),
     Props.build('validation'),
-    Props.build('description'),
-    Props.build('validationMessage'),
-    Props.build('mask'),
     Props.build('textTransform'),
+    //Props.build('mask'),
+    Props.build('protectedValue'),
     Props.build('readOnly'),
-    Props.build('multi'),
-    Props.build('trim'),
-    Props.build('restrictMaxLength'),
+
+    //Props.build('multi'),
+    //Props.build('trim'),
+    //Props.build('restrictMaxLength'),
   ],
   TextArea: [
     Props.build('type'),

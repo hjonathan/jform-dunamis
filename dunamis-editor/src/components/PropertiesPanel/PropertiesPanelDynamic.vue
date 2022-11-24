@@ -159,10 +159,15 @@ const PropertiesPanel = defineComponent({
         fieldData['labelConfig'] = this.uiElement.options
           ? this.uiElement.options.labelConfig
           : null;
-        // Get the label config property
+        // Get the validation
         fieldData['validation'] = this.uiElement.options
           ? this.uiElement.options.validation
           : null;
+        // Get the protectedValue
+        fieldData['protectedValue'] = this.uiElement.options
+          ? this.uiElement.options.protectedValue
+          : null;
+
         // Get the rows property
         fieldData['rows'] = this.uiElement.options
           ? this.uiElement.options.rows
@@ -274,6 +279,13 @@ const PropertiesPanel = defineComponent({
         store.dispatch('app/updateSchemaReadOnly', {
           elementUUID: this.uiElement.uuid,
           readOnly: data.readOnly,
+        });
+      }
+      // protectedValue
+      if (data.protectedValue) {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { protectedValue: data.protectedValue },
         });
       }
       if (data.defaultDate) {

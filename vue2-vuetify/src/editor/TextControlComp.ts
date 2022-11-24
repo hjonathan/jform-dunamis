@@ -6,11 +6,17 @@ import {
   removeId,
   update,
   computeLabel,
-  isDescriptionHidden,
   mapStateToArrayControlProps,
 } from '@jsonforms/core';
-import { computed, inject, onUnmounted, onUpdated, ref, watch } from 'vue';
-import { merge, cloneDeep, isArray, every, isString } from 'lodash';
+import {
+  computed,
+  inject,
+  onDeactivated,
+  onUnmounted,
+  onUpdated,
+  ref,
+  watch,
+} from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 
@@ -31,89 +37,19 @@ export const useTextControlComposition = <P>(props: P) => {
   //Properties
   const controlCore: any = useControl(props);
   const control = ref(controlCore.value);
-  const controlX: any = ref({
-    validation: validation(controlCore.value),
-    labelOrientation: labelOrientation(controlCore.value),
-    label: label(controlCore.value),
-    labelCols: labelCols(controlCore.value),
-    tabindex: tabindex(controlCore.value),
-    ariaLabel: ariaLabel(controlCore.value),
-    hint: hint(controlCore.value),
-    placeholder: placeholder(controlCore.value),
-    data: defaultValue(controlCore.value),
-  });
+  const controlX = ref(setPropsTextControl(controlCore.value));
 
   watch(controlCore, (nControl) => {
-    controlX.value['validation'] = validation(nControl);
-    controlX.value['labelOrientation'] = labelOrientation(nControl);
-    controlX.value['label'] = label(nControl);
-    controlX.value['labelCols'] = labelCols(nControl);
-    controlX.value['tabindex'] = tabindex(nControl);
-    controlX.value['ariaLabel'] = ariaLabel(nControl);
-    controlX.value['hint'] = hint(nControl);
-    controlX.value['placeholder'] = placeholder(nControl);
-    controlX.value['data'] = defaultValue(nControl);
+    controlX.value = setPropsTextControl(nControl);
   });
 
-  const isFocused = ref(false);
   const styles = useStyles(control.value.uischema);
-
-  //Methods
-
-  const appliedOptions = useControlAppliedOptions(control);
-
   //alphaTeorem Dependencies
-  alphaTeorem({
+  const deactivateAlpha = alphaTeorem({
     store,
     HX,
     controlCore: controlCore,
     control: control,
-  });
-
-  const persistentHint = (): boolean => {
-    return !isDescriptionHidden(
-      control.value.visible,
-      control.value.description,
-      isFocused.value,
-      !!appliedOptions.value?.showUnfocusedDescription
-    );
-  };
-
-  const controlWrapper = computed(() => {
-    const { id, description, errors, label, visible, required } = control.value;
-    return { id, description, errors, label, visible, required };
-  });
-
-  const suggestions = computed((): string[] | undefined => {
-    const sugg = control.value.uischema.options?.suggestion;
-    if (sugg === undefined || !isArray(sugg) || !every(sugg, isString)) {
-      return undefined;
-    }
-    return sugg;
-  });
-
-  const inputMask = computed((): any => {
-    const mask = control.value.uischema.options?.mask || '';
-    if (mask && typeof mask !== 'string') {
-      //This section only works with the example
-      //TODO this must work with all type of custom mask
-      return {
-        mask: mask ? mask.mask : '',
-        tokens: {
-          F: {
-            pattern: new RegExp(mask.tokens['F'].pattern.replaceAll('/', '')),
-            transform: eval(mask.tokens['F'].transform) || '',
-          },
-          G: {
-            pattern: new RegExp(mask.tokens['G'].pattern.replaceAll('/', '')),
-            transform: eval(mask.tokens['G'].transform) || '',
-          },
-        },
-      };
-    }
-    return {
-      mask: mask,
-    };
   });
 
   const onChange = (value: any) => {
@@ -127,36 +63,47 @@ export const useTextControlComposition = <P>(props: P) => {
     // this eill log whenever the component re-renders
     console.log('component re-rendered!', control.value.uischema.scope);
   });
+  onUnmounted(() => {
+    deactivateAlpha();
+  });
+
+  onDeactivated(() => {
+    deactivateAlpha();
+  });
 
   return {
     controlX,
-    appliedOptions,
     control,
-    isFocused,
-    controlWrapper,
-    isDescriptionHidden,
     onChange,
-    persistentHint,
     styles,
-    suggestions,
     textTransform,
-    inputMask,
   };
-};
-
-const useControlAppliedOptions = (control: any) => {
-  return computed(() =>
-    merge(
-      {},
-      cloneDeep(control.value.config),
-      cloneDeep(control.value.uischema.options)
-    )
-  );
 };
 
 /*****************************************************************************************************************
  * METHODS USING CONTROL
  *****************************************************************************************************************/
+
+/**
+ * Update data in JSON CORE
+ * @param params
+ */
+export const setPropsTextControl = (control: any) => {
+  return {
+    validation: validation(control),
+    labelOrientation: labelOrientation(control),
+    label: label(control),
+    labelCols: labelCols(control),
+    tabindex: tabindex(control),
+    ariaLabel: ariaLabel(control),
+    hint: hint(control),
+    placeholder: placeholder(control),
+    data: defaultValue(control),
+    id: control.id,
+    visible: true,
+  };
+};
+
 /**
  * Update data in JSON CORE
  * @param params
@@ -261,6 +208,14 @@ export const validation = (control: any) => {
       text: 'Min lenght',
       handler: (minLength: any) => (value: any) => {
         return (value && value.length >= parseInt(minLength)) || 'Min length';
+      },
+    },
+    regExp: {
+      id: 'regExp',
+      text: 'Regular expression',
+      handler: (regExp: any) => (value: string) => {
+        const exp = new RegExp(regExp);
+        return exp.test(value) || 'Regular expression';
       },
     },
   };

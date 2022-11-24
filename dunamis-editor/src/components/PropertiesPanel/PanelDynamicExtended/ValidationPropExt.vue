@@ -119,6 +119,12 @@ const rulesDefault = [
     rule: '',
     messages: ['Validate that an attribute is at least a given length'],
   },
+  {
+    id: 'regExp',
+    text: 'Regular expression',
+    rule: '',
+    messages: ['Validate that a regular expression'],
+  },
 ];
 
 const ValidationPropExt = defineComponent({

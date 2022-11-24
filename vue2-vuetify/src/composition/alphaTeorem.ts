@@ -10,11 +10,14 @@ export const alphaTeorem = (params: any) => {
   const { control } = params;
   const uischema = control.value.uischema;
   //First step::: Create dispatcher to emit the own value
-  alphaDispatcher(params);
+  const unwatcher = alphaDispatcher(params);
   //Second step::: Find the dependents fields in schema
   dep = alphaFindDependencies(uischema, dep);
   //Third step::: Find the dependents fields in schema
   alphaWatcher(params, dep);
+  return () => {
+    unwatcher();
+  };
 };
 
 /**
@@ -27,7 +30,8 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
   map(schema, (value: any, key: any) => {
     if (isObject(value)) {
       if (key != 'parent') {
-        alphaFindDependencies(value, res);
+        res = res.concat(alphaFindDependencies(value, res));
+        res = sortedUniq(res);
       }
     } else if (value) {
       let match = value.match(/{{\s*[A-Za-z0-9]+\s*}}/g);

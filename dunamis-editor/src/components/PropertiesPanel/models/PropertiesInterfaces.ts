@@ -269,5 +269,12 @@ const PropertiesPanel = [
     items: [],
     icons: [],
   } as PropertyPanel,
+  {
+    id: 'protectedValue',
+    type: 'checkbox',
+    name: 'Protected value',
+    options: {},
+    items: [],
+  } as PropertyPanel,
 ];
 export default PropertiesPanel;

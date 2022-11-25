@@ -14,7 +14,7 @@
         :clearable="hover"
         :rules="control.validation"
         :tabindex="tabindex"
-        :rows="2"
+        :rows="control.rows"
         @input="() => data"
         @change="onChange"
       >

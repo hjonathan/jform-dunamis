@@ -98,5 +98,8 @@ export const setPropsTextareaControl = (control: any) => {
     data: defaultValue(control),
     id: control.id,
     visible: true,
+    rows: rows(control),
   };
 };
+
+export const rows = (control: any) => control.uischema.options?.rows ?? 2;

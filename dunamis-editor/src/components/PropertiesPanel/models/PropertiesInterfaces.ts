@@ -181,9 +181,9 @@ const PropertiesPanel = [
     items: [],
   } as PropertyPanel,
   {
-    id: 'readOnly',
+    id: 'readonly',
     type: 'checkbox',
-    name: 'Read Only',
+    name: 'Read only',
     options: {},
     items: [],
   } as PropertyPanel,

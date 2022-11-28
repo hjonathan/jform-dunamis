@@ -197,9 +197,9 @@ const PropertiesPanel = defineComponent({
           ? elementSchema.schema.maxLength
           : '';
         // Get the readOnly property
-        fieldData['readOnly'] = elementSchema.schema.readOnly
-          ? elementSchema.schema.readOnly
-          : false;
+        fieldData['readonly'] = this.uiElement.options
+          ? this.uiElement.options.readonly
+          : null;
         // Get the defaultValue property
         fieldData['defaultValue'] = this.uiElement.options
           ? this.uiElement.options.defaultValue
@@ -275,10 +275,10 @@ const PropertiesPanel = defineComponent({
         });
       }
       // readOnly
-      if (typeof data.readOnly !== 'undefined') {
-        store.dispatch('app/updateSchemaReadOnly', {
+      if (typeof data.readonly !== 'undefined') {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
-          readOnly: data.readOnly,
+          changedProperties: { readonly: data.readonly },
         });
       }
       // protectedValue

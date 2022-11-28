@@ -16,7 +16,7 @@ const FieldProperties: any = {
     Props.build('validation'),
     Props.build('textTransform'),
     Props.build('protectedValue'),
-    Props.build('readOnly'),
+    Props.build('readonly'),
   ],
   TextArea: [
     Props.build('type'),
@@ -31,6 +31,18 @@ const FieldProperties: any = {
     Props.build('validation'),
     Props.build('textTransform'),
     Props.build('protectedValue'),
+    Props.build('readOnly'),
+  ],
+  Checkbox: [
+    Props.build('type'),
+    Props.build('variable'),
+    Props.build('label'),
+    Props.build('hint'),
+    Props.build('description'),
+    Props.build('tabindex'),
+    Props.build('ariaLabel'),
+    Props.build('validation'),
+    Props.build('checkedDefault'),
     Props.build('readOnly'),
   ],
   DatePicker: [
@@ -71,16 +83,7 @@ const FieldProperties: any = {
     Props.build('placeholder'),
     Props.build('required'),
   ],
-  Checkbox: [
-    Props.build('type'),
-    Props.build('variable'),
-    Props.build('label'),
-    Props.build('hint'),
-    Props.build('description'),
-    Props.build('required'),
-    Props.build('checkedDefault'),
-    Props.build('readOnly'),
-  ],
+
   CheckboxGroup: [
     Props.build('type'),
     Props.build('variable'),

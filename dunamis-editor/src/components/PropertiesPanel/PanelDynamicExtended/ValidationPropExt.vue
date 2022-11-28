@@ -80,6 +80,7 @@
                     dense
                     holder
                     v-model="item.rule"
+                    :placeholder="item.ruleOptions.placeholder"
                     :messages="item.messages"
                     class="caption"
                   ></v-text-field>
@@ -124,6 +125,67 @@ const rulesDefault = [
     text: 'Regular expression',
     rule: '',
     messages: ['Validate that a regular expression'],
+  },
+  {
+    id: 'afterDate',
+    text: 'After Date',
+    rule: '',
+    ruleOptions: {
+      placeholder: 'YYYY/MM/DD',
+    },
+    messages: ['The field under validation must be afer given date'],
+  },
+  {
+    id: 'afterEqualDate',
+    text: 'After or equal to date',
+    rule: '',
+    ruleOptions: {
+      placeholder: 'YYYY/MM/DD',
+    },
+    messages: ['The field under validation must be after given date'],
+  },
+  {
+    id: 'beforeDate',
+    text: 'Before Date',
+    rule: '',
+    ruleOptions: {
+      placeholder: 'YYYY/MM/DD',
+    },
+    messages: ['The field under validation must be before given date'],
+  },
+  {
+    id: 'beforeEqualDate',
+    text: 'Before or equal to date',
+    rule: '',
+    ruleOptions: {
+      placeholder: 'YYYY/MM/DD',
+    },
+    messages: ['The field under validation must be before given date'],
+  },
+  {
+    id: 'alpha',
+    text: 'Alpha',
+    messages: ['The field under validation must be alpha'],
+  },
+  {
+    id: 'alphanumeric',
+    text: 'Alphanumeric',
+    messages: ['The field under validation must be alphanumeric'],
+  },
+  {
+    id: 'url',
+    text: 'URL',
+    messages: ['The field under validation must be url'],
+  },
+  {
+    id: 'email',
+    text: 'Email',
+    messages: ['The field under validation must be email format'],
+  },
+  {
+    id: 'date',
+    text: 'Date',
+    messages: ['The field under validation must be date format'],
   },
 ];
 

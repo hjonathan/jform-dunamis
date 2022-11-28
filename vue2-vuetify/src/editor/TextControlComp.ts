@@ -101,6 +101,7 @@ export const setPropsTextControl = (control: any) => {
     data: defaultValue(control),
     id: control.id,
     visible: true,
+    readonly: readonly(control),
   };
 };
 
@@ -171,6 +172,14 @@ export const ariaLabel = (control: any) =>
 export const hint = (control: any) => control.uischema.options?.hint ?? '';
 
 /**
+ * Method [-GET-] Return readonly
+ * @param control
+ * @returns
+ */
+export const readonly = (control: any) =>
+  control.uischema.options?.readonly ?? false;
+
+/**
  * Method [-GET-] Return placeholder for template
  * @param control
  * @returns
@@ -216,6 +225,89 @@ export const validation = (control: any) => {
       handler: (regExp: any) => (value: string) => {
         const exp = new RegExp(regExp);
         return exp.test(value) || 'Regular expression';
+      },
+    },
+    afterDate: {
+      id: 'afterDate',
+      text: 'After Date',
+      handler: (date: any) => (value: string) => {
+        const after: any = new Date(date);
+        const inputDate: any = new Date(value);
+        return inputDate > after || 'After Date';
+      },
+    },
+    afterEqualDate: {
+      id: 'afterDate',
+      text: 'After Date',
+      handler: (date: any) => (value: string) => {
+        const after: any = new Date(date);
+        const inputDate: any = new Date(value);
+        return inputDate >= after || 'After or equal to Date';
+      },
+    },
+    beforeDate: {
+      id: 'beforeDate',
+      text: 'Before Date',
+      handler: (date: any) => (value: string) => {
+        const before: any = new Date(date);
+        const inputDate: any = new Date(value);
+        return inputDate < before || 'Before Date';
+      },
+    },
+    beforeEqualDate: {
+      id: 'beforeEqualDate',
+      text: 'Before Date',
+      handler: (date: any) => (value: string) => {
+        const before: any = new Date(date);
+        const inputDate: any = new Date(value);
+        return inputDate <= before || 'Before or equal to Date';
+      },
+    },
+    alpha: {
+      id: 'alpha',
+      text: 'Alpha',
+      handler: () => (value: string) => {
+        return /^[a-zA-Z]*$/g.test(value) || 'Alpha';
+      },
+    },
+    alphanumeric: {
+      id: 'alphanumeric',
+      text: 'Alphanumeric',
+      handler: () => (value: string) => {
+        return /^[a-zA-Z0-9]*$/g.test(value) || 'Alphanumeric';
+      },
+    },
+    url: {
+      id: 'url',
+      text: 'URL',
+      handler: () => (value: string) => {
+        return (
+          /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/g.test(
+            value
+          ) || 'URL'
+        );
+      },
+    },
+    email: {
+      id: 'email',
+      text: 'Email',
+      handler: () => (value: string) => {
+        return (
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g.test(
+            value
+          ) || 'Email'
+        );
+      },
+    },
+    date: {
+      id: 'date',
+      text: 'Date',
+      handler: () => (value: string) => {
+        return (
+          /^\d\d\d\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9])$/g.test(
+            value
+          ) || 'Date'
+        );
       },
     },
   };

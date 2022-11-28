@@ -13,7 +13,8 @@
         :value="control.data"
         :clearable="hover"
         :rules="control.validation"
-        :tabindex="tabindex"
+        :tabindex="control.tabindex"
+        :readonly="control.readonly"
         @input="() => data"
         @change="onChange"
       >

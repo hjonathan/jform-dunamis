@@ -263,6 +263,29 @@ export const validation = (control: any) => {
         return inputDate <= before || 'Before or equal to Date';
       },
     },
+    in: {
+      id: 'in',
+      text: 'In',
+      handler: (vIn: any) => (value: string) => {
+        const valIn: Array<any> = vIn.split(',');
+        return valIn.findIndex((el: string) => el == value) != -1 || 'In';
+      },
+    },
+    notIn: {
+      id: 'notIn',
+      text: 'Not in',
+      handler: (vIn: any) => (value: string) => {
+        const valIn: Array<any> = vIn.split(',');
+        return valIn.findIndex((el: string) => el == value) == -1 || 'Not in';
+      },
+    },
+    same: {
+      id: 'same',
+      text: 'Same',
+      handler: (sameVal: any) => (value: string) => {
+        return sameVal == value || 'Same';
+      },
+    },
     alpha: {
       id: 'alpha',
       text: 'Alpha',

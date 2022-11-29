@@ -106,24 +106,36 @@ const rulesDefault = [
     id: 'requiredIf',
     text: 'Required If',
     rule: '',
+    ruleOptions: {
+      placeholder: '',
+    },
     messages: ['The field under validation must be present and not empty'],
   },
   {
     id: 'maxLength',
     text: 'Max lenght',
     rule: '',
+    ruleOptions: {
+      placeholder: '',
+    },
     messages: ['Validate that an attribute is no greater than a given length'],
   },
   {
     id: 'minLength',
     text: 'Min lenght',
     rule: '',
+    ruleOptions: {
+      placeholder: '',
+    },
     messages: ['Validate that an attribute is at least a given length'],
   },
   {
     id: 'regExp',
     text: 'Regular expression',
     rule: '',
+    ruleOptions: {
+      placeholder: '',
+    },
     messages: ['Validate that a regular expression'],
   },
   {
@@ -186,6 +198,33 @@ const rulesDefault = [
     id: 'date',
     text: 'Date',
     messages: ['The field under validation must be date format'],
+  },
+  {
+    id: 'in',
+    text: 'In',
+    rule: '',
+    ruleOptions: {
+      placeholder: 'val1,val2',
+    },
+    messages: ['The field under validation must be values'],
+  },
+  {
+    id: 'notIn',
+    text: 'Not in',
+    rule: '',
+    ruleOptions: {
+      placeholder: 'val1,val2',
+    },
+    messages: ['The field under validation must be values'],
+  },
+  {
+    id: 'same',
+    text: 'Same',
+    rule: '',
+    ruleOptions: {
+      placeholder: 'value',
+    },
+    messages: ['The field under validation must be same'],
   },
 ];
 

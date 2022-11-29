@@ -19,6 +19,7 @@ import {
 } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
+import { isEqual } from 'lodash';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR TEXT CONTROL
@@ -38,8 +39,10 @@ export const useTextControlComposition = <P>(props: P) => {
   const controlCore: any = useControl(props);
   const control = ref(setPropsTextControl(controlCore.value));
 
-  watch(controlCore, (nControl) => {
-    control.value = setPropsTextControl(nControl);
+  watch(controlCore, (nControl, oControl) => {
+    if (!isEqual(nControl, oControl)) {
+      control.value = setPropsTextControl(nControl);
+    }
   });
 
   const styles = useStyles(controlCore.value.uischema);

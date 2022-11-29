@@ -176,7 +176,10 @@ const PropertiesPanel = defineComponent({
         fieldData['tabindex'] = this.uiElement.options
           ? this.uiElement.options.tabindex
           : null;
-
+        // Get the arialabel
+        fieldData['ariaLabel'] = this.uiElement.options
+          ? this.uiElement.options.ariaLabel
+          : null;
         // Get the alt text property
         fieldData['alt'] = this.uiElement.options
           ? this.uiElement.options.alt
@@ -281,6 +284,13 @@ const PropertiesPanel = defineComponent({
           changedProperties: { readonly: data.readonly },
         });
       }
+      // arialabel
+      if (data.ariaLabel) {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { ariaLabel: data.ariaLabel },
+        });
+      }
       // protectedValue
       if (data.protectedValue) {
         store.dispatch('app/updateUISchemaElementOption', {
@@ -370,6 +380,13 @@ const PropertiesPanel = defineComponent({
         store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { hint: data.hint },
+        });
+      }
+      // tabindex -> to options
+      if (data.tabindex) {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { tabindex: data.tabindex },
         });
       }
       // rows for TextArea -> to options

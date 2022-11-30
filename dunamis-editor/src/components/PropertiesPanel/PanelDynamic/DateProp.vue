@@ -9,7 +9,9 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
+        persistent-placeholder
         ref="text"
+        dense
         class="caption"
         :value="formatDate(value)"
         readonly
@@ -48,18 +50,19 @@ const DateProp = defineComponent({
   props: ['value', 'config'],
   setup(props: any, context: any) {
     let date = ref(null);
-    let menu = false;
+    let menu = ref(false);
+    let text = ref(null);
+    const { twoBind } = dynamicPropertyDefault(props, context);
+    const onDateChange = () => {
+      menu.value = false;
+      twoBind(new Date(date.value).toISOString());
+    };
 
-    function onDateChange() {
-      this.menu = false;
-      this.twoBind(new Date(this.date).toISOString());
-    }
-
-    function clearDate() {
-      this.$refs.text.reset();
-      this.menu = false;
-      this.twoBind('');
-    }
+    const clearDate = () => {
+      text.value.reset();
+      menu.value = false;
+      twoBind('');
+    };
 
     onMounted(() => {
       if (props.value) {
@@ -68,13 +71,13 @@ const DateProp = defineComponent({
     });
 
     return {
-      ...dynamicPropertyDefault(props, context),
       date,
       menu,
       formatDate,
       parseDate,
       onDateChange,
       clearDate,
+      text,
     };
   },
 });

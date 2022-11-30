@@ -69,7 +69,7 @@ export default defineComponent({
       'Control',
       'Checkbox',
       'DatePicker',
-      'DateTime',
+      'Datetime',
       'TimePicker',
       'MultipleFile',
       'Text',

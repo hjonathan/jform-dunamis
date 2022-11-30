@@ -99,7 +99,7 @@ const droppableRenderer = defineComponent({
         'Control',
         'Checkbox',
         'DatePicker',
-        'DateTime',
+        'Datetime',
         'TimePicker',
         'MultipleFile',
         'Text',

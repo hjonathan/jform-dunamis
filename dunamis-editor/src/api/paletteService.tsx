@@ -64,8 +64,8 @@ const controlElements = [
     },
   },
   {
-    type: 'DateTime',
-    label: 'Date Time Picker',
+    type: 'Datetime',
+    label: 'Datetime',
     icon: 'mdi-calendar-clock-outline',
     uiSchemaElementProvider: () => {
       const control = {

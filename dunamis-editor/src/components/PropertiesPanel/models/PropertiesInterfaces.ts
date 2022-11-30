@@ -84,9 +84,9 @@ const PropertiesPanel = [
     items: [],
   } as PropertyPanel,
   {
-    id: 'format',
+    id: 'dataType',
     type: 'dropdown',
-    name: 'Format',
+    name: 'Data type',
     options: {},
     items: [
       {
@@ -114,6 +114,13 @@ const PropertiesPanel = [
     id: 'minDate',
     type: 'date',
     name: 'Min Date',
+    options: {},
+    items: [],
+  } as PropertyPanel,
+  {
+    id: 'defaultDate',
+    type: 'date',
+    name: 'Default value',
     options: {},
     items: [],
   } as PropertyPanel,

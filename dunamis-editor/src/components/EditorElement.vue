@@ -185,7 +185,7 @@ export default {
           return 'mdi-checkbox-outline';
         case 'DatePicker':
           return 'mdi-calendar-month';
-        case 'DateTime':
+        case 'Datetime':
           return 'mdi-calendar-clock-outline';
         case 'TimePicker':
           return 'mdi-clock-outline';

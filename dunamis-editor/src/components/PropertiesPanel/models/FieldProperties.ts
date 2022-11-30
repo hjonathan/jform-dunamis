@@ -37,13 +37,14 @@ const FieldProperties: any = {
     Props.build('type'),
     Props.build('variable'),
     Props.build('label'),
+
     Props.build('hint'),
-    Props.build('description'),
     Props.build('tabindex'),
     Props.build('ariaLabel'),
     Props.build('validation'),
+    Props.build('protectedValue'),
     Props.build('checkedDefault'),
-    Props.build('readOnly'),
+    Props.build('readonly'),
   ],
   DatePicker: [
     Props.build('type'),

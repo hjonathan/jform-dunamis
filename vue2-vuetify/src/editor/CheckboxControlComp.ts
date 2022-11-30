@@ -5,26 +5,24 @@ import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
-  defaultValue,
   hint,
   label,
   labelCols,
   labelOrientation,
-  placeholder,
+  readonly,
   tabindex,
-  textTransform,
   updateData,
   useControl,
   validation,
 } from './TextControlComp';
 
 /***********************************************************************************************************************************
- * COMPOSITION EXTENSION FOR TEXTAREA CONTROL
+ * COMPOSITION EXTENSION FOR CHECKBOX CONTROL
  * @param vuetifyControl
  * @returns
  ***********************************************************************************************************************************/
 
-export const useTextareaControlComposition = <P>(props: P) => {
+export const useCheckboxControlComposition = <P>(props: P) => {
   const dispatch = inject<Dispatch<CoreActions>>('dispatch');
   const store = inject<any>('store');
   const HX = inject<any>('HX');
@@ -34,11 +32,11 @@ export const useTextareaControlComposition = <P>(props: P) => {
 
   //Properties
   const controlCore: any = useControl(props);
-  const control = ref(setPropsTextareaControl(controlCore.value));
+  const control = ref(setPropsDefaultCheckboxControl(controlCore.value));
 
-  watch(controlCore, (nControl, oControl) => {
+  watch(controlCore, (nControl: any, oControl: any) => {
     if (!isEqual(nControl, oControl)) {
-      control.value = setPropsTextareaControl(nControl);
+      control.value = setPropsCheckboxControl(nControl);
     }
   });
 
@@ -49,7 +47,7 @@ export const useTextareaControlComposition = <P>(props: P) => {
     HX,
     controlCore: controlCore,
     updater: (ctrl: any) => {
-      control.value = setPropsTextareaControl(ctrl);
+      control.value = setPropsCheckboxControl(ctrl);
     },
   });
 
@@ -76,7 +74,6 @@ export const useTextareaControlComposition = <P>(props: P) => {
     control,
     onChange,
     styles,
-    textTransform,
   };
 };
 
@@ -88,21 +85,41 @@ export const useTextareaControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsTextareaControl = (control: any) => {
+export const setPropsCheckboxControl = (control: any) => {
   return {
-    validation: validation(control),
+    id: control.id,
+    ariaLabel: ariaLabel(control),
     labelOrientation: labelOrientation(control),
     label: label(control),
     labelCols: labelCols(control),
-    tabindex: tabindex(control),
-    ariaLabel: ariaLabel(control),
     hint: hint(control),
-    placeholder: placeholder(control),
-    data: defaultValue(control),
-    id: control.id,
+    validation: validation(control),
+    tabindex: tabindex(control),
+    readonly: readonly(control),
+    data: control.data,
     visible: true,
-    rows: rows(control),
   };
 };
 
-export const rows = (control: any) => control.uischema.options?.rows ?? 2;
+/**
+ * Default data for
+ * @param params
+ */
+export const setPropsDefaultCheckboxControl = (control: any) => {
+  return {
+    id: control.id,
+    ariaLabel: ariaLabel(control),
+    labelOrientation: labelOrientation(control),
+    label: label(control),
+    labelCols: labelCols(control),
+    hint: hint(control),
+    validation: validation(control),
+    tabindex: tabindex(control),
+    readonly: readonly(control),
+    data: checkedDefault(control),
+    visible: true,
+  };
+};
+
+export const checkedDefault = (control: any) =>
+  control.uischema.options?.checkedDefault ?? control.data;

@@ -1,41 +1,27 @@
 <template>
-  <control-wrapper
-    v-bind="controlWrapper"
-    :styles="styles"
-    :isFocused="isFocused"
-    :appliedOptions="appliedOptions"
-  >
-    <CustomControlWrapper
-      v-bind="{ labelOrientation, computedLabel, labelCols }"
-    >
+  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+    <v-hover v-slot="{}">
       <v-checkbox
         :id="control.id + '-input'"
+        :aria-label="control.ariaLabel"
         :class="styles.control.input"
-        :disabled="!control.enabled"
-        :autofocus="appliedOptions.focus"
-        :placeholder="placeholder"
-        :persistent-placeholder="labelOrientation() == 'inherit'"
-        :label="labelOrientation() == 'inherit' ? computedLabel : null"
-        :hint="control.description"
-        :persistent-hint="persistentHint()"
-        :required="control.required"
-        :error-messages="control.errors"
-        :indeterminate="control.data === undefined"
-        :value="control.data"
-        :input-value="checkedDefault"
+        :label="control.labelOrientation == 'inherit' ? control.label : null"
+        :hint="control.hint"
+        :rules="control.validation"
+        :tabindex="control.tabindex"
+        v-model="control.data"
+        :readonly="control.readonly"
         @change="onChange"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
       >
-        <v-tooltip v-if="hint && hint != ''" slot="append" top>
+        <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
           <template v-slot:activator="{ on }">
             <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
           </template>
-          <span class="">{{ hint }}</span>
+          <span class="">{{ control.hint }}</span>
         </v-tooltip>
       </v-checkbox>
-    </CustomControlWrapper>
-  </control-wrapper>
+    </v-hover>
+  </CustomControlWrapper>
 </template>
 
 <script lang="ts">
@@ -46,52 +32,40 @@ import {
   rankWith,
   uiTypeIs,
 } from '@jsonforms/core';
-import { defineComponent } from '../vue';
-import {
-  rendererProps,
-  useJsonFormsControl,
-  RendererProps,
-} from '@jsonforms/vue2';
-import { default as ControlWrapper } from '../controls/ControlWrapper.vue';
-import { useVuetifyControl } from '../util';
-import { VCheckbox, VIcon, VTooltip } from 'vuetify/lib';
+import { defineComponent } from 'vue';
+import { rendererProps, RendererProps } from '@jsonforms/vue2';
+import { VHover, VCheckbox, VIcon, VTooltip } from 'vuetify/lib';
+import { DisabledIconFocus } from '../controls/directives';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
 
-const controlRenderer = defineComponent({
-  name: 'checkbox-control-renderer-editor',
+import { useCheckboxControlComposition } from './CheckboxControlComp';
+
+const CheckboxControlRenderer = defineComponent({
+  name: 'checkbox-control-renderer',
   components: {
+    VHover,
     VCheckbox,
     VIcon,
     VTooltip,
-    ControlWrapper,
     CustomControlWrapper,
+  },
+  directives: {
+    DisabledIconFocus,
   },
   props: {
     ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
-    return useVuetifyControl(
-      useJsonFormsControl(props),
-      (newValue) => newValue || false
-    );
-  },
-  computed: {
-    hint(): string {
-      return this.control.uischema.options?.hint ?? '';
-    },
-    placeholder(): string {
-      return this.control.uischema.options?.placeholder ?? '';
-    },
-    checkedDefault(): boolean {
-      return this.control.uischema.options?.checkedDefault ?? false;
-    },
+    const vuetifyControl = useCheckboxControlComposition(props);
+    // @ts-ignore:
+    return vuetifyControl;
   },
 });
 
-export default controlRenderer;
+export default CheckboxControlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: controlRenderer,
-  tester: rankWith(1, uiTypeIs('Checkbox')),
+  renderer: CheckboxControlRenderer,
+  tester: rankWith(3, uiTypeIs('Checkbox')),
 };
 </script>

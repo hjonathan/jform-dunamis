@@ -1,35 +1,57 @@
 <template>
   <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+    <v-text-field
+      :aria-label="control.ariaLabel"
+      :id="control.id + '-input'"
+      :class="styles.control.input"
+      :placeholder="control.placeholder"
+      :persistent-placeholder="control.labelOrientation == 'inherit'"
+      :label="control.labelOrientation == 'inherit' ? control.label : null"
+      :hint="control.hint"
+      :error-messages="control.errors"
+      :value="control.data"
+      :clearable="hover"
+      :rules="control.validation"
+      :tabindex="tabindex"
+      append-icon="mdi-calendar"
+      readonly
+      @click.prevent.stop="show"
+    >
+      <v-icon slot="append" color="primary" small> mdi-calendar </v-icon>
+      <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
+        <template v-slot:activator="{ on }">
+          <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
+        </template>
+        <span class="">{{ control.hint }}</span>
+      </v-tooltip></v-text-field
+    >
     <v-menu
-      ref="menu"
-      v-model="control.menu"
+      v-model="showPicker"
       :close-on-content-click="false"
-      :nudge-right="40"
       transition="scale-transition"
+      :position-x="x"
+      :position-y="y"
+      absolute
       offset-y
       max-width="290px"
       min-width="290px"
     >
-      <template v-slot:activator="{ on, attrs }">
-        <v-text-field
-          :id="control.id + '-input'"
-          :class="styles.control.input"
-          :placeholder="control.placeholder"
-          :persistent-placeholder="control.labelOrientation == 'inherit'"
-          :label="control.labelOrientation == 'inherit' ? control.label : null"
-          :hint="control.hint"
-          :rules="control.validation"
-          append-icon="mdi-calendar"
-          readonly
-          v-on="on"
-        ></v-text-field>
-      </template>
-      <v-date-picker> </v-date-picker>
-      <!-- <v-time-picker
+      <v-date-picker
+        v-model="date"
+        @change="onChange"
+        v-if="control.dataType === 'date' || control.dataType === 'date-time'"
+        :max="control.maxDate"
+        :min="control.minDate"
+        no-title
+        scrollable
+      >
+      </v-date-picker>
+      <v-time-picker
+        @change="onChange"
         v-model="time"
-        v-if="inputFormat === 'time' || inputFormat === 'date-time'"
-        @input="inputFormat !== 'date-time' ? (menu = false) : (menu = true)"
-      ></v-time-picker> -->
+        class="d-inline"
+        v-if="control.dataType === 'time' || control.dataType === 'date-time'"
+      ></v-time-picker>
     </v-menu>
   </CustomControlWrapper>
 </template>
@@ -51,6 +73,7 @@ import {
   VTooltip,
   VMenu,
   VDatePicker,
+  VTimePicker,
 } from 'vuetify/lib';
 import { DisabledIconFocus } from '../controls/directives';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
@@ -66,6 +89,7 @@ const DatetimeControlRenderer = defineComponent({
     VTooltip,
     VDatePicker,
     VTextField,
+    VTimePicker,
     CustomControlWrapper,
   },
   directives: {

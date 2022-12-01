@@ -232,7 +232,7 @@ const PropertiesPanel = defineComponent({
           ? this.uiElement.options.minDate
           : '';
         // Get the format property for DateTime
-        fieldData['format'] = elementSchema.schema
+        fieldData['dataType'] = elementSchema.schema
           ? elementSchema.schema.format
           : 'date-time';
         // Get the checkedDefault property
@@ -411,10 +411,10 @@ const PropertiesPanel = defineComponent({
         });
       }
       // format for DateTime
-      if (data.format) {
+      if (data.dataType) {
         store.dispatch('app/updateSchemaElement', {
           elementUUID: this.uiElement.uuid,
-          changedProperties: { format: data.format },
+          changedProperties: { format: data.dataType },
         });
       }
       // maxDate -> to options

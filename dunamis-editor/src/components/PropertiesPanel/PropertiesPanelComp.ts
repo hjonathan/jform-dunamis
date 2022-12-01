@@ -1,5 +1,4 @@
 import { ref } from 'vue';
-import _ from 'lodash';
 
 export const dynamicPropertyDefault = (props: any, context: any) => {
   const data = ref(props.config);
@@ -13,10 +12,8 @@ export const dynamicPropertyDefault = (props: any, context: any) => {
   const change = (value: any) => {
     if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
       context.emit('change', value.id);
-      context.emit('visible', value.id);
     } else {
       context.emit('change', value);
-      context.emit('visible', value);
     }
   };
   const twoBind = (value: any) => {

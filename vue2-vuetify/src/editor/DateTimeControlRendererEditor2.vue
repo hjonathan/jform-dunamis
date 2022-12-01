@@ -49,9 +49,11 @@
           @input="inputFormat !== 'date-time' ? (menu = false) : (menu = true)"
           no-title
           scrollable
+          @change="onChange"
         >
         </v-date-picker>
         <v-time-picker
+          @change="onChange"
           v-model="time"
           v-if="inputFormat === 'time' || inputFormat === 'date-time'"
           @input="inputFormat !== 'date-time' ? (menu = false) : (menu = true)"

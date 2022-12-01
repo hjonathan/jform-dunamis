@@ -1,40 +1,36 @@
 <template>
-  <v-menu
-    ref="menu"
-    v-model="menu"
-    :close-on-content-click="false"
-    transition="scale-transition"
-    offset-y
-    min-width="auto"
-  >
-    <template v-slot:activator="{ on, attrs }">
-      <v-text-field
-        persistent-placeholder
-        ref="text"
-        dense
-        class="caption"
-        :value="formatDate(value)"
-        readonly
-        :label="config.name"
-        v-on="on"
-        v-bind="attrs"
-        @blur="date = parseDate(formatDate(value))"
-      >
-        <v-icon small slot="append" color="secondary"> mdi-calendar </v-icon>
-      </v-text-field>
-    </template>
-    <v-date-picker
-      ref="datePicker"
-      no-title
-      elevation="12"
-      show-current
-      v-model="date"
-      @change="onDateChange"
+  <div>
+    <v-text-field
+      persistent-placeholder
+      ref="text"
+      dense
+      class="caption"
+      :value="formatDate(value)"
+      readonly
+      :label="config.name"
+      @click="menu = !menu"
     >
-      <v-spacer></v-spacer>
-      <v-btn text color="primary" @click="clearDate">Clear</v-btn>
-    </v-date-picker>
-  </v-menu>
+      <v-icon small slot="append" color="secondary"> mdi-calendar </v-icon>
+    </v-text-field>
+    <v-menu
+      v-model="menu"
+      :close-on-content-click="false"
+      transition="scale-transition"
+      min-width="auto"
+    >
+      <v-date-picker
+        ref="datePicker"
+        no-title
+        elevation="12"
+        show-current
+        v-model="date"
+        @change="onDateChange"
+      >
+        <v-spacer></v-spacer>
+        <v-btn text color="primary" @click="clearDate">Clear</v-btn>
+      </v-date-picker>
+    </v-menu>
+  </div>
 </template>
 
 <script lang="ts">

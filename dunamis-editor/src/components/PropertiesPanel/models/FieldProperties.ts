@@ -118,7 +118,18 @@ const FieldProperties: any = {
     Props.build('variable'),
     Props.build('placeholder'),
   ],
-  Submit: [Props.build('type'), Props.build('variable')],
+  Submit: [
+    Props.build('type'),
+    Props.build('variable'),
+    Props.build('label'),
+    Props.build('tabindex'),
+  ],
+  Button: [
+    Props.build('type'),
+    Props.build('variable'),
+    Props.build('label'),
+    Props.build('tabindex'),
+  ],
   Suggest: [
     Props.build('type'),
     Props.build('variable'),

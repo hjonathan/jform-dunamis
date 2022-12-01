@@ -115,6 +115,7 @@ const droppableRenderer = defineComponent({
         'DataTableControl',
         'File',
         'Submit',
+        'Button',
       ];
       const enabledLayouts = ['HorizontalLayout'];
       if (evt.added && evt.added.element) {

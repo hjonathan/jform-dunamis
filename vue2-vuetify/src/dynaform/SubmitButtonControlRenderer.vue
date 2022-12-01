@@ -13,7 +13,7 @@
       :error-messages="control.errors"
       @click="onSubmit"
     >
-      {{ control.schema.title }}
+      {{ control.title }}
     </v-btn>
   </control-wrapper>
 </template>

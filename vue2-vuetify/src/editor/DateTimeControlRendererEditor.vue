@@ -42,14 +42,13 @@
         v-if="control.dataType === 'date' || control.dataType === 'date-time'"
         :max="control.maxDate"
         :min="control.minDate"
-        no-title
         scrollable
       >
       </v-date-picker>
       <v-time-picker
         @change="onChange"
         v-model="time"
-        class="d-inline"
+        use-seconds
         v-if="control.dataType === 'time' || control.dataType === 'date-time'"
       ></v-time-picker>
     </v-menu>

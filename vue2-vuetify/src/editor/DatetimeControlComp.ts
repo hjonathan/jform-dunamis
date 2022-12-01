@@ -103,10 +103,7 @@ export const useDatetimeExtend = (params: any) => {
     let val = '';
     switch (dataType) {
       case 'date-time':
-        val =
-          time.value != ''
-            ? date.value + ' ' + time.value + '' + ':00'
-            : date.value;
+        val = time.value != '' ? date.value + ' ' + time.value : date.value;
         break;
       case 'date':
         val = date.value;
@@ -159,6 +156,7 @@ export const setPropsDatetimeControl = (control: any) => {
     visible: true,
     minDate: minDate(control),
     maxDate: maxDate(control),
+    errors: control.errors,
   };
 };
 

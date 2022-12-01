@@ -216,9 +216,9 @@ const PropertiesPanel = [
     items: [],
   } as PropertyPanel,
   {
-    id: 'items',
-    type: 'items',
-    name: 'Items',
+    id: 'options',
+    type: 'options',
+    name: 'Options',
     options: {},
     items: [],
   } as PropertyPanel,

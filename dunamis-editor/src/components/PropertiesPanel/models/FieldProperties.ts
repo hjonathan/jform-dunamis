@@ -46,26 +46,6 @@ const FieldProperties: any = {
     Props.build('checkedDefault'),
     Props.build('readonly'),
   ],
-  // DatePicker: [
-  //   Props.build('type'),
-
-  //   Props.build('variable'),
-  //   Props.build('format'),
-  //   Props.build('hint'),
-  //   Props.build('label'),
-  //   Props.build('placeholder'),
-  //   Props.build('required'),
-  //   Props.build('minDate'),
-  //   Props.build('maxDate'),
-  // ],
-  // TimePicker: [
-  //   Props.build('type'),
-
-  //   Props.build('format'),
-  //   Props.build('label'),
-  //   Props.build('variable'),
-  //   Props.build('placeholder'),
-  // ],
   Datetime: [
     Props.build('type'),
     Props.build('variable'),
@@ -73,11 +53,11 @@ const FieldProperties: any = {
     Props.build('defaultDate'),
     Props.build('label'),
     Props.build('hint'),
-    Props.build('tabindex'),
+
     Props.build('placeholder'),
     Props.build('ariaLabel'),
     Props.build('validation'),
-    Props.build('protectedValue'),
+
     Props.build('readonly'),
     Props.build('minDate'),
     Props.build('maxDate'),
@@ -85,13 +65,16 @@ const FieldProperties: any = {
   Dropdown: [
     Props.build('type'),
     Props.build('variable'),
-    Props.build('hint'),
     Props.build('label'),
-    Props.build('items'),
+    Props.build('tabindex'),
     Props.build('placeholder'),
-    Props.build('required'),
+    Props.build('hint'),
+    Props.build('ariaLabel'),
+    Props.build('options'),
+    Props.build('validation'),
+    Props.build('protectedValue'),
+    Props.build('readonly'),
   ],
-
   CheckboxGroup: [
     Props.build('type'),
     Props.build('variable'),

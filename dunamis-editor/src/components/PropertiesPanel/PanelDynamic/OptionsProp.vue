@@ -1,6 +1,6 @@
 <template>
   <v-card class="pb-6" elevation="0" color="transparent">
-    <div class="caption">Items</div>
+    <div class="caption">Options</div>
     <div class="d-flex justify-end">
       <v-btn
         class="vpm-action-editor-btn"
@@ -20,8 +20,8 @@
 import { defineComponent, ref } from 'vue';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
 
-const ItemProp = defineComponent({
-  name: 'ItemProp',
+const OptionsProp = defineComponent({
+  name: 'OptionsProp',
   emits: ['input', 'change', 'extendPanel'],
   props: ['value', 'config'],
   setup(props: any, context: any) {
@@ -29,14 +29,14 @@ const ItemProp = defineComponent({
       ...dynamicPropertyDefault(props, context),
       extendPanel() {
         context.emit('extendPanel', {
-          id: 'items',
-          component: 'itemsPropExt',
+          id: 'options',
+          component: 'optionsPropExt',
         });
       },
     };
   },
 });
-export default ItemProp;
+export default OptionsProp;
 </script>
 <style>
 .vpm-action-editor-btn {

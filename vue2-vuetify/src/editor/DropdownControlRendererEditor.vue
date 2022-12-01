@@ -1,46 +1,37 @@
 <template>
-  <control-wrapper
-    v-bind="controlWrapper"
-    :styles="styles"
-    :isFocused="isFocused"
-    :appliedOptions="appliedOptions"
-  >
-    <CustomControlWrapper
-      v-bind="{ labelOrientation, computedLabel, labelCols }"
+  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+    <v-select
+      v-disabled-icon-focus
+      :id="control.id + '-input'"
+      :class="styles.control.input"
+      :placeholder="control.placeholder"
+      :persistent-placeholder="control.labelOrientation == 'inherit'"
+      :label="control.labelOrientation == 'inherit' ? control.label : null"
+      :hint="control.hint"
+      :error-messages="control.errors"
+      :required="control.required"
+      :rules="control.validation"
+      :tabindex="control.tabindex"
+      :readonly="control.readonly"
+      :aria-label="control.ariaLabel"
+      :value="control.data"
+      :items="control.options"
+      item-text="label"
+      item-value="value"
+      @change="onChange"
     >
-      <v-hover v-slot="{ hover }">
-        <v-select
-          v-disabled-icon-focus
-          :id="control.id + '-input'"
-          :class="styles.control.input"
-          :disabled="!control.enabled"
-          :autofocus="appliedOptions.focus"
-          :placeholder="placeholder"
-          :persistent-placeholder="labelOrientation() == 'inherit'"
-          :label="labelOrientation() == 'inherit' ? computedLabel : null"
-          :hint="control.description"
-          :persistent-hint="persistentHint()"
-          :required="control.required"
-          :error-messages="control.errors"
-          :clearable="hover"
-          :value="control.data"
-          :items="[]"
-          item-text="label"
-          item-value="value"
-          @change="onChange"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
-        >
-          <v-tooltip v-if="hint && hint != ''" slot="append-outer" top>
-            <template v-slot:activator="{ on }">
-              <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
-            </template>
-            <span class="">{{ hint }}</span>
-          </v-tooltip>
-        </v-select>
-      </v-hover>
-    </CustomControlWrapper>
-  </control-wrapper>
+      <v-tooltip
+        v-if="control.hint && control.hint != ''"
+        slot="append-outer"
+        top
+      >
+        <template v-slot:activator="{ on }">
+          <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
+        </template>
+        <span class="">{{ control.hint }}</span>
+      </v-tooltip>
+    </v-select>
+  </CustomControlWrapper>
 </template>
 
 <script lang="ts">
@@ -51,24 +42,19 @@ import {
   rankWith,
   uiTypeIs,
 } from '@jsonforms/core';
-import { defineComponent } from '../vue';
-import {
-  rendererProps,
-  useJsonFormsOneOfEnumControl,
-  RendererProps,
-} from '@jsonforms/vue2';
-import { default as ControlWrapper } from './../controls/ControlWrapper.vue';
-import { useVuetifyControl } from '../util';
-import { VSelect, VHover, VIcon, VTooltip } from 'vuetify/lib';
-import { DisabledIconFocus } from './../controls/directives';
+import { defineComponent } from 'vue';
+import { rendererProps, RendererProps } from '@jsonforms/vue2';
+import { VHover, VSelect, VIcon, VTooltip } from 'vuetify/lib';
+import { DisabledIconFocus } from '../controls/directives';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
 
-const controlRenderer = defineComponent({
-  name: 'dropdown-control-renderer-editor',
+import { useDropdownControlComposition } from './DropdownControlComp';
+
+const DropdownControlRenderer = defineComponent({
+  name: 'dropdown-control-renderer',
   components: {
-    ControlWrapper,
-    VSelect,
     VHover,
+    VSelect,
     VIcon,
     VTooltip,
     CustomControlWrapper,
@@ -80,33 +66,16 @@ const controlRenderer = defineComponent({
     ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
-    return useVuetifyControl(
-      useJsonFormsOneOfEnumControl(props),
-      (value) => value || undefined
-    );
-  },
-  computed: {
-    hint(): string {
-      return this.control.uischema.options?.hint ?? '';
-    },
-    placeholder(): string {
-      return this.control.uischema.options?.placeholder ?? '';
-    },
-    items(): string[] {
-      if (this.control.schema.enum) {
-        return this.control.schema?.enum;
-      } else if (this.control.uischema.options?.items) {
-        return this.control.uischema.options?.items ?? [];
-      } else {
-        return [];
-      }
-    },
+    const vuetifyControl = useDropdownControlComposition(props);
+    // @ts-ignore:
+    return vuetifyControl;
   },
 });
 
-export default controlRenderer;
+export default DropdownControlRenderer;
+
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: controlRenderer,
-  tester: rankWith(1, uiTypeIs('Dropdown')),
+  renderer: DropdownControlRenderer,
+  tester: rankWith(3, uiTypeIs('Dropdown')),
 };
 </script>

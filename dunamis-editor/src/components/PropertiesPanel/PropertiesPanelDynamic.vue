@@ -212,8 +212,8 @@ const PropertiesPanel = defineComponent({
           ? this.uiElement.options.textTransform
           : '';
         // Get the items property
-        fieldData['items'] = this.uiElement.options
-          ? this.uiElement.options.items
+        fieldData['options'] = this.uiElement.options
+          ? this.uiElement.options.options
           : null;
         // Get the orientation property
         fieldData['orientation'] = this.uiElement.options
@@ -331,11 +331,11 @@ const PropertiesPanel = defineComponent({
         });
       }
       // items
-      if (data.items) {
+      if (data.options) {
         store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: {
-            items: data.items,
+            options: data.options,
           },
         });
       }

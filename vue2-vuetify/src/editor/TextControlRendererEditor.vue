@@ -13,7 +13,6 @@
       :rules="control.validation"
       :tabindex="control.tabindex"
       :readonly="control.readonly"
-      @input="() => data"
       @change="onChange"
     >
       <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>

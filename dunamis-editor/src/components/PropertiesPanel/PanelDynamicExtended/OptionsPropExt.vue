@@ -12,7 +12,7 @@
     </v-btn>
 
     <div class="pb-2 px-5">
-      <span class="caption font-weight-bold">Items</span>
+      <span class="caption font-weight-bold">Options</span>
     </div>
 
     <v-card elevation="0" color="transparent" class="mx-4">
@@ -51,18 +51,11 @@
 
 <script lang="ts">
 //@ts-nocheck
-import {
-  computed,
-  defineComponent,
-  inject,
-  onMounted,
-  ref,
-  watch,
-} from 'vue';
+import { computed, defineComponent, inject, onMounted, ref, watch } from 'vue';
 import ListOptions from '../../Generic/ListOptions.vue';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
 const ItemPropExt = defineComponent({
-  name: 'ItemPropExt',
+  name: 'OptionsPropExt',
   components: {
     ListOptions,
   },
@@ -82,10 +75,11 @@ const ItemPropExt = defineComponent({
       label: 'label',
     });
     let items = ref(
-      props.config && props.config.local ? props.config.local : []
+      props.config && props.config.collection ? props.config.collection : []
     );
     const refList: any = ref(null);
-    const sources: any = ref(dataSources.get());
+    //const sources: any = ref(dataSources.get());
+    const sources: any = ref([]);
     let select: any = ref(null);
     let dataSource: any = ref(null);
     let dataConfig: any = ref(null);
@@ -122,7 +116,7 @@ const ItemPropExt = defineComponent({
       backPanel() {
         let res: any = {
           dataSource: null,
-          local: refList.value.getData(),
+          collection: refList.value.getData(),
         };
         if (select.value) {
           res.dataSource = {
@@ -134,7 +128,7 @@ const ItemPropExt = defineComponent({
               : {},
           };
         }
-        context.emit('backPanel', { items: res });
+        context.emit('backPanel', { options: res });
       },
       items,
       select,

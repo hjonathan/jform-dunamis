@@ -22,7 +22,7 @@ import TextareaProp from './TextareaProp.vue';
 import DropdownProp from './DropdownProp.vue';
 import DateProp from './DateProp.vue';
 import CheckboxProp from './CheckboxProp.vue';
-import ItemsProp from './ItemsProp.vue';
+import OptionsProp from './OptionsProp.vue';
 import LabelProp from './LabelProp.vue';
 import ValidationProp from './ValidationProp.vue';
 
@@ -37,7 +37,7 @@ const PropertiesPanelDynamic = defineComponent({
     DropdownProp,
     CheckboxProp,
     DateProp,
-    ItemsProp,
+    OptionsProp,
     LabelProp,
     ValidationProp,
     ...PanelExtended,

@@ -66,6 +66,7 @@ const FieldProperties: any = {
     Props.build('type'),
     Props.build('variable'),
     Props.build('label'),
+
     Props.build('tabindex'),
     Props.build('placeholder'),
     Props.build('hint'),
@@ -78,11 +79,14 @@ const FieldProperties: any = {
   CheckboxGroup: [
     Props.build('type'),
     Props.build('variable'),
-    Props.build('hint'),
     Props.build('label'),
-    Props.build('items'),
-    Props.build('required'),
-    Props.build('orientation'),
+    Props.build('tabindex'),
+    Props.build('hint'),
+    Props.build('ariaLabel'),
+    Props.build('options'),
+    Props.build('validation'),
+    Props.build('protectedValue'),
+    Props.build('readonly'),
   ],
   Grid: [Props.build('type'), Props.build('variable')],
   Image: [

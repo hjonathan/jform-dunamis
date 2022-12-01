@@ -1,6 +1,5 @@
 export { default as SuggestControlRenderer } from './SuggestControlRenderer.vue';
-export { default as DatePickerControlRenderer } from './DatePickerControlRenderer.vue';
-export { default as DateTimeControlRendererPreview } from './DateTimeControlRenderer.vue';
+export { default as DateTimeControlRendererPreview } from '../editor/DateTimeControlRendererEditor.vue';
 export { default as CheckboxControlRenderer } from '../editor/CheckboxControlRendererEditor.vue';
 export { default as DropdownControlRenderer } from './DropdownControlRenderer.vue';
 export { default as RadioGroupControlRenderer } from './RadioGroupControlRenderer.vue';
@@ -11,12 +10,10 @@ export { default as ImageControlRenderer } from './ImageControlRenderer.vue';
 export { default as MultipleFileControlRenderer } from './MultipleFileControlRenderer.vue';
 export { default as TextControlRenderer } from '../editor/TextControlRendererEditor.vue';
 export { default as TextAreaControlRenderer } from '../editor/TextAreaControlRendererEditor.vue';
-export { default as TimeControlRendererPreview } from './TimeControlRenderer.vue';
 export { default as SubmitButtonControlRenderer } from './SubmitButtonControlRenderer.vue';
 
 import { entry as suggestControlRendererEntry } from './SuggestControlRenderer.vue';
-import { entry as datePickerControlRendererEntry } from './DatePickerControlRenderer.vue';
-import { entry as dateTimeControlRendererEntry } from './DateTimeControlRenderer.vue';
+import { entry as dateTimeControlRendererEntry } from '../editor/DateTimeControlRendererEditor.vue';
 import { entry as checkboxControlRendererEntry } from '../editor/CheckboxControlRendererEditor.vue';
 import { entry as dropdownControlRendererEntry } from './DropdownControlRenderer.vue';
 import { entry as radioGroupControlRendererEntry } from './RadioGroupControlRenderer.vue';
@@ -27,12 +24,11 @@ import { entry as imageControlRendererEntry } from './ImageControlRenderer.vue';
 import { entry as multipleFileControlRendererEntry } from './MultipleFileControlRenderer.vue';
 import { entry as textControlRendererEntry } from '../editor/TextControlRendererEditor.vue';
 import { entry as textAreaControlRendererEntry } from '../editor/TextAreaControlRendererEditor.vue';
-import { entry as timeControlRendererEntry } from './TimeControlRenderer.vue';
+
 import { entry as submitButtonControlRendererEntry } from './SubmitButtonControlRenderer.vue';
 
 export const dynaformRenderers = [
   suggestControlRendererEntry,
-  datePickerControlRendererEntry,
   dateTimeControlRendererEntry,
   checkboxControlRendererEntry,
   dropdownControlRendererEntry,
@@ -44,6 +40,5 @@ export const dynaformRenderers = [
   multipleFileControlRendererEntry,
   textControlRendererEntry,
   textAreaControlRendererEntry,
-  timeControlRendererEntry,
   submitButtonControlRendererEntry,
 ];

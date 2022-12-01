@@ -40,7 +40,7 @@ export const useDatetimeControlComposition = <P>(props: P) => {
 
   //Properties
   const controlCore: any = useControl(props);
-  const control = ref(setPropsDatetimeControl(controlCore.value));
+  const control = ref(setPropsDefaultDatetimeControl(controlCore.value));
 
   watch(controlCore, (nControl: any, oControl: any) => {
     if (!isEqual(nControl, oControl)) {
@@ -157,6 +157,28 @@ export const setPropsDatetimeControl = (control: any) => {
     minDate: minDate(control),
     maxDate: maxDate(control),
     errors: control.errors,
+    defaultValue: defaultDate(control),
+  };
+};
+
+export const setPropsDefaultDatetimeControl = (control: any) => {
+  return {
+    id: control.id,
+    dataType: dataType(control),
+    ariaLabel: ariaLabel(control),
+    labelOrientation: labelOrientation(control),
+    label: label(control),
+    labelCols: labelCols(control),
+    hint: hint(control),
+    validation: validation(control),
+    tabindex: tabindex(control),
+    readonly: readonly(control),
+    placeholder: placeholder(control),
+    data: defaultDate(control),
+    visible: true,
+    minDate: minDate(control),
+    maxDate: maxDate(control),
+    errors: control.errors,
   };
 };
 
@@ -170,3 +192,7 @@ export const minDate = (control: any) =>
 
 export const maxDate = (control: any) =>
   control.uischema.options?.maxDate ?? null;
+
+export const defaultDate = (control: any) => {
+  return control.data ?? control.uischema.options?.defaultDate;
+};

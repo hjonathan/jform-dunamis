@@ -7,7 +7,6 @@
       :placeholder="control.placeholder"
       :persistent-placeholder="control.labelOrientation == 'inherit'"
       :label="control.labelOrientation == 'inherit' ? control.label : null"
-      :hint="control.hint"
       :error-messages="control.errors"
       :value="control.data"
       :clearable="hover"

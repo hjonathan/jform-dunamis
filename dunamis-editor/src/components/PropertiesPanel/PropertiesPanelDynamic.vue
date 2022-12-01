@@ -223,6 +223,9 @@ const PropertiesPanel = defineComponent({
         fieldData['hint'] = this.uiElement.options
           ? this.uiElement.options.hint
           : null;
+        fieldData['defaultDate'] = this.uiElement.options
+          ? this.uiElement.options.defaultDate
+          : null;
         // Get the maxDate property
         fieldData['maxDate'] = this.uiElement.options
           ? this.uiElement.options.maxDate
@@ -299,9 +302,9 @@ const PropertiesPanel = defineComponent({
         });
       }
       if (data.defaultDate) {
-        store.dispatch('app/updateSchemaDefaultDate', {
+        store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
-          defaultDate: data.defaultDate,
+          changedProperties: { defaultDate: data.defaultDate },
         });
       }
       //mask -> to options

@@ -35,6 +35,7 @@
 
 <script lang="ts">
 //@ts-nocheck
+import moment from 'moment';
 import { defineComponent, onMounted, ref } from 'vue';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
 import { VBtn } from 'vuetify/lib';
@@ -51,7 +52,7 @@ const DateProp = defineComponent({
     const { twoBind } = dynamicPropertyDefault(props, context);
     const onDateChange = () => {
       menu.value = false;
-      twoBind(new Date(date.value).toISOString());
+      twoBind(date.value);
     };
 
     const clearDate = () => {
@@ -62,7 +63,7 @@ const DateProp = defineComponent({
 
     onMounted(() => {
       if (props.value) {
-        date.value = parseDate(formatDate(props.value));
+        date.value = props.value;
       }
     });
 

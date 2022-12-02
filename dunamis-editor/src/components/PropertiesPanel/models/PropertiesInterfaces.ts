@@ -283,5 +283,12 @@ const PropertiesPanel = [
     options: {},
     items: [],
   } as PropertyPanel,
+  {
+    id: 'multipleSelection',
+    type: 'checkbox',
+    name: 'Allow multiple Selection',
+    options: {},
+    items: [],
+  } as PropertyPanel,
 ];
 export default PropertiesPanel;

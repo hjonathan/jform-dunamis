@@ -6,21 +6,18 @@
       :placeholder="control.placeholder"
       :hint="control.hint"
       :error-messages="control.errors"
+      :rules="control.validation"
+      v-model="control.data"
     >
-      <v-checkbox
+      <v-radio
         v-for="o in control.options"
-        multiple
-        v-model="control.data"
         :key="o.value"
         :label="o.label"
         :value="o.value"
+        :readonly="control.readonly"
         @change="onChange"
         dense
-        :rules="control.validation"
-        :hide-details="true"
-        :readonly="control.readonly"
-      >
-      </v-checkbox>
+      ></v-radio>
       <template v-slot:label>
         <div>
           {{ control.labelOrientation == 'inherit' ? control.label : null }}
@@ -47,18 +44,18 @@ import {
 } from '@jsonforms/core';
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
-import { VHover, VRadioGroup, VCheckbox, VIcon, VTooltip } from 'vuetify/lib';
+import { VHover, VRadioGroup, VRadio, VIcon, VTooltip } from 'vuetify/lib';
 import { DisabledIconFocus } from '../controls/directives';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
 
-import { useCheckgroupControlComposition } from './CheckgroupControlComp';
+import { useRadiogroupControlComposition } from './RadiogroupControlComp';
 
-const CheckgroupControlRenderer = defineComponent({
-  name: 'checkgroup-control-renderer',
+const RadiogroupControlRenderer = defineComponent({
+  name: 'radiogroup-control-renderer',
   components: {
     VHover,
     VRadioGroup,
-    VCheckbox,
+    VRadio,
     VIcon,
     VTooltip,
     CustomControlWrapper,
@@ -70,16 +67,16 @@ const CheckgroupControlRenderer = defineComponent({
     ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
-    const vuetifyControl = useCheckgroupControlComposition(props);
+    const vuetifyControl = useRadiogroupControlComposition(props);
     // @ts-ignore:
     return vuetifyControl;
   },
 });
 
-export default CheckgroupControlRenderer;
+export default RadiogroupControlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: CheckgroupControlRenderer,
-  tester: rankWith(4, uiTypeIs('CheckboxGroup')),
+  renderer: RadiogroupControlRenderer,
+  tester: rankWith(4, uiTypeIs('RadioGroup')),
 };
 </script>

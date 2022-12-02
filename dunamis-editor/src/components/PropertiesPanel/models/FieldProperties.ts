@@ -88,6 +88,18 @@ const FieldProperties: any = {
     Props.build('protectedValue'),
     Props.build('readonly'),
   ],
+  RadioGroup: [
+    Props.build('type'),
+    Props.build('variable'),
+    Props.build('label'),
+    Props.build('tabindex'),
+    Props.build('hint'),
+    Props.build('ariaLabel'),
+    Props.build('options'),
+    Props.build('validation'),
+    Props.build('protectedValue'),
+    Props.build('readonly'),
+  ],
   Grid: [Props.build('type'), Props.build('variable')],
   Image: [
     Props.build('type'),
@@ -98,13 +110,6 @@ const FieldProperties: any = {
   MultipleFile: [
     Props.build('type'),
     Props.build('variable'),
-    Props.build('required'),
-  ],
-  RadioGroup: [
-    Props.build('type'),
-    Props.build('variable'),
-    Props.build('hint'),
-    Props.build('items'),
     Props.build('required'),
   ],
   Rating: [Props.build('type'), Props.build('variable')],

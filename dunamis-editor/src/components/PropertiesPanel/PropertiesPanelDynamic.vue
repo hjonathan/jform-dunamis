@@ -203,6 +203,10 @@ const PropertiesPanel = defineComponent({
         fieldData['readonly'] = this.uiElement.options
           ? this.uiElement.options.readonly
           : null;
+        // Get the multipleSelection property
+        fieldData['multipleSelection'] = this.uiElement.options
+          ? this.uiElement.options.multipleSelection
+          : null;
         // Get the defaultValue property
         fieldData['defaultValue'] = this.uiElement.options
           ? this.uiElement.options.defaultValue
@@ -285,6 +289,13 @@ const PropertiesPanel = defineComponent({
         store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { readonly: data.readonly },
+        });
+      }
+      // multipleSelection
+      if (data.multipleSelection != undefined) {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { multipleSelection: data.multipleSelection },
         });
       }
       // arialabel

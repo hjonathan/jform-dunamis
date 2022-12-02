@@ -2,9 +2,9 @@ export { default as SuggestControlRenderer } from './SuggestControlRenderer.vue'
 export { default as DateTimeControlRendererPreview } from '../editor/DateTimeControlRendererEditor.vue';
 export { default as CheckboxControlRenderer } from '../editor/CheckboxControlRendererEditor.vue';
 export { default as DropdownControlRenderer } from '../editor/DropdownControlRendererEditor.vue';
-export { default as RadioGroupControlRenderer } from './RadioGroupControlRenderer.vue';
+export { default as RadioGroupControlRenderer } from '../editor/RadiogroupControlRendererEditor.vue';
 export { default as RatingControlRenderer } from './RatingControlRenderer.vue';
-export { default as CheckboxGroupControlRenderer } from './CheckboxGroupControlRenderer.vue';
+export { default as CheckboxGroupControlRenderer } from '../editor/CheckgroupControlRendererEditor.vue';
 export { default as HtmlViewerControlRenderer } from './HtmlViewerControlRenderer.vue';
 export { default as ImageControlRenderer } from './ImageControlRenderer.vue';
 export { default as MultipleFileControlRenderer } from './MultipleFileControlRenderer.vue';
@@ -16,9 +16,9 @@ import { entry as suggestControlRendererEntry } from './SuggestControlRenderer.v
 import { entry as dateTimeControlRendererEntry } from '../editor/DateTimeControlRendererEditor.vue';
 import { entry as checkboxControlRendererEntry } from '../editor/CheckboxControlRendererEditor.vue';
 import { entry as dropdownControlRendererEntry } from '../editor/DropdownControlRendererEditor.vue';
-import { entry as radioGroupControlRendererEntry } from './RadioGroupControlRenderer.vue';
+import { entry as radioGroupControlRendererEntry } from '../editor/RadiogroupControlRendererEditor.vue';
 import { entry as ratingControlRendererEntry } from './RatingControlRenderer.vue';
-import { entry as checkboxGroupControlRendererEntry } from './CheckboxGroupControlRenderer.vue';
+import { entry as checkboxGroupControlRendererEntry } from '../editor//CheckgroupControlRendererEditor.vue';
 import { entry as htmlViewerControlRendererEntry } from './HtmlViewerControlRenderer.vue';
 import { entry as imageControlRendererEntry } from './ImageControlRenderer.vue';
 import { entry as multipleFileControlRendererEntry } from './MultipleFileControlRenderer.vue';

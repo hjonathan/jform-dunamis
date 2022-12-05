@@ -18,13 +18,7 @@ import {
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import { isEqual } from 'lodash';
-import {
-  ariaLabel,
-  hint,
-  label,
-  tabindex,
-  updateData,
-} from './TextControlComp';
+import { ariaLabel, hint, tabindex, updateData } from './TextControlComp';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR LABEL CONTROL
@@ -141,3 +135,7 @@ export function useControl<R, P>(props: P) {
 
   return control as unknown as R;
 }
+
+export const label = (control: any) => {
+  return control.uischema.label;
+};

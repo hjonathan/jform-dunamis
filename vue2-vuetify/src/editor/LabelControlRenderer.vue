@@ -40,6 +40,6 @@ export default labelControlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: labelControlRenderer,
-  tester: rankWith(3, uiTypeIs('Label')),
+  tester: rankWith(5, uiTypeIs('Label')),
 };
 </script>

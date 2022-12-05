@@ -251,6 +251,8 @@ const PropertiesPanel = defineComponent({
         fieldData['cols'] = this.uiElement.options
           ? this.uiElement.options.cols
           : '';
+
+        fieldData['type'] = this.uiElement.type ? this.uiElement.type : '';
       }
       this.generalData = {
         type: this.uiElement.type,

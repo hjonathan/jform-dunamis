@@ -61,19 +61,24 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
  */
 export const alphaDispatcher = (params: any) => {
   const { store, controlCore, HX } = params;
-  const scope = controlCore.value.uischema.scope.split('/').pop() || '';
-  return store.watch(
-    (_state: any, getters: any) => {
-      return getters['preview/getDataModel'](scope);
-    },
-    (n: any, o: any) => {
-      if (!isEqual(n, o)) {
-        Vue.nextTick(() => {
-          HX.emit(scope, n);
-        });
+  let scope = '';
+  if (controlCore.value.uischema.scope) {
+    scope = controlCore.value.uischema.scope.split('/').pop() || '';
+    return store.watch(
+      (_state: any, getters: any) => {
+        return getters['preview/getDataModel'](scope);
+      },
+      (n: any, o: any) => {
+        if (!isEqual(n, o)) {
+          Vue.nextTick(() => {
+            HX.emit(scope, n);
+          });
+        }
       }
-    }
-  );
+    );
+  } else {
+    return new Function();
+  }
 };
 
 /**

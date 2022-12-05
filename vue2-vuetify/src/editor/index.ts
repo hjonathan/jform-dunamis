@@ -11,6 +11,7 @@ export { default as SuggestControlRendererEditor } from './SuggestControlRendere
 export { default as TextAreaControlRendererEditor } from './TextAreaControlRendererEditor.vue';
 export { default as TextControlRendererEditor } from './TextControlRendererEditor.vue';
 export { default as RichTextControlRendererEditor } from './RichTextControlRendererEditor.vue';
+export { default as LabelControlRenderer } from './LabelControlRenderer.vue';
 
 import { entry as checkboxControlRendererEditorEntry } from './CheckboxControlRendererEditor.vue';
 import { entry as checkboxGroupControlRendererEditorEntry } from './CheckgroupControlRendererEditor.vue';
@@ -25,6 +26,7 @@ import { entry as submitButtonControlRendererEditorEntry } from './SubmitButtonC
 import { entry as suggestControlRendererEditorEntry } from './SuggestControlRendererEditor.vue';
 import { entry as textAreaControlRendererEditorEntry } from './TextAreaControlRendererEditor.vue';
 import { entry as textControlRendererEditorEntry } from './TextControlRendererEditor.vue';
+import { entry as labelControlRendererEntry } from './LabelControlRenderer.vue';
 
 export const editorRenderers = [
   checkboxControlRendererEditorEntry,
@@ -40,4 +42,5 @@ export const editorRenderers = [
   suggestControlRendererEditorEntry,
   textAreaControlRendererEditorEntry,
   textControlRendererEditorEntry,
+  labelControlRendererEntry,
 ];

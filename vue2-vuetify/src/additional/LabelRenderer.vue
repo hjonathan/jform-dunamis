@@ -1,6 +1,6 @@
 <template>
-  <v-label v-if="layout.visible" :class="styles.label.root">
-    {{ translatedLabel }}
+  <v-label :class="styles.label.root">
+    {{ control.label }}
   </v-label>
 </template>
 

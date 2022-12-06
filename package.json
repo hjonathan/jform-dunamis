@@ -10,7 +10,7 @@
     "clean": "lerna run clean",
     "example:serve": "cd example && npm run serve",
     "example:build": "cd example && npm run build",
-    "editor:serve": "cd editor && npm run serve"
+    "editor:serve": "cd dunamis-editor && npm run serve"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

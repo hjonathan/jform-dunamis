@@ -92,7 +92,7 @@ export const useLabelControlComposition = <P>(props: P) => {
 export const setPropsLabelControl = (control: any) => {
   return {
     id: control.id,
-    label: label(control),
+    content: content(control),
     ariaLabel: ariaLabel(control),
     tabindex: tabindex(control),
     hint: hint(control),
@@ -136,6 +136,6 @@ export function useControl<R, P>(props: P) {
   return control as unknown as R;
 }
 
-export const label = (control: any) => {
-  return control.uischema.label;
+export const content = (control: any) => {
+  return control.uischema.options?.content || '';
 };

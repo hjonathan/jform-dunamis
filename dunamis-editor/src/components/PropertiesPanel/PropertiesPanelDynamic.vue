@@ -180,6 +180,10 @@ const PropertiesPanel = defineComponent({
         fieldData['ariaLabel'] = this.uiElement.options
           ? this.uiElement.options.ariaLabel
           : null;
+        // Get the content
+        fieldData['content'] = this.uiElement.options
+          ? this.uiElement.options.content
+          : null;
         // Get the alt text property
         fieldData['alt'] = this.uiElement.options
           ? this.uiElement.options.alt
@@ -305,6 +309,13 @@ const PropertiesPanel = defineComponent({
         store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { ariaLabel: data.ariaLabel },
+        });
+      }
+      // content
+      if (data.content) {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { content: data.content },
         });
       }
       // protectedValue

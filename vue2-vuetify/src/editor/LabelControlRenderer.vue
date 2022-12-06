@@ -1,6 +1,13 @@
 <template>
   <v-label :class="styles.label.root">
-    {{ control.label }}
+    {{ control.content }}
+
+    <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
+      <template v-slot:activator="{ on }">
+        <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
+      </template>
+      <span class="">{{ control.hint }}</span>
+    </v-tooltip>
   </v-label>
 </template>
 
@@ -18,7 +25,7 @@ import {
   rendererProps,
   RendererProps,
 } from '@jsonforms/vue2';
-import { VLabel } from 'vuetify/lib';
+import { VLabel, VTooltip, VIcon } from 'vuetify/lib';
 
 import { useLabelControlComposition } from './LabelControlComp';
 
@@ -27,6 +34,8 @@ const labelControlRenderer = defineComponent({
   components: {
     DispatchRenderer,
     VLabel,
+    VTooltip,
+    VIcon,
   },
   props: {
     ...rendererProps<Layout>(),

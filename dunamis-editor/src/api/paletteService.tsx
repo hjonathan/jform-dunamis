@@ -300,12 +300,29 @@ const controlElements = [
     uiSchemaElementProvider: () => {
       const control = {
         type: 'string',
-        title: 'Submit Form',
+        title: 'Submit',
         i18n: 'submit',
       };
       return {
         control,
         variable: 'submit',
+        uiOptions: {},
+      };
+    },
+  },
+  {
+    type: 'Button',
+    label: 'Button',
+    icon: 'mdi-send-circle',
+    uiSchemaElementProvider: () => {
+      const control = {
+        type: 'string',
+        title: 'Button',
+        i18n: 'button',
+      };
+      return {
+        control,
+        variable: 'button',
         uiOptions: {},
       };
     },

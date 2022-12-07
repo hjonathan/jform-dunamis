@@ -11,8 +11,9 @@ export { default as MultipleFileControlRenderer } from './MultipleFileControlRen
 export { default as TextControlRenderer } from '../editor/TextControlRendererEditor.vue';
 export { default as TextAreaControlRenderer } from '../editor/TextAreaControlRendererEditor.vue';
 export { default as LabelControlRenderer } from '../editor/LabelControlRenderer.vue';
-export { default as SubmitButtonControlRenderer } from './SubmitButtonControlRenderer.vue';
 export { default as DataTableControlRenderer } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
+export { default as SubmitControlRenderer } from '../editor/SubmitControlRendererEditor.vue';
+export { default as ButtonControlRenderer } from '../editor/ButtonControlRendererEditor.vue';
 
 import { entry as suggestControlRendererEntry } from './SuggestControlRenderer.vue';
 import { entry as dateTimeControlRendererEntry } from '../editor/DateTimeControlRendererEditor.vue';
@@ -28,7 +29,8 @@ import { entry as textControlRendererEntry } from '../editor/TextControlRenderer
 import { entry as labelControlRendererEntry } from '../editor/LabelControlRenderer.vue';
 import { entry as textAreaControlRendererEntry } from '../editor/TextAreaControlRendererEditor.vue';
 import { entry as dataTableControlRendererEntry } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
-import { entry as submitButtonControlRendererEntry } from './SubmitButtonControlRenderer.vue';
+import { entry as submitControlRendererEntry } from '../editor/SubmitControlRendererEditor.vue';
+import { entry as buttonControlRendererEntry } from '../editor/ButtonControlRendererEditor.vue';
 
 export const dynaformRenderers = [
   suggestControlRendererEntry,
@@ -44,6 +46,7 @@ export const dynaformRenderers = [
   textControlRendererEntry,
   textAreaControlRendererEntry,
   labelControlRendererEntry,
-  submitButtonControlRendererEntry,
   dataTableControlRendererEntry,
+  submitControlRendererEntry,
+  buttonControlRendererEntry,
 ];

@@ -85,6 +85,7 @@ export default defineComponent({
       'DataTableControl',
       'File',
       'Submit',
+      'Button',
     ];
     const panel = ref([0, 1, 2, 3]);
     const getLabel = (schemaElement: SchemaElement): any => {

@@ -6,7 +6,8 @@ export { default as ImageControlRendererEditor } from './ImageControlRendererEdi
 export { default as MultipleFileControlRendererEditor } from './MultipleFileControlRendererEditor.vue';
 export { default as RadioGroupControlRendererEditor } from './RadiogroupControlRendererEditor.vue';
 export { default as RatingControlRendererEditor } from './RatingControlRendererEditor.vue';
-export { default as SubmitButtonControlRendererEditor } from './SubmitButtonControlRendererEditor.vue';
+export { default as SubmitControlRenderer } from './SubmitControlRendererEditor.vue';
+export { default as ButtonControlRenderer } from './ButtonControlRendererEditor.vue';
 export { default as SuggestControlRendererEditor } from './SuggestControlRendererEditor.vue';
 export { default as TextAreaControlRendererEditor } from './TextAreaControlRendererEditor.vue';
 export { default as TextControlRendererEditor } from './TextControlRendererEditor.vue';
@@ -22,7 +23,8 @@ import { entry as multipleFileControlRendererEditorEntry } from './MultipleFileC
 import { entry as radioGroupControlRendererEditorEntry } from './RadiogroupControlRendererEditor.vue';
 import { entry as ratingControlRendererEditorEntry } from './RatingControlRendererEditor.vue';
 import { entry as richTextControlRendererEditorEntry } from './RichTextControlRendererEditor.vue';
-import { entry as submitButtonControlRendererEditorEntry } from './SubmitButtonControlRendererEditor.vue';
+import { entry as submitControlRendererEntry } from './SubmitControlRendererEditor.vue';
+import { entry as buttonControlRendererEntry } from './ButtonControlRendererEditor.vue';
 import { entry as suggestControlRendererEditorEntry } from './SuggestControlRendererEditor.vue';
 import { entry as textAreaControlRendererEditorEntry } from './TextAreaControlRendererEditor.vue';
 import { entry as textControlRendererEditorEntry } from './TextControlRendererEditor.vue';
@@ -38,7 +40,8 @@ export const editorRenderers = [
   radioGroupControlRendererEditorEntry,
   ratingControlRendererEditorEntry,
   richTextControlRendererEditorEntry,
-  submitButtonControlRendererEditorEntry,
+  submitControlRendererEntry,
+  buttonControlRendererEntry,
   suggestControlRendererEditorEntry,
   textAreaControlRendererEditorEntry,
   textControlRendererEditorEntry,

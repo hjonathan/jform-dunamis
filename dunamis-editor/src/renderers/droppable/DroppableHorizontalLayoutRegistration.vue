@@ -117,6 +117,7 @@ const droppableRenderer = defineComponent({
         'DataTableControl',
         'File',
         'Submit',
+        'Button',
       ];
       if (evt.added) {
         if (

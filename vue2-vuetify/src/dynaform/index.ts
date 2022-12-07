@@ -12,6 +12,7 @@ export { default as TextControlRenderer } from '../editor/TextControlRendererEdi
 export { default as TextAreaControlRenderer } from '../editor/TextAreaControlRendererEditor.vue';
 export { default as LabelControlRenderer } from '../editor/LabelControlRenderer.vue';
 export { default as SubmitButtonControlRenderer } from './SubmitButtonControlRenderer.vue';
+export { default as DataTableControlRenderer } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
 
 import { entry as suggestControlRendererEntry } from './SuggestControlRenderer.vue';
 import { entry as dateTimeControlRendererEntry } from '../editor/DateTimeControlRendererEditor.vue';
@@ -26,7 +27,7 @@ import { entry as multipleFileControlRendererEntry } from './MultipleFileControl
 import { entry as textControlRendererEntry } from '../editor/TextControlRendererEditor.vue';
 import { entry as labelControlRendererEntry } from '../editor/LabelControlRenderer.vue';
 import { entry as textAreaControlRendererEntry } from '../editor/TextAreaControlRendererEditor.vue';
-
+import { entry as dataTableControlRendererEntry } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
 import { entry as submitButtonControlRendererEntry } from './SubmitButtonControlRenderer.vue';
 
 export const dynaformRenderers = [
@@ -44,4 +45,5 @@ export const dynaformRenderers = [
   textAreaControlRendererEntry,
   labelControlRendererEntry,
   submitButtonControlRendererEntry,
+  dataTableControlRendererEntry,
 ];

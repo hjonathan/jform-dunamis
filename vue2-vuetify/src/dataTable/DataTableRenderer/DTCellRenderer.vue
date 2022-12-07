@@ -1,8 +1,14 @@
 <template>
-  <component v-bind:is="cDeterminedRenderer" v-bind="renderer"></component>
+  <component
+    v-bind:is="cDeterminedRenderer"
+    v-bind="{
+      ...$props,
+    }"
+  ></component>
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { defineComponent } from 'vue';
 import { rendererProps } from '@jsonforms/vue2';
 import { ControlElement } from '@jsonforms/core';

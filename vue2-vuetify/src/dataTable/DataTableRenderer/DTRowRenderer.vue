@@ -18,13 +18,14 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import { ControlElement } from '@jsonforms/core';
 import { defineComponent } from 'vue';
 import { rendererProps } from '@jsonforms/vue2';
 import { useDtRowComposition, RendererProps } from './DTRowComp';
 import DtCellRenderer from './DTCellRenderer.vue';
 
-export default defineComponent({
+const DtRowRenderer = defineComponent({
   name: 'dt-row-renderer',
   components: {
     DtCellRenderer,
@@ -48,4 +49,6 @@ export default defineComponent({
     return useDtRowComposition(props, emit);
   },
 });
+
+export default DtRowRenderer;
 </script>

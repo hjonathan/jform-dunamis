@@ -29,13 +29,14 @@
 </template>
 
 <script lang="ts">
+//@ts-nocheck
 import {
   JsonFormsRendererRegistryEntry,
   rankWith,
   ControlElement,
   uiTypeIs,
 } from '@jsonforms/core';
-import { defineComponent } from '../../../util/vue';
+import { defineComponent } from 'vue';
 import {
   DispatchRenderer,
   rendererProps,
@@ -97,7 +98,7 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(3, uiTypeIs('DataTableControl')),
+  tester: rankWith(6, uiTypeIs('DataTableControl')),
 };
 </script>
 

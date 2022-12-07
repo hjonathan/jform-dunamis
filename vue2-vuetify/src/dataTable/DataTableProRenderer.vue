@@ -81,7 +81,7 @@ import {
   findUISchema,
   mapStateToArrayControlProps,
 } from '@jsonforms/core';
-import { defineComponent } from '../../util/vue';
+import { defineComponent } from 'vue';
 import {
   DispatchCell,
   DispatchRenderer,

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import {
   CoreActions,
   createId,
@@ -10,13 +11,7 @@ import {
   computeLabel,
   mapStateToArrayControlProps,
 } from '@jsonforms/core';
-import {
-  computed,
-  inject,
-  onBeforeMount,
-  onUnmounted,
-  ref,
-} from 'vue';
+import { computed, inject, onBeforeMount, onUnmounted, ref } from 'vue';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR VUE DATATABLE
@@ -92,7 +87,7 @@ export const useDataTableComposition = <P>(props: P) => {
  * @param params
  */
 const newRow = (params: any) => {
-  const { dispatch, control, data } = params;
+  const { dispatch, control } = params;
   const path = control.value.path;
   const row: any = buildEmptyRowData(control.value?.schema.properties);
   dispatch(
@@ -112,7 +107,7 @@ const newRow = (params: any) => {
  * @param params
  */
 const deleteRow = (params: any) => {
-  const { dispatch, control, row, data } = params;
+  const { dispatch, control, row } = params;
   const path = control.value.path;
   dispatch(
     update(path, (array) => {
@@ -153,7 +148,7 @@ export const buildHeaders = (control: any, onlyHeaders = true): Array<any> => {
   return h;
 };
 
-const buildLabel = <I extends any>(control: I) => {
+const buildLabel = (control: any) => {
   return computeLabel(
     control.value.label,
     control.value.required,

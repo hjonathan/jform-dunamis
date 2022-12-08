@@ -24,11 +24,13 @@ import { defineComponent } from 'vue';
 import { rendererProps } from '@jsonforms/vue2';
 import { useDtRowComposition, RendererProps } from './DTRowComp';
 import DtCellRenderer from './DTCellRenderer.vue';
+import { VIcon } from 'vuetify/lib';
 
 const DtRowRenderer = defineComponent({
   name: 'dt-row-renderer',
   components: {
     DtCellRenderer,
+    VIcon,
   },
   props: {
     parent: { ...rendererProps<ControlElement>() },

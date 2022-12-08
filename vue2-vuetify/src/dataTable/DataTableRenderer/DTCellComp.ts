@@ -47,7 +47,7 @@ export const useDtCellComposition = (props: RendererProps) => {
   // Ref Properties
   const column = ref(findColumn(parent.uischema, cell.header.value));
 
-  const cDeterminedRenderer = computed((): any => {
+  const determinedRenderer = computed((): any => {
     return determinedRanked(column.value);
   });
 
@@ -55,7 +55,7 @@ export const useDtCellComposition = (props: RendererProps) => {
     column,
     renderer,
     rootSchema,
-    cDeterminedRenderer,
+    determinedRenderer,
   };
 };
 

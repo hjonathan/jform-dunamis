@@ -6,7 +6,6 @@
  ***********************************************************************************************************************************/
 
 export const useDtTextControlComposition = <P>(props: P) => {
-  console.log(props);
   return {
     id: 'ID',
     value: 'value',

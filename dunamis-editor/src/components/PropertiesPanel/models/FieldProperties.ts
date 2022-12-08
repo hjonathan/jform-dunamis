@@ -145,6 +145,18 @@ const FieldProperties: any = {
     Props.build('ariaLabel'),
     Props.build('hint'),
   ],
+  Title: [
+    Props.build('type'),
+    Props.build('content'),
+    Props.build('ariaLabel'),
+    Props.build('hint'),
+  ],
+  Subtitle: [
+    Props.build('type'),
+    Props.build('content'),
+    Props.build('ariaLabel'),
+    Props.build('hint'),
+  ],
   HorizontalLayout: [Props.build('cols')],
 };
 

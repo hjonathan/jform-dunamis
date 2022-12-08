@@ -43,6 +43,30 @@ const paletteElements: PaletteElement[] = [
     uiSchemaElementProvider: () => createLabel(),
   },
   {
+    type: 'Title',
+    label: 'Title',
+    icon: 'mdi-format-text',
+    uiSchemaElementProvider: () => {
+      return {
+        type: 'Title',
+        text: "",
+        uuid: uuid(),
+      };
+    },
+  },
+  {
+    type: 'Subtitle',
+    label: 'Subtitle',
+    icon: 'mdi-format-text',
+    uiSchemaElementProvider: () => {
+      return {
+        type: 'Subtitle',
+        text: "",
+        uuid: uuid(),
+      };
+    },
+  },
+  {
     type: 'Categorization',
     label: 'Categorization',
     icon: 'mdi-tab',

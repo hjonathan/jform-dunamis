@@ -11,6 +11,8 @@ export { default as MultipleFileControlRenderer } from './MultipleFileControlRen
 export { default as TextControlRenderer } from '../editor/TextControlRendererEditor.vue';
 export { default as TextAreaControlRenderer } from '../editor/TextAreaControlRendererEditor.vue';
 export { default as LabelControlRenderer } from '../editor/LabelControlRenderer.vue';
+export { default as TitleControlRenderer } from '../editor/TitleControlRenderer.vue';
+export { default as SubtitleControlRenderer } from '../editor/SubtitleControlRenderer.vue';
 export { default as DataTableControlRenderer } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
 export { default as SubmitControlRenderer } from '../editor/SubmitControlRendererEditor.vue';
 export { default as ButtonControlRenderer } from '../editor/ButtonControlRendererEditor.vue';
@@ -27,6 +29,9 @@ import { entry as imageControlRendererEntry } from './ImageControlRenderer.vue';
 import { entry as multipleFileControlRendererEntry } from './MultipleFileControlRenderer.vue';
 import { entry as textControlRendererEntry } from '../editor/TextControlRendererEditor.vue';
 import { entry as labelControlRendererEntry } from '../editor/LabelControlRenderer.vue';
+import { entry as titleControlRendererEntry } from '../editor/TitleControlRenderer.vue';
+import { entry as subtitleControlRendererEntry } from '../editor/SubtitleControlRenderer.vue';
+
 import { entry as textAreaControlRendererEntry } from '../editor/TextAreaControlRendererEditor.vue';
 import { entry as dataTableControlRendererEntry } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
 import { entry as submitControlRendererEntry } from '../editor/SubmitControlRendererEditor.vue';
@@ -46,6 +51,8 @@ export const dynaformRenderers = [
   textControlRendererEntry,
   textAreaControlRendererEntry,
   labelControlRendererEntry,
+  titleControlRendererEntry,
+  subtitleControlRendererEntry,
   dataTableControlRendererEntry,
   submitControlRendererEntry,
   buttonControlRendererEntry,

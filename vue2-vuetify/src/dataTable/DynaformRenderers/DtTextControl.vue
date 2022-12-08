@@ -3,7 +3,6 @@
     <v-text-field :id="id" :value="value"> </v-text-field>
   </div>
 </template>
-
 <script lang="ts">
 //@ts-nocheck
 import {
@@ -13,7 +12,7 @@ import {
   uiTypeIs,
 } from '@jsonforms/core';
 import { rendererProps } from '@jsonforms/vue2';
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { VTextField } from 'vuetify/lib';
 import { useDtTextControlComposition } from './DtTextControlComp';
 
@@ -42,7 +41,8 @@ const DtTextControl = defineComponent({
     },
   },
   setup(props: any) {
-    return useDtTextControlComposition(props);
+    let a = useDtTextControlComposition(props);
+    return a;
   },
 });
 

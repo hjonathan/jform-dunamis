@@ -1,3 +1,4 @@
+//@ts-nocheck
 export { default as DtTextControl } from './DtTextControl.vue';
 export { default as DtTextareaControl } from './DtTextareaControl.vue';
 

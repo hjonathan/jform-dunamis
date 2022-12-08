@@ -13,6 +13,8 @@ export { default as TextAreaControlRendererEditor } from './TextAreaControlRende
 export { default as TextControlRendererEditor } from './TextControlRendererEditor.vue';
 export { default as RichTextControlRendererEditor } from './RichTextControlRendererEditor.vue';
 export { default as LabelControlRenderer } from './LabelControlRenderer.vue';
+export { default as TitleControlRenderer } from './TitleControlRenderer.vue';
+export { default as SubtitleControlRenderer } from './SubtitleControlRenderer.vue';
 
 import { entry as checkboxControlRendererEditorEntry } from './CheckboxControlRendererEditor.vue';
 import { entry as checkboxGroupControlRendererEditorEntry } from './CheckgroupControlRendererEditor.vue';
@@ -29,6 +31,8 @@ import { entry as suggestControlRendererEditorEntry } from './SuggestControlRend
 import { entry as textAreaControlRendererEditorEntry } from './TextAreaControlRendererEditor.vue';
 import { entry as textControlRendererEditorEntry } from './TextControlRendererEditor.vue';
 import { entry as labelControlRendererEntry } from './LabelControlRenderer.vue';
+import { entry as titleControlRendererEntry } from './TitleControlRenderer.vue';
+import { entry as subtitleControlRendererEntry } from './SubtitleControlRenderer.vue';
 
 export const editorRenderers = [
   checkboxControlRendererEditorEntry,
@@ -46,4 +50,6 @@ export const editorRenderers = [
   textAreaControlRendererEditorEntry,
   textControlRendererEditorEntry,
   labelControlRendererEntry,
+  titleControlRendererEntry,
+  subtitleControlRendererEntry,
 ];

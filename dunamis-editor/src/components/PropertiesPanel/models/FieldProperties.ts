@@ -133,10 +133,15 @@ const FieldProperties: any = {
   Suggest: [
     Props.build('type'),
     Props.build('variable'),
-    Props.build('hint'),
     Props.build('label'),
-    Props.build('items'),
+    Props.build('tabindex'),
     Props.build('placeholder'),
+    Props.build('hint'),
+    Props.build('ariaLabel'),
+    Props.build('options'),
+    Props.build('validation'),
+    Props.build('protectedValue'),
+    Props.build('readonly'),
   ],
   Group: [Props.build('type'), Props.build('variable'), Props.build('label')],
   Label: [

@@ -42,7 +42,7 @@
             ghost-class="ghost"
             chosen-class="chosen-ghost"
             handle=".drag-icon"
-            :animation="300"
+            :animation="400"
             @change="handleChange"
           >
             <!-- <td v-for="(element, index) in uischema.elements" :key="index"> -->
@@ -193,6 +193,13 @@ const controlRenderer = defineComponent({
           //here update the schema
           const property = evt.added.element.uiSchemaElementProvider();
           const newElement = buildSchemaTree(property.control);
+
+          // Update parent in column field
+          store.dispatch('app/updateParentUiSchemaElement', {
+            elementUUID: evt.added.element.uuid,
+            parentUUID: this.uischema.uuid,
+            linkedSchemaElement: newElement.uuid,
+          });
 
           store.dispatch('app/addColumnToDataTable', {
             column: newElement,

@@ -1,14 +1,21 @@
 <template>
-  <component :is="determinedRenderer" v-bind="{ ...$props }"></component>
+  <component
+    v-bind:is="determinedRenderer"
+    v-bind="{
+      ...$props,
+    }"
+  ></component>
 </template>
+
 <script lang="ts">
 //@ts-nocheck
 import { defineComponent } from 'vue';
 import { rendererProps } from '@jsonforms/vue2';
 import { ControlElement } from '@jsonforms/core';
 import { RendererProps, useDtCellComposition } from './DTCellComp';
+
 export default defineComponent({
-  name: 'dt-cell-dispatch-renderer',
+  name: 'dispatch-renderer',
   props: {
     parent: { ...rendererProps<ControlElement>() },
     row: {

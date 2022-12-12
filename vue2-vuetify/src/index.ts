@@ -7,5 +7,6 @@ export * from './styles';
 export * from './util';
 export * from './renderers';
 export * from './dynaform';
+export * from './dataTable/DynaformRenderers';
 export * from './editor';
 export * from './grids';

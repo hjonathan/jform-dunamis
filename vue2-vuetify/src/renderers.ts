@@ -5,6 +5,7 @@ import { controlRenderers } from './controls';
 import { layoutRenderers } from './layouts';
 import { dynaformRenderers } from './dynaform';
 import { editorRenderers } from './editor';
+import { DtControlRenderers } from './dataTable/DynaformRenderers';
 
 export const vuetifyRenderers = [
   ...additionalRenderers,
@@ -17,6 +18,7 @@ export const vuetifyRenderers = [
 export const extendedVuetifyRenderers = [
   ...vuetifyRenderers,
   ...dynaformRenderers,
+  ...DtControlRenderers,
 ];
 
 export const extendedVuetifyRenderersEditor = [

@@ -32,5 +32,6 @@ export default DtTextAreaRenderer;
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: DtTextAreaRenderer,
   tester: rankWith(3, uiTypeIs('TextArea')),
+  group: 'datatable',
 };
 </script>

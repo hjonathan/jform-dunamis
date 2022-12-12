@@ -1,7 +1,23 @@
 <template>
-  <div>
-    <v-text-field :id="id" :value="value"> </v-text-field>
-  </div>
+  <v-text-field
+    :aria-label="control.ariaLabel"
+    :id="control.id + '-input'"
+    :class="styles.control.input"
+    :placeholder="control.placeholder"
+    :error-messages="control.errors"
+    :value="control.data"
+    :rules="control.validation"
+    :tabindex="control.tabindex"
+    :readonly="control.readonly"
+    @change="onChange"
+  >
+    <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
+      <template v-slot:activator="{ on }">
+        <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
+      </template>
+      <span class="">{{ control.hint }}</span>
+    </v-tooltip>
+  </v-text-field>
 </template>
 <script lang="ts">
 //@ts-nocheck
@@ -13,13 +29,15 @@ import {
 } from '@jsonforms/core';
 import { rendererProps } from '@jsonforms/vue2';
 import { defineComponent } from 'vue';
-import { VTextField } from 'vuetify/lib';
+import { VTextField, VTooltip, VIcon } from 'vuetify/lib';
 import { useDtTextControlComposition } from './DtTextControlComp';
 
 const DtTextControl = defineComponent({
   name: 'dt-text-control',
   components: {
     VTextField,
+    VTooltip,
+    VIcon,
   },
   props: {
     parent: { ...rendererProps<ControlElement>() },
@@ -41,8 +59,7 @@ const DtTextControl = defineComponent({
     },
   },
   setup(props: any) {
-    let a = useDtTextControlComposition(props);
-    return a;
+    return useDtTextControlComposition(props);
   },
 });
 
@@ -50,6 +67,7 @@ export default DtTextControl;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: DtTextControl,
-  tester: rankWith(3, uiTypeIs('Text')),
+  tester: rankWith(1, uiTypeIs('Text')),
+  group: 'dataTable',
 };
 </script>

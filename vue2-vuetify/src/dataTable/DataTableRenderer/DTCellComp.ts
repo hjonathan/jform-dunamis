@@ -48,7 +48,7 @@ export const useDtCellComposition = (props: RendererProps) => {
   const column = ref(findColumn(parent.uischema, cell.header.value));
 
   const determinedRenderer = computed((): any => {
-    return determinedRanked(column.value);
+    return determinedRanked(parent, column.value);
   });
 
   return {
@@ -68,8 +68,11 @@ export const useDtCellComposition = (props: RendererProps) => {
  * @param column
  * @returns
  */
-export const determinedRanked = (column: any) => {
-  const renderer = maxBy(DtControlRenderers, (r: any) => r.tester(column, {}));
+export const determinedRanked = (parent: any, column: any) => {
+  const result: Array<any> = parent.renderers.filter((r) => {
+    return r && r.group == 'dataTable';
+  });
+  const renderer = maxBy(result, (r: any) => r.tester(column, {}));
   if (renderer === undefined || renderer.tester(column, {}) === -1) {
     return UnknownRenderer;
   } else {

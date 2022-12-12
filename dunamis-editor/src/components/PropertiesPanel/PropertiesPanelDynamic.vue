@@ -49,6 +49,7 @@ import { getVariableName } from '../../model/uischema';
 import { tryFindByUUID } from '../../util/schemasUtil';
 import PanelExtended from './PanelDynamicExtended/index';
 import _ from 'lodash';
+
 const PropertiesPanel = defineComponent({
   name: 'PropertiesPanel',
   props: {},
@@ -172,9 +173,13 @@ const PropertiesPanel = defineComponent({
         fieldData['rows'] = this.uiElement.options
           ? this.uiElement.options.rows
           : null;
-        // Get the rows property
+        // Get the aria label property
         fieldData['tabindex'] = this.uiElement.options
           ? this.uiElement.options.tabindex
+          : null;
+        // Get the href property
+        fieldData['href'] = this.uiElement.options
+          ? this.uiElement.options.href
           : null;
         // Get the arialabel
         fieldData['ariaLabel'] = this.uiElement.options
@@ -258,9 +263,13 @@ const PropertiesPanel = defineComponent({
 
         fieldData['type'] = this.uiElement.type ? this.uiElement.type : '';
       }
+
+      //FILTER PROPERTIES
+
       this.generalData = {
         type: this.uiElement.type,
         data: fieldData,
+        group: this.uiElement.parent.type,
       };
     },
     updateData(data: any) {
@@ -316,6 +325,13 @@ const PropertiesPanel = defineComponent({
         store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { content: data.content },
+        });
+      }
+      // href
+      if (data.href) {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { href: data.href },
         });
       }
       // protectedValue

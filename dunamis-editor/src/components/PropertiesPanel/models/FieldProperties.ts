@@ -10,7 +10,7 @@ const FieldProperties: any = {
       : this['Text']['default'];
   },
   Text: {
-    DataTableControl: [
+    DataTable: [
       Props.build('type'),
       Props.build('variable'),
       Props.build('placeholder'),
@@ -20,7 +20,6 @@ const FieldProperties: any = {
       Props.build('ariaLabel'),
       Props.build('validation'),
       Props.build('textTransform'),
-      Props.build('protectedValue'),
       Props.build('readonly'),
     ],
     default: [
@@ -54,6 +53,19 @@ const FieldProperties: any = {
       Props.build('protectedValue'),
       Props.build('readonly'),
     ],
+    DataTable: [
+      Props.build('type'),
+      Props.build('variable'),
+      Props.build('placeholder'),
+      Props.build('defaultValue'),
+      Props.build('rows'),
+      Props.build('hint'),
+      Props.build('tabindex'),
+      Props.build('ariaLabel'),
+      Props.build('validation'),
+      Props.build('textTransform'),
+      Props.build('readonly'),
+    ],
   },
   Checkbox: {
     default: [
@@ -65,6 +77,16 @@ const FieldProperties: any = {
       Props.build('ariaLabel'),
       Props.build('validation'),
       Props.build('protectedValue'),
+      Props.build('checkedDefault'),
+      Props.build('readonly'),
+    ],
+    DataTable: [
+      Props.build('type'),
+      Props.build('variable'),
+      Props.build('hint'),
+      Props.build('tabindex'),
+      Props.build('ariaLabel'),
+      Props.build('validation'),
       Props.build('checkedDefault'),
       Props.build('readonly'),
     ],
@@ -133,10 +155,13 @@ const FieldProperties: any = {
   Grid: { default: [Props.build('type'), Props.build('variable')] },
   Image: {
     default: [
-      Props.build('type'),
       Props.build('variable'),
+      Props.build('label'),
+      Props.build('type'),
       Props.build('hint'),
       Props.build('alt'),
+      Props.build('src'),
+      Props.build('title'),
     ],
   },
   MultipleFile: {

@@ -82,7 +82,7 @@ export default defineComponent({
       'Dropdown',
       'Image',
       'GridControl',
-      'DataTableControl',
+      'DataTable',
       'File',
       'Submit',
       'Button',

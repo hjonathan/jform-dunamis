@@ -223,7 +223,7 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(6, and(isObjectArray, uiTypeIs('DataTableControl'))),
+  tester: rankWith(6, and(isObjectArray, uiTypeIs('DataTable'))),
 };
 </script>
 <style scoped>

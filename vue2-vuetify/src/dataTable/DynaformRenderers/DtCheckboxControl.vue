@@ -1,15 +1,13 @@
 <template>
-  <v-textarea
-    :aria-label="control.ariaLabel"
+  <v-checkbox
     :id="control.id + '-input'"
+    :aria-label="control.ariaLabel"
     :class="styles.control.input"
-    :placeholder="control.placeholder"
-    :error-messages="control.errors"
-    :value="control.data"
+    :hint="control.hint"
     :rules="control.validation"
     :tabindex="control.tabindex"
+    v-model="control.data"
     :readonly="control.readonly"
-    :rows="control.rows"
     @change="onChange"
   >
     <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
@@ -18,7 +16,7 @@
       </template>
       <span class="">{{ control.hint }}</span>
     </v-tooltip>
-  </v-textarea>
+  </v-checkbox>
 </template>
 <script lang="ts">
 //@ts-nocheck
@@ -30,13 +28,13 @@ import {
 } from '@jsonforms/core';
 import { rendererProps } from '@jsonforms/vue2';
 import { defineComponent } from 'vue';
-import { VTextarea, VTooltip, VIcon } from 'vuetify/lib';
-import { useDtTextareaControlComposition } from './DtTextareaControlComp';
+import { VCheckbox, VTooltip, VIcon } from 'vuetify/lib';
+import { useDtCheckboxControlComposition } from './DtCheckboxControlComp';
 
-const DtTextareaControl = defineComponent({
-  name: 'dt-text-control',
+const DtCheckboxControl = defineComponent({
+  name: 'dt-checkbox-control',
   components: {
-    VTextarea,
+    VCheckbox,
     VTooltip,
     VIcon,
   },
@@ -60,15 +58,15 @@ const DtTextareaControl = defineComponent({
     },
   },
   setup(props: any) {
-    return useDtTextareaControlComposition(props);
+    return useDtCheckboxControlComposition(props);
   },
 });
 
-export default DtTextareaControl;
+export default DtCheckboxControl;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: DtTextareaControl,
-  tester: rankWith(1, uiTypeIs('TextArea')),
+  renderer: DtCheckboxControl,
+  tester: rankWith(1, uiTypeIs('Checkbox')),
   group: 'dataTable',
 };
 </script>

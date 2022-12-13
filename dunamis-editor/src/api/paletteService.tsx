@@ -323,7 +323,7 @@ const controlElements = [
         control,
         variable: 'image',
         uiOptions: {
-          image: 'https://picsum.photos/id/11/500/300',
+          src: 'https://picsum.photos/id/11/500/300',
           height: 600,
           width: 600,
         },
@@ -367,7 +367,7 @@ const controlElements = [
 ];
 const complexElements = [
   {
-    type: 'DataTableControl',
+    type: 'DataTable',
     label: 'Grid',
     icon: 'mdi-grid',
     uiSchemaElementProvider: () => {

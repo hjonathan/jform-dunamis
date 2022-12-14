@@ -84,7 +84,6 @@ export const useImageControlComposition = <P>(props: P) => {
  * @param params
  */
 export const setPropsImageControl = (control: any) => {
-  console.log(control);
   return {
     id: control.id,
     visible: true,

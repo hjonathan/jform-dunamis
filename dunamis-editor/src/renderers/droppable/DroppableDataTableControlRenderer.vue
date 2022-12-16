@@ -5,10 +5,10 @@
         <v-toolbar-title :class="styles.arrayList.label">
           Grid Label: {{ computedLabel }}</v-toolbar-title
         >
-        <validation-icon
+        <!-- <validation-icon
           v-if="control.childErrors.length > 0"
           :errors="control.childErrors"
-        />
+        /> -->
         <v-spacer></v-spacer>
 
         <v-tooltip bottom>

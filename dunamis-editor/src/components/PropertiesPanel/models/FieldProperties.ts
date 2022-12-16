@@ -108,6 +108,19 @@ const FieldProperties: any = {
       Props.build('minDate'),
       Props.build('maxDate'),
     ],
+    DataTable: [
+      Props.build('type'),
+      Props.build('variable'),
+      Props.build('dataType'),
+      Props.build('defaultDate'),
+      Props.build('hint'),
+      Props.build('placeholder'),
+      Props.build('ariaLabel'),
+      Props.build('validation'),
+      Props.build('readonly'),
+      Props.build('minDate'),
+      Props.build('maxDate'),
+    ],
   },
   Dropdown: {
     default: [

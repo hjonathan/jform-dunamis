@@ -6,10 +6,10 @@
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title>{{ cLabel }}</v-toolbar-title>
-            <validation-icon
+            <!-- <validation-icon
               v-if="control.childErrors.length > 0"
               :errors="control.childErrors"
-            />
+            /> -->
             <v-spacer></v-spacer>
             <v-btn color="primary" dark class="mb-2" @click="onClickNewRow">
               New Item

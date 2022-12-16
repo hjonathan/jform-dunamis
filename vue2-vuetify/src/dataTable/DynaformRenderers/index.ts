@@ -6,6 +6,7 @@ export { default as DtDropdownControl } from './DtDropdownControl.vue';
 export { default as DtRadiogroupControl } from './DtRadiogroupControl.vue';
 export { default as DtCheckgroupControl } from './DtCheckgroupControl.vue';
 export { default as DtSuggestControl } from './DtSuggestControl.vue';
+export { default as DtDatetimeControl } from './DtDatetimeControl.vue';
 
 import { entry as dtTextControlEntry } from './DtTextControl.vue';
 import { entry as dtTextareaControlEntry } from './DtTextareaControl.vue';
@@ -14,6 +15,7 @@ import { entry as dtDropdownControlEntry } from './DtDropdownControl.vue';
 import { entry as dtRadiogroupControlEntry } from './DtRadiogroupControl.vue';
 import { entry as dtCheckgroupControlEntry } from './DtCheckgroupControl.vue';
 import { entry as dtSuggestControlEntry } from './DtSuggestControl.vue';
+import { entry as dtDatetimeControlEntry } from './DtDatetimeControl.vue';
 
 export const DtControlRenderers = [
   dtTextControlEntry,
@@ -23,4 +25,5 @@ export const DtControlRenderers = [
   dtRadiogroupControlEntry,
   dtCheckgroupControlEntry,
   dtSuggestControlEntry,
+  dtDatetimeControlEntry,
 ];

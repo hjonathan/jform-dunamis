@@ -168,7 +168,10 @@ const PropertiesPanel = defineComponent({
         fieldData['protectedValue'] = this.uiElement.options
           ? this.uiElement.options.protectedValue
           : null;
-
+        // Get the pageSize property
+        fieldData['pageSize'] = this.uiElement.options
+          ? this.uiElement.options.pageSize
+          : null;
         // Get the rows property
         fieldData['rows'] = this.uiElement.options
           ? this.uiElement.options.rows
@@ -437,6 +440,13 @@ const PropertiesPanel = defineComponent({
         store.dispatch('app/updateUISchemaElementOption', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { rows: data.rows },
+        });
+      }
+      // pageSize -> to options
+      if (data.pageSize) {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { pageSize: data.pageSize },
         });
       }
       // alt text for Image -> to options

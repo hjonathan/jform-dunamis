@@ -318,5 +318,29 @@ const PropertiesPanel = [
     options: {},
     items: [],
   } as PropertyPanel,
+  {
+    id: 'pageSize',
+    type: 'dropdown',
+    name: 'Page size',
+    options: {},
+    items: [
+      {
+        text: '5',
+        id: 5,
+      },
+      {
+        text: '10',
+        id: 5,
+      },
+      {
+        text: '15',
+        id: 5,
+      },
+      {
+        text: '20',
+        id: 5,
+      },
+    ],
+  } as PropertyPanel,
 ];
 export default PropertiesPanel;

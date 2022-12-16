@@ -309,6 +309,18 @@ const FieldProperties: any = {
     ],
   },
   HorizontalLayout: { default: [Props.build('cols')] },
+  DataTable: {
+    default: [
+      Props.build('type'),
+      Props.build('variable'),
+      Props.build('label'),
+      Props.build('title'),
+      Props.build('pageSize'),
+      Props.build('hint'),
+      Props.build('protectedValue'),
+      Props.build('required'),
+    ],
+  },
 };
 
 export default FieldProperties;

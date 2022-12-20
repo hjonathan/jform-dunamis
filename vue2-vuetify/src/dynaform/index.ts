@@ -1,7 +1,7 @@
-export { default as SuggestControlRenderer } from './SuggestControlRenderer.vue';
 export { default as DateTimeControlRendererPreview } from '../editor/DateTimeControlRendererEditor.vue';
 export { default as CheckboxControlRenderer } from '../editor/CheckboxControlRendererEditor.vue';
 export { default as DropdownControlRenderer } from '../editor/DropdownControlRendererEditor.vue';
+export { default as SuggestControlRenderer } from '../editor/SuggestControlRendererEditor.vue';
 export { default as RadioGroupControlRenderer } from '../editor/RadiogroupControlRendererEditor.vue';
 export { default as RatingControlRenderer } from './RatingControlRenderer.vue';
 export { default as CheckboxGroupControlRenderer } from '../editor/CheckgroupControlRendererEditor.vue';
@@ -17,10 +17,10 @@ export { default as DataTableControlRenderer } from '../dataTable/DataTableRende
 export { default as SubmitControlRenderer } from '../editor/SubmitControlRendererEditor.vue';
 export { default as ButtonControlRenderer } from '../editor/ButtonControlRendererEditor.vue';
 
-import { entry as suggestControlRendererEntry } from './SuggestControlRenderer.vue';
 import { entry as dateTimeControlRendererEntry } from '../editor/DateTimeControlRendererEditor.vue';
 import { entry as checkboxControlRendererEntry } from '../editor/CheckboxControlRendererEditor.vue';
 import { entry as dropdownControlRendererEntry } from '../editor/DropdownControlRendererEditor.vue';
+import { entry as suggestControlRendererEntry } from '../editor/SuggestControlRendererEditor.vue';
 import { entry as radioGroupControlRendererEntry } from '../editor/RadiogroupControlRendererEditor.vue';
 import { entry as ratingControlRendererEntry } from './RatingControlRenderer.vue';
 import { entry as checkboxGroupControlRendererEntry } from '../editor//CheckgroupControlRendererEditor.vue';

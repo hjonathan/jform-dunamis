@@ -43,13 +43,25 @@ const paletteElements: PaletteElement[] = [
     uiSchemaElementProvider: () => createLabel(),
   },
   {
+    type: 'Link',
+    label: 'Link',
+    icon: 'mdi-link',
+    uiSchemaElementProvider: () => {
+      return {
+        type: 'Link',
+        text: '',
+        uuid: uuid(),
+      };
+    },
+  },
+  {
     type: 'Title',
     label: 'Title',
     icon: 'mdi-format-text',
     uiSchemaElementProvider: () => {
       return {
         type: 'Title',
-        text: "",
+        text: '',
         uuid: uuid(),
       };
     },
@@ -61,7 +73,7 @@ const paletteElements: PaletteElement[] = [
     uiSchemaElementProvider: () => {
       return {
         type: 'Subtitle',
-        text: "",
+        text: '',
         uuid: uuid(),
       };
     },
@@ -153,6 +165,7 @@ const controlElements = [
       };
     },
   },
+
   {
     type: 'TextArea',
     label: 'Text Area',
@@ -310,7 +323,7 @@ const controlElements = [
         control,
         variable: 'image',
         uiOptions: {
-          image: 'https://picsum.photos/id/11/500/300',
+          src: 'https://picsum.photos/id/11/500/300',
           height: 600,
           width: 600,
         },
@@ -354,7 +367,7 @@ const controlElements = [
 ];
 const complexElements = [
   {
-    type: 'DataTableControl',
+    type: 'DataTable',
     label: 'Grid',
     icon: 'mdi-grid',
     uiSchemaElementProvider: () => {

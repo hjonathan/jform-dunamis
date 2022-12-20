@@ -1,23 +1,33 @@
 <template>
-  <v-text-field
-    :aria-label="control.ariaLabel"
+  <v-autocomplete
+    v-disabled-icon-focus
     :id="control.id + '-input'"
     :class="styles.control.input"
     :placeholder="control.placeholder"
+    :hint="control.hint"
     :error-messages="control.errors"
-    :value="control.data"
+    :required="control.required"
     :rules="control.validation"
     :tabindex="control.tabindex"
     :readonly="control.readonly"
+    :aria-label="control.ariaLabel"
+    :value="control.data"
+    :items="control.options"
+    item-text="label"
+    item-value="value"
     @change="onChange"
   >
-    <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
+    <v-tooltip
+      v-if="control.hint && control.hint != ''"
+      slot="append-outer"
+      top
+    >
       <template v-slot:activator="{ on }">
         <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
       </template>
       <span class="">{{ control.hint }}</span>
     </v-tooltip>
-  </v-text-field>
+  </v-autocomplete>
 </template>
 <script lang="ts">
 //@ts-nocheck
@@ -29,13 +39,13 @@ import {
 } from '@jsonforms/core';
 import { rendererProps } from '@jsonforms/vue2';
 import { defineComponent } from 'vue';
-import { VTextField, VTooltip, VIcon } from 'vuetify/lib';
-import { useDtTextControlComposition } from './DtTextControlComp';
+import { VAutocomplete, VTooltip, VIcon } from 'vuetify/lib';
+import { useDtSuggestControlComposition } from './DtSuggestControlComp';
 
-const DtTextControl = defineComponent({
-  name: 'dt-text-control',
+const DtSuggestControl = defineComponent({
+  name: 'dt-suggest-control',
   components: {
-    VTextField,
+    VAutocomplete,
     VTooltip,
     VIcon,
   },
@@ -59,15 +69,15 @@ const DtTextControl = defineComponent({
     },
   },
   setup(props: any) {
-    return useDtTextControlComposition(props);
+    return useDtSuggestControlComposition(props);
   },
 });
 
-export default DtTextControl;
+export default DtSuggestControl;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: DtTextControl,
-  tester: rankWith(1, uiTypeIs('Text')),
+  renderer: DtSuggestControl,
+  tester: rankWith(1, uiTypeIs('Suggest')),
   group: 'dataTable',
 };
 </script>

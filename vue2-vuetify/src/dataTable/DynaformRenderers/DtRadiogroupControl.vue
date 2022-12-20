@@ -1,23 +1,29 @@
 <template>
-  <v-text-field
-    :aria-label="control.ariaLabel"
+  <v-radio-group
     :id="control.id + '-input'"
     :class="styles.control.input"
     :placeholder="control.placeholder"
+    :hint="control.hint"
     :error-messages="control.errors"
-    :value="control.data"
     :rules="control.validation"
-    :tabindex="control.tabindex"
-    :readonly="control.readonly"
-    @change="onChange"
+    v-model="control.data"
   >
+    <v-radio
+      v-for="o in control.options"
+      :key="o.value"
+      :label="o.label"
+      :value="o.value"
+      :readonly="control.readonly"
+      @change="onChange"
+      dense
+    ></v-radio>
     <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
       <template v-slot:activator="{ on }">
         <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
       </template>
       <span class="">{{ control.hint }}</span>
     </v-tooltip>
-  </v-text-field>
+  </v-radio-group>
 </template>
 <script lang="ts">
 //@ts-nocheck
@@ -29,13 +35,14 @@ import {
 } from '@jsonforms/core';
 import { rendererProps } from '@jsonforms/vue2';
 import { defineComponent } from 'vue';
-import { VTextField, VTooltip, VIcon } from 'vuetify/lib';
-import { useDtTextControlComposition } from './DtTextControlComp';
+import { VRadio, VRadioGroup, VTooltip, VIcon } from 'vuetify/lib';
+import { useDtRadiogroupControlComposition } from './DtRadiogroupControlComp';
 
-const DtTextControl = defineComponent({
-  name: 'dt-text-control',
+const DtRadiogroupControl = defineComponent({
+  name: 'dt-radiogroup-control',
   components: {
-    VTextField,
+    VRadio,
+    VRadioGroup,
     VTooltip,
     VIcon,
   },
@@ -59,15 +66,15 @@ const DtTextControl = defineComponent({
     },
   },
   setup(props: any) {
-    return useDtTextControlComposition(props);
+    return useDtRadiogroupControlComposition(props);
   },
 });
 
-export default DtTextControl;
+export default DtRadiogroupControl;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: DtTextControl,
-  tester: rankWith(1, uiTypeIs('Text')),
+  renderer: DtRadiogroupControl,
+  tester: rankWith(1, uiTypeIs('RadioGroup')),
   group: 'dataTable',
 };
 </script>

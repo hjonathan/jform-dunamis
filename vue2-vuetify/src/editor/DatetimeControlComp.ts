@@ -182,10 +182,30 @@ export const setPropsDefaultDatetimeControl = (control: any) => {
   };
 };
 
-export const dataType = (control: any) =>
-  control.rootSchema?.properties
-    ? control.rootSchema?.properties[control.path]['format']
-    : 'date-time';
+export const dataType = (control: any) => {
+  let path = [],
+    currentPath: any;
+  if (control.path) {
+    path = control.path.split('.');
+  }
+  currentPath = control.rootSchema?.properties;
+  if (currentPath) {
+    path.forEach((p: string) => {
+      if (currentPath[p]) {
+        currentPath = currentPath[p];
+        if (currentPath.items?.properties) {
+          currentPath = currentPath.items?.properties;
+        }
+      }
+    });
+
+    return currentPath?.format ?? 'date-time';
+  }
+  return 'date-time';
+};
+
+export const format = (control: any) =>
+  control.uischema.options?.format ?? 'date-time';
 
 export const minDate = (control: any) =>
   control.uischema.options?.minDate ?? null;

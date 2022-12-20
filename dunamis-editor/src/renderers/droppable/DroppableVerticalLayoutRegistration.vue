@@ -8,7 +8,7 @@
     ghost-class="ghost"
     chosen-class="chosen-ghost"
     handle=".drag-icon"
-    :animation="200"
+    :animation="400"
   >
     <v-row
       v-for="(element, index) in uischema.elements"
@@ -112,7 +112,7 @@ const droppableRenderer = defineComponent({
         'Dropdown',
         'Image',
         'GridControl',
-        'DataTableControl',
+        'DataTable',
         'File',
         'Submit',
         'Button',

@@ -6,10 +6,10 @@
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title>{{ cLabel }}</v-toolbar-title>
-            <validation-icon
+            <!-- <validation-icon
               v-if="control.childErrors.length > 0"
               :errors="control.childErrors"
-            />
+            /> -->
             <v-spacer></v-spacer>
             <v-btn color="primary" dark class="mb-2" @click="onClickNewRow">
               New Item
@@ -98,7 +98,7 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(6, uiTypeIs('DataTableControl')),
+  tester: rankWith(6, uiTypeIs('DataTable')),
 };
 </script>
 

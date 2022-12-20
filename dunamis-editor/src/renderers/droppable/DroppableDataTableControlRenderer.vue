@@ -5,10 +5,10 @@
         <v-toolbar-title :class="styles.arrayList.label">
           Grid Label: {{ computedLabel }}</v-toolbar-title
         >
-        <validation-icon
+        <!-- <validation-icon
           v-if="control.childErrors.length > 0"
           :errors="control.childErrors"
-        />
+        /> -->
         <v-spacer></v-spacer>
 
         <v-tooltip bottom>
@@ -42,7 +42,7 @@
             ghost-class="ghost"
             chosen-class="chosen-ghost"
             handle=".drag-icon"
-            :animation="300"
+            :animation="400"
             @change="handleChange"
           >
             <!-- <td v-for="(element, index) in uischema.elements" :key="index"> -->
@@ -194,6 +194,13 @@ const controlRenderer = defineComponent({
           const property = evt.added.element.uiSchemaElementProvider();
           const newElement = buildSchemaTree(property.control);
 
+          // Update parent in column field
+          store.dispatch('app/updateParentUiSchemaElement', {
+            elementUUID: evt.added.element.uuid,
+            parentUUID: this.uischema.uuid,
+            linkedSchemaElement: newElement.uuid,
+          });
+
           store.dispatch('app/addColumnToDataTable', {
             column: newElement,
             variableColumn: evt.added.element.scope.split('/').pop(),
@@ -216,7 +223,7 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(6, and(isObjectArray, uiTypeIs('DataTableControl'))),
+  tester: rankWith(6, and(isObjectArray, uiTypeIs('DataTable'))),
 };
 </script>
 <style scoped>

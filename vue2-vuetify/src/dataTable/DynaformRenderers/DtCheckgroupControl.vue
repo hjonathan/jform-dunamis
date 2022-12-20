@@ -1,23 +1,33 @@
 <template>
-  <v-text-field
-    :aria-label="control.ariaLabel"
+  <v-radio-group
     :id="control.id + '-input'"
     :class="styles.control.input"
     :placeholder="control.placeholder"
+    :hint="control.hint"
     :error-messages="control.errors"
-    :value="control.data"
-    :rules="control.validation"
-    :tabindex="control.tabindex"
-    :readonly="control.readonly"
-    @change="onChange"
   >
+    <v-checkbox
+      v-for="o in control.options"
+      multiple
+      v-model="control.data"
+      :key="o.value"
+      :label="o.label"
+      :value="o.value"
+      @change="onChange"
+      dense
+      :rules="control.validation"
+      :hide-details="true"
+      :readonly="control.readonly"
+    >
+    </v-checkbox>
+
     <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
       <template v-slot:activator="{ on }">
         <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
       </template>
       <span class="">{{ control.hint }}</span>
     </v-tooltip>
-  </v-text-field>
+  </v-radio-group>
 </template>
 <script lang="ts">
 //@ts-nocheck
@@ -29,13 +39,14 @@ import {
 } from '@jsonforms/core';
 import { rendererProps } from '@jsonforms/vue2';
 import { defineComponent } from 'vue';
-import { VTextField, VTooltip, VIcon } from 'vuetify/lib';
-import { useDtTextControlComposition } from './DtTextControlComp';
+import { VCheckbox, VRadioGroup, VTooltip, VIcon } from 'vuetify/lib';
+import { useDtCheckgroupControlComposition } from './DtCheckgroupControlComp';
 
-const DtTextControl = defineComponent({
-  name: 'dt-text-control',
+const DtCheckgroupControl = defineComponent({
+  name: 'dt-checkboxgroup-control',
   components: {
-    VTextField,
+    VCheckbox,
+    VRadioGroup,
     VTooltip,
     VIcon,
   },
@@ -59,15 +70,15 @@ const DtTextControl = defineComponent({
     },
   },
   setup(props: any) {
-    return useDtTextControlComposition(props);
+    return useDtCheckgroupControlComposition(props);
   },
 });
 
-export default DtTextControl;
+export default DtCheckgroupControl;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: DtTextControl,
-  tester: rankWith(1, uiTypeIs('Text')),
+  renderer: DtCheckgroupControl,
+  tester: rankWith(1, uiTypeIs('CheckboxGroup')),
   group: 'dataTable',
 };
 </script>

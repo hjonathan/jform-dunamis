@@ -27,6 +27,20 @@ export const alphaTeorem = (params: any) => {
   };
 };
 
+export const alphaTeoremDt = (params: any) => {
+  let dep: Array<any> = [];
+  //const { control, HX, store } = params;
+  const { column } = params;
+
+  //Second step::: Find the dependents fields in schema
+  dep = alphaFindDependencies(column, dep);
+  //Third step::: Find the dependents fields in schema
+  alphaWatcherDt(params, dep);
+  return () => {
+    //unwatcher();
+  };
+};
+
 /**
  * Find variables in {{ mustache }} to build a matrix watchers
  * @param schema
@@ -92,6 +106,43 @@ export const alphaWatcher = (params: any, variables: Array<any>) => {
       alphaUpdater(params, v, nVal);
     });
   });
+};
+
+/**
+ * Watch all matrix variables with mustache {{}}
+ * @param variables
+ */
+export const alphaWatcherDt = (params: any, variables: Array<any>) => {
+  const { HX } = params;
+  variables.forEach((v: any) => {
+    HX.on(v, (nVal: any) => {
+      alphaUpdaterDt(params, v, nVal);
+    });
+  });
+};
+
+/**
+ * Alpha updater: update the options property in control in datatable
+ * @param control
+ * @param variable
+ * @param value
+ */
+export const alphaUpdaterDt = (params: any, variable: string, value: any) => {
+  const { column, updater } = params;
+  const cloneControl = cloneDeep(column);
+  const clone = cloneDeep(cloneControl);
+  const parent = clone.parent;
+  delete clone.parent;
+
+  //Stringify cloneControl
+  const sCloneControl = JSON.stringify(clone);
+  const outputCloneControl = mustache.render(sCloneControl, {
+    [variable]: value,
+  });
+
+  const resControl = JSON.parse(outputCloneControl);
+  resControl.parent = parent;
+  updater({ ...column, ...resControl });
 };
 
 /**

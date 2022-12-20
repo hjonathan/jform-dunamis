@@ -297,5 +297,50 @@ const PropertiesPanel = [
     options: {},
     items: [],
   } as PropertyPanel,
+  {
+    id: 'href',
+    type: 'text',
+    name: 'Href',
+    options: {},
+    items: [],
+  } as PropertyPanel,
+  {
+    id: 'src',
+    type: 'text',
+    name: 'src',
+    options: {},
+    items: [],
+  } as PropertyPanel,
+  {
+    id: 'title',
+    type: 'text',
+    name: 'Title',
+    options: {},
+    items: [],
+  } as PropertyPanel,
+  {
+    id: 'pageSize',
+    type: 'dropdown',
+    name: 'Page size',
+    options: {},
+    items: [
+      {
+        text: '5',
+        id: 5,
+      },
+      {
+        text: '10',
+        id: 5,
+      },
+      {
+        text: '15',
+        id: 5,
+      },
+      {
+        text: '20',
+        id: 5,
+      },
+    ],
+  } as PropertyPanel,
 ];
 export default PropertiesPanel;

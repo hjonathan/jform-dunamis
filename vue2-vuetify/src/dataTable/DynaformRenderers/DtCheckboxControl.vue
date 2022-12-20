@@ -1,13 +1,12 @@
 <template>
-  <v-text-field
-    :aria-label="control.ariaLabel"
+  <v-checkbox
     :id="control.id + '-input'"
+    :aria-label="control.ariaLabel"
     :class="styles.control.input"
-    :placeholder="control.placeholder"
-    :error-messages="control.errors"
-    :value="control.data"
+    :hint="control.hint"
     :rules="control.validation"
     :tabindex="control.tabindex"
+    v-model="control.data"
     :readonly="control.readonly"
     @change="onChange"
   >
@@ -17,7 +16,7 @@
       </template>
       <span class="">{{ control.hint }}</span>
     </v-tooltip>
-  </v-text-field>
+  </v-checkbox>
 </template>
 <script lang="ts">
 //@ts-nocheck
@@ -29,13 +28,13 @@ import {
 } from '@jsonforms/core';
 import { rendererProps } from '@jsonforms/vue2';
 import { defineComponent } from 'vue';
-import { VTextField, VTooltip, VIcon } from 'vuetify/lib';
-import { useDtTextControlComposition } from './DtTextControlComp';
+import { VCheckbox, VTooltip, VIcon } from 'vuetify/lib';
+import { useDtCheckboxControlComposition } from './DtCheckboxControlComp';
 
-const DtTextControl = defineComponent({
-  name: 'dt-text-control',
+const DtCheckboxControl = defineComponent({
+  name: 'dt-checkbox-control',
   components: {
-    VTextField,
+    VCheckbox,
     VTooltip,
     VIcon,
   },
@@ -59,15 +58,15 @@ const DtTextControl = defineComponent({
     },
   },
   setup(props: any) {
-    return useDtTextControlComposition(props);
+    return useDtCheckboxControlComposition(props);
   },
 });
 
-export default DtTextControl;
+export default DtCheckboxControl;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: DtTextControl,
-  tester: rankWith(1, uiTypeIs('Text')),
+  renderer: DtCheckboxControl,
+  tester: rankWith(1, uiTypeIs('Checkbox')),
   group: 'dataTable',
 };
 </script>

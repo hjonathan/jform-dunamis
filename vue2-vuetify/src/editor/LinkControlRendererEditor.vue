@@ -1,19 +1,17 @@
 <template>
   <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
-    asdasdadsjonaaa
-    <v-img
-      :alt="control.alt"
-      :max-height="control.height"
-      :max-width="control.width"
-      :src="control.src"
-    >
-      <v-tooltip v-if="control.hint && control.hint != ''" top>
+    <v-label :class="styles.label.root">
+      <a :href="control.href" class="text-decoration-none">{{
+        control.content
+      }}</a>
+
+      <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
         <template v-slot:activator="{ on }">
           <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
         </template>
         <span class="">{{ control.hint }}</span>
       </v-tooltip>
-    </v-img>
+    </v-label>
   </CustomControlWrapper>
 </template>
 
@@ -27,18 +25,18 @@ import {
 } from '@jsonforms/core';
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
-import { VHover, VImg, VIcon, VTooltip } from 'vuetify/lib';
+import { VHover, VLabel, VIcon, VTooltip } from 'vuetify/lib';
 import { DisabledIconFocus } from '../controls/directives';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
 
-import { useImageControlComposition } from './ImageControlComp';
+import { useLinkControlComposition } from './LinkControlComp';
 
-const ImageControlRenderer = defineComponent({
-  name: 'image-control-renderer',
+const LinkControlRenderer = defineComponent({
+  name: 'link-control-renderer',
   components: {
     VHover,
+    VLabel,
     VIcon,
-    VImg,
     VTooltip,
     CustomControlWrapper,
   },
@@ -49,14 +47,14 @@ const ImageControlRenderer = defineComponent({
     ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
-    return useImageControlComposition(props);
+    return useLinkControlComposition(props);
   },
 });
 
-export default ImageControlRenderer;
+export default LinkControlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
-  renderer: ImageControlRenderer,
-  tester: rankWith(2, uiTypeIs('Image')),
+  renderer: LinkControlRenderer,
+  tester: rankWith(5, uiTypeIs('Link')),
 };
 </script>

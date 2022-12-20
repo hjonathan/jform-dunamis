@@ -9,7 +9,7 @@
       ghost-class="ghost"
       chosen-class="chosen-ghost"
       handle=".drag-icon"
-      :animation="200"
+      :animation="400"
       @change="handleChange"
     >
       <v-col
@@ -114,7 +114,7 @@ const droppableRenderer = defineComponent({
         'Dropdown',
         'Image',
         'GridControl',
-        'DataTableControl',
+        'DataTable',
         'File',
         'Submit',
         'Button',

@@ -65,8 +65,7 @@
               size="large"
               start
             />
-
-            Community
+            Community {{ store.count }}
           </v-btn>
         </v-col>
       </v-row>
@@ -75,5 +74,7 @@
 </template>
 
 <script setup lang="ts">
-  //
+  import { useCounterStore } from '@/stores/counter';
+  const store = useCounterStore();
+
 </script>

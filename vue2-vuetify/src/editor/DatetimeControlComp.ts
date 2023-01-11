@@ -22,7 +22,7 @@ import {
   updateData,
   useControl,
   validation,
-} from './TextControlComp';
+} from './composables/controlComposition';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR DATETIME CONTROL

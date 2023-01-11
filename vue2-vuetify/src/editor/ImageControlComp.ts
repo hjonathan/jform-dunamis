@@ -11,7 +11,7 @@ import {
   textTransform,
   updateData,
   useControl,
-} from './TextControlComp';
+} from './composables/controlComposition';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR IMAGE CONTROL

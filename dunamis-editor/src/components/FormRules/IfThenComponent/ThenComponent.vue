@@ -67,19 +67,24 @@
 
 <script lang="ts">
 //@ts-nocheck
-import ThenDefaultMixing from './ThenDefaultMixing';
-export default {
+import { defineComponent, PropType } from 'vue';
+import { useThenComposition } from './ThenComposition';
+export default defineComponent({
   name: 'ThenComponent',
-  mixins: [ThenDefaultMixing],
-  data() {
-    return {
-      field: [],
-      fields: ['Field1', 'Field2', 'Field3', 'Field4'],
-    };
+  props: {
+    data: {
+      type: Object as PropType<{
+        effect: string;
+        scopes: Array;
+      }>,
+    },
+  },
+  setup(props: any) {
+    return useThenComposition(props);
   },
   watch: {},
   methods: {},
-};
+});
 </script>
 <style>
 .vpm-thencomp-combobox > div > div > div > label {

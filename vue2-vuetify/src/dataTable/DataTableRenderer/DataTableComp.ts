@@ -49,29 +49,6 @@ export const useDataTableComposition = <P>(props: P) => {
     onClickNewRow,
     onDeleteRow,
   };
-
-  //const appliedOptions = useControlAppliedOptions(input);
-
-  // const childLabelForIndex = (index: number) => {
-  //   const childLabelProp =
-  //     control.value.uischema.options?.childLabelProp ??
-  //     getFirstPrimitiveProp(input.control.value.schema);
-  //   if (!childLabelProp) {
-  //     return `${index}`;
-  //   }
-  //   const labelValue = Resolve.data(
-  //     control.value.data,
-  //     composePaths(`${index}`, childLabelProp)
-  //   );
-  //   if (
-  //     labelValue === undefined ||
-  //     labelValue === null ||
-  //     Number.isNaN(labelValue)
-  //   ) {
-  //     return '';
-  //   }
-  //   return `${labelValue}`;
-  // };
 };
 
 /***********************************************************************************************************

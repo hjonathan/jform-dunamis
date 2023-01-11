@@ -18,7 +18,12 @@ import {
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import { isEqual } from 'lodash';
-import { ariaLabel, hint, tabindex, updateData } from './TextControlComp';
+import {
+  ariaLabel,
+  hint,
+  tabindex,
+  updateData,
+} from './composables/controlComposition';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR LABEL CONTROL

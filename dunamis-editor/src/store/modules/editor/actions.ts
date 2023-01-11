@@ -25,8 +25,8 @@ import {
 } from './../../utils/schemas';
 
 const actions = {
-  setScopeRules: ({ commit }: any, data: any) => {
-    commit('SET_SCOPE_RULES', data);
+  setOptionsByScope: ({ commit }: any, data: any) => {
+    commit('SET_OPTIONS_BY_SCOPE', data);
   },
   getPaletteElements: ({ commit }: any) => {
     const clone = palleteElements();

@@ -1,6 +1,7 @@
 <template>
   <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
     <v-text-field
+      v-show="control.fx.SHOW"
       :aria-label="control.ariaLabel"
       :id="control.id + '-input'"
       :class="styles.control.input"
@@ -13,6 +14,7 @@
       :rules="control.validation"
       :tabindex="control.tabindex"
       :readonly="control.readonly"
+      :disabled="control.fx.DISABLED"
       @change="onChange"
     >
       <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>

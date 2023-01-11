@@ -11,7 +11,7 @@ import {
   tabindex,
   updateData,
   useControl,
-} from './TextControlComp';
+} from './composables/controlComposition';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR BUTTON CONTROL

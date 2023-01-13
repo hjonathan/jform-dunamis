@@ -1,6 +1,7 @@
 {
   "name": "jsonforms-vuetify-renderers",
   "private": true,
+  "type": "module",
   "scripts": {
     "init": "lerna bootstrap --hoist",
     "build": "lerna run --scope \"**/*vuetify\" build",

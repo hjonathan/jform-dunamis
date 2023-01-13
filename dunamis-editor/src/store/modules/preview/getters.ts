@@ -23,5 +23,14 @@ const getters = {
   schema: (state: any) => state.schema,
   data: (state: any) => state.data,
   locale: (state: any) => state.locale,
+  scopesByValue: (state: any) => (scopes: Array<string>) => {
+    // eslint-disable-next-line prefer-const
+    let response: any = {};
+    scopes.forEach((scope) => {
+      response[scope] = state.data[scope];
+    });
+
+    return response;
+  },
 };
 export default getters;

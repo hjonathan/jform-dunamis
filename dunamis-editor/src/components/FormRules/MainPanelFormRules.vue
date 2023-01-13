@@ -4,7 +4,47 @@
       <span class="subtitle-2">Form Rules</span>
     </v-card-title>
     <v-container>
-      <IfThenComponent ref="comp1"> </IfThenComponent>
+      <v-timeline dense align-top class="mb-0">
+        <v-timeline-item v-for="(rule, index) in rules" :key="index">
+          <template v-slot:icon>
+            <v-btn fab color="orange" x-small>
+              <v-icon small color="white">mdi-delete</v-icon>
+            </v-btn>
+          </template>
+          <IfThenComponent ref="rulesRefs" :key="index" :data="rule">
+          </IfThenComponent>
+        </v-timeline-item>
+
+        <v-timeline-item
+          class="white--text"
+          color="primary"
+          v-for="item in blankModelRefs"
+          :key="`blank-ref-${item.id}`"
+        >
+          <template v-slot:icon>
+            <v-btn fab color="error" x-small @click="deleteBlankForm(item)">
+              <v-icon small color="white">mdi-delete</v-icon>
+            </v-btn>
+          </template>
+          <IfThenComponent
+            ref="blankRefs"
+            :data="{
+              expression: null,
+              scopes: [],
+              id: null,
+              effect: null,
+            }"
+          >
+          </IfThenComponent>
+        </v-timeline-item>
+        <v-timeline-item class="white--text" color="primary">
+          <template v-slot:icon>
+            <v-btn fab color="primary" x-small @click="addBlankRef">
+              <v-icon small color="white">mdi-plus</v-icon>
+            </v-btn>
+          </template>
+        </v-timeline-item>
+      </v-timeline>
     </v-container>
 
     <v-card-actions elevation="0">
@@ -17,22 +57,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+
 import IfThenComponent from './IfThenComponent.vue';
+import { useMainPanelComposition } from './MainPanelFormRulesComp';
 export default defineComponent({
   name: 'MainPanelFormRules',
   components: { IfThenComponent },
-  props: {},
-  data() {
-    return {
-      dialog: false,
-    };
-  },
-  methods: {
-    saveFormRules() {
-      let ref: any = this.$refs?.comp1;
-      ref.save();
-    },
+  setup(props: PropType<any>) {
+    return useMainPanelComposition(props);
   },
 });
 </script>

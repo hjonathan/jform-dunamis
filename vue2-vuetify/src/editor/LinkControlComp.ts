@@ -11,7 +11,7 @@ import {
   labelOrientation,
   tabindex,
   updateData,
-} from './TextControlComp';
+} from './composables/controlComposition';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR LINK CONTROL

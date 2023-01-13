@@ -43,13 +43,16 @@ class FiniteAutomaton {
   };
 
   constructor(expression: string | null) {
+    this.exec();
     expression && this.executeStringExpression(expression);
+  }
+
+  getExpression() {
+    return this.expressionGlobal;
   }
 
   executeStringExpression(strExpression: string) {
     const parseExp: Array<string> = strExpression.split(/\s+/);
-    this.exec(); // Init the automaton
-    console.log('ExecuteStringExpression');
     parseExp.forEach((str: string) => {
       const typeExpression: TypeExpression = formatStringExpression(str);
       this.exec(typeExpression);
@@ -278,7 +281,6 @@ class FiniteAutomaton {
    */
   execute(lastSingleExpression?: any) {
     let res;
-    console.log('EXECUTE', lastSingleExpression);
     if (typeof lastSingleExpression == 'string') {
       lastSingleExpression = formatStringExpression(lastSingleExpression);
     }
@@ -317,7 +319,6 @@ class FiniteAutomaton {
   getTypesNextState() {
     let res: Array<any> = [];
     let nextState = [];
-    console.log('GETTYPESNEXTSTATES');
     if (this.statesHistory.length == 0) {
       nextState = this.states['EMPTY'].nextState;
     } else {
@@ -366,11 +367,11 @@ class FiniteAutomaton {
     if (this.statesHistory.length > 0) {
       lastState = this.statesHistory[this.statesHistory.length - 1];
       this.state = this.states[lastState].nextState;
+    } else {
+      this.state = ['EMPTY'];
     }
     // Return new accepted states validate with parentheses
-    return {
-      nextState: this.verifyFinalParentheses(this.states[lastState].nextState),
-    };
+    return this;
   }
   /**
    * Verify if items returns the final parentheses
@@ -486,7 +487,7 @@ export const formatMustacheValue = (value: string) => {
   };
 };
 
-export const formatValue = (value: string, type: string) => {
+export const formatValue = (value: string) => {
   return {
     text: value,
     format: `'${value}'`,
@@ -504,16 +505,18 @@ export const getValuesDefault = () => {
 
 export const formatStringExpression = (strExp: string): TypeExpression => {
   const types: Array<TypeExpression> = getTypes();
-  const resultMustache: any = strExp.match(/{{\s*([\w_]+)\s*}}/);
-  const resultNormalValue: any = strExp.match(/\s*([\w_]+)\s*/);
-  const resultType: any = types.filter(
+  let resultMustache: any = strExp.match(/{{\s*([\w_]+)\s*}}/);
+  let resultNormalValue: any = strExp.match(/\s*([\w_]+)\s*/);
+  const resultType: any = types.find(
     (element: TypeExpression) => element.format == strExp
   );
-  console.log(
-    'FORMATSTRINGEXPRESSION',
-    resultMustache,
-    resultNormalValue,
-    resultType
-  );
+  resultMustache = resultMustache
+    ? formatMustacheValue(resultMustache[1])
+    : null;
+
+  resultNormalValue = resultNormalValue
+    ? formatValue(resultNormalValue[1])
+    : null;
+
   return resultMustache || resultNormalValue || resultType;
 };

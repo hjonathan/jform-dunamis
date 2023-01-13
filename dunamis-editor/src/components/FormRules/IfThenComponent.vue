@@ -1,11 +1,14 @@
 <template>
-  <v-card outlined class="px-2">
+  <div class="mr-4">
+    <!-- <v-col cols="6"> -->
     <IfComponent @updateIf="() => {}" ref="ifComponent" :data="dataIf">
     </IfComponent>
+    <!-- </v-col>
+    <v-col cols="6"> -->
     <ThenComponent @updateThen="() => {}" ref="thenComponent" :data="dataThen">
     </ThenComponent>
-    <v-btn color="primary" text small outlined @click="saveRule">Save</v-btn>
-  </v-card>
+    <!-- </v-col> -->
+  </div>
 </template>
 
 <script lang="ts">

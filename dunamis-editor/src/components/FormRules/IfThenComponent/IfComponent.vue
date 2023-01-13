@@ -1,13 +1,8 @@
 <template>
   <v-row no-gutters>
-    <v-col no-gutters cols="1">
-      <v-btn class="vpm-action-editor-btn" plain>
-        <v-icon small color="primary">mdi-arrow-down-bold-box-outline</v-icon>
-        If
-      </v-btn>
-    </v-col>
-    <v-col cols="11" no-gutters>
+    <v-col cols="12" no-gutters>
       <v-combobox
+        dense
         v-model="model"
         :filter="filter"
         :hide-no-data="!search"
@@ -18,6 +13,8 @@
         small-chips
         class="vpm-thencomp-combobox caption"
         @blur="onBlurAutocomplete"
+        outlined
+        label="If"
       >
         <template v-slot:no-data>
           <v-list-item>

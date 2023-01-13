@@ -6,7 +6,6 @@ import { ThenRule } from '../types';
  ***********************************************************************************************************************************/
 
 export const useThenComposition = (props: any) => {
-  console.log('THEN COMPOSITION', props);
   const data: ThenRule = props.data;
   const effects: any = ref({
       items: loadEffects(),

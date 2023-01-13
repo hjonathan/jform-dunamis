@@ -7,7 +7,6 @@ export const useIfThenComposition = (props: any) => {
     ifComponent: any = ref(null),
     thenComponent: any = ref(null);
 
-  console.log('IFTHEN', props);
   const dataIf = ref({
     expression: rule.expression,
   });
@@ -22,20 +21,42 @@ export const useIfThenComposition = (props: any) => {
     const { effect, scopes } = thenComponent.value.getData();
     const id = uuid();
     scopes.forEach((scope: any) => {
-      store.dispatch('app/setOptionsByScope', {
+      store.dispatch('app/setRulesByScope', {
         scope,
-        options: {
-          rules: [
-            {
-              expression,
-              effect,
-              id,
-            },
-          ],
+        rules: [
+          {
+            expression,
+            effect,
+            id,
+          },
+        ],
+      });
+    });
+  };
+
+  const updateRule = () => {
+    const { expression } = ifComponent.value.getData();
+    const { effect, scopes } = thenComponent.value.getData();
+    const id = rule.id;
+    scopes.forEach((scope: any) => {
+      store.dispatch('app/updateRuleByScope', {
+        scope,
+        rule: {
+          expression,
+          effect,
+          id,
         },
       });
     });
   };
 
-  return { ifComponent, thenComponent, saveRule, dataIf, dataThen };
+  return {
+    ifComponent,
+    thenComponent,
+    saveRule,
+    updateRule,
+    dataIf,
+    dataThen,
+    hover: ref(false),
+  };
 };

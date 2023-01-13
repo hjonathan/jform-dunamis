@@ -1,18 +1,12 @@
 <template>
   <v-row no-gutters>
-    <v-col cols="1">
-      <v-btn class="vpm-action-editor-btn" plain>
-        <v-icon small color="primary">mdi-circle-slice-8</v-icon>
-        Then
-      </v-btn>
-    </v-col>
-    <v-col cols="11">
+    <v-col cols="12">
       <v-row>
         <v-col cols="2">
           <v-combobox
             v-model="effects.selected"
             :items="effects.items"
-            label="Search for an action"
+            label="Then"
             outlined
             dense
             class="vpm-thencomp-combobox caption"
@@ -32,6 +26,7 @@
             small-chips
             dense
             multiple
+            outlined
             class="vpm-thencomp-combobox"
             @change="
               $emit('updateThen', {

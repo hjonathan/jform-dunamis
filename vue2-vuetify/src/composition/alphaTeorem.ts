@@ -194,7 +194,6 @@ const getEffects = (params: any, data: any) => {
       }
     });
   }
-  console.log('EFFECTS', effects);
   return effects;
 };
 
@@ -223,7 +222,6 @@ const renderWithMustache = (params: any, data: any) => {
       store.getters['preview/scopesByValue'](dep)
     )
   );
-  console.log('MUSTACHHEHEEEE', control);
   return control;
 };
 
@@ -238,14 +236,6 @@ const getValidProps = (obj: any, arrayKey: Array<string>) =>
     o[x] = obj[x];
     return o;
   }, {});
-
-// const getUnchangedProps = (control: any) => {
-//   const validProperties = ['uischema.options.rules'];
-//   return validProperties.reduce((acc: any, value: any) => {
-//     acc[value] = getProp(control, value);
-//     return acc;
-//   }, {});
-// };
 
 const getProp = (obj: any, key: string) =>
   key

@@ -1,5 +1,4 @@
 import FiniteAutomaton, {
-  getTypes,
   formatValue,
 } from '../../../util/FiniteAutomaton/FiniteAutomaton';
 import { onMounted, ref, watch } from 'vue';
@@ -11,10 +10,10 @@ import { IfRule } from '../types';
  ***********************************************************************************************************************************/
 
 export const useIfComposition = (props: any) => {
-  console.log('IFCOMPOSITION', props);
   const data: IfRule = props.data;
+  //Init finite automaton
+  const automaton = new FiniteAutomaton(data.expression);
 
-  const automaton = new FiniteAutomaton();
   let editingIndex = -1;
   const editing = ref(null),
     items: any = ref([]),
@@ -29,7 +28,6 @@ export const useIfComposition = (props: any) => {
     }
     model.value = val.map((v: any) => {
       if (typeof v === 'string') {
-        console.log('STRINNGGGGGGGGG');
         v = formatValue(v);
       }
       return v;
@@ -41,9 +39,14 @@ export const useIfComposition = (props: any) => {
       return;
     }
     if (val.length > prev.length) {
-      items.value = addExpression({ expression: model.value, automaton });
+      // Add expression to automaton
+      items.value =
+        model.value.length > 0
+          ? automaton.execute(model.value.at(-1)).getTypesNextState()
+          : [];
     } else {
-      items.value = eraseExpression({ automaton });
+      // Remove Expression from automaton
+      items.value = automaton.backExec().getTypesNextState();
     }
   });
 
@@ -86,7 +89,8 @@ export const useIfComposition = (props: any) => {
     Object.assign({}, { expression: transformExpression(model.value) });
 
   onMounted(() => {
-    items.value = initExpression({ automaton });
+    items.value = automaton.getTypesNextState();
+    model.value = automaton.getExpression();
   });
 
   return {
@@ -115,32 +119,6 @@ const filter = (item: any, queryText: any, itemText: any) => {
   );
 };
 
-/**
- * METHODS FOR FINITE AUTOMATON
- */
-
-const eraseExpression = ({ automaton }: any) => {
-  let res: Array<any> = [];
-  res = automaton.backExec().getTypesNextState();
-  return res;
-};
-
-const initExpression = ({ automaton }: any) => {
-  const resAutomaton: any = automaton.execute().getTypesNextState();
-
-  return resAutomaton;
-};
-
-const addExpression = ({ expression, automaton }: any) => {
-  let res: any = [];
-
-  if (expression.length > 0) {
-    res = automaton.execute(expression.at(-1)).getTypesNextState();
-  }
-
-  return res;
-};
-
 const transformExpression = (expression: Array<any>) => {
   return expression.map((item: any) => item.format).join(' ');
 };
@@ -151,7 +129,6 @@ export declare const propsIfComponent: () => {
     type: propsIfComponent;
   };
 };
-
 export interface propsIfComponent {
   expression: string;
 }

@@ -1,17 +1,17 @@
-import { CoreActions, Dispatch } from '@jsonforms/core';
-import { isEqual } from 'lodash';
-import { inject, onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
+import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import { content, useControl } from './LabelControlComp';
 import {
   ariaLabel,
+  createProvider,
   hint,
   labelCols,
   labelOrientation,
   tabindex,
   updateData,
 } from './composables/controlComposition';
+import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR LINK CONTROL
@@ -20,19 +20,14 @@ import {
  ***********************************************************************************************************************************/
 
 export const useLinkControlComposition = <P>(props: P) => {
-  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
-  const store = inject<any>('store');
-  const HX = inject<any>('HX');
-  if (!dispatch) {
-    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const provider: ProviderControl = createProvider();
 
-  //Properties
   const controlCore: any = useControl(props);
   const control = ref(setPropsLinkControl(controlCore.value));
 
   watch(controlCore, (nControl, oControl) => {
-    if (!isEqual(nControl, oControl)) {
+    if (!Object.is(nControl, oControl)) {
       control.value = setPropsLinkControl(nControl);
     }
   });
@@ -40,17 +35,16 @@ export const useLinkControlComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
-    store,
-    HX,
-    controlCore: controlCore,
-    updater: (ctrl: any) => {
+    provider,
+    dataCore: controlCore,
+    dataUpdater: (ctrl: any) => {
       control.value = setPropsLinkControl(ctrl);
     },
   });
 
   const onChange = (value: any) => {
     updateData({
-      dispatch,
+      dispatch: provider.dispatch,
       control: controlCore,
       value,
     });

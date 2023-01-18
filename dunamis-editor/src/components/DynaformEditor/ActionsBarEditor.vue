@@ -146,6 +146,15 @@ const ActionsBarEditor = defineComponent({
         mainPanel,
       });
     };
+    const onClickDataSources = () => {
+      let mainPanel = { id: 'main-data-sources-simple-lists' },
+        sideBar = { id: 'side-bar-data-sources' };
+
+      store.dispatch('viewManager/setAllViews', {
+        mainPanel,
+        sideBar,
+      });
+    };
     const contentSave = () => {
       bus.$emit('translations::main-panel::save', {});
     };
@@ -255,6 +264,14 @@ const ActionsBarEditor = defineComponent({
         },
         {
           type: 'spacer',
+        },
+        {
+          type: 'button-icon',
+          color: 'secondary',
+          class: '',
+          icon: 'mdi-database',
+          handler: onClickDataSources,
+          title: 'Data Sources',
         },
         {
           type: 'button-icon',

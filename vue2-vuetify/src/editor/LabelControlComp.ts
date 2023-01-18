@@ -20,10 +20,12 @@ import { useStyles } from '../styles';
 import { isEqual } from 'lodash';
 import {
   ariaLabel,
+  createProvider,
   hint,
   tabindex,
   updateData,
 } from './composables/controlComposition';
+import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR LABEL CONTROL
@@ -32,14 +34,7 @@ import {
  ***********************************************************************************************************************************/
 
 export const useLabelControlComposition = <P>(props: P) => {
-  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
-  const store = inject<any>('store');
-  const HX = inject<any>('HX');
-  if (!dispatch) {
-    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
-  }
-
-  //Properties
+  const provider: ProviderControl = createProvider();
   const controlCore: any = useControl(props);
   const control = ref(setPropsLabelControl(controlCore.value));
 
@@ -52,17 +47,16 @@ export const useLabelControlComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
-    store,
-    HX,
-    controlCore: controlCore,
-    updater: (ctrl: any) => {
+    provider,
+    dataCore: controlCore,
+    dataUpdater: (ctrl: any) => {
       control.value = setPropsLabelControl(ctrl);
     },
   });
 
   const onChange = (value: any) => {
     updateData({
-      dispatch,
+      dispatch: provider.dispatch,
       control: controlCore,
       value,
     });

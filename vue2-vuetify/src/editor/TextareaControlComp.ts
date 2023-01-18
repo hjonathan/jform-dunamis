@@ -1,10 +1,9 @@
-import { CoreActions, Dispatch } from '@jsonforms/core';
-import { isEqual } from 'lodash';
-import { inject, onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
+import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
+  createProvider,
   defaultValue,
   hint,
   label,
@@ -17,6 +16,7 @@ import {
   useControl,
   validation,
 } from './composables/controlComposition';
+import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR TEXTAREA CONTROL
@@ -25,19 +25,12 @@ import {
  ***********************************************************************************************************************************/
 
 export const useTextareaControlComposition = <P>(props: P) => {
-  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
-  const store = inject<any>('store');
-  const HX = inject<any>('HX');
-  if (!dispatch) {
-    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
-  }
-
-  //Properties
+  const provider: ProviderControl = createProvider();
   const controlCore: any = useControl(props);
   const control = ref(setPropsTextareaControl(controlCore.value));
 
   watch(controlCore, (nControl, oControl) => {
-    if (!isEqual(nControl, oControl)) {
+    if (!Object.is(nControl, oControl)) {
       control.value = setPropsTextareaControl(nControl);
     }
   });
@@ -45,17 +38,16 @@ export const useTextareaControlComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
-    store,
-    HX,
-    controlCore: controlCore,
-    updater: (ctrl: any) => {
+    provider,
+    dataCore: controlCore,
+    dataUpdater: (ctrl: any) => {
       control.value = setPropsTextareaControl(ctrl);
     },
   });
 
   const onChange = (value: any) => {
     updateData({
-      dispatch,
+      dispatch: provider.dispatch,
       control: controlCore,
       value,
     });

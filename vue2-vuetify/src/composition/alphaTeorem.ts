@@ -1,25 +1,18 @@
-import {
-  map,
-  isObject,
-  sortedUniq,
-  isEqual,
-  cloneDeep,
-  isString,
-} from 'lodash';
+import { map, isObject, sortedUniq, cloneDeep, isString } from 'lodash';
 
 import Vue, { inject } from 'vue';
+import { ParamsAlphaTeorem } from '../editor/composables/types';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mustache = require('mustache');
 
 // ALPHA TEOREM is the class for manage the dependencies, computed, watchers
-export const alphaTeorem = (params: any) => {
+export const alphaTeorem = (params: ParamsAlphaTeorem) => {
   let dep: Array<any> = [];
-  const { controlCore } = params;
-  const uischema = controlCore.value.uischema;
+  const { dataCore } = params;
   //First step::: Create dispatcher to emit the own value
   const unwatcher = alphaDispatcher(params);
   //Second step::: Find the dependents fields in schema
-  dep = alphaFindDependencies(uischema, dep);
+  dep = alphaFindDependencies(Object.assign({}, dataCore.value.uischema), dep);
   //Third step:::Watch dependents fields in data vuex
   const unwatcherScopes = alphaWatcher(params, dep);
   return () => {
@@ -75,16 +68,13 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
 export const alphaDispatcher = (params: any) => {
   const store = inject<any>('store');
   const HX = inject<any>('HX');
-  const { controlCore } = params;
-  let scope = '';
-  if (controlCore.value.uischema.scope) {
-    scope = controlCore.value.uischema.scope.split('/').pop() || '';
+  const { dataCore } = params;
+  if (dataCore.value.uischema.scope) {
+    const scope = dataCore.value.uischema.scope.split('/').pop() || '';
     return store.watch(
-      (_state: any, getters: any) => {
-        return getters['preview/getDataModel'](scope);
-      },
+      (_state: any, getters: any) => getters['preview/getDataModel'](scope),
       (n: any, o: any) => {
-        if (!isEqual(n, o)) {
+        if (!Object.is(n, o)) {
           Vue.nextTick(() => {
             HX.emit(scope, n);
           });
@@ -102,10 +92,7 @@ export const alphaDispatcher = (params: any) => {
  */
 export const alphaWatcher = (params: any, variables: Array<any>) => {
   const HX = inject<any>('HX');
-  const callback = (nVal: any) => {
-    console.info('ALPHA UPDATER', nVal);
-    alphaUpdater(params);
-  };
+  const callback = () => alphaUpdater(params);
   variables.forEach((v: any) => {
     HX.on(v, callback);
   });
@@ -161,20 +148,20 @@ export const alphaUpdaterDt = (params: any, variable: string, value: any) => {
  * @param value
  */
 export const alphaUpdater = (params: any) => {
-  const { controlCore, controlUpdater } = params;
-  const control = cloneDeep(controlCore.value);
-  controlUpdater({
+  const { dataCore, dataUpdater } = params;
+  const control = cloneDeep(dataCore.value);
+  dataUpdater({
     control: renderWithMustache(params, control),
     fx: getEffects(params, control),
   });
 };
 
-const getEffects = (params: any, data: any) => {
+const getEffects = (params: ParamsAlphaTeorem, data: any) => {
   // eslint-disable-next-line prefer-const
   let effects: any = {},
     datas: any = {},
     dep: Array<any> = [];
-  const { store } = params,
+  const { store } = params.provider,
     rules = getProp(data, 'uischema.options.rules');
   if (rules) {
     dep = alphaFindDependencies(data.uischema, dep);
@@ -197,8 +184,8 @@ const getEffects = (params: any, data: any) => {
   return effects;
 };
 
-const renderWithMustache = (params: any, data: any) => {
-  const { store } = params;
+const renderWithMustache = (params: ParamsAlphaTeorem, data: any) => {
+  const { store } = params.provider;
   const validProperties = [
     'config',
     'data',

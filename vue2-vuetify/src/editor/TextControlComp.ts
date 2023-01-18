@@ -1,10 +1,10 @@
-import { CoreActions, Dispatch } from '@jsonforms/core';
-import { inject, onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
+import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
-import { isEqual } from 'lodash';
+
 import {
   ariaLabel,
+  createProvider,
   defaultEffects,
   defaultValue,
   hint,
@@ -19,6 +19,7 @@ import {
   useControl,
   validation,
 } from './composables/controlComposition';
+import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR TEXT CONTROL
@@ -27,19 +28,12 @@ import {
  ***********************************************************************************************************************************/
 
 export const useTextControlComposition = <P>(props: P) => {
-  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
-  const store = inject<any>('store');
-  if (!dispatch) {
-    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
-  }
-
-  //Properties
+  const provider: ProviderControl = createProvider();
   const controlCore: any = useControl(props);
   const control = ref(setPropsTextControl(controlCore.value, { SHOW: true }));
-  //const effects = ref(setEffectsControl(controlCore.value));
 
   watch(controlCore, (nControl, oControl) => {
-    if (!isEqual(nControl, oControl)) {
+    if (!Object.is(nControl, oControl)) {
       control.value = setPropsTextControl(nControl, defaultEffects());
     }
   });
@@ -47,9 +41,9 @@ export const useTextControlComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
-    store,
-    controlCore: controlCore,
-    controlUpdater: (response: any) => {
+    provider,
+    dataCore: controlCore,
+    dataUpdater: (response: any) => {
       control.value = setPropsTextControl(
         response.control,
         Object.assign(defaultEffects(), response.fx)
@@ -59,7 +53,7 @@ export const useTextControlComposition = <P>(props: P) => {
 
   const onChange = (value: any) => {
     updateData({
-      dispatch,
+      dispatch: provider.dispatch,
       control: controlCore,
       value,
     });

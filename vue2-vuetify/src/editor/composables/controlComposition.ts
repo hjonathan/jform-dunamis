@@ -9,6 +9,7 @@ import {
   mapStateToArrayControlProps,
 } from '@jsonforms/core';
 import { computed, inject, onUnmounted, ref } from 'vue';
+import { ProviderControl } from './types';
 
 /****************************************************************************************
  * JSON CORE METHODS
@@ -343,5 +344,26 @@ export const defaultEffects = () => {
   return {
     SHOW: true,
     ENABLED: true,
+  };
+};
+
+export const options = async (provider: ProviderControl, control: any) => {
+  const { serviceProvider } = provider;
+  const service = serviceProvider.get('dataSources');
+  const dataSource = control.uischema.options?.options?.dataSource;
+  const localOptions = control.uischema.options?.options?.collection ?? [];
+  let dataSourceOptions = [];
+  if (dataSource) {
+    dataSourceOptions = await service.call(dataSource);
+  }
+  return Promise.resolve(localOptions.concat(dataSourceOptions));
+};
+
+export const createProvider = (): ProviderControl => {
+  return {
+    dispatch: inject<Dispatch<CoreActions>>('dispatch'),
+    store: inject<any>('store'),
+    bus: inject<any>('HX'),
+    serviceProvider: inject<any>('serviceProvider'),
   };
 };

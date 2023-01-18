@@ -78,8 +78,7 @@ const ItemPropExt = defineComponent({
       props.config && props.config.collection ? props.config.collection : []
     );
     const refList: any = ref(null);
-    //const sources: any = ref(dataSources.get());
-    const sources: any = ref([]);
+    const sources: any = ref(dataSources.get());
     let select: any = ref(null);
     let dataSource: any = ref(null);
     let dataConfig: any = ref(null);
@@ -123,9 +122,9 @@ const ItemPropExt = defineComponent({
             id: select.value.id,
             name: select.value.text,
             type: select.value.type,
-            config: configurationView.value.getData
+            config: configurationView.value?.getData
               ? configurationView.value.getData()
-              : {},
+              : null,
           };
         }
         context.emit('backPanel', { options: res });

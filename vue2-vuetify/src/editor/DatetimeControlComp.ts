@@ -12,6 +12,7 @@ import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
+  createProvider,
   hint,
   label,
   labelCols,
@@ -23,6 +24,7 @@ import {
   useControl,
   validation,
 } from './composables/controlComposition';
+import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR DATETIME CONTROL
@@ -31,13 +33,7 @@ import {
  ***********************************************************************************************************************************/
 
 export const useDatetimeControlComposition = <P>(props: P) => {
-  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
-  const store = inject<any>('store');
-  const HX = inject<any>('HX');
-  if (!dispatch) {
-    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
-  }
-
+  const provider: ProviderControl = createProvider();
   //Properties
   const controlCore: any = useControl(props);
   const control = ref(setPropsDefaultDatetimeControl(controlCore.value));
@@ -51,10 +47,9 @@ export const useDatetimeControlComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
-    store,
-    HX,
-    controlCore: controlCore,
-    updater: (ctrl: any) => {
+    provider,
+    dataCore: controlCore,
+    dataUpdater: (ctrl: any) => {
       control.value = setPropsDatetimeControl(ctrl);
     },
   });

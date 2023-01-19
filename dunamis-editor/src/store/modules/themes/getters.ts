@@ -26,11 +26,11 @@ const getters = {
     const currentTheme = state.active;
     return state.themes[currentTheme].margins;
   },
-  getBackground: (state: any) => {
+  getBackgroundSource: (state: any): string => {
     const currentTheme = state.active;
     return state.themes[currentTheme].background.imgSrc;
   },
-  getBackgroundColor: (state: any) => {
+  getBackgroundColor: (state: any): string => {
     const currentTheme = state.active;
     return state.themes[currentTheme].background.color;
   },

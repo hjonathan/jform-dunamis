@@ -4,7 +4,9 @@ import { useStyles } from '../styles';
 import {
   ariaLabel,
   createProvider,
+  defaultEffects,
   defaultValue,
+  getEffectsControl,
   hint,
   label,
   labelCols,
@@ -13,7 +15,7 @@ import {
   tabindex,
   textTransform,
   updateData,
-  useControl,
+  useCoreControl,
   validation,
 } from './composables/controlComposition';
 import { ProviderControl } from './composables/types';
@@ -26,17 +28,23 @@ import { ProviderControl } from './composables/types';
 
 export const useTextareaControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsTextareaControl(controlCore.value));
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+
+  const control = ref(
+    setPropsTextareaControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
 
   watch(controlCore, (nControl, oControl) => {
     if (!Object.is(nControl, oControl)) {
-      control.value = setPropsTextareaControl(nControl);
+      control.value = setPropsTextareaControl(
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
-  //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     provider,
     dataCore: controlCore,
@@ -92,8 +100,9 @@ export const setPropsTextareaControl = (control: any) => {
     placeholder: placeholder(control),
     data: defaultValue(control),
     id: control.id,
-    visible: true,
     rows: rows(control),
+    show: control.show,
+    disabled: control.disabled,
   };
 };
 

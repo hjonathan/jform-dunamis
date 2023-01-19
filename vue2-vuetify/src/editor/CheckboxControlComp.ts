@@ -5,6 +5,8 @@ import { useStyles } from '../styles';
 import {
   ariaLabel,
   createProvider,
+  defaultEffects,
+  getEffectsControl,
   hint,
   label,
   labelCols,
@@ -12,7 +14,7 @@ import {
   readonly,
   tabindex,
   updateData,
-  useControl,
+  useCoreControl,
   validation,
 } from './composables/controlComposition';
 import { ProviderControl } from './composables/types';
@@ -25,17 +27,22 @@ import { ProviderControl } from './composables/types';
 
 export const useCheckboxControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsDefaultCheckboxControl(controlCore.value));
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+  const control = ref(
+    setPropsDefaultCheckboxControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
 
   watch(controlCore, (nControl: any, oControl: any) => {
     if (!isEqual(nControl, oControl)) {
-      control.value = setPropsCheckboxControl(nControl);
+      control.value = setPropsCheckboxControl(
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
-  //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     provider,
     dataCore: controlCore,
@@ -78,41 +85,39 @@ export const useCheckboxControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsCheckboxControl = (control: any) => {
-  return {
-    id: control.id,
-    ariaLabel: ariaLabel(control),
-    labelOrientation: labelOrientation(control),
-    label: label(control),
-    labelCols: labelCols(control),
-    hint: hint(control),
-    validation: validation(control),
-    tabindex: tabindex(control),
-    readonly: readonly(control),
-    data: control.data,
-    visible: true,
-  };
-};
+export const setPropsCheckboxControl = (control: any) => ({
+  id: control.id,
+  ariaLabel: ariaLabel(control),
+  labelOrientation: labelOrientation(control),
+  label: label(control),
+  labelCols: labelCols(control),
+  hint: hint(control),
+  validation: validation(control),
+  tabindex: tabindex(control),
+  readonly: readonly(control),
+  data: control.data,
+  show: control.show,
+  disabled: control.disabled,
+});
 
 /**
  * Default data for
  * @param params
  */
-export const setPropsDefaultCheckboxControl = (control: any) => {
-  return {
-    id: control.id,
-    ariaLabel: ariaLabel(control),
-    labelOrientation: labelOrientation(control),
-    label: label(control),
-    labelCols: labelCols(control),
-    hint: hint(control),
-    validation: validation(control),
-    tabindex: tabindex(control),
-    readonly: readonly(control),
-    data: checkedDefault(control),
-    visible: true,
-  };
-};
+export const setPropsDefaultCheckboxControl = (control: any) => ({
+  id: control.id,
+  ariaLabel: ariaLabel(control),
+  labelOrientation: labelOrientation(control),
+  label: label(control),
+  labelCols: labelCols(control),
+  hint: hint(control),
+  validation: validation(control),
+  tabindex: tabindex(control),
+  readonly: readonly(control),
+  data: checkedDefault(control),
+  show: control.show,
+  disabled: control.disabled,
+});
 
 export const checkedDefault = (control: any) =>
   control.uischema.options?.checkedDefault ?? control.data;

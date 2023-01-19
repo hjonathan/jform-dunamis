@@ -1,7 +1,7 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
-import { content, useControl } from './LabelControlComp';
+import { content } from './LabelControlComp';
 import {
   ariaLabel,
   createProvider,
@@ -10,6 +10,7 @@ import {
   labelOrientation,
   tabindex,
   updateData,
+  useCoreControlLayout,
 } from './composables/controlComposition';
 import { ProviderControl } from './composables/types';
 
@@ -23,7 +24,7 @@ export const useLinkControlComposition = <P>(props: P) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const provider: ProviderControl = createProvider();
 
-  const controlCore: any = useControl(props);
+  const controlCore: any = useCoreControlLayout(props);
   const control = ref(setPropsLinkControl(controlCore.value));
 
   watch(controlCore, (nControl, oControl) => {

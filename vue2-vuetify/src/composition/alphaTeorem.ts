@@ -1,7 +1,8 @@
 import { map, isObject, sortedUniq, cloneDeep, isString } from 'lodash';
 
 import Vue, { inject } from 'vue';
-import { ParamsAlphaTeorem } from '../editor/composables/types';
+import { defaultEffects } from '../editor/composables/controlComposition';
+import { DefaultEffects, ParamsAlphaTeorem } from '../editor/composables/types';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mustache = require('mustache');
 
@@ -92,7 +93,9 @@ export const alphaDispatcher = (params: any) => {
  */
 export const alphaWatcher = (params: any, variables: Array<any>) => {
   const HX = inject<any>('HX');
-  const callback = () => alphaUpdater(params);
+  const callback = () => {
+    return alphaUpdater(params);
+  };
   variables.forEach((v: any) => {
     HX.on(v, callback);
   });
@@ -151,14 +154,14 @@ export const alphaUpdater = (params: any) => {
   const { dataCore, dataUpdater } = params;
   const control = cloneDeep(dataCore.value);
   dataUpdater({
-    control: renderWithMustache(params, control),
-    fx: getEffects(params, control),
+    ...renderWithMustache(params, control),
+    ...getEffects(params, control),
   });
 };
 
 const getEffects = (params: ParamsAlphaTeorem, data: any) => {
   // eslint-disable-next-line prefer-const
-  let effects: any = {},
+  let effects: DefaultEffects = defaultEffects(),
     datas: any = {},
     dep: Array<any> = [];
   const { store } = params.provider,
@@ -168,16 +171,16 @@ const getEffects = (params: ParamsAlphaTeorem, data: any) => {
     datas = store.getters['preview/scopesByValue'](dep);
     rules.forEach((rule: any) => {
       if (rule.effect == 'SHOW') {
-        effects['SHOW'] = eval(mustache.render(rule.expression, datas));
+        effects['show'] = eval(mustache.render(rule.expression, datas));
       }
       if (rule.effect == 'HIDE') {
-        effects['SHOW'] = !eval(mustache.render(rule.expression, datas));
+        effects['show'] = !eval(mustache.render(rule.expression, datas));
       }
       if (rule.effect == 'ENABLED') {
-        effects['DISABLED'] = !eval(mustache.render(rule.expression, datas));
+        effects['disabled'] = !eval(mustache.render(rule.expression, datas));
       }
       if (rule.effect == 'DISABLED') {
-        effects['DISABLED'] = eval(mustache.render(rule.expression, datas));
+        effects['disabled'] = eval(mustache.render(rule.expression, datas));
       }
     });
   }

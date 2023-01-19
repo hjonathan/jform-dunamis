@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="$props.visible"
-    :class="$props.styles.control.root"
-    :id="$props.id"
-  >
+  <div :class="$props.styles.control.root" :id="$props.id">
     <div
       v-if="$props.labelOrientation != 'inherit'"
       no-gutters
@@ -31,6 +27,6 @@
 //@ts-nocheck
 // Custom Wrapper for styles,label,functionality: For example:: Text, TextArea
 export default {
-  props: ['labelOrientation', 'label', 'labelCols', 'styles', 'id', 'visible'],
+  props: ['labelOrientation', 'label', 'labelCols', 'styles', 'id'],
 };
 </script>

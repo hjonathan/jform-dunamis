@@ -7,6 +7,7 @@ import {
   createProvider,
   defaultEffects,
   defaultValue,
+  getEffectsControl,
   hint,
   label,
   labelCols,
@@ -16,10 +17,10 @@ import {
   tabindex,
   textTransform,
   updateData,
-  useControl,
+  useCoreControl,
   validation,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, TextControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR TEXT CONTROL
@@ -29,25 +30,26 @@ import { ProviderControl } from './composables/types';
 
 export const useTextControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsTextControl(controlCore.value, { SHOW: true }));
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+  const control = ref(
+    setPropsTextControl(Object.assign({}, controlCore.value, defaultEffects()))
+  );
 
   watch(controlCore, (nControl, oControl) => {
     if (!Object.is(nControl, oControl)) {
-      control.value = setPropsTextControl(nControl, defaultEffects());
+      control.value = setPropsTextControl(
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     provider,
     dataCore: controlCore,
     dataUpdater: (response: any) => {
-      control.value = setPropsTextControl(
-        response.control,
-        Object.assign(defaultEffects(), response.fx)
-      );
+      control.value = setPropsTextControl(response);
     },
   });
 
@@ -81,25 +83,22 @@ export const useTextControlComposition = <P>(props: P) => {
 /*****************************************************************************************************************
  * METHODS USING CONTROL
  *****************************************************************************************************************/
-
 /**
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsTextControl = (control: any, fx: any = {}) => {
-  return {
-    validation: validation(control),
-    labelOrientation: labelOrientation(control),
-    label: label(control),
-    labelCols: labelCols(control),
-    tabindex: tabindex(control),
-    ariaLabel: ariaLabel(control),
-    hint: hint(control),
-    placeholder: placeholder(control),
-    data: defaultValue(control),
-    id: control.id,
-    visible: true,
-    readonly: readonly(control),
-    fx: fx,
-  };
-};
+export const setPropsTextControl = (control: any): TextControl => ({
+  validation: validation(control),
+  labelOrientation: labelOrientation(control),
+  label: label(control),
+  labelCols: labelCols(control),
+  tabindex: tabindex(control),
+  ariaLabel: ariaLabel(control),
+  hint: hint(control),
+  placeholder: placeholder(control),
+  data: defaultValue(control),
+  id: control.id,
+  readonly: readonly(control),
+  show: control.show,
+  disabled: control.disabled,
+});

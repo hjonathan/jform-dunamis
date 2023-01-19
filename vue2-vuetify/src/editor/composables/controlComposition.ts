@@ -7,9 +7,10 @@ import {
   update,
   computeLabel,
   mapStateToArrayControlProps,
+  mapStateToLayoutProps,
 } from '@jsonforms/core';
 import { computed, inject, onUnmounted, ref } from 'vue';
-import { ProviderControl } from './types';
+import { DefaultEffects, ProviderControl } from './types';
 
 /****************************************************************************************
  * JSON CORE METHODS
@@ -19,10 +20,39 @@ import { ProviderControl } from './types';
  * @param props
  * @returns
  */
-export function useControl<R, P>(props: P) {
+export function useCoreControl<R, P>(props: P) {
   const jsonforms = inject<JsonFormsSubStates>('jsonforms');
   const dispatch = inject<Dispatch<CoreActions>>('dispatch');
   const stateMap = mapStateToArrayControlProps;
+
+  if (!jsonforms || !dispatch) {
+    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
+  }
+  const id = ref<string | undefined>(undefined);
+  const control = computed(() => {
+    return {
+      ...stateMap({ jsonforms }, props),
+      id: id.value,
+    };
+  });
+  if ((control.value as any).uischema.scope) {
+    id.value = createId((control.value as any).uischema.scope);
+  }
+
+  onUnmounted(() => {
+    if (id.value) {
+      removeId(id.value);
+      id.value = undefined;
+    }
+  });
+
+  return control as unknown as R;
+}
+
+export function useCoreControlLayout<R, P>(props: P) {
+  const jsonforms = inject<JsonFormsSubStates>('jsonforms');
+  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
+  const stateMap = mapStateToLayoutProps;
 
   if (!jsonforms || !dispatch) {
     throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
@@ -340,12 +370,10 @@ export const label = (control: any) => {
   );
 };
 
-export const defaultEffects = () => {
-  return {
-    SHOW: true,
-    ENABLED: true,
-  };
-};
+export const defaultEffects = (): DefaultEffects => ({
+  show: true,
+  disabled: false,
+});
 
 export const options = async (provider: ProviderControl, control: any) => {
   const { serviceProvider } = provider;
@@ -365,5 +393,13 @@ export const createProvider = (): ProviderControl => {
     store: inject<any>('store'),
     bus: inject<any>('HX'),
     serviceProvider: inject<any>('serviceProvider'),
+  };
+};
+
+export const getEffectsControl = (control: any): DefaultEffects => {
+  const { show, disabled } = control;
+  return {
+    show,
+    disabled,
   };
 };

@@ -6,7 +6,7 @@ export { default as RadioGroupControlRenderer } from '../editor/RadiogroupContro
 export { default as RatingControlRenderer } from './RatingControlRenderer.vue';
 export { default as CheckboxGroupControlRenderer } from '../editor/CheckgroupControlRendererEditor.vue';
 export { default as HtmlViewerControlRenderer } from './HtmlViewerControlRenderer.vue';
-export { default as ImageControlRenderer } from './ImageControlRenderer.vue';
+export { default as ImageControlRenderer } from '../editor/ImageControlRendererEditor.vue';
 export { default as MultipleFileControlRenderer } from './MultipleFileControlRenderer.vue';
 export { default as TextControlRenderer } from '../editor/TextControlRendererEditor.vue';
 export { default as TextAreaControlRenderer } from '../editor/TextAreaControlRendererEditor.vue';
@@ -25,7 +25,7 @@ import { entry as radioGroupControlRendererEntry } from '../editor/RadiogroupCon
 import { entry as ratingControlRendererEntry } from './RatingControlRenderer.vue';
 import { entry as checkboxGroupControlRendererEntry } from '../editor//CheckgroupControlRendererEditor.vue';
 import { entry as htmlViewerControlRendererEntry } from './HtmlViewerControlRenderer.vue';
-import { entry as imageControlRendererEntry } from './ImageControlRenderer.vue';
+import { entry as imageControlRendererEntry } from '../editor/ImageControlRendererEditor.vue';
 import { entry as multipleFileControlRendererEntry } from './MultipleFileControlRenderer.vue';
 import { entry as textControlRendererEntry } from '../editor/TextControlRendererEditor.vue';
 import { entry as labelControlRendererEntry } from '../editor/LabelControlRenderer.vue';

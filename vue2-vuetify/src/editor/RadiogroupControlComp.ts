@@ -12,6 +12,8 @@ import { useStyles } from '../styles';
 import {
   ariaLabel,
   createProvider,
+  defaultEffects,
+  getEffectsControl,
   hint,
   label,
   labelCols,
@@ -21,7 +23,7 @@ import {
   readonly,
   tabindex,
   updateData,
-  useControl,
+  useCoreControl,
   validation,
 } from './composables/controlComposition';
 import { ProviderControl } from './composables/types';
@@ -34,16 +36,24 @@ import { ProviderControl } from './composables/types';
 
 export const useRadiogroupControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
-  const controlCore: any = useControl(props);
-  const control = ref(setDefaultPropsRadiogroupControl(controlCore.value));
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+
+  const control = ref(
+    setDefaultPropsRadiogroupControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
 
   watch(controlCore, async (nControl: any, oControl: any) => {
     if (!isEqual(nControl, oControl)) {
-      control.value = await setPropsRadiogroupControl(provider, nControl);
+      control.value = await setPropsRadiogroupControl(
+        provider,
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     provider,
@@ -64,7 +74,7 @@ export const useRadiogroupControlComposition = <P>(props: P) => {
   onMounted(async () => {
     control.value = await setPropsRadiogroupControl(
       provider,
-      controlCore.value
+      Object.assign({}, controlCore.value, defaultEffects())
     );
   });
 
@@ -110,10 +120,11 @@ export const setPropsRadiogroupControl = async (
     readonly: readonly(control),
     placeholder: placeholder(control),
     data: control.data,
-    visible: true,
     options: await options(provider, control),
     errors: control.errors,
     multipleSelection: multipleSelection(control),
+    show: control.show,
+    disabled: control.disabled,
   });
 
 /**
@@ -132,10 +143,11 @@ export const setDefaultPropsRadiogroupControl = (control: any) => ({
   readonly: readonly(control),
   placeholder: placeholder(control),
   data: control.data,
-  visible: true,
   options: [],
   errors: control.errors,
   multipleSelection: multipleSelection(control),
+  show: control.show,
+  disabled: control.disabled,
 });
 
 export const multipleSelection = (control: any) =>

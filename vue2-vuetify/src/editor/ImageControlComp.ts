@@ -1,15 +1,18 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
+import { isEqual } from 'lodash';
 import { useStyles } from '../styles';
 import {
   createProvider,
+  defaultEffects,
+  getEffectsControl,
   hint,
   label,
   labelCols,
   labelOrientation,
   textTransform,
   updateData,
-  useControl,
+  useCoreControl,
 } from './composables/controlComposition';
 import { ProviderControl } from './composables/types';
 
@@ -21,17 +24,19 @@ import { ProviderControl } from './composables/types';
 
 export const useImageControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsImageControl(controlCore.value));
-
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+  const control = ref(
+    setPropsImageControl(Object.assign({}, controlCore.value, defaultEffects()))
+  );
   watch(controlCore, (nControl, oControl) => {
-    if (!Object.is(nControl, oControl)) {
-      control.value = setPropsImageControl(nControl);
+    if (!isEqual(nControl, oControl)) {
+      control.value = setPropsImageControl(
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
-  //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     provider,
     dataCore: controlCore,
@@ -78,7 +83,6 @@ export const useImageControlComposition = <P>(props: P) => {
 export const setPropsImageControl = (control: any) => {
   return {
     id: control.id,
-    visible: true,
     labelOrientation: labelOrientation(control),
     label: label(control),
     labelCols: labelCols(control),
@@ -86,6 +90,8 @@ export const setPropsImageControl = (control: any) => {
     height: height(control),
     width: width(control),
     src: src(control),
+    show: control.show,
+    disabled: control.disabled,
   };
 };
 

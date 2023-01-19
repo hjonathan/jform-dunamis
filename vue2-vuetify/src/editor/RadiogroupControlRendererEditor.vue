@@ -1,5 +1,9 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-radio-group
       :id="control.id + '-input'"
       :class="styles.control.input"
@@ -14,6 +18,7 @@
         :key="o.value"
         :label="o.label"
         :value="o.value"
+        :disabled="control.disabled"
         :readonly="control.readonly"
         @change="onChange"
         dense
@@ -66,11 +71,8 @@ const RadiogroupControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    const vuetifyControl = useRadiogroupControlComposition(props);
-    // @ts-ignore:
-    return vuetifyControl;
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useRadiogroupControlComposition(props),
 });
 
 export default RadiogroupControlRenderer;

@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import {
   onDeactivated,
   onMounted,
@@ -11,6 +12,8 @@ import { useStyles } from '../styles';
 import {
   ariaLabel,
   createProvider,
+  defaultEffects,
+  getEffectsControl,
   hint,
   label,
   labelCols,
@@ -20,7 +23,7 @@ import {
   readonly,
   tabindex,
   updateData,
-  useControl,
+  useCoreControl,
   validation,
 } from './composables/controlComposition';
 import { ProviderControl } from './composables/types';
@@ -33,16 +36,23 @@ import { ProviderControl } from './composables/types';
 
 export const useDropdownControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
-  //Properties
-  const controlCore: any = useControl(props);
-  const control: any = ref(setDefaultPropsDropdownControl(controlCore.value));
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+  const control: any = ref(
+    setDefaultPropsDropdownControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
+
   watch(controlCore, async (nControl: any, oControl: any) => {
-    if (!Object.is(nControl, oControl)) {
-      control.value = await setPropsDropdownControl(provider, nControl);
+    if (!isEqual(nControl, oControl)) {
+      control.value = await setPropsDropdownControl(
+        provider,
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     provider,
@@ -61,7 +71,10 @@ export const useDropdownControlComposition = <P>(props: P) => {
   };
 
   onMounted(async () => {
-    control.value = await setPropsDropdownControl(provider, controlCore.value);
+    control.value = await setPropsDropdownControl(
+      provider,
+      Object.assign({}, controlCore.value, defaultEffects())
+    );
   });
 
   onUpdated(() => {
@@ -107,8 +120,9 @@ export const setPropsDropdownControl = async (
     readonly: readonly(control),
     placeholder: placeholder(control),
     data: control.data,
-    visible: true,
     options: await options(provider, control),
+    show: control.show,
+    disabled: control.disabled,
   });
 
 export const setDefaultPropsDropdownControl = (control: any) => {
@@ -124,8 +138,9 @@ export const setDefaultPropsDropdownControl = (control: any) => {
     readonly: readonly(control),
     placeholder: placeholder(control),
     data: control.data,
-    visible: true,
     options: [],
     errors: control.errors,
+    show: control.show,
+    disabled: control.disabled,
   };
 };

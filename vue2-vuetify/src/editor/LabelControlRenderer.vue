@@ -1,5 +1,5 @@
 <template>
-  <v-label :class="styles.label.root">
+  <v-label v-if="control.show" :class="styles.label.root">
     {{ control.content }}
 
     <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
@@ -40,9 +40,7 @@ const labelControlRenderer = defineComponent({
   props: {
     ...rendererProps<Layout>(),
   },
-  setup(props: RendererProps<Layout>) {
-    return useLabelControlComposition(props);
-  },
+  setup: (props: RendererProps<Layout>) => useLabelControlComposition(props),
 });
 
 export default labelControlRenderer;

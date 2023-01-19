@@ -1,15 +1,18 @@
+import { isEqual } from 'lodash';
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
   createProvider,
+  defaultEffects,
+  getEffectsControl,
   label,
   labelCols,
   labelOrientation,
   tabindex,
   updateData,
-  useControl,
+  useCoreControl,
 } from './composables/controlComposition';
 import { ProviderControl } from './composables/types';
 
@@ -21,17 +24,22 @@ import { ProviderControl } from './composables/types';
 
 export const useButtonControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsButtonControl(controlCore.value));
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+  const control = ref(
+    setPropsButtonControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
 
   watch(controlCore, (nControl: any, oControl: any) => {
-    if (!Object.is(nControl, oControl)) {
-      control.value = setPropsButtonControl(nControl);
+    if (!isEqual(nControl, oControl)) {
+      control.value = setPropsButtonControl(
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
-  //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     provider,
     dataCore: controlCore,
@@ -87,6 +95,7 @@ export const setPropsButtonControl = (control: any) => {
     labelCols: labelCols(control),
     tabindex: tabindex(control),
     data: control.data,
-    visible: true,
+    show: control.show,
+    disabled: control.disabled,
   };
 };

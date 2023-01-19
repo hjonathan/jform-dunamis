@@ -1,9 +1,14 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-btn
       :id="control.id + '-input'"
       :class="styles.control.input"
       :error-messages="control.errors"
+      :disabled="control.disabled"
       color="info"
       @click="onClick"
     >
@@ -42,11 +47,8 @@ const ButtonControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    const vuetifyControl = useButtonControlComposition(props);
-    // @ts-ignore:
-    return vuetifyControl;
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useButtonControlComposition(props),
 });
 
 export default ButtonControlRenderer;

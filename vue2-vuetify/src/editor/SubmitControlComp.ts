@@ -5,12 +5,14 @@ import { useStyles } from '../styles';
 import {
   ariaLabel,
   createProvider,
+  defaultEffects,
+  getEffectsControl,
   label,
   labelCols,
   labelOrientation,
   tabindex,
   updateData,
-  useControl,
+  useCoreControl,
 } from './composables/controlComposition';
 import { ProviderControl } from './composables/types';
 
@@ -22,17 +24,22 @@ import { ProviderControl } from './composables/types';
 
 export const useSubmitControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsSubmitControl(controlCore.value));
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+  const control = ref(
+    setPropsSubmitControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
 
   watch(controlCore, (nControl: any, oControl: any) => {
     if (!isEqual(nControl, oControl)) {
-      control.value = setPropsSubmitControl(nControl);
+      control.value = setPropsSubmitControl(
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
-  //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
     provider,
     dataCore: controlCore,
@@ -88,7 +95,8 @@ export const setPropsSubmitControl = (control: any) => {
     labelCols: labelCols(control),
     tabindex: tabindex(control),
     data: control.data,
-    visible: true,
+    show: control.show,
+    disabled: control.disabled,
   };
 };
 

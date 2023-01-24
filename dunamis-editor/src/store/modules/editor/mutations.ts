@@ -1,8 +1,7 @@
-import _ from 'lodash';
 import { getScope, pathControlSchema } from './../../utils/scope';
 const mutations = {
   SET_RULES_BY_SCOPE: (state: any, payload: any) => {
-    const clone = _.cloneDeep(state.editor.uiSchema);
+    const clone = Object.assign({}, state.editor.uiSchema);
     getScope(clone, (obj: any, key: string, value: any) => {
       if (key == 'scope' && pathControlSchema(value) == payload.scope) {
         const nRules = payload.rules;
@@ -15,22 +14,11 @@ const mutations = {
     });
     state.editor.uiSchema = clone;
   },
-  UPDATE_RULE_BY_SCOPE: (state: any, payload: any) => {
-    const clone = _.cloneDeep(state.editor.uiSchema);
+  DELETE_RULES_BY_SCOPE: (state: any, payload: any) => {
+    const clone = Object.assign({}, state.editor.uiSchema);
     getScope(clone, (obj: any, key: string, value: any) => {
       if (key == 'scope' && pathControlSchema(value) == payload.scope) {
-        if (!obj.options.rules) {
-          obj.options.rules = payload.rules;
-        } else {
-          obj.options.rules = obj.options.rules.map((e: any) => {
-            if (e.id == payload.rule.id) {
-              return payload.rule;
-            }
-            return e;
-          });
-        }
-
-        //obj.options.rules = obj.options.rules.concat(nRules);
+        obj.options.rules = [];
       }
     });
     state.editor.uiSchema = clone;

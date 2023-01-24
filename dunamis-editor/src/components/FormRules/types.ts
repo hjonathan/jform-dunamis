@@ -4,10 +4,16 @@ export interface FormRule {
   scopes: ArrayConstructor;
   effect: string;
 }
+export interface MultiFormRule {
+  expression: string;
+  id: string | null;
+  effects: Array<ThenRule>;
+}
 
 export interface ThenRule {
+  id: string;
   effect: string;
-  scopes: ArrayConstructor;
+  scopes: Array<string>;
 }
 
 export interface IfRule {

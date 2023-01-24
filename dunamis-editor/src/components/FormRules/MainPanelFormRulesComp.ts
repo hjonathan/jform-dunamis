@@ -6,7 +6,9 @@ import { uuid } from 'uuidv4';
 export const useMainPanelComposition = (props: PropType<any>) => {
   const storeRules: Array<FormRule> = store.getters['app/formRules'];
   const rules: Ref<Array<FormRule>> = ref(storeRules);
-  const blankModelRefs: any = ref([{ id: uuid() }]);
+  const blankModelRefs: any = ref(
+    storeRules.length == 0 ? [{ id: uuid() }] : []
+  );
   const blankRefs: any = ref([]);
   const rulesRefs = ref([]);
 

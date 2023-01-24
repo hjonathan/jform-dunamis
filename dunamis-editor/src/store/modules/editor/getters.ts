@@ -32,11 +32,26 @@ const getters = {
             rules[rule.id] = {
               expression: rule.expression,
               id: rule.id,
-              effect: rule.effect,
-              scopes: [pathControlSchema(value)],
+              effects: [
+                {
+                  scopes: [pathControlSchema(value)],
+                  effect: rule.effect,
+                },
+              ],
             };
           } else {
-            rules[rule.id]['scopes'].push(pathControlSchema(value));
+            // eslint-disable-next-line prefer-const
+            let effectObj = rules[rule.id].effects.find(
+              (effect: any) => effect.effect == rule.effect
+            );
+            if (effectObj) {
+              effectObj['scopes'].push(pathControlSchema(value));
+            } else {
+              rules[rule.id].effects.push({
+                scopes: [pathControlSchema(value)],
+                effect: rule.effect,
+              });
+            }
           }
         });
       }

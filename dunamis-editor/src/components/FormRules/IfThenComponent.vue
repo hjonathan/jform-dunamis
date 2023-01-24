@@ -5,8 +5,42 @@
     </IfComponent>
     <!-- </v-col>
     <v-col cols="6"> -->
-    <ThenComponent @updateThen="() => {}" ref="thenComponent" :data="dataThen">
-    </ThenComponent>
+
+    <v-timeline dense align-top class="mb-0">
+      <v-timeline-item
+        v-for="itemThen in multiThenComponent"
+        :key="itemThen.id"
+      >
+        <template v-slot:icon>
+          <v-btn
+            fab
+            color="orange"
+            x-small
+            class="vpm-timeline-icon"
+            @click="deleteThenComponent(itemThen)"
+          >
+            <v-icon small color="white">mdi-delete</v-icon>
+          </v-btn>
+        </template>
+        <ThenComponent @updateThen="() => {}" ref="thenRefs" :data="itemThen">
+        </ThenComponent>
+      </v-timeline-item>
+
+      <v-timeline-item class="white--text" color="primary">
+        <template v-slot:icon>
+          <v-btn
+            fab
+            color="primary"
+            x-small
+            class="vpm-timeline-icon"
+            @click="addThenComponent"
+          >
+            <v-icon small color="white">mdi-plus</v-icon>
+          </v-btn>
+        </template>
+      </v-timeline-item>
+    </v-timeline>
+
     <!-- </v-col> -->
   </div>
 </template>
@@ -32,4 +66,8 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+.v-timeline-item__dot:has(.v-timeline-item__inner-dot):has(.vpm-timeline-icon) {
+  transform: scale(0.8);
+}
+</style>

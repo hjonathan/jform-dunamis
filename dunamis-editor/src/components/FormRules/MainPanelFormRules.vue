@@ -29,10 +29,8 @@
           <IfThenComponent
             ref="blankRefs"
             :data="{
-              expression: null,
-              scopes: [],
               id: null,
-              effect: null,
+              effects: [],
             }"
           >
           </IfThenComponent>

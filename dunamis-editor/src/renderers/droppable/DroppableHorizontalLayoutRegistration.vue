@@ -118,6 +118,7 @@ const droppableRenderer = defineComponent({
         'File',
         'Submit',
         'Button',
+        'NestedForm',
       ];
       if (evt.added) {
         if (

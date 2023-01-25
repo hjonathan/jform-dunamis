@@ -342,5 +342,62 @@ const PropertiesPanel = [
       },
     ],
   } as PropertyPanel,
+  {
+    id: 'formRef',
+    type: 'formRef',
+    name: 'Form Ref',
+    options: {},
+    items: [
+      {
+        text: 'Name',
+        id: 'formRef001',
+        schema: {
+          type: 'object',
+          title: 'Dynaform',
+          required: [],
+          properties: {
+            firstName: {
+              type: 'string',
+              description: '',
+              i18n: 'firstName',
+            },
+            lastName: {
+              type: 'string',
+              description: '',
+              i18n: 'lastName',
+            },
+          },
+        },
+        uischema: {
+          type: 'VerticalLayout',
+          elements: [
+            {
+              type: 'HorizontalLayout',
+              elements: [
+                {
+                  type: 'Text',
+                  scope: '#/properties/firstName',
+                  options: {
+                    validation: [],
+                  },
+                  elements: [],
+                  label: 'First Name',
+                },
+                {
+                  type: 'Text',
+                  scope: '#/properties/lastName',
+                  options: {
+                    validation: [],
+                  },
+                  elements: [],
+                  label: 'Last Name',
+                },
+              ],
+            },
+          ],
+        },
+      },
+    ],
+  } as PropertyPanel,
 ];
 export default PropertiesPanel;

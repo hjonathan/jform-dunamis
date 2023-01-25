@@ -16,6 +16,7 @@ export { default as SubtitleControlRenderer } from '../editor/SubtitleControlRen
 export { default as DataTableControlRenderer } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
 export { default as SubmitControlRenderer } from '../editor/SubmitControlRendererEditor.vue';
 export { default as ButtonControlRenderer } from '../editor/ButtonControlRendererEditor.vue';
+export { default as NestedFormRenderer } from '../editor/NestedFormRendererEditor.vue';
 
 import { entry as dateTimeControlRendererEntry } from '../editor/DateTimeControlRendererEditor.vue';
 import { entry as checkboxControlRendererEntry } from '../editor/CheckboxControlRendererEditor.vue';
@@ -36,6 +37,7 @@ import { entry as textAreaControlRendererEntry } from '../editor/TextAreaControl
 import { entry as dataTableControlRendererEntry } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
 import { entry as submitControlRendererEntry } from '../editor/SubmitControlRendererEditor.vue';
 import { entry as buttonControlRendererEntry } from '../editor/ButtonControlRendererEditor.vue';
+import { entry as nestedFormRendererEntry } from '../editor/NestedFormRendererEditor.vue';
 
 export const dynaformRenderers = [
   suggestControlRendererEntry,
@@ -56,4 +58,5 @@ export const dynaformRenderers = [
   dataTableControlRendererEntry,
   submitControlRendererEntry,
   buttonControlRendererEntry,
+  nestedFormRendererEntry,
 ];

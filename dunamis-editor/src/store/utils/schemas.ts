@@ -535,3 +535,42 @@ export const updateSchemaElement = (state: any, payload: any) => {
     }
   );
 };
+
+export const updateScreenReference = (state: any, payload: any) => {
+  return withCloneTrees(
+    state.editor.uiSchema,
+    undefined,
+    state.editor.schema,
+    undefined,
+    state,
+    (newUiSchema, newSchema) => {
+      const uiSchemaElement: SchemaElement = findByUUID(
+        newUiSchema,
+        payload.elementUUID
+      );
+      const linkedShemaElement: SchemaElement = findByUUID(
+        newSchema,
+        uiSchemaElement.linkedSchemaElement
+      );
+      linkedShemaElement.schema.$ref =
+        '#/definitions/' + payload.changedProperties.formRef.id;
+
+      //const screenService = new DefaultScreenService();
+      //const screen = screenService.getScreenById(
+      //  payload.changedProperties.screen
+      //);
+      console.log('DEFINITIONS');
+      newSchema.schema.definitions = newSchema.schema.definitions || {};
+
+      newSchema.schema.definitions[payload.changedProperties.formRef.id] =
+        payload.changedProperties.formRef.schema;
+
+      uiSchemaElement.elements = uiSchemaElement.elements || [];
+      uiSchemaElement.elements.push(payload.changedProperties.formRef.uischema);
+      return {
+        schema: getRoot(newSchema),
+        uiSchema: getRoot(newUiSchema),
+      };
+    }
+  );
+};

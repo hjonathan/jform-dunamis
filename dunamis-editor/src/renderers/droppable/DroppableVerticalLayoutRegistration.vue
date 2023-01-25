@@ -116,6 +116,7 @@ const droppableRenderer = defineComponent({
         'File',
         'Submit',
         'Button',
+        'NestedForm',
       ];
       const enabledLayouts = ['HorizontalLayout'];
       if (evt.added && evt.added.element) {

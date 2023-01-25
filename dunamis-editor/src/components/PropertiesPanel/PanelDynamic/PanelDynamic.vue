@@ -25,6 +25,7 @@ import CheckboxProp from './CheckboxProp.vue';
 import OptionsProp from './OptionsProp.vue';
 import LabelProp from './LabelProp.vue';
 import ValidationProp from './ValidationProp.vue';
+import FormRefProp from './FormRefProp.vue';
 
 import PanelExtended from '../PanelDynamicExtended/index';
 import _ from 'lodash';
@@ -40,6 +41,7 @@ const PropertiesPanelDynamic = defineComponent({
     OptionsProp,
     LabelProp,
     ValidationProp,
+    FormRefProp,
     ...PanelExtended,
   },
   props: ['config'],

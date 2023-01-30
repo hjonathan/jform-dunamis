@@ -266,7 +266,6 @@
 </template>
 
 <script lang="ts">
-import _ from 'lodash';
 import { computed, defineComponent, getCurrentInstance } from 'vue';
 import store from '../../store';
 import { getVuetify } from '../Composables/composableTheme';
@@ -296,11 +295,11 @@ const CustomizeTheme = defineComponent({
       success: false,
       warning: false,
     };
-    const color = computed(() => {
+    const color = computed<string>(() => {
       return store.getters['themes/getThemeSelected'].light;
     });
-    const fontFamily = computed({
-      get(): any {
+    const fontFamily = computed<string>({
+      get(): string {
         return store.getters['themes/getFontFamilyTheme'];
       },
       set(value: string): void {
@@ -308,7 +307,7 @@ const CustomizeTheme = defineComponent({
       },
     });
     const updateDefaultColor = (store): void => {
-      return _.clone(store.getters['themes/getThemeSelected'].light);
+      return Object.assign(store.getters['themes/getThemeSelected'].light);
     };
     const swatchStyle = (type: string): Record<string, unknown> => {
       return {
@@ -330,10 +329,11 @@ const CustomizeTheme = defineComponent({
       updateTheme('');
     };
     const updateTheme = (font: string): void => {
-      let fontFamilySelect = font !== '' ? font : _.clone(fontFamily.value);
+      let fontFamilySelect: string =
+        font !== '' ? font : Object.assign(fontFamily).value;
       store.dispatch('themes/setTheme', {
         name: customThemeName,
-        light: _.clone(color.value),
+        light: Object.assign(color).value,
         fontFamily: fontFamilySelect,
       });
       vuetify.theme.currentTheme.name = customThemeName;

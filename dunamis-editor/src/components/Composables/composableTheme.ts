@@ -1,3 +1,5 @@
+import { Theme } from './../CustomTheme/interface';
+
 export function getVuetify(currentInstance: any): any {
   const instance = currentInstance();
   if (!instance) {
@@ -16,7 +18,7 @@ export function setDefaultTheme(vuetify: any, theme: any): void {
   vuetify.theme.currentTheme.name = theme.name;
 }
 
-export function getAllThemes(store: any): any {
+export function getAllThemes(store: any): Array<Theme> {
   return store.getters['themes/getSummaryThemes'];
 }
 

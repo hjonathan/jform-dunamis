@@ -141,6 +141,7 @@
 import store from '../../store';
 import { computed, defineComponent, ref } from 'vue';
 import { mask } from '@titou10/v-mask';
+import { Padding, Margin } from './interface';
 
 const CustomForm = defineComponent({
   name: 'custom-form',
@@ -153,13 +154,13 @@ const CustomForm = defineComponent({
       color = '#FFFFFF00',
       colorText = ref('');
 
-    const paddings = computed(() => {
+    const paddings = computed<Padding>(() => {
       return store.getters['themes/getMargins'];
     });
-    const margins = computed(() => {
+    const margins = computed<Margin>(() => {
       return store.getters['themes/getPaddings'];
     });
-    const backgroundImage = computed({
+    const backgroundImage = computed<string>({
       get(): string {
         return store.getters['themes/getBackground'];
       },
@@ -167,7 +168,7 @@ const CustomForm = defineComponent({
         setBackground(val);
       },
     });
-    const backgroundColor = computed({
+    const backgroundColor = computed<string>({
       get(): string {
         color = store.getters['themes/getBackgroundColor'];
         colorText.value = color;
@@ -178,13 +179,13 @@ const CustomForm = defineComponent({
       },
     });
 
-    const changeColor = (val: string) => {
+    const changeColor = (val: string): void => {
       colorText.value = val;
     };
-    const updateBackgroudColor = (val: any) => {
+    const updateBackgroudColor = (val: any): void => {
       setBackgroundColor(val.currentTarget.value);
     };
-    const onMargins = (val: number) => {
+    const onMargins = (val: number): void => {
       if (val <= maxPixel) {
         store.dispatch('themes/updatePaddings', {
           bottom: margins.value.bottom || 0,
@@ -194,7 +195,7 @@ const CustomForm = defineComponent({
         });
       }
     };
-    const onPaddings = (val: number) => {
+    const onPaddings = (val: number): void => {
       if (val <= maxPixel) {
         store.dispatch('themes/updateMargins', {
           left: paddings.value.left || 0,
@@ -218,7 +219,7 @@ const CustomForm = defineComponent({
     const setBackgroundColor = (color: string): void => {
       backgroundColor.value = color;
     };
-    const setBackground = (img: string) => {
+    const setBackground = (img: string): void => {
       if (img !== '') {
         store.dispatch('themes/updateBackground', img);
       }
@@ -249,7 +250,6 @@ const CustomForm = defineComponent({
       setBackground,
     };
   },
-  methods: {},
 });
 
 export default CustomForm;

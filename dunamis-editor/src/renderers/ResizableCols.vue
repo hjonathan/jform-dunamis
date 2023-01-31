@@ -16,7 +16,7 @@ import {
   ref,
 } from 'vue';
 import Vue from 'vue';
-import store from './../../store';
+import store from '../store';
 export default defineComponent({
   name: 'ResizableCols',
   props: ['value'],

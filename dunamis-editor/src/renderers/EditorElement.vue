@@ -113,7 +113,7 @@
 <script lang="ts">
 //@ts-nocheck
 import { PropType } from 'vue';
-import ResizableCols from './Generic/ResizableCols.vue';
+import ResizableCols from './ResizableCols.vue';
 import _ from 'lodash';
 import { EditorUISchemaElement, hasChildren } from '../model/uischema';
 import { tryFindByUUID } from '../util';

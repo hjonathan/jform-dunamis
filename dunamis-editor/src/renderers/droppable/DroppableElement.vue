@@ -26,7 +26,7 @@ import {
 } from '@jsonforms/vue2';
 import { useVuetifyLayout } from '@jsonforms/vue2-vuetify';
 import { VContainer, VRow, VCol } from 'vuetify/lib';
-import EditorElement from '../../components/EditorElement.vue';
+import EditorElement from '../EditorElement.vue';
 import { omit } from 'lodash';
 const droppableRenderer = defineComponent({
   name: 'droppable-element',

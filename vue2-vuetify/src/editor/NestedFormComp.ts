@@ -22,7 +22,6 @@ export const useNestedFormComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   const control = ref(setPropsFormRef(controlCore.value));
 
-  console.log('NETSED', controlCore);
   watch(controlCore, (nControl, oControl) => {
     if (!Object.is(nControl, oControl)) {
       control.value = setPropsFormRef(controlCore.value);

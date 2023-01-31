@@ -57,7 +57,7 @@ import {
   useJsonFormsLayout,
   RendererProps,
 } from '@jsonforms/vue2';
-import { useAjv, useVuetifyLayout } from '@jsonforms/vue2-vuetify';
+import { useAjv, useVuetifyLayout } from '../util/composition';
 import { VCard, VTabs, VTab, VTabsItems, VTabItem } from 'vuetify/lib';
 import { createCategory } from '../../util/generators/uiSchema';
 import { entry as DroppableElementRegistration } from './DroppableElement.vue';

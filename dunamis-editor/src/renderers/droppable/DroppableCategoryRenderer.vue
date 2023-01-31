@@ -21,9 +21,9 @@ import {
   RendererProps,
   UnknownRenderer,
 } from '@jsonforms/vue2';
-import { useVuetifyLayout } from '@jsonforms/vue2-vuetify';
+import { useVuetifyLayout } from '../util/composition';
 import { VContainer, VRow, VCol } from 'vuetify/lib';
-import EditorElement from '../../components/EditorElement.vue';
+import EditorElement from '../EditorElement.vue';
 import { entry as DroppableVerticalLayoutRenderer } from './DroppableVerticalLayoutRegistration.vue';
 const droppableRenderer = defineComponent({
   name: 'droppable-category-renderer',

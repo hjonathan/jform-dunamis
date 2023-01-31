@@ -508,7 +508,6 @@ const PropertiesPanel = defineComponent({
 
       // Horizontal Layout cols
       if (data.formRef) {
-        console.log('SUBFORM', data.formRef);
         store.dispatch('app/updateFormReference', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { formRef: data.formRef },

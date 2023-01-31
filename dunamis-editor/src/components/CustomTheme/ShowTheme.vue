@@ -24,7 +24,6 @@
 <script lang="ts">
 import { VuetifyThemeVariant } from 'vuetify/types/services/theme';
 import { computed, defineComponent, getCurrentInstance } from 'vue';
-import { merge, cloneDeep } from 'lodash';
 import store from '../../store';
 import {
   getVuetify,
@@ -32,11 +31,12 @@ import {
   activeTheme,
   setDefaultTheme,
 } from '../Composables/composableTheme';
+import { Theme } from './interface';
 
 const currentTheme = defineComponent({
   name: 'show-theme',
   setup() {
-    const defaultTheme = {
+    const defaultTheme: Theme = {
       name: 'Default',
       light: {
         primary: '#1976D2',
@@ -62,20 +62,23 @@ const currentTheme = defineComponent({
     let vuetify = getVuetify(getCurrentInstance);
 
     const themes = computed(() => {
-      const themes = getAllThemes(store);
+      const themes: Array<Theme> = getAllThemes(store);
       const colors = [];
       themes.forEach((element) => {
-        colors.push({
-          ...merge(cloneDeep(defaultTheme), {
+        colors.push(
+          Object.assign({}, defaultTheme, {
             name: element.name,
             light: {
               primary: element.light.primary,
               secondary: element.light.secondary,
               accent: element.light.accent,
               info: element.light.info,
+              error: element.light.error,
+              success: element.light.success,
+              warning: element.light.warning,
             },
-          }),
-        });
+          })
+        );
       });
       return colors;
     });

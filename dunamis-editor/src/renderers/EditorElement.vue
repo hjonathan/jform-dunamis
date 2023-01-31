@@ -99,13 +99,15 @@
           </div>
         </v-col>
 
-        <!-- <ResizableCols
+        <ResizableCols
           v-model="wrappedElement"
           v-if="
             wrappedElement.scope &&
+            wrappedElement.parent &&
+            wrappedElement.parent.type &&
             wrappedElement.parent.type == 'HorizontalLayout'
           "
-        /> -->
+        />
       </v-row>
     </div>
   </v-card>
@@ -114,7 +116,7 @@
 <script lang="ts">
 //@ts-nocheck
 import { PropType } from 'vue';
-//import ResizableCols from './Generic/ResizableCols.vue';
+import ResizableCols from './ResizableCols.vue';
 import _ from 'lodash';
 import { EditorUISchemaElement, hasChildren } from '../model/uischema';
 import { tryFindByUUID } from '../util';
@@ -123,7 +125,7 @@ import store from '../store';
 export default {
   name: 'EditorElement',
   components: {
-    // ResizableCols
+    ResizableCols,
   },
   props: {
     wrappedElement: {
@@ -233,9 +235,6 @@ export default {
         this.hover = false;
       }
     },
-  },
-  mounted() {
-    console.log('MOUNTEDDD'), this.wrappedElement;
   },
   methods: {
     onDuplicate: function (e) {

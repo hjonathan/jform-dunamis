@@ -555,11 +555,6 @@ export const updateScreenReference = (state: any, payload: any) => {
       linkedShemaElement.schema.$ref =
         '#/definitions/' + payload.changedProperties.formRef.id;
 
-      //const screenService = new DefaultScreenService();
-      //const screen = screenService.getScreenById(
-      //  payload.changedProperties.screen
-      //);
-      console.log('DEFINITIONS');
       newSchema.schema.definitions = newSchema.schema.definitions || {};
 
       newSchema.schema.definitions[payload.changedProperties.formRef.id] =

@@ -24,21 +24,10 @@ const FormRefProp = defineComponent({
   setup(props: any, context: any) {
     const data = ref(props.config);
     const input = (v: any) => {
-      console.log('input', v);
       context.emit('input', v);
     };
     const change = (value: any) => {
-      console.log('change', value);
       context.emit('change', value);
-      // if (
-      //   typeof value === 'object' &&
-      //   !Array.isArray(value) &&
-      //   value !== null
-      // ) {
-      //   context.emit('change', value.id);
-      // } else {
-      //   context.emit('change', value);
-      // }
     };
     const twoBind = (value: any) => {
       context.emit('input', value);

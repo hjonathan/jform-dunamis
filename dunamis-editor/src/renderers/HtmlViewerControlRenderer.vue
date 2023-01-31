@@ -30,7 +30,8 @@ import {
   useJsonFormsControl,
   RendererProps,
 } from '@jsonforms/vue2';
-import { useVuetifyControl, ControlWrapper } from '@jsonforms/vue2-vuetify';
+import { useVuetifyControl } from '../util/composition';
+import { default as ControlWrapper } from './ControlWrapper.vue';
 
 import { VContainer } from 'vuetify/lib';
 import Editor from '@tinymce/tinymce-vue';

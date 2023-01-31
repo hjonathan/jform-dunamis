@@ -11,7 +11,6 @@ export { default as ButtonControlRenderer } from './ButtonControlRendererEditor.
 export { default as SuggestControlRendererEditor } from './SuggestControlRendererEditor.vue';
 export { default as TextAreaControlRendererEditor } from './TextAreaControlRendererEditor.vue';
 export { default as TextControlRendererEditor } from './TextControlRendererEditor.vue';
-export { default as RichTextControlRendererEditor } from './RichTextControlRendererEditor.vue';
 export { default as LabelControlRenderer } from './LabelControlRenderer.vue';
 export { default as LinkControlRenderer } from './LinkControlRendererEditor.vue';
 export { default as TitleControlRenderer } from './TitleControlRenderer.vue';
@@ -25,7 +24,6 @@ import { entry as imageControlRendererEditorEntry } from './ImageControlRenderer
 import { entry as multipleFileControlRendererEditorEntry } from './MultipleFileControlRendererEditor.vue';
 import { entry as radioGroupControlRendererEditorEntry } from './RadiogroupControlRendererEditor.vue';
 import { entry as ratingControlRendererEditorEntry } from './RatingControlRendererEditor.vue';
-import { entry as richTextControlRendererEditorEntry } from './RichTextControlRendererEditor.vue';
 import { entry as submitControlRendererEntry } from './SubmitControlRendererEditor.vue';
 import { entry as buttonControlRendererEntry } from './ButtonControlRendererEditor.vue';
 import { entry as suggestControlRendererEditorEntry } from './SuggestControlRendererEditor.vue';
@@ -44,8 +42,6 @@ export const editorRenderers = [
   imageControlRendererEditorEntry,
   multipleFileControlRendererEditorEntry,
   radioGroupControlRendererEditorEntry,
-  ratingControlRendererEditorEntry,
-  richTextControlRendererEditorEntry,
   submitControlRendererEntry,
   buttonControlRendererEntry,
   suggestControlRendererEditorEntry,

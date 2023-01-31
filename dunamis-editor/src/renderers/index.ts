@@ -19,5 +19,4 @@ export const defaultRenderers = [
   ...layoutRenderers,
   ...dynaformRenderers,
   ...DtControlRenderers,
-  htmlViewerControlRendererEntry,
 ];

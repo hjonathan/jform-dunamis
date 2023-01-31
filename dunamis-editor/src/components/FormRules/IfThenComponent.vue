@@ -1,15 +1,12 @@
 <template>
-  <div class="mr-4">
-    <!-- <v-col cols="6"> -->
+  <div class="mr-2">
     <IfComponent @updateIf="() => {}" ref="ifComponent" :data="dataIf">
     </IfComponent>
-    <!-- </v-col>
-    <v-col cols="6"> -->
-
-    <v-timeline dense align-top class="mb-0">
+    <v-timeline dense align-top class="white--text my-0 py-0">
       <v-timeline-item
         v-for="itemThen in multiThenComponent"
         :key="itemThen.id"
+        class="white--text my-0 py-0"
       >
         <template v-slot:icon>
           <v-btn
@@ -26,7 +23,7 @@
         </ThenComponent>
       </v-timeline-item>
 
-      <v-timeline-item class="white--text" color="primary">
+      <v-timeline-item class="white--text my-0 py-0" color="primary">
         <template v-slot:icon>
           <v-btn
             fab
@@ -40,8 +37,6 @@
         </template>
       </v-timeline-item>
     </v-timeline>
-
-    <!-- </v-col> -->
   </div>
 </template>
 

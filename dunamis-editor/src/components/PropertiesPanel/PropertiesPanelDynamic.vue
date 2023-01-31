@@ -505,6 +505,14 @@ const PropertiesPanel = defineComponent({
           changedProperties: { cols: data.cols },
         });
       }
+
+      // Horizontal Layout cols
+      if (data.formRef) {
+        store.dispatch('app/updateFormReference', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { formRef: data.formRef },
+        });
+      }
       this.generalData['data'] = data;
     },
     findElementSchema() {

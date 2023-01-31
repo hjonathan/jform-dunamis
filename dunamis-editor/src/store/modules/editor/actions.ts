@@ -22,6 +22,7 @@ import {
   addColumnToDataTable,
   removeColumnDataTable,
   palleteElements,
+  updateScreenReference,
 } from './../../utils/schemas';
 
 const actions = {
@@ -55,7 +56,6 @@ const actions = {
     const clone = createScopedElementToTable(state, payload);
     commit('SET_SCHEMA', clone.uiSchema);
   },
-
   //SCHEMA
   addColumnToDataTable: ({ commit, state }: any, payload: any) => {
     const clone = addColumnToDataTable(state, payload);
@@ -122,6 +122,11 @@ const actions = {
   },
   setInfomation: ({ commit, state }: any, payload: any) => {
     commit('SET_INFORMATION', payload);
+  },
+  updateFormReference({ commit, state }: any, payload: any) {
+    const clone = updateScreenReference(state, payload);
+    commit('SET_SCHEMA', clone.schema);
+    commit('SET_UI_SCHEMA', clone.uiSchema);
   },
 };
 

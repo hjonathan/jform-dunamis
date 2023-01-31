@@ -393,6 +393,24 @@ const complexElements = [
       };
     },
   },
+  {
+    type: 'NestedForm',
+    label: 'NestedForm',
+    icon: 'mdi-list-box',
+    uiSchemaElementProvider: () => {
+      const control = {
+        type: 'object',
+        description: '',
+        i18n: 'nestedForm',
+      };
+
+      return {
+        control,
+        variable: 'nestedForm',
+        uiOptions: {},
+      };
+    },
+  },
 ];
 const extendedElements = [
   {

@@ -98,10 +98,13 @@
             <slot></slot>
           </div>
         </v-col>
+
         <ResizableCols
           v-model="wrappedElement"
           v-if="
             wrappedElement.scope &&
+            wrappedElement.parent &&
+            wrappedElement.parent.type &&
             wrappedElement.parent.type == 'HorizontalLayout'
           "
         />
@@ -121,7 +124,9 @@ import store from '../store';
 
 export default {
   name: 'EditorElement',
-  components: { ResizableCols },
+  components: {
+    ResizableCols,
+  },
   props: {
     wrappedElement: {
       required: false,
@@ -231,7 +236,6 @@ export default {
       }
     },
   },
-
   methods: {
     onDuplicate: function (e) {
       e.preventDefault();

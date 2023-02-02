@@ -397,6 +397,133 @@ const PropertiesPanel = [
           ],
         },
       },
+      {
+        text: 'Dependents',
+        id: 'formRef001',
+        schema: {
+          type: 'object',
+          title: 'Dynaform',
+          required: [],
+          properties: {
+            text1: {
+              type: 'string',
+              description: '',
+              i18n: 'text1',
+            },
+            text2: {
+              type: 'string',
+              description: '',
+              i18n: 'text2',
+            },
+          },
+        },
+        uischema: {
+          type: 'VerticalLayout',
+          elements: [
+            {
+              type: 'Text',
+              scope: '#/properties/text1',
+              options: {
+                validation: [],
+              },
+              elements: [],
+            },
+            {
+              type: 'Text',
+              scope: '#/properties/text2',
+              options: {
+                validation: [],
+              },
+              elements: [],
+              label: '{{text1}}',
+            },
+          ],
+        },
+      },
+      {
+        text: 'SubForms',
+        id: 'formRef001',
+        schema: {
+          type: 'object',
+          title: 'Dynaform',
+          required: [],
+          definitions: {
+            formRef001: {
+              type: 'object',
+              title: 'Dynaform',
+              required: [],
+              properties: {
+                text1: {
+                  type: 'string',
+                  description: '',
+                  i18n: 'text1',
+                },
+                text2: {
+                  type: 'string',
+                  description: '',
+                  i18n: 'text2',
+                },
+              },
+            },
+          },
+          properties: {
+            NestedForm_ddca431e: {
+              type: 'object',
+              description: '',
+              i18n: 'NestedForm_ddca431e',
+              $ref: '#/definitions/formRef001',
+            },
+            Text_4d498c32: {
+              type: 'string',
+              description: '',
+              i18n: 'Text_4d498c32',
+            },
+          },
+        },
+        uischema: {
+          type: 'VerticalLayout',
+          elements: [
+            {
+              type: 'NestedForm',
+              scope: '#/properties/NestedForm_ddca431e',
+              options: {},
+              elements: [
+                {
+                  type: 'VerticalLayout',
+                  elements: [
+                    {
+                      type: 'Text',
+                      scope: '#/properties/text1',
+                      options: {
+                        validation: [],
+                      },
+                      elements: [],
+                    },
+                    {
+                      type: 'Text',
+                      scope: '#/properties/text2',
+                      options: {
+                        validation: [],
+                      },
+                      elements: [],
+                      label: '{{NestedForm_ddca431e.text1}}',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'Text',
+              scope: '#/properties/Text_4d498c32',
+              options: {
+                validation: [],
+              },
+              elements: [],
+              label: '{{NestedForm_ddca431e.text1}}',
+            },
+          ],
+        },
+      },
     ],
   } as PropertyPanel,
 ];

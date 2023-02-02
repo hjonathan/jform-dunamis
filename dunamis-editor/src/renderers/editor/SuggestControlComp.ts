@@ -45,7 +45,7 @@ export const useSuggestControlComposition = <P>(props: P) => {
   );
 
   watch(controlCore, async (nControl: any, oControl: any) => {
-    if (!Object.is(nControl, oControl)) {
+    if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = await setPropsSuggestControl(
         provider,
         Object.assign({}, nControl, getEffectsControl(control.value))

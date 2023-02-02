@@ -20,3 +20,14 @@ export const defaultRenderers = [
   ...dynaformRenderers,
   ...DtControlRenderers,
 ];
+
+/**
+ * Renderes for Nested Form use editor renderes, but without the droppable elements
+ * in order to not use the store in Dynaforms
+ */
+export const defaultNestedRenders = [
+  ...layoutRenderers,
+  ...editorRenderers,
+  ...DtControlRenderers,
+  htmlViewerControlRendererEntry,
+];

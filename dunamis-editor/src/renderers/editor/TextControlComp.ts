@@ -37,7 +37,7 @@ export const useTextControlComposition = <P>(props: P) => {
   );
 
   watch(controlCore, (nControl, oControl) => {
-    if (!Object.is(nControl, oControl)) {
+    if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = setPropsTextControl(
         Object.assign({}, nControl, getEffectsControl(control.value))
       );

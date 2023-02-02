@@ -11,7 +11,6 @@
   "dependencies": {
     "@jsonforms/core": "3.0.0-alpha.2",
     "@jsonforms/vue2": "3.0.0-alpha.2",
-    "@jsonforms/vue2-vuetify": "3.0.0-alpha.2",
     "@jsonforms/dunamis-editor": "3.0.0-alpha.2",
     "@tinymce/tinymce-vue": "^3.2.8",
     "@vue/composition-api": "1.0.0-rc.3",

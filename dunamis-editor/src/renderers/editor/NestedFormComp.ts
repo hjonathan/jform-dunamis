@@ -1,14 +1,9 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
+import { defaultNestedRenders } from '../index';
 import {
   createProvider,
-  defaultEffects,
-  getEffectsControl,
-  hint,
-  label,
-  labelCols,
-  labelOrientation,
   textTransform,
   updateData,
   useCoreControl,
@@ -16,33 +11,34 @@ import {
 import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
- * COMPOSITION EXTENSION FOR IMAGE CONTROL
- * @param props
+ * COMPOSITION EXTENSION FOR TEXT CONTROL
+ * @param vuetifyControl
  * @returns
  ***********************************************************************************************************************************/
 
-export const useImageControlComposition = <P>(props: P) => {
+export const useNestedFormComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
   const controlCore: any = useCoreControl(props);
   const styles = useStyles(controlCore.value.uischema);
-  const control = ref(
-    setPropsImageControl(Object.assign({}, controlCore.value, defaultEffects()))
-  );
+  const control = ref(setPropsFormRef(controlCore.value));
+
   watch(controlCore, (nControl, oControl) => {
     if (!Object.is(nControl.uischema, oControl.uischema)) {
-      control.value = setPropsImageControl(
-        Object.assign({}, nControl, getEffectsControl(control.value))
-      );
+      control.value = setPropsFormRef(controlCore.value);
     }
   });
 
-  const deactivateAlpha = alphaTeorem({
+  /**
+   * alphaTeorem Dependencies do not execute dependents
+   * For the form rules is necessary
+   */
+  /*const deactivateAlpha = alphaTeorem({
     provider,
     dataCore: controlCore,
-    dataUpdater: (ctrl: any) => {
-      control.value = setPropsImageControl(ctrl);
+    dataUpdater: () => {
+      control.value = setPropsFormRef(controlCore.value);
     },
-  });
+  });*/
 
   const onChange = (value: any) => {
     updateData({
@@ -56,11 +52,11 @@ export const useImageControlComposition = <P>(props: P) => {
     console.log('component re-rendered!', controlCore.value.uischema.scope);
   });
   onUnmounted(() => {
-    deactivateAlpha();
+    //deactivateAlpha();
   });
 
   onDeactivated(() => {
-    deactivateAlpha();
+    //deactivateAlpha();
   });
 
   return {
@@ -74,28 +70,16 @@ export const useImageControlComposition = <P>(props: P) => {
 /*****************************************************************************************************************
  * METHODS USING CONTROL
  *****************************************************************************************************************/
-
 /**
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsImageControl = (control: any) => {
-  return {
-    id: control.id,
-    labelOrientation: labelOrientation(control),
-    label: label(control),
-    labelCols: labelCols(control),
-    hint: hint(control),
-    height: height(control),
-    width: width(control),
-    src: src(control),
-    show: control.show,
-    disabled: control.disabled,
-  };
-};
-
-export const height = (control: any) => control.uischema.options?.height ?? 100;
-
-export const width = (control: any) => control.uischema.options?.width ?? 100;
-
-export const src = (control: any) => control.uischema.options?.src ?? '';
+export const setPropsFormRef = (control: any): any => ({
+  visible: true,
+  enabled: true,
+  schema: {},
+  uischema: control.uischema?.elements[0],
+  path: control.path,
+  renderers: defaultNestedRenders,
+  cells: control.cells,
+});

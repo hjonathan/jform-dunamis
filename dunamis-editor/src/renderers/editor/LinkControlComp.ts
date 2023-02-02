@@ -28,7 +28,7 @@ export const useLinkControlComposition = <P>(props: P) => {
   const control = ref(setPropsLinkControl(controlCore.value));
 
   watch(controlCore, (nControl, oControl) => {
-    if (!Object.is(nControl, oControl)) {
+    if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = setPropsLinkControl(nControl);
     }
   });

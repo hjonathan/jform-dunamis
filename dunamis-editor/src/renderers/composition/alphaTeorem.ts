@@ -48,7 +48,7 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
         res = sortedUniq(res);
       }
     } else if (isString(value)) {
-      let match = value.match(/{{\s*[A-Za-z0-9]+\s*}}/g);
+      let match = value.match(/{{\s*[A-Za-z0-9/._]+\s*}}/g);
       if (match) {
         match = match.map((el: any) => {
           return el.replace('{{', '').replace('}}', '').trim();
@@ -71,7 +71,7 @@ export const alphaDispatcher = (params: any) => {
   const HX = inject<any>('HX');
   const { dataCore } = params;
   if (dataCore.value.uischema.scope) {
-    const scope = dataCore.value.uischema.scope.split('/').pop() || '';
+    const scope = dataCore.value.path;
     return store.watch(
       (_state: any, getters: any) => getters['preview/getDataModel'](scope),
       (n: any, o: any) => {

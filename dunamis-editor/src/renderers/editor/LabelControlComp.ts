@@ -1,7 +1,6 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
-import { isEqual } from 'lodash';
 import {
   ariaLabel,
   createProvider,
@@ -24,7 +23,7 @@ export const useLabelControlComposition = <P>(props: P) => {
   const control = ref(setPropsLabelControl(controlCore.value));
 
   watch(controlCore, (nControl, oControl) => {
-    if (!isEqual(nControl, oControl)) {
+    if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = setPropsLabelControl(nControl);
     }
   });

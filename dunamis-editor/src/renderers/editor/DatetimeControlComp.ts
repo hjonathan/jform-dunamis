@@ -1,5 +1,4 @@
 import { CoreActions, Dispatch } from '@jsonforms/core';
-import { isEqual } from 'lodash';
 
 import Vue, {
   inject,
@@ -46,7 +45,7 @@ export const useDatetimeControlComposition = <P>(props: P) => {
   );
 
   watch(controlCore, (nControl: any, oControl: any) => {
-    if (!isEqual(nControl, oControl)) {
+    if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = setPropsDatetimeControl(
         Object.assign({}, nControl, getEffectsControl(control.value))
       );

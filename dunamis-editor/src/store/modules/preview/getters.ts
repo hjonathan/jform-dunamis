@@ -1,7 +1,15 @@
 import _ from 'lodash';
+
+const getProp = (obj: any, key: string) =>
+  key
+    .split('.')
+    .reduce((o, x) => (typeof o == 'undefined' || o === null ? o : o[x]), obj);
+
 const getters = {
   getDataModel: (state: any) => (scope: string) => {
-    return state.data[scope];
+    const data = Object.assign(state.data);
+    const auxScope = getProp(data, scope);
+    return auxScope;
   },
   getMultipleData: (state: any) => (array: any) => {
     const res: any = {};
@@ -24,13 +32,7 @@ const getters = {
   data: (state: any) => state.data,
   locale: (state: any) => state.locale,
   scopesByValue: (state: any) => (scopes: Array<string>) => {
-    // eslint-disable-next-line prefer-const
-    let response: any = {};
-    scopes.forEach((scope) => {
-      response[scope] = state.data[scope];
-    });
-
-    return response;
+    return state.data;
   },
 };
 export default getters;

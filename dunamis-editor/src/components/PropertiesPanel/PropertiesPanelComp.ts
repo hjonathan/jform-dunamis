@@ -22,3 +22,24 @@ export const dynamicPropertyDefault = (props: any, context: any) => {
   };
   return { data, input, change, twoBind };
 };
+
+/**
+ * Replace the mustache varaibles in subforms
+ * @param {JSOM} uiSchema
+ * @param {string} scope
+ * @return {JSON}
+ */
+export const updateUiSchema = (uiSchema: JSON, scope: string): JSON => {
+  let aux = JSON.stringify(uiSchema);
+  const scopeNested = scope.split('/').pop();
+  let dep = '';
+  const match = aux.match(/{{\s*[A-Za-z0-9/._]+\s*}}/g);
+  if (match) {
+    match.forEach((el: any) => {
+      dep = el.replace('{{', '').replace('}}', '').trim();
+      aux = aux.replace(el, '{{' + scopeNested + '.' + dep + '}}').trim();
+    });
+  }
+
+  return JSON.parse(aux);
+};

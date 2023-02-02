@@ -1,4 +1,3 @@
-import { isEqual } from 'lodash';
 import {
   onDeactivated,
   onMounted,
@@ -45,7 +44,7 @@ export const useDropdownControlComposition = <P>(props: P) => {
   );
 
   watch(controlCore, async (nControl: any, oControl: any) => {
-    if (!isEqual(nControl, oControl)) {
+    if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = await setPropsDropdownControl(
         provider,
         Object.assign({}, nControl, getEffectsControl(control.value))

@@ -1,4 +1,3 @@
-import { isEqual } from 'lodash';
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
@@ -36,7 +35,7 @@ export const useCheckboxControlComposition = <P>(props: P) => {
   );
 
   watch(controlCore, (nControl: any, oControl: any) => {
-    if (!isEqual(nControl, oControl)) {
+    if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = setPropsCheckboxControl(
         Object.assign({}, nControl, getEffectsControl(control.value))
       );

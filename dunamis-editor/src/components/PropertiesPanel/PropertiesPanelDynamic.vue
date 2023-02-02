@@ -48,6 +48,7 @@ import { defineComponent } from 'vue';
 import { getVariableName } from '../../model/uischema';
 import { tryFindByUUID } from '../../util/schemasUtil';
 import PanelExtended from './PanelDynamicExtended/index';
+import { updateUiSchema } from './PropertiesPanelComp';
 import _ from 'lodash';
 
 const PropertiesPanel = defineComponent({
@@ -506,8 +507,12 @@ const PropertiesPanel = defineComponent({
         });
       }
 
-      // Horizontal Layout cols
+      // Nested form
       if (data.formRef) {
+        data.formRef.uischema = updateUiSchema(
+          data.formRef.uischema,
+          this.uiElement.scope
+        );
         store.dispatch('app/updateFormReference', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { formRef: data.formRef },

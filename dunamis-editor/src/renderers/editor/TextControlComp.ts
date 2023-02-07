@@ -1,5 +1,5 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
-import { alphaTeorem } from '../composition/alphaTeorem';
+import { alphaTeorem, renderWithMustache } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 
 import {
@@ -33,13 +33,23 @@ export const useTextControlComposition = <P>(props: P) => {
   const controlCore: any = useCoreControl(props);
   const styles = useStyles(controlCore.value.uischema);
   const control = ref(
-    setPropsTextControl(Object.assign({}, controlCore.value, defaultEffects()))
+    setPropsTextControl(
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
+    )
   );
 
   watch(controlCore, (nControl, oControl) => {
     if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = setPropsTextControl(
-        Object.assign({}, nControl, getEffectsControl(control.value))
+        Object.assign(
+          {},
+          renderWithMustache(provider, nControl, true),
+          getEffectsControl(control.value)
+        )
       );
     }
   });

@@ -2,7 +2,11 @@ import { map, isObject, sortedUniq, cloneDeep, isString } from 'lodash';
 
 import Vue, { inject } from 'vue';
 import { defaultEffects } from '../editor/composables/controlComposition';
-import { DefaultEffects, ParamsAlphaTeorem } from '../editor/composables/types';
+import {
+  DefaultEffects,
+  ParamsAlphaTeorem,
+  ProviderControl,
+} from '../editor/composables/types';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mustache = require('mustache');
 
@@ -94,6 +98,7 @@ export const alphaDispatcher = (params: any) => {
 export const alphaWatcher = (params: any, variables: Array<any>) => {
   const HX = inject<any>('HX');
   const callback = () => {
+    debugger;
     return alphaUpdater(params);
   };
   variables.forEach((v: any) => {
@@ -153,8 +158,9 @@ export const alphaUpdaterDt = (params: any, variable: string, value: any) => {
 export const alphaUpdater = (params: any) => {
   const { dataCore, dataUpdater } = params;
   const control = cloneDeep(dataCore.value);
+  debugger;
   dataUpdater({
-    ...renderWithMustache(params, control),
+    ...renderWithMustache(params.provider, control),
     ...getEffects(params, control),
   });
 };
@@ -187,31 +193,28 @@ const getEffects = (params: ParamsAlphaTeorem, data: any) => {
   return effects;
 };
 
-const renderWithMustache = (params: ParamsAlphaTeorem, data: any) => {
-  const { store } = params.provider;
-  const validProperties = [
-    'config',
-    'data',
-    'description',
-    'enabled',
-    'errors',
-    'id',
-    'label',
-    'path',
-    'required',
-    'rootSchema',
-    'uischema',
-  ];
-  let control = getValidProps(data, validProperties);
-  let dep: Array<any> = [];
-  delete control.uischema.parent;
-  dep = alphaFindDependencies(control.uischema, dep);
-  control = JSON.parse(
-    mustache.render(
-      JSON.stringify(control),
-      store.getters['preview/scopesByValue'](dep)
-    )
+export const renderWithMustache = (
+  params: ProviderControl,
+  data: any,
+  isTranslation?: boolean
+): any => {
+  const { store } = params;
+  const locales = store.getters['locales/getLocales'];
+  const locale = store.getters['preview/locale'];
+  const auxLocales = Object.assign(
+    {},
+    { T: locales[locale].content },
+    isTranslation === undefined
+      ? store.getters['preview/scopesByValue']([])
+      : ''
   );
+  const control = cloneDeep(data);
+  const auxParent = control.uischema.parent;
+  delete control.uischema.parent;
+  control.uischema = JSON.parse(
+    mustache.render(JSON.stringify(control.uischema), auxLocales)
+  );
+  control.uischema.parent = auxParent;
   return control;
 };
 

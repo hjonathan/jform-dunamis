@@ -128,6 +128,9 @@ const actions = {
     commit('SET_SCHEMA', clone.schema);
     commit('SET_UI_SCHEMA', clone.uiSchema);
   },
+  setLanguage({ commit }: any, payload: any) {
+    commit('SET_LANGUAGE', payload);
+  },
 };
 
 export default actions;

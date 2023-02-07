@@ -560,7 +560,7 @@ export const updateScreenReference = (state: any, payload: any) => {
       newSchema.schema.definitions[payload.changedProperties.formRef.id] =
         payload.changedProperties.formRef.schema;
 
-      uiSchemaElement.elements = uiSchemaElement.elements || [];
+      uiSchemaElement.elements = [];
       uiSchemaElement.elements.push(payload.changedProperties.formRef.uischema);
       return {
         schema: getRoot(newSchema),

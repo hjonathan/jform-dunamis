@@ -30,7 +30,9 @@ const getters = {
   uiSchema: (state: any) => state.uiSchema,
   schema: (state: any) => state.schema,
   data: (state: any) => state.data,
-  locale: (state: any) => state.locale,
+  locale: (state: any) => {
+    return state.locale;
+  },
   scopesByValue: (state: any) => (scopes: Array<string>) => {
     return state.data;
   },

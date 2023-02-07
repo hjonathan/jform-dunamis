@@ -21,6 +21,7 @@ const state: AppState = {
       selected: '',
       edit: 0,
     },
+    locale: 'en',
   },
   jsonforms: {
     readonly: false,

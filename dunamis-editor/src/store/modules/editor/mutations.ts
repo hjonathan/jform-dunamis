@@ -44,5 +44,8 @@ const mutations = {
   SET_ACTIVE_ELEMENT: (state: any, value: any) => {
     state.editor.element = value;
   },
+  SET_LANGUAGE: (state: any, value: any) => {
+    state.editor.locale = value;
+  },
 };
 export default mutations;

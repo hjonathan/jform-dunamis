@@ -35,10 +35,16 @@ const mutations = {
     });
   },
   SET_ALL: (state: any, payload: any) => {
-    state = payload;
+    debugger;
+    for (const key in payload) {
+      state[key] = payload[key];
+    }
+    //state = payload;
   },
   SET_LOCALES: (state: any, payload: any) => {
-    state = payload;
+    for (const key in payload) {
+      state[key] = payload[key];
+    }
   },
 };
 export default mutations;

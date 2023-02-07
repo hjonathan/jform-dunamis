@@ -261,7 +261,7 @@ export const validation = (control: any) => {
       text: 'URL',
       handler: () => (value: string) => {
         return (
-          /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/g.test(
+          /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/g.test(
             value
           ) || 'URL'
         );
@@ -363,11 +363,13 @@ export const placeholder = (control: any) =>
  * @returns
  */
 export const label = (control: any) => {
-  return computeLabel(
+  return control.uischema.label || '';
+  //TODO review
+  /*return computeLabel(
     control.label,
     control.required,
     !!control?.config.hideRequiredAsterisk
-  );
+  );*/
 };
 
 export const defaultEffects = (): DefaultEffects => ({

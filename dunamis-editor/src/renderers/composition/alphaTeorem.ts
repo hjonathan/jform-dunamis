@@ -98,7 +98,6 @@ export const alphaDispatcher = (params: any) => {
 export const alphaWatcher = (params: any, variables: Array<any>) => {
   const HX = inject<any>('HX');
   const callback = () => {
-    debugger;
     return alphaUpdater(params);
   };
   variables.forEach((v: any) => {
@@ -158,7 +157,6 @@ export const alphaUpdaterDt = (params: any, variable: string, value: any) => {
 export const alphaUpdater = (params: any) => {
   const { dataCore, dataUpdater } = params;
   const control = cloneDeep(dataCore.value);
-  debugger;
   dataUpdater({
     ...renderWithMustache(params.provider, control),
     ...getEffects(params, control),

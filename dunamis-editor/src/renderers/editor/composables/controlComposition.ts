@@ -378,13 +378,16 @@ export const defaultEffects = (): DefaultEffects => ({
 });
 
 export const options = async (provider: ProviderControl, control: any) => {
-  const { serviceProvider } = provider;
+  const { serviceProvider, store } = provider;
   const service = serviceProvider.get('dataSources');
   const dataSource = control.uischema.options?.options?.dataSource;
   const localOptions = control.uischema.options?.options?.collection ?? [];
   let dataSourceOptions = [];
   if (dataSource) {
-    dataSourceOptions = await service.call(dataSource);
+    dataSourceOptions = await service.call(
+      dataSource,
+      store.getters['preview/data']
+    );
   }
   return Promise.resolve(localOptions.concat(dataSourceOptions));
 };

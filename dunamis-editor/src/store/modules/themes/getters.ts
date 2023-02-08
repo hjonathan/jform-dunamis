@@ -3,7 +3,6 @@ import { Padding, Margin, Theme } from '@/components/CustomTheme/interface';
 const getters = {
   getSummaryThemes: (state: any) => {
     const arrayTheme: Array<Theme> = [];
-    debugger;
     for (const theme in state.themes) {
       arrayTheme.push({
         name: state.themes[theme].name,

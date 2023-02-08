@@ -125,6 +125,45 @@ const state: DataSourcesState = {
       ],
     },
     {
+      id: '123uiqa8777782',
+      name: 'Region',
+      type: 'list',
+      schema: [
+        {
+          id: 'id',
+          type: 'string',
+          name: 'Id',
+        },
+        {
+          id: 'value',
+          type: 'string',
+          name: 'Value',
+        },
+      ],
+      data: [
+        {
+          value: 'africa',
+          label: 'AFrica',
+        },
+        {
+          value: 'america',
+          label: 'America',
+        },
+        {
+          value: 'asia',
+          label: 'Asia',
+        },
+        {
+          value: 'europe',
+          label: 'Europe',
+        },
+        {
+          value: 'oceania',
+          label: 'Oceanias',
+        },
+      ],
+    },
+    {
       id: '1y3y2378hns989',
       name: 'Programming Languages',
       type: 'list',
@@ -285,6 +324,54 @@ const state: DataSourcesState = {
     },
   },
   apis: [
+    {
+      id: 'free-1',
+      name: 'Free Countries',
+      type: 'api',
+      data: {
+        url: 'https://restcountries.com/v3.1/all',
+        method: 'GET',
+        params: {},
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: {},
+        dataInputVariables: [],
+        output: '',
+      },
+    },
+    {
+      id: 'free-2',
+      name: 'Name Countries',
+      type: 'api',
+      data: {
+        url: 'https://restcountries.com/v3.1/name/{{country}}',
+        method: 'GET',
+        params: {},
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: {},
+        dataInputVariables: ['country'],
+        output: '',
+      },
+    },
+    {
+      id: 'free-3',
+      name: 'Free Region',
+      type: 'api',
+      data: {
+        url: 'https://restcountries.com/v3.1/region/{{region}}',
+        method: 'GET',
+        params: {},
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: {},
+        dataInputVariables: ['region'],
+        output: '',
+      },
+    },
     {
       id: 'api-1',
       name: 'Processmaker Countries',

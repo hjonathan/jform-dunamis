@@ -266,93 +266,91 @@
 </template>
 
 <script lang="ts">
-//@ts-nocheck
-import _ from 'lodash';
-import { defineComponent } from 'vue';
+import { computed, defineComponent, getCurrentInstance } from 'vue';
 import store from '../../store';
+import { getVuetify } from '../Composables/composableTheme';
+
 const CustomizeTheme = defineComponent({
   name: 'customize-theme',
   setup() {
-    return {
-      dialog: false,
-      customThemeName: 'form',
-      menu: {
-        primary: false,
-        secondary: false,
-        accent: false,
-        error: false,
-        info: false,
-        success: false,
-        warning: false,
-      },
-      selectFont: [
-        'Roboto',
-        'Comic Neue',
-        'Fira Code',
-        'Inconsolata',
-        'Oxygen',
-        'Tapestry',
-        'Ubuntu',
-        'Water Brush',
-      ],
-      defaultColor: {},
+    let vuetify = getVuetify(getCurrentInstance);
+    let defaultColor = {};
+    const customThemeName = 'form';
+    const selectFont = [
+      'Roboto',
+      'Comic Neue',
+      'Fira Code',
+      'Inconsolata',
+      'Oxygen',
+      'Tapestry',
+      'Ubuntu',
+      'Water Brush',
+    ];
+    const menu = {
+      primary: false,
+      secondary: false,
+      accent: false,
+      error: false,
+      info: false,
+      success: false,
+      warning: false,
     };
-  },
-  computed: {
-    color: {
-      get(): any {
-        this.updateDefaultColor();
-        return store.getters['themes/getThemeSelected'].light;
-      },
-      set(): void {
-        //TODO
-      },
-    },
-
-    fontFamily: {
-      get(): any {
+    const color = computed<string>(() => {
+      return store.getters['themes/getThemeSelected'].light;
+    });
+    const fontFamily = computed<string>({
+      get(): string {
         return store.getters['themes/getFontFamilyTheme'];
       },
-      set(value): void {
-        this.updateTheme(value);
+      set(value: string): void {
+        updateTheme(value);
       },
-    },
-  },
-  methods: {
-    updateDefaultColor(): void {
-      this.defaultColor = _.clone(
-        store.getters['themes/getThemeSelected'].light
-      );
-    },
-    swatchStyle(type: string): Record<string, unknown> {
-      const { color, menu } = this;
+    });
+    const updateDefaultColor = (store): void => {
+      return Object.assign(store.getters['themes/getThemeSelected'].light);
+    };
+    const swatchStyle = (type: string): Record<string, unknown> => {
       return {
-        backgroundColor: color[type],
+        backgroundColor: color.value[type],
         cursor: 'pointer',
         height: '21px',
         width: '21px',
         borderRadius: menu[type] ? '50%' : '4px',
         transition: 'border-radius 200ms ease-in-out',
       };
-    },
-    setCustom(): void {
-      const name = this.customThemeName;
-      const light = this.color;
+    };
+    const setCustom = (): void => {
+      const name = customThemeName;
+      const light = color.value;
       Object.keys(light).forEach((i) => {
-        this.$vuetify.theme.themes.light[i] = light[i];
+        vuetify.theme.themes.light[i] = light[i];
       });
-      this.$vuetify.theme.currentTheme.name = name;
-      this.updateTheme();
-    },
-    updateTheme(font: string): void {
-      let fontFamily = font ? font : _.clone(this.fontFamily);
-      store.commit('themes/updateTheme', {
-        name: this.customThemeName,
-        light: _.clone(this.color),
-        fontFamily: fontFamily,
+      vuetify.theme.currentTheme.name = name;
+      updateTheme('');
+    };
+    const updateTheme = (font: string): void => {
+      let fontFamilySelect: string =
+        font !== '' ? font : Object.assign(fontFamily).value;
+      store.dispatch('themes/setTheme', {
+        name: customThemeName,
+        light: Object.assign(color).value,
+        fontFamily: fontFamilySelect,
       });
-      this.$vuetify.theme.currentTheme.name = this.customThemeName;
-    },
+      vuetify.theme.currentTheme.name = customThemeName;
+    };
+
+    return {
+      customThemeName,
+      menu,
+      selectFont,
+      color,
+      fontFamily,
+      defaultColor,
+      swatchStyle,
+      updateDefaultColor,
+      setCustom,
+      updateTheme,
+    };
   },
 });
 export default CustomizeTheme;

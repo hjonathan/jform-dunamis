@@ -36,6 +36,10 @@ const state: ViewManagerState = {
         id: 'side-bar-preview',
         component: 'side-bar-preview',
       },
+      {
+        id: 'side-bar-data-sources',
+        component: 'side-bar-data-sources',
+      },
     ],
   },
   sidePanel: {
@@ -86,6 +90,20 @@ const state: ViewManagerState = {
       {
         id: 'main-form-rules',
         component: 'main-panel-form-rules',
+        data: {
+          reload: '1',
+        },
+      },
+      {
+        id: 'main-data-sources-simple-lists',
+        component: 'main-panel-data-sources-simple-lists',
+        data: {
+          reload: '1',
+        },
+      },
+      {
+        id: 'main-data-sources-api',
+        component: 'main-panel-data-sources-api',
         data: {
           reload: '1',
         },

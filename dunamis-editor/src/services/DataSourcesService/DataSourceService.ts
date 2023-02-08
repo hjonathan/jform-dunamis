@@ -33,19 +33,8 @@ export class DataSourceService implements Service {
   call(config: any, data?: any): any {
     if (config.type === 'list') {
       return new Promise((resolve, reject) => {
-        const res = this.lists.find((el: any) => {
-          return el.id === config.id;
-        });
-        resolve(
-          res.data.length
-            ? res.data.map((element: any) => {
-                return {
-                  [config.config['id']]: element.id,
-                  [config.config['value']]: element.value,
-                };
-              })
-            : []
-        );
+        const res = this.lists.find((el: any) => el.id === config.id);
+        resolve(res ? res.data : []);
       });
     }
     if (config.type === 'api') {
@@ -63,19 +52,39 @@ export class DataSourceService implements Service {
       data
     );
     this.findBraces(apiClone, dataInputVariables);
-    return fetch(apiClone.data.url, {
-      method: apiClone.data.method,
-      body: JSON.stringify(apiClone.data.body),
-      headers: apiClone.data.headers,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const formatRes = this.indexByDots(res, apiClone.data.output);
-        return formatRes.map((el: any) => ({
-          value: this.indexByDots(el, config.config.value),
-          label: this.indexByDots(el, config.config.label),
-        }));
-      });
+
+    if (
+      apiClone.data.method == 'POST' &&
+      this.verifyPayload(dataInputVariables)
+    ) {
+      return fetch(apiClone.data.url, {
+        method: apiClone.data.method,
+        body: JSON.stringify(apiClone.data.body),
+        headers: apiClone.data.headers,
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          const formatRes = this.indexByDots(res, apiClone.data.output);
+          return formatRes.map((el: any) => ({
+            value: this.indexByDots(el, config.config.value),
+            label: this.indexByDots(el, config.config.label),
+          }));
+        });
+    }
+
+    if (apiClone.data.method == 'GET' && this.verifyPayload(dataInputVariables))
+      return fetch(apiClone.data.url, {
+        method: apiClone.data.method,
+        headers: apiClone.data.headers,
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          const formatRes = this.indexByDots(res, apiClone.data.output);
+          return formatRes.map((el: any) => ({
+            value: this.indexByDots(el, config.config.value),
+            label: this.indexByDots(el, config.config.label),
+          }));
+        });
   }
   formatDataSources() {
     const list = this.lists.map((element: any) => {
@@ -99,11 +108,6 @@ export class DataSourceService implements Service {
   }
   render(type: string) {
     switch (type) {
-      case 'list':
-        return () => {
-          return import('./ConfigViews/ListConfig.vue');
-        };
-        break;
       case 'api':
         return () => {
           return import('./ConfigViews/ApiConfig.vue');
@@ -150,13 +154,25 @@ export class DataSourceService implements Service {
       });
     }
   }
+
   formatDataInputVariables(config: any, data: any) {
     const res: any = {};
     if (config.length) {
       config.forEach((el: any) => {
-        res[el['dest']] = data[el['src']];
+        if (el['src'].indexOf('{{') == -1) {
+          res[el['dest']] = el['src'];
+        } else {
+          res[el['dest']] = '';
+        }
       });
     }
     return res;
+  }
+  verifyPayload(data: any) {
+    let flag = true;
+    for (const key in data) {
+      if (data[key] == '') flag = false;
+    }
+    return flag;
   }
 }

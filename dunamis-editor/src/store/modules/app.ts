@@ -1,7 +1,9 @@
 import { AppState } from './types';
 import { RootState } from '../types';
 import { Module } from 'vuex';
-import { createAjv, extendedVuetifyRenderers } from '@jsonforms/vue2-vuetify';
+import { createAjv } from '../../renderers/util';
+import { defaultRenderers } from '../../renderers';
+
 import mutationsEditor from './editor/mutations';
 import actionsEditor from './editor/actions';
 import gettersEditor from './editor/getters';
@@ -19,6 +21,7 @@ const state: AppState = {
       selected: '',
       edit: 0,
     },
+    locale: 'en',
   },
   jsonforms: {
     readonly: false,
@@ -29,8 +32,8 @@ const state: AppState = {
       showUnfocusedDescription: false,
       hideRequiredAsterisk: true,
     },
-    renderers: extendedVuetifyRenderers,
-    cells: extendedVuetifyRenderers,
+    renderers: defaultRenderers,
+    cells: defaultRenderers,
     ajv,
     locale: 'en',
   },

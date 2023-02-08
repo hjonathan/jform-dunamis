@@ -1,7 +1,6 @@
 import { map } from 'lodash';
 
 //METHODS FOR SCOPE IN UISCHEMA
-//METHODS FOR JFORM HELPER
 /**
  * Input the uischema find the object wih key= "scope"
  * and return the object with scope key
@@ -9,13 +8,13 @@ import { map } from 'lodash';
  * @param fn
  * @returns
  */
-export const scope = (json: any, fn: any) => {
+export const getScope = (json: any, fn: any) => {
   map(json, (value, key) => {
     if (key != 'parent' && key != 'condition') {
       if (typeof value == 'string' && key == 'scope') {
         fn(json, key, value);
       } else if (typeof value == 'object') {
-        scope(value, fn);
+        getScope(value, fn);
       }
     }
   });

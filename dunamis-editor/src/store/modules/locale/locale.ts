@@ -6,13 +6,25 @@ import getters from './getters';
 
 export interface LocalesState {
   en: any;
+  es: any;
 }
 
 const state: LocalesState = {
   en: {
     key: 'en',
     description: 'English',
-    content: {},
+    content: {
+      ID_FIELD: 'Field',
+      ID_NAME: 'Name',
+    },
+  },
+  es: {
+    key: 'es',
+    description: 'Español',
+    content: {
+      ID_FIELD: 'Campo',
+      ID_NAME: 'Nombre',
+    },
   },
 };
 

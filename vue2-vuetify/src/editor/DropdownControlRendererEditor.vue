@@ -1,5 +1,9 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-select
       v-disabled-icon-focus
       :id="control.id + '-input'"
@@ -18,6 +22,7 @@
       :items="control.options"
       item-text="label"
       item-value="value"
+      :disabled="control.disabled"
       @change="onChange"
     >
       <v-tooltip
@@ -65,11 +70,8 @@ const DropdownControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    const vuetifyControl = useDropdownControlComposition(props);
-    // @ts-ignore:
-    return vuetifyControl;
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useDropdownControlComposition(props),
 });
 
 export default DropdownControlRenderer;

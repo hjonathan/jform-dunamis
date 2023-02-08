@@ -26,7 +26,6 @@
 </template>
 
 <script lang="ts">
-//@ts-nocheck
 import { JsonFormsI18nState } from '@jsonforms/core';
 import { JsonForms, JsonFormsChangeEvent } from '@jsonforms/vue2';
 import { useExportSchema } from '../../util';
@@ -122,7 +121,7 @@ export default defineComponent({
       };
     },
     sourceBackground(): string {
-      return store.getters['themes/getBackground'].background;
+      return store.getters['themes/getBackgroundSource'];
     },
     getStyles(): any {
       let margins = store.getters['themes/getMargins'];
@@ -137,7 +136,7 @@ export default defineComponent({
           'px ' +
           margins.left +
           'px',
-        'background-color': backgroundColor.color,
+        'background-color': backgroundColor,
       };
     },
   },

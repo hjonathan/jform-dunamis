@@ -27,7 +27,7 @@ import {
   RendererProps,
   UnknownRenderer,
 } from '@jsonforms/vue2';
-import { useVuetifyLayout } from '@jsonforms/vue2-vuetify';
+import { useVuetifyLayout } from '../util/composition';
 import { VCard, VCardTitle, VCardText } from 'vuetify/lib';
 import { entry as DroppableVerticalLayoutRenderer } from './DroppableVerticalLayoutRegistration.vue';
 const layoutRenderer = defineComponent({

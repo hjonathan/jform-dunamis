@@ -22,11 +22,15 @@ import {
   addColumnToDataTable,
   removeColumnDataTable,
   palleteElements,
+  updateScreenReference,
 } from './../../utils/schemas';
 
 const actions = {
-  setScopeRules: ({ commit }: any, data: any) => {
-    commit('SET_SCOPE_RULES', data);
+  setRulesByScope: ({ commit }: any, data: any) => {
+    commit('SET_RULES_BY_SCOPE', data);
+  },
+  deleteRulesByScope: ({ commit }: any, data: any) => {
+    commit('DELETE_RULES_BY_SCOPE', data);
   },
   getPaletteElements: ({ commit }: any) => {
     const clone = palleteElements();
@@ -52,7 +56,6 @@ const actions = {
     const clone = createScopedElementToTable(state, payload);
     commit('SET_SCHEMA', clone.uiSchema);
   },
-
   //SCHEMA
   addColumnToDataTable: ({ commit, state }: any, payload: any) => {
     const clone = addColumnToDataTable(state, payload);
@@ -119,6 +122,14 @@ const actions = {
   },
   setInfomation: ({ commit, state }: any, payload: any) => {
     commit('SET_INFORMATION', payload);
+  },
+  updateFormReference({ commit, state }: any, payload: any) {
+    const clone = updateScreenReference(state, payload);
+    commit('SET_SCHEMA', clone.schema);
+    commit('SET_UI_SCHEMA', clone.uiSchema);
+  },
+  setLanguage({ commit }: any, payload: any) {
+    commit('SET_LANGUAGE', payload);
   },
 };
 

@@ -66,7 +66,7 @@ const SideBarI18n = defineComponent({
     },
     locales: {
       get() {
-        return store.getters['locales/locales'];
+        return store.getters['locales/getLocales'];
       },
       set(val: any) {
         store.commit('locales/SET_LOCALES', val);

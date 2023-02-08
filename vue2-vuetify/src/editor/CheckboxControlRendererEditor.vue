@@ -1,5 +1,9 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-hover v-slot="{}">
       <v-checkbox
         :id="control.id + '-input'"
@@ -11,6 +15,7 @@
         :tabindex="control.tabindex"
         v-model="control.data"
         :readonly="control.readonly"
+        :disabled="control.disabled"
         @change="onChange"
       >
         <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
@@ -55,11 +60,8 @@ const CheckboxControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    const vuetifyControl = useCheckboxControlComposition(props);
-    // @ts-ignore:
-    return vuetifyControl;
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useCheckboxControlComposition(props),
 });
 
 export default CheckboxControlRenderer;

@@ -1,5 +1,9 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-text-field
       :aria-label="control.ariaLabel"
       :id="control.id + '-input'"
@@ -13,6 +17,7 @@
       :rules="control.validation"
       :tabindex="control.tabindex"
       :readonly="control.readonly"
+      :disabled="control.disabled"
       @change="onChange"
     >
       <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
@@ -38,7 +43,6 @@ import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VTextField, VCombobox, VIcon, VTooltip } from 'vuetify/lib';
 import { DisabledIconFocus } from '../controls/directives';
 import CustomControlWrapper from '../controls/CustomControlWrapper.vue';
-
 import { useTextControlComposition } from './TextControlComp';
 
 const TextControlRenderer = defineComponent({
@@ -57,11 +61,8 @@ const TextControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    const vuetifyControl = useTextControlComposition(props);
-    // @ts-ignore:
-    return vuetifyControl;
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useTextControlComposition(props),
 });
 
 export default TextControlRenderer;

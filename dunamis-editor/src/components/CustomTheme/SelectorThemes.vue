@@ -36,23 +36,25 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, ref } from 'vue';
 import ShowTheme from '../CustomTheme/ShowTheme.vue';
 import PanelsCustomTheme from './PanelsCustomTheme.vue';
 
-export default {
-  name: 'SideBarPreview',
+const selectorTheme = defineComponent({
+  name: 'side-bar-preview',
   components: {
     ShowTheme,
     PanelsCustomTheme,
   },
-  data(): any {
+  setup(): any {
+    let step = ref(1);
     return {
-      step: 1,
+      step,
     };
   },
-  computed: {},
-  methods: {},
-};
+});
+
+export default selectorTheme;
 </script>
 
 <style>

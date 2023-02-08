@@ -1,5 +1,9 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-autocomplete
       v-disabled-icon-focus
       :id="control.id + '-input'"
@@ -16,6 +20,7 @@
       :aria-label="control.ariaLabel"
       :value="control.data"
       :items="control.options"
+      :disabled="control.disabled"
       item-text="label"
       item-value="value"
       @change="onChange"
@@ -65,9 +70,8 @@ const SuggestControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    return useSuggestControlComposition(props);
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useSuggestControlComposition(props),
 });
 
 export default SuggestControlRenderer;

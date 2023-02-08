@@ -49,7 +49,7 @@ import {
   useJsonFormsLayout,
   RendererProps,
 } from '@jsonforms/vue2';
-import { useVuetifyLayout } from '@jsonforms/vue2-vuetify';
+import { useVuetifyLayout } from '../util/composition';
 import { VContainer, VRow, VCol } from 'vuetify/lib';
 import { entry as DroppableElementRegistration } from './DroppableElement.vue';
 import { doFindByScope, useExportUiSchema } from '../../util';
@@ -118,6 +118,7 @@ const droppableRenderer = defineComponent({
         'File',
         'Submit',
         'Button',
+        'NestedForm',
       ];
       if (evt.added) {
         if (

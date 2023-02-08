@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import ActionsBarEditor from './../../DynaformEditor/ActionsBarEditor.vue';
+
 import store from '../../../store';
 import { defineComponent } from 'vue';
 

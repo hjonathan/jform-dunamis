@@ -321,6 +321,13 @@ const FieldProperties: any = {
       Props.build('required'),
     ],
   },
+  NestedForm: {
+    default: [
+      Props.build('type'),
+      Props.build('variable'),
+      Props.build('formRef'),
+    ],
+  },
 };
 
 export default FieldProperties;

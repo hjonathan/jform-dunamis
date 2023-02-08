@@ -1,7 +1,15 @@
 import _ from 'lodash';
+
+const getProp = (obj: any, key: string) =>
+  key
+    .split('.')
+    .reduce((o, x) => (typeof o == 'undefined' || o === null ? o : o[x]), obj);
+
 const getters = {
   getDataModel: (state: any) => (scope: string) => {
-    return state.data[scope];
+    const data = Object.assign(state.data);
+    const auxScope = getProp(data, scope);
+    return auxScope;
   },
   getMultipleData: (state: any) => (array: any) => {
     const res: any = {};
@@ -22,6 +30,11 @@ const getters = {
   uiSchema: (state: any) => state.uiSchema,
   schema: (state: any) => state.schema,
   data: (state: any) => state.data,
-  locale: (state: any) => state.locale,
+  locale: (state: any) => {
+    return state.locale;
+  },
+  scopesByValue: (state: any) => (scopes: Array<string>) => {
+    return state.data;
+  },
 };
 export default getters;

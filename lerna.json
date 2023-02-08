@@ -1,6 +1,9 @@
 {
   "packages": [
-    "dunamis-editor-next"
+    "dunamis-editor-next",
+    "vue2",
+    "dunamis-editor",
+    "dashboard"
   ],
   "version": "3.0.0-alpha.2"
 }

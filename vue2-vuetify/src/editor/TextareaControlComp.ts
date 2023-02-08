@@ -1,11 +1,12 @@
-import { CoreActions, Dispatch } from '@jsonforms/core';
-import { isEqual } from 'lodash';
-import { inject, onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
+import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
+  createProvider,
+  defaultEffects,
   defaultValue,
+  getEffectsControl,
   hint,
   label,
   labelCols,
@@ -14,9 +15,10 @@ import {
   tabindex,
   textTransform,
   updateData,
-  useControl,
+  useCoreControl,
   validation,
-} from './TextControlComp';
+} from './composables/controlComposition';
+import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR TEXTAREA CONTROL
@@ -25,37 +27,35 @@ import {
  ***********************************************************************************************************************************/
 
 export const useTextareaControlComposition = <P>(props: P) => {
-  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
-  const store = inject<any>('store');
-  const HX = inject<any>('HX');
-  if (!dispatch) {
-    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
-  }
+  const provider: ProviderControl = createProvider();
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
 
-  //Properties
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsTextareaControl(controlCore.value));
+  const control = ref(
+    setPropsTextareaControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
 
   watch(controlCore, (nControl, oControl) => {
-    if (!isEqual(nControl, oControl)) {
-      control.value = setPropsTextareaControl(nControl);
+    if (!Object.is(nControl, oControl)) {
+      control.value = setPropsTextareaControl(
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
-  //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
-    store,
-    HX,
-    controlCore: controlCore,
-    updater: (ctrl: any) => {
+    provider,
+    dataCore: controlCore,
+    dataUpdater: (ctrl: any) => {
       control.value = setPropsTextareaControl(ctrl);
     },
   });
 
   const onChange = (value: any) => {
     updateData({
-      dispatch,
+      dispatch: provider.dispatch,
       control: controlCore,
       value,
     });
@@ -100,8 +100,9 @@ export const setPropsTextareaControl = (control: any) => {
     placeholder: placeholder(control),
     data: defaultValue(control),
     id: control.id,
-    visible: true,
     rows: rows(control),
+    show: control.show,
+    disabled: control.disabled,
   };
 };
 

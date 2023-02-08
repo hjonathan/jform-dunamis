@@ -86,6 +86,7 @@ export default defineComponent({
       'File',
       'Submit',
       'Button',
+      'NestedForm',
     ];
     const panel = ref([0, 1, 2, 3]);
     const getLabel = (schemaElement: SchemaElement): any => {

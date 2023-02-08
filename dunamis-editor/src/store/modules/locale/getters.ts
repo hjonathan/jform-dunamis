@@ -14,5 +14,15 @@ const getters = {
   getLocales: (state: any) => {
     return state;
   },
+  getLocalesArray: (state: any) => {
+    const locales = [];
+    for (const key in state) {
+      locales.push({
+        value: key,
+        text: state[key].description,
+      });
+    }
+    return locales;
+  },
 };
 export default getters;

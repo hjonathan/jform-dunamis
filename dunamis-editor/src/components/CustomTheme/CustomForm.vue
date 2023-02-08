@@ -2,110 +2,109 @@
   <v-row>
     <v-col cols="6">
       <v-text-field
-        v-model="marginTop"
+        v-model="margins.top"
         label="Margin Top"
         :rules="[rules.maxValue]"
         v-mask="inputMask"
         placeholder="0"
         persistent-placeholder
-        @change="onChange"
+        @change="onMargins"
       ></v-text-field>
     </v-col>
     <v-col cols="6">
       <v-text-field
-        v-model="marginRight"
+        v-model="margins.right"
         label="Margin Right"
         :rules="[rules.maxValue]"
         v-mask="inputMask"
         placeholder="0"
         persistent-placeholder
-        @change="onChange"
+        @change="onMargins"
       ></v-text-field>
     </v-col>
     <v-col cols="6">
       <v-text-field
-        v-model="marginBottom"
+        v-model="margins.bottom"
         label="Margin Bottom"
         :rules="[rules.maxValue]"
         v-mask="inputMask"
         placeholder="0"
         persistent-placeholder
-        @change="onChange"
+        @change="onMargins"
       ></v-text-field>
     </v-col>
     <v-col cols="6">
       <v-text-field
-        v-model="marginLeft"
+        v-model="margins.left"
         label="Margin Left"
         :rules="[rules.maxValue]"
         v-mask="inputMask"
         placeholder="0"
         persistent-placeholder
-        @change="onChange"
+        @change="onMargins"
       ></v-text-field>
     </v-col>
     <v-col cols="12"><v-divider></v-divider></v-col>
     <v-col cols="6">
       <v-text-field
-        v-model="paddingTop"
+        v-model="paddings.top"
         label="Padding Top"
         placeholder="0"
         persistent-placeholder
         :rules="[rules.maxValue]"
         v-mask="inputMask"
-        @change="margins"
+        @change="onPaddings"
       ></v-text-field>
     </v-col>
     <v-col cols="6">
       <v-text-field
-        v-model="paddingRight"
+        v-model="paddings.right"
         label="Padding Right"
         placeholder="0"
         persistent-placeholder
         :rules="[rules.maxValue]"
         v-mask="inputMask"
-        @change="margins"
+        @change="onPaddings"
       ></v-text-field>
     </v-col>
     <v-col cols="6">
       <v-text-field
-        v-model="paddingBottom"
+        v-model="paddings.bottom"
         label="Padding Bottom"
         placeholder="0"
         persistent-placeholder
         :rules="[rules.maxValue]"
         v-mask="inputMask"
-        @change="margins"
+        @change="onPaddings"
       ></v-text-field>
     </v-col>
     <v-col cols="6">
       <v-text-field
-        v-model="paddingLeft"
+        v-model="paddings.left"
         label="Padding Left"
         placeholder="0"
         persistent-placeholder
         :rules="[rules.maxValue]"
         v-mask="inputMask"
-        @change="margins"
+        @change="onPaddings"
       ></v-text-field>
     </v-col>
     <v-col cols="12">
       <v-text-field
-        v-model="background"
+        v-model="backgroundImage"
         label="Background image"
         placeholder="URL image"
         persistent-placeholder
-        @change="setBackground"
       >
       </v-text-field>
     </v-col>
     <v-col cols="12">
       <v-text-field
-        v-model="color"
+        v-model="colorText"
         readonly
         label="Form background color"
         persistent-placeholder
-        @change="setBackgroundColor"
+        @blur="updateBackgroudColor"
       >
         <template v-slot:append>
           <v-menu
@@ -121,11 +120,13 @@
             <v-card>
               <v-card-text class="pa-0">
                 <v-color-picker
+                  @mousemove.stop
                   v-model="color"
                   dot-size="25"
                   hide-inputs
                   hide-mode-switch
                   swatches-max-height="200"
+                  @input="changeColor"
                 ></v-color-picker>
               </v-card-text>
             </v-card>
@@ -137,10 +138,10 @@
 </template>
 
 <script lang="ts">
-//@ts-nocheck
 import store from '../../store';
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { mask } from '@titou10/v-mask';
+import { Padding, Margin } from './interface';
 
 const CustomForm = defineComponent({
   name: 'custom-form',
@@ -148,78 +149,65 @@ const CustomForm = defineComponent({
     mask,
   },
   setup() {
-    let maxPixel = 400;
-    const paddings = computed(() => {
+    let maxPixel = 400,
+      menu = false,
+      color = '#FFFFFF00',
+      colorText = ref('');
+
+    const paddings = computed<Padding>(() => {
       return store.getters['themes/getMargins'];
     });
-    const margins = computed(() => {
+    const margins = computed<Margin>(() => {
       return store.getters['themes/getPaddings'];
     });
-    const backgroundImage = computed(() => {
-      return store.getters['themes/getBackground'];
-    });
-    const backgroundColor = computed(() => {
-      return store.getters['themes/getBackgroundColor'];
-    });
-    return {
-      maxPixel,
-      background: backgroundImage.value.background,
-      marginLeft: margins.value.left,
-      marginTop: margins.value.top,
-      marginBottom: margins.value.bottom,
-      marginRight: margins.value.right,
-      paddingLeft: paddings.value.left,
-      paddingTop: paddings.value.top,
-      paddingBottom: paddings.value.bottom,
-      paddingRight: paddings.value.right,
-      rules: {
-        maxValue: (val) => {
-          return val <= maxPixel || 'Max margin is 100';
-        },
+    const backgroundImage = computed<string>({
+      get(): string {
+        return store.getters['themes/getBackground'];
       },
-      errors: '',
-      inputMask: '###',
-      color: backgroundColor.value.color || '#FFFFFFFF',
-      menu: false,
+      set(val: string): void {
+        setBackground(val);
+      },
+    });
+    const backgroundColor = computed<string>({
+      get(): string {
+        color = store.getters['themes/getBackgroundColor'];
+        colorText.value = color;
+        return color;
+      },
+      set(newColor: string): void {
+        store.dispatch('themes/updateBackgroundColor', newColor);
+      },
+    });
+
+    const changeColor = (val: string): void => {
+      colorText.value = val;
     };
-  },
-  methods: {
-    onChange(val: number) {
-      if (val <= this.maxPixel) {
+    const updateBackgroudColor = (val: any): void => {
+      setBackgroundColor(val.currentTarget.value);
+    };
+    const onMargins = (val: number): void => {
+      if (val <= maxPixel) {
         store.dispatch('themes/updatePaddings', {
-          left: this.marginLeft || 0,
-          top: this.marginTop || 0,
-          bottom: this.marginBottom || 0,
-          right: this.marginRight || 0,
+          bottom: margins.value.bottom || 0,
+          left: margins.value.left || 0,
+          right: margins.value.right || 0,
+          top: margins.value.top || 0,
         });
       }
-    },
-    margins(val: number) {
-      if (val <= this.maxPixel) {
+    };
+    const onPaddings = (val: number): void => {
+      if (val <= maxPixel) {
         store.dispatch('themes/updateMargins', {
-          left: this.paddingLeft || 0,
-          top: this.paddingTop || 0,
-          bottom: this.paddingBottom || 0,
-          right: this.paddingRight || 0,
+          left: paddings.value.left || 0,
+          top: paddings.value.top || 0,
+          bottom: paddings.value.bottom || 0,
+          right: paddings.value.right || 0,
         });
       }
-    },
-    setBackground(img: string) {
-      if (img !== '') {
-        store.dispatch('themes/updateBackground', {
-          background: this.background,
-        });
-      }
-    },
-    setBackgroundColor(color: string) {
-      store.dispatch('themes/updateBackgroundColor', {
-        color: this.color,
-      });
-    },
-    swatchStyle(): Record<string, unknown> {
-      const { color, menu } = this;
+    };
+    const swatchStyle = (): Record<string, unknown> => {
       return {
-        backgroundColor: color,
+        backgroundColor: backgroundColor.value,
         cursor: 'pointer',
         height: '21px',
         width: '21px',
@@ -227,7 +215,40 @@ const CustomForm = defineComponent({
         borderRadius: menu ? '50%' : '4px',
         transition: 'border-radius 200ms ease-in-out',
       };
-    },
+    };
+    const setBackgroundColor = (color: string): void => {
+      backgroundColor.value = color;
+    };
+    const setBackground = (img: string): void => {
+      if (img !== '') {
+        store.dispatch('themes/updateBackground', img);
+      }
+    };
+
+    return {
+      maxPixel,
+      paddings,
+      margins,
+      backgroundColor,
+      backgroundImage,
+      rules: {
+        maxValue: (val) => {
+          return val <= maxPixel || 'Max margin is 400';
+        },
+      },
+      errors: '',
+      inputMask: '###',
+      color,
+      colorText,
+      menu: false,
+      onMargins,
+      onPaddings,
+      swatchStyle,
+      setBackgroundColor,
+      changeColor,
+      updateBackgroudColor,
+      setBackground,
+    };
   },
 });
 

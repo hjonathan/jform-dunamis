@@ -19,19 +19,19 @@
   </v-expansion-panels>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import CustomizeTheme from './CustomizeTheme.vue';
 import CustomForm from './CustomForm.vue';
 
 const PanelsCustomTheme = defineComponent({
   name: 'panels-custom-theme',
-  setup() {
-    return {};
-  },
   components: {
     CustomizeTheme,
     CustomForm,
+  },
+  setup() {
+    return {};
   },
 });
 

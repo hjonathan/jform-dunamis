@@ -35,6 +35,20 @@
 
         {{ action.title }}
       </v-tooltip>
+      <template v-else-if="action.type === 'dropdown'">
+        <v-col cols="1" :key="index">
+          <v-combobox
+            v-model="action.value"
+            item-value="value"
+            item-text="text"
+            :items="action.items"
+            class="combo-locale caption"
+            dense
+            outlined
+            @change="action.handler"
+          ></v-combobox>
+        </v-col>
+      </template>
 
       <v-divider
         :key="index"
@@ -85,7 +99,6 @@ const ActionsBarEditor = defineComponent({
     const copySchemasFromEditorToPreview = () => {
       store.dispatch('preview/setSchema', store.getters['app/schema']);
       store.dispatch('preview/setUiSchema', store.getters['app/uiSchema']);
-      store.dispatch('preview/setLocale', store.getters['app/locale']);
     };
     const onClickEditor = () => {
       let mainPanel = { id: 'main-editor' },
@@ -145,6 +158,19 @@ const ActionsBarEditor = defineComponent({
       store.dispatch('viewManager/setAllViews', {
         mainPanel,
       });
+    };
+    const onClickDataSources = () => {
+      let mainPanel = { id: 'main-data-sources-simple-lists' },
+        sideBar = { id: 'side-bar-data-sources' };
+
+      store.dispatch('viewManager/setAllViews', {
+        mainPanel,
+        sideBar,
+      });
+    };
+    const onClickChangeLanguage = (val: any) => {
+      store.dispatch('app/setLanguage', val.value);
+      store.dispatch('preview/setLocale', val.value);
     };
     const contentSave = () => {
       bus.$emit('translations::main-panel::save', {});
@@ -257,6 +283,20 @@ const ActionsBarEditor = defineComponent({
           type: 'spacer',
         },
         {
+          type: 'dropdown',
+          items: store.getters['locales/getLocalesArray'],
+          value: 'en',
+          handler: onClickChangeLanguage,
+        },
+        {
+          type: 'button-icon',
+          color: 'secondary',
+          class: '',
+          icon: 'mdi-database',
+          handler: onClickDataSources,
+          title: 'Data Sources',
+        },
+        {
           type: 'button-icon',
           color: 'secondary',
           class: '',
@@ -311,6 +351,7 @@ const ActionsBarEditor = defineComponent({
       openDialog,
       formName,
       upload,
+      localeSelected: ref('English'),
     };
   },
 });
@@ -320,5 +361,8 @@ export default ActionsBarEditor;
 .vpm-action-editor-btn {
   text-transform: initial;
   letter-spacing: normal;
+}
+.combo-locale {
+  top: 15px;
 }
 </style>

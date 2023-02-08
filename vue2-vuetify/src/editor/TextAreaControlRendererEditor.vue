@@ -1,5 +1,9 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-hover v-slot="{ hover }">
       <v-textarea
         :aria-label="control.ariaLabel"
@@ -60,9 +64,8 @@ const TextareaControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    return useTextareaControlComposition(props);
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useTextareaControlComposition(props),
 });
 
 export default TextareaControlRenderer;

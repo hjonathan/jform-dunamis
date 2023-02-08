@@ -1,5 +1,9 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-show="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-text-field
       :aria-label="control.ariaLabel"
       :id="control.id + '-input'"
@@ -14,6 +18,7 @@
       :tabindex="tabindex"
       append-icon="mdi-calendar"
       readonly
+      :disabled="control.disabled"
       @click.prevent.stop="show"
     >
       <v-icon slot="append" color="primary" small> mdi-calendar </v-icon>
@@ -96,11 +101,8 @@ const DatetimeControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    const vuetifyControl = useDatetimeControlComposition(props);
-    // @ts-ignore:
-    return vuetifyControl;
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useDatetimeControlComposition(props),
 });
 
 export default DatetimeControlRenderer;

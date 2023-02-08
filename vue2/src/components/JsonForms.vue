@@ -44,7 +44,7 @@ export default defineComponent({
     DispatchRenderer,
   },
   emits: ['change'],
-  inject: ['HX', 'store'],
+  inject: ['HX', 'store', 'serviceProvider'],
   props: {
     data: {
       required: true,
@@ -247,6 +247,7 @@ export default defineComponent({
   provide() {
     return {
       jsonforms: this.jsonforms,
+      serviceProvider: this.serviceProvider,
       dispatch: this.dispatch,
       HX: this.HX,
       store: this.store,

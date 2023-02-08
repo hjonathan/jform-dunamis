@@ -1,21 +1,32 @@
-import { CoreActions, Dispatch } from '@jsonforms/core';
 import { isEqual } from 'lodash';
-import { inject, onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
+import {
+  onDeactivated,
+  onMounted,
+  onUnmounted,
+  onUpdated,
+  ref,
+  watch,
+} from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
+  createProvider,
+  defaultEffects,
+  getEffectsControl,
   hint,
   label,
   labelCols,
   labelOrientation,
+  options,
   placeholder,
   readonly,
   tabindex,
   updateData,
-  useControl,
+  useCoreControl,
   validation,
-} from './TextControlComp';
+} from './composables/controlComposition';
+import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR DROPDOWN CONTROL
@@ -24,46 +35,53 @@ import {
  ***********************************************************************************************************************************/
 
 export const useDropdownControlComposition = <P>(props: P) => {
-  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
-  const store = inject<any>('store');
-  const HX = inject<any>('HX');
-  if (!dispatch) {
-    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
-  }
+  const provider: ProviderControl = createProvider();
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+  const control: any = ref(
+    setDefaultPropsDropdownControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
 
-  //Properties
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsDropdownControl(controlCore.value));
-
-  watch(controlCore, (nControl: any, oControl: any) => {
+  watch(controlCore, async (nControl: any, oControl: any) => {
     if (!isEqual(nControl, oControl)) {
-      control.value = setPropsDropdownControl(nControl);
+      control.value = await setPropsDropdownControl(
+        provider,
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
   //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
-    store,
-    HX,
-    controlCore: controlCore,
-    updater: (ctrl: any) => {
-      control.value = setPropsDropdownControl(ctrl);
+    provider,
+    dataCore: controlCore,
+    dataUpdater: async (ctrl: any) => {
+      control.value = await setPropsDropdownControl(provider, ctrl);
     },
   });
 
   const onChange = (value: any) => {
     updateData({
-      dispatch,
+      dispatch: provider.dispatch,
       control: controlCore,
       value,
     });
   };
 
+  onMounted(async () => {
+    control.value = await setPropsDropdownControl(
+      provider,
+      Object.assign({}, controlCore.value, defaultEffects())
+    );
+  });
+
   onUpdated(() => {
     // this eill log whenever the component re-renders
     console.log('component re-rendered!', controlCore.value.uischema.scope);
   });
+
   onUnmounted(() => {
     deactivateAlpha();
   });
@@ -86,7 +104,28 @@ export const useDropdownControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsDropdownControl = (control: any) => {
+export const setPropsDropdownControl = async (
+  provider: ProviderControl,
+  control: any
+) =>
+  Promise.resolve({
+    id: control.id,
+    ariaLabel: ariaLabel(control),
+    labelOrientation: labelOrientation(control),
+    label: label(control),
+    labelCols: labelCols(control),
+    hint: hint(control),
+    validation: validation(control),
+    tabindex: tabindex(control),
+    readonly: readonly(control),
+    placeholder: placeholder(control),
+    data: control.data,
+    options: await options(provider, control),
+    show: control.show,
+    disabled: control.disabled,
+  });
+
+export const setDefaultPropsDropdownControl = (control: any) => {
   return {
     id: control.id,
     ariaLabel: ariaLabel(control),
@@ -99,11 +138,9 @@ export const setPropsDropdownControl = (control: any) => {
     readonly: readonly(control),
     placeholder: placeholder(control),
     data: control.data,
-    visible: true,
-    options: options(control),
+    options: [],
     errors: control.errors,
+    show: control.show,
+    disabled: control.disabled,
   };
 };
-
-export const options = (control: any) =>
-  control.uischema.options?.options?.collection ?? [];

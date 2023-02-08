@@ -1,17 +1,20 @@
-import { CoreActions, Dispatch } from '@jsonforms/core';
 import { isEqual } from 'lodash';
-import { inject, onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
+import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
+  createProvider,
+  defaultEffects,
+  getEffectsControl,
   label,
   labelCols,
   labelOrientation,
   tabindex,
   updateData,
-  useControl,
-} from './TextControlComp';
+  useCoreControl,
+} from './composables/controlComposition';
+import { ProviderControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR BUTTON CONTROL
@@ -20,36 +23,34 @@ import {
  ***********************************************************************************************************************************/
 
 export const useButtonControlComposition = <P>(props: P) => {
-  const dispatch = inject<Dispatch<CoreActions>>('dispatch');
-  const store = inject<any>('store');
-  const HX = inject<any>('HX');
-  if (!dispatch) {
-    throw "'jsonforms' or 'dispatch' couldn't be injected. Are you within JSON Forms?";
-  }
-  //Properties
-  const controlCore: any = useControl(props);
-  const control = ref(setPropsButtonControl(controlCore.value));
+  const provider: ProviderControl = createProvider();
+  const controlCore: any = useCoreControl(props);
+  const styles = useStyles(controlCore.value.uischema);
+  const control = ref(
+    setPropsButtonControl(
+      Object.assign({}, controlCore.value, defaultEffects())
+    )
+  );
 
   watch(controlCore, (nControl: any, oControl: any) => {
     if (!isEqual(nControl, oControl)) {
-      control.value = setPropsButtonControl(nControl);
+      control.value = setPropsButtonControl(
+        Object.assign({}, nControl, getEffectsControl(control.value))
+      );
     }
   });
 
-  const styles = useStyles(controlCore.value.uischema);
-  //alphaTeorem Dependencies
   const deactivateAlpha = alphaTeorem({
-    store,
-    HX,
-    controlCore: controlCore,
-    updater: (ctrl: any) => {
+    provider,
+    dataCore: controlCore,
+    dataUpdater: (ctrl: any) => {
       control.value = setPropsButtonControl(ctrl);
     },
   });
 
   const onChange = (value: any) => {
     updateData({
-      dispatch,
+      dispatch: provider.dispatch,
       control: controlCore,
       value,
     });
@@ -94,6 +95,7 @@ export const setPropsButtonControl = (control: any) => {
     labelCols: labelCols(control),
     tabindex: tabindex(control),
     data: control.data,
-    visible: true,
+    show: control.show,
+    disabled: control.disabled,
   };
 };

@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import _ from 'lodash';
+import { Padding, Margin, Theme } from '@/components/CustomTheme/interface';
 const getters = {
   getSummaryThemes: (state: any) => {
-    return _.map(state.themes, (value, key) => {
-      return {
-        name: value.name,
-        light: value.light,
-      };
-    });
+    const arrayTheme: Array<Theme> = [];
+    for (const theme in state.themes) {
+      arrayTheme.push({
+        name: state.themes[theme].name,
+        light: state.themes[theme].light,
+      });
+    }
+    return arrayTheme;
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getFontFamilyTheme: (state: any) => {
@@ -18,19 +20,19 @@ const getters = {
     const currentTheme = state.active;
     return state.themes[currentTheme];
   },
-  getPaddings: (state: any) => {
+  getPaddings: (state: any): Padding => {
     const currentTheme = state.active;
     return state.themes[currentTheme].paddings;
   },
-  getMargins: (state: any) => {
+  getMargins: (state: any): Margin => {
     const currentTheme = state.active;
     return state.themes[currentTheme].margins;
   },
-  getBackground: (state: any) => {
+  getBackgroundSource: (state: any): string => {
     const currentTheme = state.active;
     return state.themes[currentTheme].background.imgSrc;
   },
-  getBackgroundColor: (state: any) => {
+  getBackgroundColor: (state: any): string => {
     const currentTheme = state.active;
     return state.themes[currentTheme].background.color;
   },

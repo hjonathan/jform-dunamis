@@ -1,5 +1,9 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-radio-group
       :id="control.id + '-input'"
       :class="styles.control.input"
@@ -16,6 +20,7 @@
         :value="o.value"
         @change="onChange"
         dense
+        :disabled="control.disabled"
         :rules="control.validation"
         :hide-details="true"
         :readonly="control.readonly"
@@ -69,11 +74,8 @@ const CheckgroupControlRenderer = defineComponent({
   props: {
     ...rendererProps<ControlElement>(),
   },
-  setup(props: RendererProps<ControlElement>) {
-    const vuetifyControl = useCheckgroupControlComposition(props);
-    // @ts-ignore:
-    return vuetifyControl;
-  },
+  setup: (props: RendererProps<ControlElement>) =>
+    useCheckgroupControlComposition(props),
 });
 
 export default CheckgroupControlRenderer;

@@ -16,6 +16,7 @@ export { default as LabelControlRenderer } from './LabelControlRenderer.vue';
 export { default as LinkControlRenderer } from './LinkControlRendererEditor.vue';
 export { default as TitleControlRenderer } from './TitleControlRenderer.vue';
 export { default as SubtitleControlRenderer } from './SubtitleControlRenderer.vue';
+export { default as NestedFormRenderer } from './NestedFormRendererEditor.vue';
 
 import { entry as checkboxControlRendererEditorEntry } from './CheckboxControlRendererEditor.vue';
 import { entry as checkboxGroupControlRendererEditorEntry } from './CheckgroupControlRendererEditor.vue';
@@ -35,6 +36,7 @@ import { entry as labelControlRendererEntry } from './LabelControlRenderer.vue';
 import { entry as linkControlRendererEntry } from './LinkControlRendererEditor.vue';
 import { entry as titleControlRendererEntry } from './TitleControlRenderer.vue';
 import { entry as subtitleControlRendererEntry } from './SubtitleControlRenderer.vue';
+import { entry as nestedFormRendererEntry } from './NestedFormRendererEditor.vue';
 
 export const editorRenderers = [
   checkboxControlRendererEditorEntry,
@@ -55,4 +57,5 @@ export const editorRenderers = [
   labelControlRendererEntry,
   titleControlRendererEntry,
   subtitleControlRendererEntry,
+  nestedFormRendererEntry,
 ];

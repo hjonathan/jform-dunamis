@@ -1,11 +1,24 @@
-import _ from 'lodash';
-import { scope, pathControlSchema } from './../../utils/scope';
+import { getScope, pathControlSchema } from './../../utils/scope';
 const mutations = {
-  SET_SCOPE_RULES: (state: any, payload: any) => {
-    const clone = _.cloneDeep(state.editor.uiSchema);
-    scope(clone, (obj: any, key: string, value: any) => {
+  SET_RULES_BY_SCOPE: (state: any, payload: any) => {
+    const clone = Object.assign({}, state.editor.uiSchema);
+    getScope(clone, (obj: any, key: string, value: any) => {
       if (key == 'scope' && pathControlSchema(value) == payload.scope) {
-        obj.rule = payload.rule;
+        const nRules = payload.rules;
+        if (!obj.options.rules) {
+          obj.options.rules = [];
+        }
+
+        obj.options.rules = obj.options.rules.concat(nRules);
+      }
+    });
+    state.editor.uiSchema = clone;
+  },
+  DELETE_RULES_BY_SCOPE: (state: any, payload: any) => {
+    const clone = Object.assign({}, state.editor.uiSchema);
+    getScope(clone, (obj: any, key: string, value: any) => {
+      if (key == 'scope' && pathControlSchema(value) == payload.scope) {
+        obj.options.rules = [];
       }
     });
     state.editor.uiSchema = clone;
@@ -30,6 +43,9 @@ const mutations = {
   },
   SET_ACTIVE_ELEMENT: (state: any, value: any) => {
     state.editor.element = value;
+  },
+  SET_LANGUAGE: (state: any, value: any) => {
+    state.editor.locale = value;
   },
 };
 export default mutations;

@@ -1,11 +1,15 @@
 <template>
-  <CustomControlWrapper v-bind="{ ...control }" :styles="styles">
-    asdasdadsjonaaa
+  <CustomControlWrapper
+    v-if="control.show"
+    v-bind="{ ...control }"
+    :styles="styles"
+  >
     <v-img
       :alt="control.alt"
       :max-height="control.height"
       :max-width="control.width"
       :src="control.src"
+      :disabled="control.disabled"
     >
       <v-tooltip v-if="control.hint && control.hint != ''" top>
         <template v-slot:activator="{ on }">

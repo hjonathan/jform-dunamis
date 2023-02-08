@@ -15,7 +15,7 @@ import {
 import { rendererProps, useControl } from '@jsonforms/vue2';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
-import { useStyles } from '@jsonforms/vue2-vuetify';
+import { useStyles } from '../renderers/styles';
 import { CompType, computed, ComputedRef, ref, inject } from './vue';
 import { fireDependencyHandler } from './runtime';
 import { hasChildren } from '../model/uischema';
@@ -181,5 +181,66 @@ export const useDynaformControl = <
     persistentHint,
     computedLabel,
     fireDependency,
+  };
+};
+
+/**
+ * Adds styles, isFocused, appliedOptions and onChange
+ */
+export const useVuetifyControl = <
+  I extends { control: any; handleChange: any }
+>(
+  input: I,
+  adaptValue: (target: any, options: any) => any = (v) => v
+) => {
+  const appliedOptions = useControlAppliedOptions(input);
+
+  const isFocused = ref(false);
+  const onChange = (value: any) => {
+    input.handleChange(
+      input.control.value.path,
+      adaptValue(value, appliedOptions)
+    );
+  };
+
+  const persistentHint = (): boolean => {
+    return !isDescriptionHidden(
+      input.control.value.visible,
+      input.control.value.description,
+      isFocused.value,
+      !!appliedOptions.value?.showUnfocusedDescription
+    );
+  };
+
+  const computedLabel = useComputedLabel(input, appliedOptions);
+  const getLabelOrientation = (): string => {
+    return (
+      input.control.value.uischema.options?.labelConfig?.orientation ||
+      'inherit'
+    );
+  };
+
+  const labelCols = (): string => {
+    return input.control.value.uischema.options?.labelConfig?.cols || '2';
+  };
+
+  const controlWrapper = computed(() => {
+    const { id, description, errors, label, visible, required } =
+      input.control.value;
+    return { id, description, errors, label, visible, required };
+  });
+
+  const styles = useStyles(input.control.value.uischema);
+  return {
+    ...input,
+    styles,
+    isFocused,
+    appliedOptions,
+    controlWrapper,
+    onChange,
+    persistentHint,
+    computedLabel,
+    getLabelOrientation,
+    labelCols,
   };
 };

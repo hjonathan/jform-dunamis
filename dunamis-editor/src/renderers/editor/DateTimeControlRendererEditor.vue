@@ -13,9 +13,7 @@
       :label="control.labelOrientation == 'inherit' ? control.label : null"
       :error-messages="control.errors"
       :value="control.data"
-      :clearable="hover"
       :rules="control.validation"
-      :tabindex="tabindex"
       append-icon="mdi-calendar"
       readonly
       :disabled="control.disabled"

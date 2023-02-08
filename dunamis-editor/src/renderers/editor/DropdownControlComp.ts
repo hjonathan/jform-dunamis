@@ -6,7 +6,7 @@ import {
   ref,
   watch,
 } from 'vue';
-import { alphaTeorem } from '../composition/alphaTeorem';
+import { alphaTeorem, renderWithMustache } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
@@ -39,7 +39,11 @@ export const useDropdownControlComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   const control: any = ref(
     setDefaultPropsDropdownControl(
-      Object.assign({}, controlCore.value, defaultEffects())
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
     )
   );
 
@@ -47,7 +51,11 @@ export const useDropdownControlComposition = <P>(props: P) => {
     if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = await setPropsDropdownControl(
         provider,
-        Object.assign({}, nControl, getEffectsControl(control.value))
+        Object.assign(
+          {},
+          renderWithMustache(provider, nControl, true),
+          getEffectsControl(control.value)
+        )
       );
     }
   });
@@ -72,7 +80,11 @@ export const useDropdownControlComposition = <P>(props: P) => {
   onMounted(async () => {
     control.value = await setPropsDropdownControl(
       provider,
-      Object.assign({}, controlCore.value, defaultEffects())
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
     );
   });
 

@@ -1,9 +1,11 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
-import { alphaTeorem } from '../composition/alphaTeorem';
+import { alphaTeorem, renderWithMustache } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
   createProvider,
+  defaultEffects,
+  getEffectsControl,
   hint,
   tabindex,
   updateData,
@@ -20,11 +22,25 @@ import { ProviderControl } from './composables/types';
 export const useLabelControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
   const controlCore: any = useCoreControlLayout(props);
-  const control = ref(setPropsLabelControl(controlCore.value));
+  const control = ref(
+    setPropsLabelControl(
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
+    )
+  );
 
   watch(controlCore, (nControl, oControl) => {
     if (!Object.is(nControl.uischema, oControl.uischema)) {
-      control.value = setPropsLabelControl(nControl);
+      control.value = setPropsLabelControl(
+        Object.assign(
+          {},
+          renderWithMustache(provider, nControl, true),
+          getEffectsControl(control.value)
+        )
+      );
     }
   });
 

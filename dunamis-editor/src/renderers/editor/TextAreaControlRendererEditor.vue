@@ -4,32 +4,28 @@
     v-bind="{ ...control }"
     :styles="styles"
   >
-    <v-hover v-slot="{ hover }">
-      <v-textarea
-        :aria-label="control.ariaLabel"
-        :id="control.id + '-input'"
-        :class="styles.control.input"
-        :placeholder="control.placeholder"
-        :persistent-placeholder="control.labelOrientation == 'inherit'"
-        :label="control.labelOrientation == 'inherit' ? control.label : null"
-        :hint="control.hint"
-        :error-messages="control.errors"
-        :value="control.data"
-        :clearable="hover"
-        :rules="control.validation"
-        :tabindex="tabindex"
-        :rows="control.rows"
-        @input="() => data"
-        @change="onChange"
-      >
-        <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
-          <template v-slot:activator="{ on }">
-            <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
-          </template>
-          <span class="">{{ control.hint }}</span>
-        </v-tooltip>
-      </v-textarea>
-    </v-hover>
+    <v-textarea
+      :aria-label="control.ariaLabel"
+      :id="control.id + '-input'"
+      :class="styles.control.input"
+      :placeholder="control.placeholder"
+      :persistent-placeholder="control.labelOrientation == 'inherit'"
+      :label="control.labelOrientation == 'inherit' ? control.label : null"
+      :hint="control.hint"
+      :error-messages="control.errors"
+      :value="control.data"
+      :rules="control.validation"
+      :rows="control.rows"
+      @input="() => data"
+      @change="onChange"
+    >
+      <v-tooltip v-if="control.hint && control.hint != ''" slot="append" top>
+        <template v-slot:activator="{ on }">
+          <v-icon v-on="on" color="primary" small> mdi-information </v-icon>
+        </template>
+        <span class="">{{ control.hint }}</span>
+      </v-tooltip>
+    </v-textarea>
   </CustomControlWrapper>
 </template>
 

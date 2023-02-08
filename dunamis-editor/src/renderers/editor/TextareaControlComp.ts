@@ -1,5 +1,5 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
-import { alphaTeorem } from '../composition/alphaTeorem';
+import { alphaTeorem, renderWithMustache } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
@@ -33,14 +33,22 @@ export const useTextareaControlComposition = <P>(props: P) => {
 
   const control = ref(
     setPropsTextareaControl(
-      Object.assign({}, controlCore.value, defaultEffects())
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
     )
   );
 
   watch(controlCore, (nControl, oControl) => {
     if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = setPropsTextareaControl(
-        Object.assign({}, nControl, getEffectsControl(control.value))
+        Object.assign(
+          {},
+          renderWithMustache(provider, nControl, true),
+          getEffectsControl(control.value)
+        )
       );
     }
   });

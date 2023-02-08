@@ -1,10 +1,12 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
-import { alphaTeorem } from '../composition/alphaTeorem';
+import { alphaTeorem, renderWithMustache } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import { content } from './LabelControlComp';
 import {
   ariaLabel,
   createProvider,
+  defaultEffects,
+  getEffectsControl,
   hint,
   labelCols,
   labelOrientation,
@@ -25,11 +27,25 @@ export const useLinkControlComposition = <P>(props: P) => {
   const provider: ProviderControl = createProvider();
 
   const controlCore: any = useCoreControlLayout(props);
-  const control = ref(setPropsLinkControl(controlCore.value));
+  const control = ref(
+    setPropsLinkControl(
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
+    )
+  );
 
   watch(controlCore, (nControl, oControl) => {
     if (!Object.is(nControl.uischema, oControl.uischema)) {
-      control.value = setPropsLinkControl(nControl);
+      control.value = setPropsLinkControl(
+        Object.assign(
+          {},
+          renderWithMustache(provider, nControl, true),
+          getEffectsControl(control.value)
+        )
+      );
     }
   });
 

@@ -1,5 +1,5 @@
 import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
-import { alphaTeorem } from '../composition/alphaTeorem';
+import { alphaTeorem, renderWithMustache } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
@@ -30,14 +30,22 @@ export const useCheckboxControlComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   const control = ref(
     setPropsDefaultCheckboxControl(
-      Object.assign({}, controlCore.value, defaultEffects())
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
     )
   );
 
   watch(controlCore, (nControl: any, oControl: any) => {
     if (!Object.is(nControl.uischema, oControl.uischema)) {
       control.value = setPropsCheckboxControl(
-        Object.assign({}, nControl, getEffectsControl(control.value))
+        Object.assign(
+          {},
+          renderWithMustache(provider, nControl, true),
+          getEffectsControl(control.value)
+        )
       );
     }
   });

@@ -11,6 +11,7 @@ export { default as MultipleFileControlRenderer } from './MultipleFileControlRen
 export { default as TextControlRenderer } from '../editor/TextControlRendererEditor.vue';
 export { default as TextAreaControlRenderer } from '../editor/TextAreaControlRendererEditor.vue';
 export { default as LabelControlRenderer } from '../editor/LabelControlRenderer.vue';
+export { default as LinkControlRenderer } from '../editor/LinkControlRendererEditor.vue';
 export { default as TitleControlRenderer } from '../editor/TitleControlRenderer.vue';
 export { default as SubtitleControlRenderer } from '../editor/SubtitleControlRenderer.vue';
 export { default as DataTableControlRenderer } from '../dataTable/DataTableRenderer/DataTableRenderer.vue';
@@ -30,6 +31,7 @@ import { entry as imageControlRendererEntry } from '../editor/ImageControlRender
 import { entry as multipleFileControlRendererEntry } from './MultipleFileControlRenderer.vue';
 import { entry as textControlRendererEntry } from '../editor/TextControlRendererEditor.vue';
 import { entry as labelControlRendererEntry } from '../editor/LabelControlRenderer.vue';
+import { entry as linkControlRendererEntry } from '../editor/LinkControlRendererEditor.vue';
 import { entry as titleControlRendererEntry } from '../editor/TitleControlRenderer.vue';
 import { entry as subtitleControlRendererEntry } from '../editor/SubtitleControlRenderer.vue';
 
@@ -53,6 +55,7 @@ export const dynaformRenderers = [
   textControlRendererEntry,
   textAreaControlRendererEntry,
   labelControlRendererEntry,
+  linkControlRendererEntry,
   titleControlRendererEntry,
   subtitleControlRendererEntry,
   dataTableControlRendererEntry,

@@ -7,7 +7,7 @@ import {
   ref,
   watch,
 } from 'vue';
-import { alphaTeorem } from '../composition/alphaTeorem';
+import { alphaTeorem, renderWithMustache } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
   ariaLabel,
@@ -40,7 +40,11 @@ export const useCheckgroupControlComposition = <P>(props: P) => {
   const styles = useStyles(controlCore.value.uischema);
   const control = ref(
     setDefaultPropsCheckgroupControl(
-      Object.assign({}, controlCore.value, defaultEffects())
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
     )
   );
 
@@ -48,7 +52,11 @@ export const useCheckgroupControlComposition = <P>(props: P) => {
     if (!isEqual(nControl, oControl)) {
       control.value = await setPropsCheckgroupControl(
         provider,
-        Object.assign({}, nControl, getEffectsControl(control.value))
+        Object.assign(
+          {},
+          renderWithMustache(provider, nControl, true),
+          getEffectsControl(control.value)
+        )
       );
     }
   });
@@ -72,7 +80,11 @@ export const useCheckgroupControlComposition = <P>(props: P) => {
   onMounted(async () => {
     control.value = await setPropsCheckgroupControl(
       provider,
-      Object.assign({}, controlCore.value, defaultEffects())
+      Object.assign(
+        {},
+        renderWithMustache(provider, controlCore.value, true),
+        defaultEffects()
+      )
     );
   });
 

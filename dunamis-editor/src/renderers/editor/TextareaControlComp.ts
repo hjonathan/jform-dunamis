@@ -18,7 +18,7 @@ import {
   useCoreControl,
   validation,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, TextAreaControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR TEXTAREA CONTROL
@@ -88,7 +88,7 @@ export const useTextareaControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsTextareaControl = (control: any) => {
+export const setPropsTextareaControl = (control: any): TextAreaControl => {
   return {
     validation: validation(control),
     labelOrientation: labelOrientation(control),

@@ -8,7 +8,7 @@ import {
   updateData,
   useCoreControl,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, NestedForm } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR TEXT CONTROL
@@ -74,7 +74,7 @@ export const useNestedFormComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsFormRef = (control: any): any => ({
+export const setPropsFormRef = (control: any): NestedForm => ({
   visible: true,
   enabled: true,
   schema: {},

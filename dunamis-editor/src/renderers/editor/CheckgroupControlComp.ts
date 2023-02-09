@@ -26,7 +26,7 @@ import {
   useCoreControl,
   validation,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, CheckboxgroupControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR CHECKGROUP CONTROL
@@ -105,7 +105,7 @@ export const useCheckgroupControlComposition = <P>(props: P) => {
 export const setPropsCheckgroupControl = async (
   provider: ProviderControl,
   control: any
-) =>
+): Promise<CheckboxgroupControl> =>
   Promise.resolve({
     id: control.id,
     ariaLabel: ariaLabel(control),
@@ -124,7 +124,9 @@ export const setPropsCheckgroupControl = async (
     disabled: control.disabled,
   });
 
-export const setDefaultPropsCheckgroupControl = (control: any) => ({
+export const setDefaultPropsCheckgroupControl = (
+  control: any
+): CheckboxgroupControl => ({
   id: control.id,
   ariaLabel: ariaLabel(control),
   labelOrientation: labelOrientation(control),

@@ -25,7 +25,7 @@ import {
   useCoreControl,
   validation,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, SuggestControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR SUGGEST CONTROL
@@ -105,7 +105,7 @@ export const useSuggestControlComposition = <P>(props: P) => {
 export const setPropsSuggestControl = async (
   provider: ProviderControl,
   control: any
-) =>
+): Promise<SuggestControl> =>
   Promise.resolve({
     id: control.id,
     ariaLabel: ariaLabel(control),
@@ -124,7 +124,9 @@ export const setPropsSuggestControl = async (
     disabled: control.disabled,
   });
 
-export const setDefaultPropsSuggestControl = (control: any) => ({
+export const setDefaultPropsSuggestControl = (
+  control: any
+): SuggestControl => ({
   id: control.id,
   ariaLabel: ariaLabel(control),
   labelOrientation: labelOrientation(control),

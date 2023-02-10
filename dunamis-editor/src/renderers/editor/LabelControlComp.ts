@@ -11,7 +11,7 @@ import {
   updateData,
   useCoreControlLayout,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, LabelControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR LABEL CONTROL
@@ -88,7 +88,7 @@ export const useLabelControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsLabelControl = (control: any) => {
+export const setPropsLabelControl = (control: any): LabelControl => {
   return {
     id: control.id,
     content: content(control),

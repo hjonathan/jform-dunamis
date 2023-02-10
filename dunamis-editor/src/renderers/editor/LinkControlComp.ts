@@ -14,7 +14,7 @@ import {
   updateData,
   useCoreControlLayout,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, LinkControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR LINK CONTROL
@@ -93,7 +93,7 @@ export const useLinkControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsLinkControl = (control: any) => {
+export const setPropsLinkControl = (control: any): LinkControl => {
   return {
     content: content(control),
     href: href(control),

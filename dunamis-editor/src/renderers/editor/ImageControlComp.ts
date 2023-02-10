@@ -2,6 +2,7 @@ import { onDeactivated, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { alphaTeorem, renderWithMustache } from '../composition/alphaTeorem';
 import { useStyles } from '../styles';
 import {
+  ariaLabel,
   createProvider,
   defaultEffects,
   getEffectsControl,
@@ -9,11 +10,12 @@ import {
   label,
   labelCols,
   labelOrientation,
+  tabindex,
   textTransform,
   updateData,
   useCoreControl,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, ImageControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR IMAGE CONTROL
@@ -89,7 +91,7 @@ export const useImageControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsImageControl = (control: any) => {
+export const setPropsImageControl = (control: any): ImageControl => {
   return {
     id: control.id,
     labelOrientation: labelOrientation(control),
@@ -101,6 +103,8 @@ export const setPropsImageControl = (control: any) => {
     src: src(control),
     show: control.show,
     disabled: control.disabled,
+    tabindex: tabindex(control),
+    ariaLabel: ariaLabel(control),
   };
 };
 

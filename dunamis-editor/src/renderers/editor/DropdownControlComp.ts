@@ -25,7 +25,7 @@ import {
   useCoreControl,
   validation,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, DropdownControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR DROPDOWN CONTROL
@@ -118,7 +118,7 @@ export const useDropdownControlComposition = <P>(props: P) => {
 export const setPropsDropdownControl = async (
   provider: ProviderControl,
   control: any
-) =>
+): Promise<DropdownControl> =>
   Promise.resolve({
     id: control.id,
     ariaLabel: ariaLabel(control),
@@ -133,10 +133,13 @@ export const setPropsDropdownControl = async (
     data: control.data,
     options: await options(provider, control),
     show: control.show,
+    errors: control.errors,
     disabled: control.disabled,
   });
 
-export const setDefaultPropsDropdownControl = (control: any) => {
+export const setDefaultPropsDropdownControl = (
+  control: any
+): DropdownControl => {
   return {
     id: control.id,
     ariaLabel: ariaLabel(control),

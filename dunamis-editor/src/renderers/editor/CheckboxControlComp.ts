@@ -16,7 +16,7 @@ import {
   useCoreControl,
   validation,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, CheckboxControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR CHECKBOX CONTROL
@@ -92,7 +92,7 @@ export const useCheckboxControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsCheckboxControl = (control: any) => ({
+export const setPropsCheckboxControl = (control: any): CheckboxControl => ({
   id: control.id,
   ariaLabel: ariaLabel(control),
   labelOrientation: labelOrientation(control),
@@ -111,7 +111,9 @@ export const setPropsCheckboxControl = (control: any) => ({
  * Default data for
  * @param params
  */
-export const setPropsDefaultCheckboxControl = (control: any) => ({
+export const setPropsDefaultCheckboxControl = (
+  control: any
+): CheckboxControl => ({
   id: control.id,
   ariaLabel: ariaLabel(control),
   labelOrientation: labelOrientation(control),

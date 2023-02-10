@@ -13,7 +13,7 @@ import {
   updateData,
   useCoreControl,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, ButtonControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR BUTTON CONTROL
@@ -93,10 +93,9 @@ export const useButtonControlComposition = <P>(props: P) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsButtonControl = (control: any) => {
+export const setPropsButtonControl = (control: any): ButtonControl => {
   return {
     id: control.id,
-    ariaLabel: ariaLabel(control),
     labelOrientation: labelOrientation(control),
     label: label(control),
     labelCols: labelCols(control),

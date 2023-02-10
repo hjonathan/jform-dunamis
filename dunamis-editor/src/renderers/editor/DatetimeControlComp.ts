@@ -26,7 +26,7 @@ import {
   useCoreControl,
   validation,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, DatetimeControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR DATETIME CONTROL
@@ -149,7 +149,7 @@ export const useDatetimeExtend = (params: any) => {
  * Update data in JSON CORE
  * @param params
  */
-export const setPropsDatetimeControl = (control: any) => ({
+export const setPropsDatetimeControl = (control: any): DatetimeControl => ({
   id: control.id,
   dataType: dataType(control),
   ariaLabel: ariaLabel(control),
@@ -171,7 +171,9 @@ export const setPropsDatetimeControl = (control: any) => ({
   disabled: control.disabled,
 });
 
-export const setPropsDefaultDatetimeControl = (control: any) => ({
+export const setPropsDefaultDatetimeControl = (
+  control: any
+): DatetimeControl => ({
   id: control.id,
   dataType: dataType(control),
   ariaLabel: ariaLabel(control),
@@ -190,6 +192,7 @@ export const setPropsDefaultDatetimeControl = (control: any) => ({
   errors: control.errors,
   show: control.show,
   disabled: control.disabled,
+  defaultValue: defaultDate(control),
 });
 
 export const dataType = (control: any) => {

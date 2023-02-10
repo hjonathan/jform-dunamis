@@ -25,7 +25,7 @@ import {
   useCoreControl,
   validation,
 } from './composables/controlComposition';
-import { ProviderControl } from './composables/types';
+import { ProviderControl, RadioControl } from './composables/types';
 
 /***********************************************************************************************************************************
  * COMPOSITION EXTENSION FOR CHECKGROUP CONTROL
@@ -118,7 +118,7 @@ export const useRadiogroupControlComposition = <P>(props: P) => {
 export const setPropsRadiogroupControl = async (
   provider: ProviderControl,
   control: any
-) =>
+): Promise<RadioControl> =>
   Promise.resolve({
     id: control.id,
     ariaLabel: ariaLabel(control),
@@ -142,7 +142,9 @@ export const setPropsRadiogroupControl = async (
  * Update data in JSON CORE
  * @param params
  */
-export const setDefaultPropsRadiogroupControl = (control: any) => ({
+export const setDefaultPropsRadiogroupControl = (
+  control: any
+): RadioControl => ({
   id: control.id,
   ariaLabel: ariaLabel(control),
   labelOrientation: labelOrientation(control),

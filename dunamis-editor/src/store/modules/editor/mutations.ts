@@ -14,6 +14,16 @@ const mutations = {
     });
     state.editor.uiSchema = clone;
   },
+  SET_SCRIPT_RULES: (state: any, payload: any) => {
+    const clone = Object.assign({}, state.editor.uiSchema);
+    if (!clone.options) {
+      clone.options = { rules: [] };
+    }
+
+    clone.options.rules = clone.options.rules.concat(payload.rules);
+    console.log('CLONE SCRIPR_RULES', clone, payload);
+    state.editor.uiSchema = clone;
+  },
   DELETE_RULES_BY_SCOPE: (state: any, payload: any) => {
     const clone = Object.assign({}, state.editor.uiSchema);
     getScope(clone, (obj: any, key: string, value: any) => {

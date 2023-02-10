@@ -20,6 +20,7 @@
         </v-col>
         <v-col cols="10">
           <v-combobox
+            v-if="effects.selected != 'EXECUTE'"
             v-model="scopes.selected"
             :items="scopes.items"
             label="Search for a field"
@@ -54,6 +55,17 @@
               </v-chip>
             </template>
           </v-combobox>
+
+          <div v-else>
+            <monaco-editor
+              :theme="'vs-dark'"
+              :options="{ minimap: { enabled: false }, fontSize: 10 }"
+              height="10vh"
+              width="95%"
+              :language="`json`"
+              v-model="script"
+            ></monaco-editor>
+          </div>
         </v-col>
       </v-row>
     </v-col>
@@ -63,9 +75,13 @@
 <script lang="ts">
 //@ts-nocheck
 import { defineComponent, PropType } from 'vue';
+import MonacoEditor from '../../MonacoEditor.vue';
 import { useThenComposition } from './ThenComposition';
 export default defineComponent({
   name: 'ThenComponent',
+  components: {
+    MonacoEditor,
+  },
   props: {
     data: {
       type: Object as PropType<{

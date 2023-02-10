@@ -29,6 +29,9 @@ const actions = {
   setRulesByScope: ({ commit }: any, data: any) => {
     commit('SET_RULES_BY_SCOPE', data);
   },
+  setScriptRules: ({ commit }: any, data: any) => {
+    commit('SET_SCRIPT_RULES', data);
+  },
   deleteRulesByScope: ({ commit }: any, data: any) => {
     commit('DELETE_RULES_BY_SCOPE', data);
   },

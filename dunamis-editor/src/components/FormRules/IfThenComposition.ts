@@ -21,18 +21,31 @@ export const useIfThenComposition = (props: any) => {
     }, []);
 
     rules.forEach((rule: any) => {
-      rule.scopes.forEach((scope: string) => {
-        store.dispatch('app/setRulesByScope', {
-          scope,
+      if (rule.script) {
+        store.dispatch('app/setScriptRules', {
           rules: [
             {
+              script: rule.script,
               expression: rule.expression,
               effect: rule.effect,
               id: rule.id,
             },
           ],
         });
-      });
+      } else {
+        rule.scopes.forEach((scope: string) => {
+          store.dispatch('app/setRulesByScope', {
+            scope,
+            rules: [
+              {
+                expression: rule.expression,
+                effect: rule.effect,
+                id: rule.id,
+              },
+            ],
+          });
+        });
+      }
     });
   };
 

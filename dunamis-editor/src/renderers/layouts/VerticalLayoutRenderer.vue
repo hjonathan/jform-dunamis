@@ -31,15 +31,19 @@ import {
   Layout,
   rankWith,
 } from '@jsonforms/core';
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, inject } from 'vue';
 import {
   DispatchRenderer,
   rendererProps,
   useJsonFormsLayout,
   RendererProps,
 } from '@jsonforms/vue2';
+import { cloneDeep } from 'lodash';
 import { useVuetifyLayout } from '../util';
 import { VContainer, VRow, VCol } from 'vuetify/lib';
+import { alphaFindDependencies } from '../../renderers/composition/alphaTeorem';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const mustache = require('mustache');
 
 const layoutRenderer = defineComponent({
   name: 'vertical-layout-renderer',
@@ -53,9 +57,55 @@ const layoutRenderer = defineComponent({
     ...rendererProps<Layout>(),
   },
   setup(props: RendererProps<Layout>) {
-    return useVuetifyLayout(useJsonFormsLayout(props));
+    const data = useVuetifyLayout(useJsonFormsLayout(props));
+    useVerticalLayout(data);
+    return data;
   },
 });
+
+const useVerticalLayout = (data: any) => {
+  const { appliedOptions } = data;
+  const store = inject('store');
+  const rules = cloneDeep(appliedOptions.value.rules) || [];
+  const locales = store.getters['locales/getLocales'];
+  const locale = store.getters['preview/locale'];
+
+  const HX = inject('HX');
+  let dep = [];
+  dep = alphaFindDependencies(appliedOptions.value.rules, dep);
+  dep.forEach((v: any) => {
+    HX.on(v, () => {
+      rules.forEach((rule) => {
+        try {
+          let condition = eval(
+            mustache.render(
+              rule.expression,
+              Object.assign(
+                {},
+                { T: locales[locale].content },
+                store.getters['preview/scopesByValue']([])
+              )
+            )
+          );
+          if (condition) {
+            eval(
+              mustache.render(
+                rule.script,
+                Object.assign(
+                  {},
+                  { T: locales[locale].content },
+                  store.getters['preview/scopesByValue']([])
+                )
+              )
+            );
+          }
+        } catch (e) {
+          console.error('ERROR', e);
+        }
+      });
+    });
+  });
+};
 
 export default layoutRenderer;
 

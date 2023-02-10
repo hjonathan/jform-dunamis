@@ -363,7 +363,8 @@ export const placeholder = (control: any) =>
  * @returns
  */
 export const label = (control: any) => {
-  return control.uischema.label || '';
+  console.log('LABEL', control);
+  return control.uischema.label || control.label;
   //TODO review
   /*return computeLabel(
     control.label,

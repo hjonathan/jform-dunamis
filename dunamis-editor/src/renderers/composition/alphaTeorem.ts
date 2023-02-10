@@ -52,6 +52,7 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
         res = sortedUniq(res);
       }
     } else if (isString(value)) {
+      console.log('jonas ALPHA');
       let match = value.match(/{{\s*[A-Za-z0-9/._]+\s*}}/g);
       if (match) {
         match = match.map((el: any) => {
@@ -62,6 +63,7 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
       }
     }
   });
+  console.log('RES', res);
   return res;
 };
 

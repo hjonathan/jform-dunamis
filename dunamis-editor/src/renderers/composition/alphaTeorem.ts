@@ -49,21 +49,21 @@ export const alphaFindDependencies = (schema: any, res: Array<any>) => {
     if (isObject(value)) {
       if (key != 'parent') {
         res = res.concat(alphaFindDependencies(value, res));
+        res = res.sort();
         res = sortedUniq(res);
       }
     } else if (isString(value)) {
-      console.log('jonas ALPHA');
       let match = value.match(/{{\s*[A-Za-z0-9/._]+\s*}}/g);
       if (match) {
         match = match.map((el: any) => {
           return el.replace('{{', '').replace('}}', '').trim();
         });
         res = res.concat(match);
+        res = res.sort();
         res = sortedUniq(res);
       }
     }
   });
-  console.log('RES', res);
   return res;
 };
 

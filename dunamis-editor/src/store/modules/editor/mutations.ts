@@ -21,7 +21,6 @@ const mutations = {
     }
 
     clone.options.rules = clone.options.rules.concat(payload.rules);
-    console.log('CLONE SCRIPR_RULES', clone, payload);
     state.editor.uiSchema = clone;
   },
   DELETE_RULES_BY_SCOPE: (state: any, payload: any) => {

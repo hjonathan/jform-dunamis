@@ -20,7 +20,6 @@ export const useThenComposition = (props: any) => {
     });
 
   const getData = () => {
-    console.log(script.value.getValue());
     return {
       effect: effects.value.selected,
       scopes: scopes.value.selected,

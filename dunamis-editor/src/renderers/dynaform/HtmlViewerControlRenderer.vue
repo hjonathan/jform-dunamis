@@ -49,7 +49,6 @@ const controlRenderer = defineComponent({
       (value) => value || undefined
     );
     let content = useHtmlComp(data);
-    console.log('data', data);
     return { ...data, ...content };
   },
   computed: {},
@@ -66,10 +65,8 @@ const useHtmlComp = (data: any) => {
   const HX = inject('HX');
   let dep = [];
   dep = alphaFindDependencies(schema, dep);
-  console.log('HTML DEP', dep);
   dep.forEach((v: any) => {
     HX.on(v, () => {
-      console.log('LISTEN HTML CHANGES');
       let con = appliedOptions.value.content;
       content.value = mustache.render(
         con,
@@ -82,9 +79,6 @@ const useHtmlComp = (data: any) => {
     });
   });
 
-  onMounted(() => {
-    console.log('MOUNTED HTML');
-  });
   return { content };
 };
 

@@ -31,14 +31,20 @@ import {
   Layout,
   rankWith,
 } from '@jsonforms/core';
-import { defineComponent, onMounted, inject } from 'vue';
+import {
+  defineComponent,
+  onMounted,
+  inject,
+  onUnmounted,
+  onDeactivated,
+} from 'vue';
 import {
   DispatchRenderer,
   rendererProps,
   useJsonFormsLayout,
   RendererProps,
 } from '@jsonforms/vue2';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, sortedUniq } from 'lodash';
 import { useVuetifyLayout } from '../util';
 import { VContainer, VRow, VCol } from 'vuetify/lib';
 import { alphaFindDependencies } from '../../renderers/composition/alphaTeorem';
@@ -73,8 +79,21 @@ const useVerticalLayout = (data: any) => {
   const HX = inject('HX');
   let dep = [];
   dep = alphaFindDependencies(appliedOptions.value.rules, dep);
+  dep = dep.sort();
+  dep = sortedUniq(dep);
+
+  let fnDestroy = new Function();
+
+  onUnmounted(() => {
+    fnDestroy();
+  });
+
+  onDeactivated(() => {
+    fnDestroy();
+  });
+
   dep.forEach((v: any) => {
-    HX.on(v, () => {
+    const call = () => {
       rules.forEach((rule) => {
         try {
           let condition = eval(
@@ -103,7 +122,12 @@ const useVerticalLayout = (data: any) => {
           console.error('ERROR', e);
         }
       });
-    });
+    };
+    HX.on(v, call);
+
+    fnDestroy = () => {
+      HX.off(v, call);
+    };
   });
 };
 

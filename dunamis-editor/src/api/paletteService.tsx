@@ -5,7 +5,7 @@ import {
   createLayout,
 } from '../util/generators/uiSchema';
 import { createControl } from '../util/generators/schema';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 export interface PaletteService {
   getPaletteElements(): PaletteElement[];
 }

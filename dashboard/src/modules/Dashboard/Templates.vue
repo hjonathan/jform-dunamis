@@ -1,9 +1,6 @@
 <template>
   <v-card elevation="0" class="fill-height" color="transparent">
-    <div
-      tabindex="-1"
-      class="v-stepper__step subtitle-2 v-stepper__step--active"
-    >
+    <div tabindex="-1" class="v-stepper__step subtitle-2 v-stepper__step--active">
       <span class="v-stepper__step__step">
         <v-icon color="primary"> mdi-mirror-rectangle </v-icon>
       </span>
@@ -13,14 +10,8 @@
       </div>
     </div>
     <div class="d-flex justify-center">
-      <v-card
-        flat
-        outlined
-        class="pa-2 ma-2 d-flex justify-center"
-        min-width="60"
-        min-height="80"
-        @click="createBlankForm"
-      >
+      <v-card flat outlined class="pa-2 ma-2 d-flex justify-center" min-width="60" min-height="80"
+        @click="createBlankForm">
         <v-row align="center" justify="center">
           <v-col align="center">
             <v-icon color="primary lighten-1">mdi-plus</v-icon>
@@ -28,14 +19,7 @@
         </v-row>
       </v-card>
 
-      <v-card
-        flat
-        outlined
-        class="pa-2 ma-2 d-flex justify-center"
-        min-width="60"
-        min-height="80"
-        @click="false"
-      >
+      <v-card flat outlined class="pa-2 ma-2 d-flex justify-center" min-width="60" min-height="80" @click="false">
         <v-row align="center" justify="center">
           <v-col align="center">
             <v-icon color="primary lighten-1">mdi-import</v-icon>
@@ -44,31 +28,21 @@
       </v-card>
     </div>
 
-    <div
-      tabindex="-1"
-      class="v-stepper__step subtitle-2 v-stepper__step--active"
-    >
+    <div tabindex="-1" class="v-stepper__step subtitle-2 v-stepper__step--active">
       <span class="v-stepper__step__step">
         <v-icon color="primary"> mdi-mirror-rectangle </v-icon>
       </span>
       <div class="v-stepper__label font-weight-bold">
         CHOOSE A TEMPLATE
-        <small
-          >Select a template from the largest selection of free forms templates
-          available online</small
-        >
+        <small>Select a template from the largest selection of free forms templates
+          available online</small>
       </div>
     </div>
     <div>
       <v-list dense color="transparent">
         <v-list-item-group color="primary">
-          <v-list-item
-            v-for="item in temples"
-            :key="item.title"
-            dense
-            @dblclick="createFromTemplate(item)"
-            @click="previewTemplate(item)"
-          >
+          <v-list-item v-for="item in temples" :key="item.title" dense @dblclick="createFromTemplate(item)"
+            @click="previewTemplate(item)">
             <v-list-item-avatar size="25" color="accent">
               <v-icon class="grey lighten-1" x-small color="white">
                 mdi-card
@@ -91,7 +65,7 @@ import _ from 'lodash';
 import { computed, defineComponent, ref, watch } from '@vue/composition-api';
 import { TemplateSchemaService } from '../../api/schemaService';
 import store from '../../store';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 //import { useExportSchema, useExportUiSchema, createLayout } from '../../util';
 
 const Templates = defineComponent({
@@ -119,10 +93,10 @@ const Templates = defineComponent({
 
     let createBlankForm = () => {
       let schema = {
-          type: 'object',
-          title: 'Dynaform',
-          properties: {},
-        },
+        type: 'object',
+        title: 'Dynaform',
+        properties: {},
+      },
         uiSchema = createLayout('VerticalLayout');
       store.dispatch('app/setSchema', {
         schema: schema,

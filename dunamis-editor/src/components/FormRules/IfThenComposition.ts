@@ -1,6 +1,6 @@
 import { onMounted, Ref, ref } from 'vue';
 import store from '../../store';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { MultiFormRule, ThenRule } from './types';
 export const useIfThenComposition = (props: any) => {
   const rule: MultiFormRule = props.data;

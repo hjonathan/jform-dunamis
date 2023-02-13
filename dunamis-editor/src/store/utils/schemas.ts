@@ -1,5 +1,5 @@
 import { assign } from 'lodash';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { withCloneTree, withCloneTrees, getTree } from './../../util/clone';
 import {
   findByUUID,

@@ -2,23 +2,12 @@
   <v-card elevation="0" class="fill-height" color="transparent">
     <v-scroll-y-transition mode="out-in">
       <v-row class="pa-2 fill-height" justify="space-between">
-        <v-col
-          style="min-width: 100px; max-width: 100%"
-          class="flex-grow-1 flex-shrink-0"
-          cols="5"
-        >
+        <v-col style="min-width: 100px; max-width: 100%" class="flex-grow-1 flex-shrink-0" cols="5">
           <Templates @preview="previewTemplate" />
         </v-col>
 
-        <v-col
-          cols="7"
-          style="min-width: 100px"
-          class="flex-grow-0 flex-shrink-1 justify-center"
-        >
-          <div
-            tabindex="-1"
-            class="v-stepper__step subtitle-2 v-stepper__step--active"
-          >
+        <v-col cols="7" style="min-width: 100px" class="flex-grow-0 flex-shrink-1 justify-center">
+          <div tabindex="-1" class="v-stepper__step subtitle-2 v-stepper__step--active">
             <span class="v-stepper__step__step">
               <v-icon color="primary"> mdi-eye </v-icon>
             </span>
@@ -26,14 +15,8 @@
               TEMPLATE PREVIEW
               <small>See a preview template selected</small>
             </div>
-            <v-btn
-              color="primary"
-              plain
-              small
-              @click="selectTemplate"
-              class="vpm-main-panel-ds-btn float-end"
-              :disabled="schemaIsNotLoaded"
-            >
+            <v-btn color="primary" plain small @click="selectTemplate" class="vpm-main-panel-ds-btn float-end"
+              :disabled="schemaIsNotLoaded">
               Use This Template
             </v-btn>
           </div>
@@ -53,7 +36,7 @@ import { computed, defineComponent, ref } from '@vue/composition-api';
 import Templates from './Templates.vue';
 import TemplatePreview from './TemplatePreview.vue';
 import store from '../../store';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 import { setDefaultTheme } from '../../components/Composables/composableTheme';
 
@@ -114,4 +97,6 @@ const MainPanelDashboard = defineComponent({
 });
 export default MainPanelDashboard;
 </script>
-<style></style>
+<style>
+
+</style>

@@ -5,7 +5,7 @@
   },
   "files.insertFinalNewline": true,
   // prettier extension setting
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },

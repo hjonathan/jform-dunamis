@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { TypeExpression } from './types';
 import store from '../../store';
 

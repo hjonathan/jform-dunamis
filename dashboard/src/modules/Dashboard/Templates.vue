@@ -91,7 +91,7 @@ import _ from 'lodash';
 import { computed, defineComponent, ref, watch } from '@vue/composition-api';
 import { TemplateSchemaService } from '../../api/schemaService';
 import store from '../../store';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 //import { useExportSchema, useExportUiSchema, createLayout } from '../../util';
 
 const Templates = defineComponent({

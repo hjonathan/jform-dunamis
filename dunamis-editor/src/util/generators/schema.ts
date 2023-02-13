@@ -6,7 +6,7 @@
  * ---------------------------------------------------------------------
  */
 import { ControlElement } from '@jsonforms/core';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 import { getScope, SchemaElement } from '../../model';
 import {

@@ -2,7 +2,7 @@ import { PropType } from '@vue/composition-api';
 import { ref, Ref } from 'vue';
 import store from '../../store';
 import { FormRule } from './types';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 export const useMainPanelComposition = (props: PropType<any>) => {
   const storeRules: Array<FormRule> = store.getters['app/formRules'];
   const rules: Ref<Array<FormRule>> = ref(storeRules);

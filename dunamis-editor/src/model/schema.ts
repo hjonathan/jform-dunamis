@@ -8,7 +8,7 @@
 import { JsonSchema } from '@jsonforms/core';
 import traverse from 'json-schema-traverse';
 import { assign, cloneDeep, omit } from 'lodash';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 import { getHierarchy, TreeElement } from '../util/tree';
 

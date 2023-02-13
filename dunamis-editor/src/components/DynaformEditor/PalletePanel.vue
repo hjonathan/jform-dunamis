@@ -58,7 +58,7 @@ import { computed, defineComponent, onMounted, ref } from 'vue';
 import draggable from 'vuedraggable';
 import { SchemaElement } from '../../model/schema';
 import store from './../../store';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 export default defineComponent({
   name: 'PalletePanel',
   components: {
@@ -162,6 +162,7 @@ export default defineComponent({
   color: #1976d2 !important;
   caret-color: #e7eef1 !important;
 }
+
 .vpm-drawer-icon {
   margin-right: 5px !important;
 }

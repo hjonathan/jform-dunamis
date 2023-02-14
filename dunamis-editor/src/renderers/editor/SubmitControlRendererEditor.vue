@@ -22,7 +22,7 @@ import {
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VCheckbox, VIcon, VTooltip } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
 import { VBtn } from 'vuetify/lib';
 import { useSubmitControlComposition } from './SubmitControlComp';
@@ -37,7 +37,9 @@ const SubmitControlRenderer = defineComponent({
     CustomControlWrapper,
     VBtn,
   },
-
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

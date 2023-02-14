@@ -26,6 +26,7 @@ import {
 } from '@jsonforms/vue2';
 import { VLabel, VTooltip, VIcon } from 'vuetify/lib';
 import { useLabelControlComposition } from './LabelControlComp';
+import DisabledIconFocus from './composables/DisabledIconFocus';
 
 const TitleControlRenderer = defineComponent({
   name: 'title-control-renderer',
@@ -34,6 +35,9 @@ const TitleControlRenderer = defineComponent({
     VLabel,
     VTooltip,
     VIcon,
+  },
+  directives: {
+    DisabledIconFocus,
   },
   props: {
     ...rendererProps<Layout>(),

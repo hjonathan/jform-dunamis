@@ -41,7 +41,7 @@ import {
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VTextField, VCombobox, VIcon, VTooltip } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
 import { useTextControlComposition } from './TextControlComp';
 
@@ -55,7 +55,9 @@ const TextControlRenderer = defineComponent({
     VTooltip,
     CustomControlWrapper,
   },
-
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

@@ -40,9 +40,8 @@ import {
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VCheckbox, VIcon, VTooltip } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
-
 import { useCheckboxControlComposition } from './CheckboxControlComp';
 
 const CheckboxControlRenderer = defineComponent({
@@ -54,7 +53,9 @@ const CheckboxControlRenderer = defineComponent({
     VTooltip,
     CustomControlWrapper,
   },
-  directives: {},
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

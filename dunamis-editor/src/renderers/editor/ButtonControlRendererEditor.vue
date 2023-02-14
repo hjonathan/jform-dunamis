@@ -28,7 +28,7 @@ import {
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VBtn, VIcon, VTooltip } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
 import { useButtonControlComposition } from './ButtonControlComp';
 
@@ -41,7 +41,9 @@ const ButtonControlRenderer = defineComponent({
     CustomControlWrapper,
     VBtn,
   },
-
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

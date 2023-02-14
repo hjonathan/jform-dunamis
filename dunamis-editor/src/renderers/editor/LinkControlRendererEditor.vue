@@ -26,9 +26,8 @@ import {
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VLabel, VIcon, VTooltip } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
-
 import { useLinkControlComposition } from './LinkControlComp';
 
 const LinkControlRenderer = defineComponent({
@@ -40,7 +39,9 @@ const LinkControlRenderer = defineComponent({
     VTooltip,
     CustomControlWrapper,
   },
-
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

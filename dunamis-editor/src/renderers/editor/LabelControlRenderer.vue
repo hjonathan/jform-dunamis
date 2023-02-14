@@ -26,7 +26,7 @@ import {
   RendererProps,
 } from '@jsonforms/vue2';
 import { VLabel, VTooltip, VIcon } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import { useLabelControlComposition } from './LabelControlComp';
 
 const labelControlRenderer = defineComponent({
@@ -36,6 +36,9 @@ const labelControlRenderer = defineComponent({
     VLabel,
     VTooltip,
     VIcon,
+  },
+  directives: {
+    DisabledIconFocus,
   },
   props: {
     ...rendererProps<Layout>(),

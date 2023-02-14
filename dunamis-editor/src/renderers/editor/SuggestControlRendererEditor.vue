@@ -50,9 +50,8 @@ import {
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VAutocomplete, VIcon, VTooltip } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
-
 import { useSuggestControlComposition } from './SuggestControlComp';
 
 const SuggestControlRenderer = defineComponent({
@@ -64,7 +63,9 @@ const SuggestControlRenderer = defineComponent({
     VTooltip,
     CustomControlWrapper,
   },
-
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

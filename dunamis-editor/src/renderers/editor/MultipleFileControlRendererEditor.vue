@@ -85,6 +85,8 @@ import {
   VListItemAction,
   VBtn,
 } from 'vuetify/lib';
+import DisabledIconFocus from './composables/DisabledIconFocus';
+
 const controlRenderer = defineComponent({
   name: 'multiple-file-control-renderer-editor',
   components: {
@@ -100,6 +102,9 @@ const controlRenderer = defineComponent({
     VProgressLinear,
     VListItemAction,
     VBtn,
+  },
+  directives: {
+    DisabledIconFocus,
   },
   props: {
     ...rendererProps<ControlElement>(),

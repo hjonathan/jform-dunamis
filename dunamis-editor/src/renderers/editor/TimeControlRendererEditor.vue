@@ -55,6 +55,7 @@ import { default as ControlWrapper } from '../controls/ControlWrapper.vue';
 import { useVuetifyControl } from '../util';
 import { VTextField, VIcon, VTooltip } from 'vuetify/lib';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
+import DisabledIconFocus from './composables/DisabledIconFocus';
 
 const controlRenderer = defineComponent({
   name: 'time-control-renderer-editor',
@@ -64,6 +65,9 @@ const controlRenderer = defineComponent({
     VIcon,
     VTooltip,
     CustomControlWrapper,
+  },
+  directives: {
+    DisabledIconFocus,
   },
   props: {
     ...rendererProps<ControlElement>(),

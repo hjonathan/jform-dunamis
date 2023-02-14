@@ -88,6 +88,7 @@ import {
   VIcon,
   VTooltip,
 } from 'vuetify/lib';
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
 
 const controlRenderer = defineComponent({
@@ -101,6 +102,9 @@ const controlRenderer = defineComponent({
     VIcon,
     VTooltip,
     CustomControlWrapper,
+  },
+  directives: {
+    DisabledIconFocus,
   },
   props: {
     ...rendererProps<ControlElement>(),

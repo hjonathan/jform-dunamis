@@ -77,7 +77,7 @@ import {
   VTimePicker,
 } from 'vuetify/lib';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import { useDatetimeControlComposition } from './DatetimeControlComp';
 
 const DatetimeControlRenderer = defineComponent({
@@ -92,7 +92,9 @@ const DatetimeControlRenderer = defineComponent({
     VTimePicker,
     CustomControlWrapper,
   },
-  directives: {},
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

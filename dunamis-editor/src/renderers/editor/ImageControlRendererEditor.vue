@@ -32,9 +32,8 @@ import {
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VImg, VIcon, VTooltip } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
-
 import { useImageControlComposition } from './ImageControlComp';
 
 const ImageControlRenderer = defineComponent({
@@ -46,7 +45,9 @@ const ImageControlRenderer = defineComponent({
     VTooltip,
     CustomControlWrapper,
   },
-
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

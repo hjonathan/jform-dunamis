@@ -53,9 +53,8 @@ import {
 import { defineComponent } from 'vue';
 import { rendererProps, RendererProps } from '@jsonforms/vue2';
 import { VHover, VRadioGroup, VCheckbox, VIcon, VTooltip } from 'vuetify/lib';
-
+import DisabledIconFocus from './composables/DisabledIconFocus';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
-
 import { useCheckgroupControlComposition } from './CheckgroupControlComp';
 
 const CheckgroupControlRenderer = defineComponent({
@@ -68,7 +67,9 @@ const CheckgroupControlRenderer = defineComponent({
     VTooltip,
     CustomControlWrapper,
   },
-
+  directives: {
+    DisabledIconFocus,
+  },
   props: {
     ...rendererProps<ControlElement>(),
   },

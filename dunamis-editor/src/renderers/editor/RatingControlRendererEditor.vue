@@ -45,6 +45,7 @@ import {
 import { default as ControlWrapper } from '../ControlWrapper.vue';
 import { useVuetifyControl } from '../util';
 import { VRating } from 'vuetify/lib';
+import DisabledIconFocus from './composables/DisabledIconFocus';
 
 const controlRenderer = defineComponent({
   name: 'rating-control-renderer-editor',
@@ -52,6 +53,9 @@ const controlRenderer = defineComponent({
     ControlWrapper,
 
     VRating,
+  },
+  directives: {
+    DisabledIconFocus,
   },
   props: {
     ...rendererProps<ControlElement>(),

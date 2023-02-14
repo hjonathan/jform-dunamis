@@ -31,6 +31,7 @@ import {
 import { VHover, VTextField, VCombobox, VIcon, VTooltip } from 'vuetify/lib';
 import CustomControlWrapper from '../CustomControlWrapper.vue';
 import { useNestedFormComposition } from './NestedFormComp';
+import DisabledIconFocus from './composables/DisabledIconFocus';
 
 const NestedFormRenderer = defineComponent({
   name: 'nested-form-renderer',
@@ -42,6 +43,9 @@ const NestedFormRenderer = defineComponent({
     VTooltip,
     CustomControlWrapper,
     DispatchRenderer,
+  },
+  directives: {
+    DisabledIconFocus,
   },
   props: {
     ...rendererProps<ControlElement>(),

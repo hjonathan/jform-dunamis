@@ -157,6 +157,9 @@ const PropertiesPanel = defineComponent({
         fieldData['label'] = this.uiElement.options
           ? this.uiElement.label
           : null;
+        fieldData['labelSimple'] = this.uiElement.options
+          ? this.uiElement.label
+          : null;
         // Get the label config property
         fieldData['labelConfig'] = this.uiElement.options
           ? this.uiElement.options.labelConfig
@@ -363,6 +366,12 @@ const PropertiesPanel = defineComponent({
         store.dispatch('app/updateUISchemaElement', {
           elementUUID: this.uiElement.uuid,
           changedProperties: { label: data.label },
+        });
+      }
+      if (data.labelSimple) {
+        store.dispatch('app/updateUISchemaElement', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { label: data.labelSimple },
         });
       }
       // description

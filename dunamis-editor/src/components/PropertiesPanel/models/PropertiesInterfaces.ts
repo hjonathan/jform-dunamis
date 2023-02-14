@@ -70,6 +70,14 @@ const PropertiesPanel = [
     icons: [],
   } as PropertyPanel,
   {
+    id: 'labelSimple',
+    type: 'labelSimple',
+    name: 'Label',
+    options: {},
+    items: [],
+    icons: [],
+  } as PropertyPanel,
+  {
     id: 'alt',
     type: 'text',
     name: 'Alt. Text',

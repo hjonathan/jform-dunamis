@@ -273,7 +273,7 @@ const PropertiesPanel = defineComponent({
       this.generalData = {
         type: this.uiElement.type,
         data: fieldData,
-        group: this.uiElement.parent.type,
+        group: this.uiElement.parent && this.uiElement.parent.type ? this.uiElement.parent.type: null,
       };
     },
     updateData(data: any) {

@@ -1,44 +1,41 @@
-# default
+# JSON Forms Vuetify renderer set example app
 
-## Project setup
+## Prerequsites
 
-```
-# yarn
-yarn
+- Build the JSON Forms Vuetify renderer set
 
-# npm
+## Project Setup
+
+```sh
 npm install
-
-# pnpm
-pnpm install
 ```
 
-### Compiles and hot-reloads for development
+### Compile and Hot-Reload for Development
 
-```
-# yarn
-yarn dev
-
-# npm
+```sh
 npm run dev
-
-# pnpm
-pnpm dev
 ```
 
-### Compiles and minifies for production
+### Type-Check, Compile and Minify for Production
 
-```
-# yarn
-yarn build
-
-# npm
+```sh
 npm run build
-
-# pnpm
-pnpm build
 ```
 
-### Customize configuration
+### Lint with [ESLint](https://eslint.org/)
 
-See [Configuration Reference](https://vitejs.dev/config/).
+```sh
+npm run lint
+```
+
+### Run component tests
+
+```sh
+npm run test:component
+```
+
+### Run end 2 end tests
+
+```sh
+npm run test:e2e
+```

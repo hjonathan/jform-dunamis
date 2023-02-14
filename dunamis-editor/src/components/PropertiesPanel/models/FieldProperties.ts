@@ -227,7 +227,7 @@ const FieldProperties: any = {
     default: [
       Props.build('type'),
       Props.build('variable'),
-      Props.build('label'),
+      Props.build('labelSimple'),
       Props.build('tabindex'),
     ],
   },
@@ -235,7 +235,7 @@ const FieldProperties: any = {
     default: [
       Props.build('type'),
       Props.build('variable'),
-      Props.build('label'),
+      Props.build('labelSimple'),
       Props.build('tabindex'),
     ],
   },

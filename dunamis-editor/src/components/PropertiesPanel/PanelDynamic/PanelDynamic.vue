@@ -24,6 +24,7 @@ import DateProp from './DateProp.vue';
 import CheckboxProp from './CheckboxProp.vue';
 import OptionsProp from './OptionsProp.vue';
 import LabelProp from './LabelProp.vue';
+import LabelSimpleProp from './LabelSimpleProp.vue';
 import ValidationProp from './ValidationProp.vue';
 import FormRefProp from './FormRefProp.vue';
 
@@ -40,6 +41,7 @@ const PropertiesPanelDynamic = defineComponent({
     DateProp,
     OptionsProp,
     LabelProp,
+    LabelSimpleProp,
     ValidationProp,
     FormRefProp,
     ...PanelExtended,

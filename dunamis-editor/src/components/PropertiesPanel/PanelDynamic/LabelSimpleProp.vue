@@ -9,9 +9,6 @@
       @input="input"
       @change="change"
     >
-      <v-icon small slot="append" color="secondary" @click="extendPanel">
-        mdi-cog
-      </v-icon>
     </v-text-field>
   </div>
 </template>
@@ -19,22 +16,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { dynamicPropertyDefault } from '../PropertiesPanelComp';
-const LabelProp = defineComponent({
-  name: 'LabelProp',
+const LabelSimpleProp = defineComponent({
+  name: 'LabelSimpleProp',
   emits: ['input', 'change'],
   props: ['value', 'config'],
   setup(props: any, context: any) {
     return {
       ...dynamicPropertyDefault(props, context),
-      extendPanel() {
-        context.emit('extendPanel', {
-          id: 'labelConfig',
-          component: 'labelPropExt',
-        });
-      },
     };
   },
 });
-export default LabelProp;
+export default LabelSimpleProp;
 </script>
 <style></style>

@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 import ATextField from "@/components/ATextField.vue";
+import Editor from "@/components/editor/index.vue";
 </script>
 
 <template>
@@ -12,9 +13,9 @@ import ATextField from "@/components/ATextField.vue";
   <v-app>
     <header>
       <div class="wrapper">
-        <HelloWorld msg="You did it!" />
+        <!-- <HelloWorld msg="You did it!" /> -->
         <!-- a component that relies on vuetify -->
-        <ATextField />
+        <!-- <ATextField /> -->
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/about">About</RouterLink>
@@ -22,6 +23,8 @@ import ATextField from "@/components/ATextField.vue";
       </div>
     </header>
     <RouterView />
+
+    <Editor msg="Editor"></Editor>
   </v-app>
 </template>
 

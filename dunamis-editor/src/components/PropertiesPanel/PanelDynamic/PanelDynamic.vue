@@ -26,7 +26,7 @@ import OptionsProp from './OptionsProp.vue';
 import LabelProp from './LabelProp.vue';
 import ValidationProp from './ValidationProp.vue';
 import FormRefProp from './FormRefProp.vue';
-
+import ScriptProp from './ScriptProp.vue';
 import PanelExtended from '../PanelDynamicExtended/index';
 import _ from 'lodash';
 
@@ -42,6 +42,7 @@ const PropertiesPanelDynamic = defineComponent({
     LabelProp,
     ValidationProp,
     FormRefProp,
+    ScriptProp,
     ...PanelExtended,
   },
   props: ['config'],

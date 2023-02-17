@@ -343,6 +343,13 @@ const PropertiesPanel = [
     ],
   } as PropertyPanel,
   {
+    id: 'script',
+    type: 'script',
+    name: 'Script',
+    options: {},
+    items: [],
+  },
+  {
     id: 'formRef',
     type: 'formRef',
     name: 'Form Ref',

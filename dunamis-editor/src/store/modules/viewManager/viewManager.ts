@@ -40,6 +40,10 @@ const state: ViewManagerState = {
         id: 'side-bar-data-sources',
         component: 'side-bar-data-sources',
       },
+      {
+        id: 'side-bar-form-rules',
+        component: 'side-bar-form-rules',
+      },
     ],
   },
   sidePanel: {
@@ -104,6 +108,13 @@ const state: ViewManagerState = {
       {
         id: 'main-data-sources-api',
         component: 'main-panel-data-sources-api',
+        data: {
+          reload: '1',
+        },
+      },
+      {
+        id: 'main-button-event',
+        component: 'main-panel-button-event',
         data: {
           reload: '1',
         },

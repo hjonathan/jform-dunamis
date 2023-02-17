@@ -259,6 +259,9 @@ const PropertiesPanel = defineComponent({
         fieldData['checkedDefault'] = this.uiElement.options
           ? this.uiElement.options.checkedDefault
           : false;
+        fieldData['script'] = this.uiElement.options
+          ? this.uiElement.options.script
+          : '';
       } else {
         // Get horizontal layout cols
         fieldData['cols'] = this.uiElement.options
@@ -506,7 +509,14 @@ const PropertiesPanel = defineComponent({
           changedProperties: { cols: data.cols },
         });
       }
-
+      // Script
+      debugger;
+      if (data.script !== '') {
+        store.dispatch('app/updateUISchemaElementOption', {
+          elementUUID: this.uiElement.uuid,
+          changedProperties: { script: data.script },
+        });
+      }
       // Nested form
       if (data.formRef) {
         data.formRef.uischema = updateUiSchema(

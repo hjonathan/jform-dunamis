@@ -154,9 +154,11 @@ const ActionsBarEditor = defineComponent({
       });
     };
     const onClickFormRules = () => {
-      let mainPanel = { id: 'main-form-rules' };
+      let mainPanel = { id: 'main-form-rules' },
+        sideBar = { id: 'side-bar-form-rules' };
       store.dispatch('viewManager/setAllViews', {
         mainPanel,
+        sideBar,
       });
     };
     const onClickDataSources = () => {

@@ -107,6 +107,7 @@ const useVerticalLayout = (data: any) => {
             )
           );
           if (condition) {
+            debugger;
             eval(
               mustache.render(
                 rule.script,

@@ -237,6 +237,7 @@ const FieldProperties: any = {
       Props.build('variable'),
       Props.build('label'),
       Props.build('tabindex'),
+      Props.build('script'),
     ],
   },
   Suggest: {

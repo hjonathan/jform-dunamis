@@ -10,6 +10,7 @@ import PalletePanel from '../../DynaformEditor/PalletePanel.vue';
 import PropertiesPanel from '../../PropertiesPanel/PropertiesPanelDynamic.vue';
 import SideBarI18n from '../../i18n/sideBarI18n.vue';
 import SideBarPreview from '../../DynaformPreview/sideBarDynaformPreview.vue';
+import SideBarFormRules from '../../FormRules/SideBarFormRules.vue';
 import SideBarDataSources from '../../DataSources/SideBarDataSources.vue';
 import store from '../../../store';
 
@@ -21,6 +22,7 @@ export default {
     SideBarI18n,
     SideBarPreview,
     SideBarDataSources,
+    SideBarFormRules,
   },
   data() {
     return {};

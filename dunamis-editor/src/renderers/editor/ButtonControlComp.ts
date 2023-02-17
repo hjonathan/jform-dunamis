@@ -21,7 +21,7 @@ import { ProviderControl, ButtonControl } from './composables/types';
  * @returns
  ***********************************************************************************************************************************/
 
-export const useButtonControlComposition = <P>(props: P) => {
+export const useButtonControlComposition = <P>(props: P): P => {
   const provider: ProviderControl = createProvider();
   const controlCore: any = useCoreControl(props);
   const styles = useStyles(controlCore.value.uischema);
@@ -63,6 +63,7 @@ export const useButtonControlComposition = <P>(props: P) => {
     });
   };
   const onClick = () => {
+    debugger;
     alert('The form was submitted');
   };
   onUpdated(() => {

@@ -21,6 +21,7 @@ import MainPanelDynaformPreview from '../../DynaformPreview/mainPanelDynaformPre
 
 import MainPanelSchemaEditor from '../../SchemaEditor/mainPanelSchemaEditor.vue';
 import MainPanelFormRules from '../../FormRules/MainPanelFormRules.vue';
+import MainPanelButtonEvent from '../../FormRules/MainPanelButtonEvent.vue';
 import MainPanelDataSourcesSimpleLists from '../../DataSources/MainPanelDataSourcesSimpleList.vue';
 import MainPanelDataSourcesApi from '../../DataSources/MainPanelDataSourcesApi.vue';
 
@@ -36,6 +37,7 @@ export default defineComponent({
     MainPanelDynaformPreview,
     MainPanelSchemaEditor,
     MainPanelFormRules,
+    MainPanelButtonEvent,
     MainPanelDataSourcesSimpleLists,
     MainPanelDataSourcesApi,
   },
